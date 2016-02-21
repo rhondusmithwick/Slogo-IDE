@@ -33,7 +33,7 @@ public interface Command {
 
 }
 ```
-  * When the frontend (or rather the class that facilitates contact between the frontend and backend) is
+  * When the View (or perhaps the class that facilitates contact between the View and Model) is
   ready to do a command, it calls the execute method on the turtle. One example command is:
 ```java
 public class Forward extends TurtleCommand {
@@ -46,7 +46,7 @@ public class Forward extends TurtleCommand {
   }
 
   public double execute() {
-    Point2D directionVector = getDirectionVector(turtle);
+    Point2D directionVector = getDirectionVector();
     double newX = getTurtle().getX() + (distance * unitDirVector.getX());
     double newY = getTurtle().getY() + (distance * unitDirVector.getY());
     Command goto = new GoTo(newX, newY);
@@ -57,19 +57,19 @@ public class Forward extends TurtleCommand {
   private Point2D getDirectionVector() {
     // getHeading returns the Point on the edge of the screen the turtle is currently facing
     Point2D heading = getTurtle().getHeading();
-    double dirVectorX = heading.getX() - turtle.getX();
-    double dirVectorY = heading.getY() - turtle.getY();
+    double dirVectorX = heading.getX() - getTurtle().getX();
+    double dirVectorY = heading.getY() - getTurtle().getY();
     double dirVectorDistance = Math.sqrt(dirVectorX * dirVectorX + dirVectorY * dirVectorY);
     Point2D unitDirVector = (dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
     return unitDirVector;
   }
 }
 ```
-  * Note the class hierarchy: The abstract TurtleCommand class implements Command and includes additional methods
+  * Class hierarchy: The abstract TurtleCommand class implements Command and includes additional methods
 for getting and setting a turtle. The Forward class then extends this TurtleCommand class and contains code for an
 actual Command.
 * These are the steps to the the View and Model's interaction.
   1. The user inputs text, which the View saves and passes to the backend.
   2. The Model parses the text, creates a List of commands based on it, and gives this
-  list of commands back to the frontend.
-  3. Finally, the frontend executes this list of commands. It will also display their return value on the GUI as required. 
+  list of commands back to the View.
+  3. Finally, the View executes this list of commands. It will also display their return value on the GUI as required.
