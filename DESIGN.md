@@ -47,3 +47,24 @@ Design Considerations
     More than likely, there will be more methods added to the interface by the end of the project.
 
 ###Parsing of User Input
+
+> One of the other important design considerations that the team really discussed was where the parsing of user input would take place. There were two
+  options, each with their own reasons:
+
+> - We could place the parsing in the backend, which is where parsing would normally seem to take place.
+> - We could place the parsing in the frontend, which would make more sense, as the backend could just process parsed data to make the next move.
+
+> Backend Parsing
+
+> - There doesn't really seem to be a major pro for placing the parsing specifically in the backend. One interesting point that was brought up was that
+    backend parsing would require the frontend to just pass the user inputted string to the backend and then have the backend handle all of the data.
+    This would keep the user inputted data all in one place and it would be easy to keep track of it.
+> - The main con against backend parsing was that it would add another section of functionality to an already heavy workload for the backend coders. It
+    also seemed to potentially make the frontend significantly easier.
+
+> Frontend Parsing
+
+> - The pro for frontend parsing was that it would make the backend code less dense and seemingly help split up the work more evenly among the team. It
+    also seemed to make more sense for the frontend to grab the user input and immediately parse the input and pass that data to the backend.
+> - The con against this is that it seems conventionally, an action like parsing should be handled in backend. It would also split up the data handling
+    between two groups, which may complicate things. 
