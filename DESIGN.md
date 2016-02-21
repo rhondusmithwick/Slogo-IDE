@@ -72,4 +72,4 @@ actual Command.
   1. The user inputs text, which the View saves and passes to the backend.
   2. The Model parses the text, creates a List of commands based on it, and gives this
   list of commands back to the frontend.
-  3. Finally, the frontend executes this list of commands on the turtle by passing its current turtle to them.
+  3. Finally, the frontend executes this list of commands. It will also display their return value on the GUI as required. 
