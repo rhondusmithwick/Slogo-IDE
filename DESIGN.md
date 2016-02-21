@@ -60,7 +60,7 @@ public class Forward extends TurtleCommand {
     double dirVectorX = heading.getX() - getTurtle().getX();
     double dirVectorY = heading.getY() - getTurtle().getY();
     double dirVectorDistance = Math.sqrt(dirVectorX * dirVectorX + dirVectorY * dirVectorY);
-    Point2D unitDirVector = (dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
+    Point2D unitDirVector = new Point2D (dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
     return unitDirVector;
   }
 }
@@ -69,7 +69,7 @@ public class Forward extends TurtleCommand {
 for getting and setting a turtle. The Forward class then extends this TurtleCommand class and contains code for an
 actual Command.
 * These are the steps to the the View and Model's interaction.
-  1. The user inputs text, which the View saves and passes to the backend.
-  2. The Model parses the text, creates a List of commands based on it, and gives this
-  list of commands back to the View.
-  3. Finally, the View executes this list of commands. It will also display their return value on the GUI as required.
+1. The user inputs text, which the View saves and passes to the backend.
+2. The Model parses the text, creates a List of commands based on it, and gives this
+list of commands back to the View.
+3. Finally, the View executes this list of commands. It will also display their return value on the GUI as required.
