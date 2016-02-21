@@ -29,9 +29,6 @@ Command interface. For example, the interface contains a single method that is c
 ```java
 public interface Command {
 
-  /**
-    * Executes this command on the provided turtle.
-  **/
   double execute();
 
 }
@@ -68,6 +65,9 @@ public class Forward extends TurtleCommand {
   }
 }
 ```
+  * Note the class hierarchy: The abstract TurtleCommand class implements Command and includes additional methods
+for getting and setting a turtle. The Forward class then extends this TurtleCommand class and contains code for an
+actual Command.
 * These are the steps to the the View and Model's interaction.
   1. The user inputs text, which the View saves and passes to the backend.
   2. The Model parses the text, creates a List of commands based on it, and gives this
