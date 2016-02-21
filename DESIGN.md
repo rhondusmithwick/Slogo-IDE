@@ -48,11 +48,21 @@ public class Forward implements Command {
   }
 
   public void execute(Turtle turtle) {
-    double heading = turtle.getHeading();
-    double newX = turtle.getX() + (heading * distance);
-    double newY = turtle.getY() + (heading * distance);
+    Point2D directionVector = getDirectionVector(turtle);
+    double newX = turtle.getX() + (distance * unitDirVector.getX());
+    double newY = turtle.getY() + (distance * unitDirVector.getY());
     Command relocate = new GoTo(newX, newY);
     relocate.execute(turtle);
+  }
+
+  private Point2D getDirectionVector(Turtle turtle) {
+    // getHeading returns the Point on the edge of the screen the turtle is currently facing
+    Point2D heading = turtle.getHeading();
+    double dirVectorX = heading.getX() - turtle.getX();
+    double dirVectorY = heading.getY() - turtle.getY();
+    double dirVectorDistance = Math.sqrt(dirVectorX * dirVectorX + dirVectorY * dirVectorY);
+    Point2D unitDirVector = (dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
+    return unitDirVector;
   }
 }
 ```
