@@ -25,39 +25,41 @@ GUI class.
 command on the turtle.
   * The GUI will contain the actual user interface and will allow the user to input text.
 * The Model (see Design Consideration Section for more discussion on this) will be focused around the
-Command interface. This Command interface contains a single method that is common throughout all commands.
+Command interface. For example, the interface contains a single method that is common throughout all commands.
 ```java
 public interface Command {
 
   /**
     * Executes this command on the provided turtle.
   **/
-  void execute(Turtle turtle);
+  double execute();
 
 }
 ```
   * When the frontend (or rather the class that facilitates contact between the frontend and backend) is
   ready to do a command, it calls the execute method on the turtle. One example command is:
 ```java
-public class Forward implements Command {
+public class Forward extends TurtleCommand {
 
   private final double distance;
 
-  public Forward(double distance) {
+  public Forward(Turtle myTurtle, double distance) {
+    super(myTurtle);
     this.distance = distance;
   }
 
-  public void execute(Turtle turtle) {
+  public double execute() {
     Point2D directionVector = getDirectionVector(turtle);
-    double newX = turtle.getX() + (distance * unitDirVector.getX());
-    double newY = turtle.getY() + (distance * unitDirVector.getY());
-    Command relocate = new GoTo(newX, newY);
-    relocate.execute(turtle);
+    double newX = getTurtle().getX() + (distance * unitDirVector.getX());
+    double newY = getTurtle().getY() + (distance * unitDirVector.getY());
+    Command goto = new GoTo(newX, newY);
+    goto.execute(turtle);
+    return distance;
   }
 
-  private Point2D getDirectionVector(Turtle turtle) {
+  private Point2D getDirectionVector() {
     // getHeading returns the Point on the edge of the screen the turtle is currently facing
-    Point2D heading = turtle.getHeading();
+    Point2D heading = getTurtle().getHeading();
     double dirVectorX = heading.getX() - turtle.getX();
     double dirVectorY = heading.getY() - turtle.getY();
     double dirVectorDistance = Math.sqrt(dirVectorX * dirVectorX + dirVectorY * dirVectorY);
@@ -66,3 +68,8 @@ public class Forward implements Command {
   }
 }
 ```
+* These are the steps to the the View and Model's interaction.
+  1. The user inputs text, which the View saves and passes to the backend.
+  2. The Model parses the text, creates a List of commands based on it, and gives this
+  list of commands back to the frontend.
+  3. Finally, the frontend executes this list of commands on the turtle by passing its current turtle to them.
