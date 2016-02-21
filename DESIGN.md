@@ -49,8 +49,8 @@ public class Forward extends TurtleCommand {
     Point2D directionVector = getDirectionVector();
     double newX = getTurtle().getX() + (distance * unitDirVector.getX());
     double newY = getTurtle().getY() + (distance * unitDirVector.getY());
-    Command goto = new GoTo(newX, newY);
-    goto.execute(turtle);
+    Command goto = new GoTo(getTurtle(), newX, newY);
+    goto.execute();
     return distance;
   }
 
@@ -60,8 +60,7 @@ public class Forward extends TurtleCommand {
     double dirVectorX = heading.getX() - getTurtle().getX();
     double dirVectorY = heading.getY() - getTurtle().getY();
     double dirVectorDistance = Math.sqrt(dirVectorX * dirVectorX + dirVectorY * dirVectorY);
-    Point2D unitDirVector = new Point2D (dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
-    return unitDirVector;
+    return new Point2D (dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
   }
 }
 ```
@@ -76,4 +75,4 @@ list of commands back to the View.
 
 
 # User Interface
-* The user will enter commands into a text box in the userinterface.  They can enter multiple commands at once, until they press the execute button which will execute the entered commands. The user can continue to enter commands and press execute until they are finished.  The results of the turtle commands will be shown in the middle of the screen. At the top will be a menu bar with various buttons and combo boxes that allow the user to change different stylistic things about the simulation, including choosing a turtle image, chosing colors, and accessing a help document. There will be another area to display the result of any errors or exceptions; how exactly these errors will be displayed is not yet set.  Finally there will be an area below the turtle display that will show any currently defined user commands, any currently defined variables, and the past execution history for the simulation. 
+* The user will enter commands into a text box in the userinterface.  They can enter multiple commands at once, until they press the execute button which will execute the entered commands. The user can continue to enter commands and press execute until they are finished.  The results of the turtle commands will be shown in the middle of the screen. At the top will be a menu bar with various buttons and combo boxes that allow the user to change different stylistic things about the simulation, including choosing a turtle image, chosing colors, and accessing a help document. There will be another area to display the result of any errors or exceptions; how exactly these errors will be displayed is not yet set.  Finally there will be an area below the turtle display that will show any currently defined user commands, any currently defined variables, and the past execution history for the simulation.
