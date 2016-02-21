@@ -79,3 +79,9 @@ list of commands back to the View.
 
 
 ![This is cool, too bad you can't see it](DesignImages/UserInt.jpg "User Interface Design")
+
+# Team Responsibilities
+
+Back-end: Rhondu and Jonathon will be responsible for implementing the back-end components of this project. This will include creating the command classes that update various attributes of the Turtle such as its current position or current direction.
+
+Front-end: Stephen and Cali will be responsible for implementing the front-end components of this project. This will primarily involve creating the various features of the GUI that will serve as the user interface. Features of the GUI will include a display for showing the Turtle, a menu with configuration options, a command box for enterting text commands, and a command history box. 
