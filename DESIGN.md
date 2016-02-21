@@ -1,11 +1,12 @@
-# slogo DESIGN
-> This is the link to the Exercise Description: [DESIGN](http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/part1.php)
+# slogo Design
+> This is the link to the Design Assignment
+ [DESIGN](http://www.cs.duke.edu/courses/compsci308/spring16/assign/03_slogo/part1.php)
 
 # People
-Rhondu Smithwick- rss44
-Stephen Kwok - smk44
-Cali Nelson - can18
-Jonathan Ma - dm269
+* Rhondu Smithwick- rss44
+* Stephen Kwok - smk44
+* Cali Nelson - can18
+* Jonathan Ma - dm269
 
 # Introduction
 The goal of this project is to closely integrate frontend and backend APIs, allowing
@@ -15,4 +16,43 @@ the frontend and backend to communicate changes to the turtle. The frontend will
 closed to the backend, only passing a turtle object to the backend. The backend will
 open up only a facilitator class to the frontend. All of its other classes will be closed.
 
-#
+# Design Overview
+* The project is divided up between the View (frontend) and the Model (backend).
+* The View (see User Interface section) will be focused on a Turtle class and a
+GUI class.
+  * The Turtle class will be our class for holding the information specifically relating to a turtle
+  IE setPenColor, setFill, etc... It is noted that the turtle is passed to the backend, which will run the user input
+command on the turtle.
+  * The GUI will contain the actual user interface and will allow the user to input text.
+* The Model (see Design Consideration Section for more discussion on this) will be focused around the
+Command interface. This Command interface contains a single method that is common throughout all commands.
+```java
+public interface Command {
+
+  /**
+    * Executes this command on the provided turtle.
+  **/
+  void execute(Turtle turtle);
+
+}
+```
+  * When the frontend (or rather the class that facilitates contact between the frontend and backend) is
+  ready to do a command, it calls the execute method on the turtle. One example command is:
+```java
+public class Forward implements Command {
+
+  private final double distance;
+
+  public Forward(double distance) {
+    this.distance = distance;
+  }
+
+  public void execute(Turtle turtle) {
+    double heading = turtle.getHeading();
+    double newX = turtle.getX() + (heading * distance);
+    double newY = turtle.getY() + (heading * distance);
+    Command relocate = new GoTo(newX, newY);
+    relocate.execute(turtle);
+  }
+}
+```
