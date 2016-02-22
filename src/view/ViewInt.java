@@ -1,3 +1,4 @@
+package view;
 /**
  * This is the external Interface for the View. It is the external API for displaying the results of SLOGO commands, as well as taking in the input SLOGO commands, and displaying
  * any errors that may be caught by the Model or Controller.
