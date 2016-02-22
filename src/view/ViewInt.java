@@ -8,6 +8,8 @@ package view;
 public interface ViewInt {
     
     
+    
+    
     /**
      * This method will recieve a string from the Controller/Backend whenever the Backend detects an error with the entered commands. The View will recieve that string and
      * use it to display a user friendly error message to the user in a box below the turtle display.

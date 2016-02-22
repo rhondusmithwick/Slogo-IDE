@@ -6,6 +6,12 @@ package view;
 import javafx.scene.Node;
 
 public interface TurtleAreaInterface {
+    
+    /**
+     * creates the turtles display area.
+     */
+    void createTurtleArea();
+    
     /**
      * Sets the background color of the turtles display area
      * @param color Color to set the background to
