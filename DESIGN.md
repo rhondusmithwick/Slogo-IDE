@@ -73,6 +73,8 @@ actual Command.
 list of commands back to the View.
 3. Finally, the View executes this list of commands. It will also display their return value on the GUI as required.
 
+![Design Diagram](DesignImages/ClassDiagram.jpg "Class Diagram")
+
 
 # User Interface
 * The user will enter commands into a text box in the userinterface.  They can enter multiple commands at once, until they press the execute button which will execute the entered commands. The user can continue to enter commands and press execute until they are finished.  The results of the turtle commands will be shown in the middle of the screen. At the top will be a menu bar with various buttons and combo boxes that allow the user to change different stylistic things about the simulation, including choosing a turtle image, chosing colors, and accessing a help document. There will be another area to display the result of any errors or exceptions; how exactly these errors will be displayed is not yet set.  Finally there will be an area below the turtle display that will show any currently defined user commands, any currently defined variables, and the past execution history for the simulation.
