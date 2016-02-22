@@ -5,6 +5,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -18,6 +20,7 @@ import javafx.util.Duration;
 public class Turtle {
     private final Group root = new Group();
     private ImageView imageView;
+    private Paint penColor = Color.TRANSPARENT;
 
     public Turtle(Image image) {
         imageView = new ImageView(image);
@@ -31,8 +34,10 @@ public class Turtle {
         Path path = new Path();
         path.getElements().add(new MoveTo(imageView.getX(), imageView.getY()));
         path.getElements().add(new LineTo(newX, newY));
+        path.setFill(penColor);
         PathTransition pt = new PathTransition(Duration.millis(10000), path);
         pt.setNode(imageView);
+        pt.play();
     }
 
 
@@ -43,6 +48,10 @@ public class Turtle {
         double dirVectorY = heading.getY() - getY();
         double dirVectorDistance = Math.sqrt(dirVectorX * dirVectorX + dirVectorY * dirVectorY);
         return new Point2D(dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
+    }
+
+    public void setPenColor(Paint penColor) {
+        this.penColor = penColor;
     }
 
     public void setImage(Image image) {
