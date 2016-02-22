@@ -83,7 +83,7 @@ public interface Controller {
   // assuming the parse works correctly
   myCommands.stream().forEach(Command::execute);
 ```
-* Now for an actual command:
+* Now for an actual command
 ```java
 public class Forward extends TurtleCommand {
 
@@ -98,8 +98,9 @@ public class Forward extends TurtleCommand {
     Point2D directionVector = getDirectionVector();
     double newX = getTurtle().getX() + (distance * unitDirVector.getX());
     double newY = getTurtle().getY() + (distance * unitDirVector.getY());
-    Command goto = new GoTo(getTurtle(), newX, newY);
-    goto.execute();
+    // have turtle move to (newX, newY) drawing a line
+    // in the process if its pen is down
+    getTurtle().moveTo(newX, newY);
     return distance;
   }
 
