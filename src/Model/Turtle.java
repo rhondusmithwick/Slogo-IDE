@@ -5,8 +5,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -19,59 +17,56 @@ import javafx.util.Duration;
  */
 public class Turtle {
     private final Group root = new Group();
-    private ImageView imageView;
-    private Paint penColor = Color.TRANSPARENT;
+    private final ImageView imageView = new ImageView();
+    private final Path path = new Path();
+    private final TurtleProperties turtleProperties = new TurtleProperties();
 
     public Turtle(Image image) {
-        imageView = new ImageView(image);
-        imageView.setX(0);
-        imageView.setY(0);
+        setImage(image);
         root.getChildren().add(imageView);
+        addListeners();
     }
 
 
     void moveTo(double newX, double newY) {
-        Path path = new Path();
-        path.getElements().add(new MoveTo(imageView.getX(), imageView.getY()));
+        path.getElements().clear();
+        Point2D location = turtleProperties.getLocation();
+        path.getElements().add(new MoveTo(location.getX(), location.getY()));
         path.getElements().add(new LineTo(newX, newY));
-        path.setFill(penColor);
         PathTransition pt = new PathTransition(Duration.millis(10000), path);
         pt.setNode(imageView);
         pt.play();
+        turtleProperties.setLocation(new Point2D(newX, newY));
+    }
+
+
+    private void addListeners() {
+        turtleProperties.visibleProperty().addListener((ov, oldVal, newVal) ->
+                imageView.setVisible(newVal));
+        turtleProperties.locationProperty().addListener((ov, oldVal, newVal) ->
+                imageView.relocate(newVal.getX(), newVal.getY()));
+        turtleProperties.penDownProperty().addListener((ov, oldVal, newVal) ->
+                path.setVisible(newVal));
+        turtleProperties.penColorProperty().addListener((ov, oldVal, newVal) ->
+                path.setFill(newVal));
     }
 
 
     Point2D getDirectionVector() {
         // getHeading returns the Point on the edge of the screen the turtle is currently facing
-        Point2D heading = getHeading();
-        double dirVectorX = heading.getX() - getX();
-        double dirVectorY = heading.getY() - getY();
+        Point2D heading = turtleProperties.getHeading();
+        Point2D location = turtleProperties.getLocation();
+        double dirVectorX = heading.getX() - location.getX();
+        double dirVectorY = heading.getY() - location.getY();
         double dirVectorDistance = Math.sqrt(dirVectorX * dirVectorX + dirVectorY * dirVectorY);
         return new Point2D(dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
     }
 
-    public void setPenColor(Paint penColor) {
-        this.penColor = penColor;
-    }
-
-    public void setImage(Image image) {
+    private void setImage(Image image) {
         imageView.setImage(image);
     }
 
     public Group getGroup() {
         return root;
     }
-
-    double getX() {
-        return imageView.getX();
-    }
-
-    double getY() {
-        return imageView.getY();
-    }
-
-    Point2D getHeading() {
-        return new Point2D(0, 0);
-    }
-
 }

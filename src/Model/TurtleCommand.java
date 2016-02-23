@@ -5,14 +5,14 @@ package Model;
  *
  * @author Rhondu Smithwick
  */
-public abstract class TurtleCommand implements Command {
+abstract class TurtleCommand implements Command {
     private final Turtle myTurtle;
 
-    public TurtleCommand(Turtle myTurtle) {
+    TurtleCommand(Turtle myTurtle) {
         this.myTurtle = myTurtle;
     }
 
-    protected Turtle getTurtle() {
+    Turtle getTurtle() {
         return myTurtle;
     }
 
