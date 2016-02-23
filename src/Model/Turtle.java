@@ -5,6 +5,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -22,9 +23,9 @@ public class Turtle {
     private final TurtleProperties turtleProperties = new TurtleProperties();
 
     public Turtle(Image image) {
-        setImage(image);
-        root.getChildren().add(imageView);
         addListeners();
+        init(image);
+        root.getChildren().add(imageView);
     }
 
 
@@ -49,8 +50,17 @@ public class Turtle {
                 path.setVisible(newVal));
         turtleProperties.penColorProperty().addListener((ov, oldVal, newVal) ->
                 path.setFill(newVal));
+        turtleProperties.imageProperty().addListener((ov, oldVal, newVal) ->
+            imageView.setImage(newVal));
     }
 
+    private void init(Image image) {
+        turtleProperties.setLocation(new Point2D(0, 0));
+        turtleProperties.setVisible(true);
+        turtleProperties.setPenDown(true);
+        turtleProperties.setPenColor(Color.BLACK);
+        turtleProperties.setHeading(new Point2D(0, 0));
+    }
 
     Point2D getDirectionVector() {
         // getHeading returns the Point on the edge of the screen the turtle is currently facing
@@ -62,9 +72,6 @@ public class Turtle {
         return new Point2D(dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
     }
 
-    private void setImage(Image image) {
-        imageView.setImage(image);
-    }
 
     public Group getGroup() {
         return root;

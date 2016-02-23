@@ -4,6 +4,7 @@ package Model;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 /**
@@ -13,15 +14,16 @@ import javafx.scene.paint.Color;
  */
 public final class TurtleProperties {
 
-    private final SimpleBooleanProperty visible = new SimpleBooleanProperty(true);
+    private final SimpleObjectProperty<Image> image = new SimpleObjectProperty<>();
+    private final SimpleBooleanProperty visible = new SimpleBooleanProperty();
 
-    private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(new Point2D(0, 0));
+    private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>();
 
-    private final SimpleObjectProperty<Point2D> heading = new SimpleObjectProperty<>(new Point2D(0, 0));
+    private final SimpleObjectProperty<Point2D> heading = new SimpleObjectProperty<>();
 
-    private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty penDown = new SimpleBooleanProperty();
 
-    private final SimpleObjectProperty<Color> penColor = new SimpleObjectProperty<>(Color.BLACK);
+    private final SimpleObjectProperty<Color> penColor = new SimpleObjectProperty<>();
 
     public final SimpleBooleanProperty visibleProperty() {
         return visible;
@@ -31,6 +33,22 @@ public final class TurtleProperties {
         return location;
     }
 
+
+    public Image getImage() {
+        return image.get();
+    }
+
+    public SimpleObjectProperty<Image> imageProperty() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image.set(image);
+    }
+
+    public boolean getVisible() {
+        return visible.get();
+    }
 
     public final Point2D getLocation() {
         return location.get();
