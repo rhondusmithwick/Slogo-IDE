@@ -21,4 +21,6 @@ public interface Controller {
     List<Command> getCommands();
 
     Group getGroup();
+
+    void setLanguage(String language);
 }
