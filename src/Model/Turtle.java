@@ -5,7 +5,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -24,7 +23,7 @@ public class Turtle {
 
     public Turtle(Image image) {
         addListeners();
-        init(image);
+        turtleProperties.init(image);
         root.getChildren().add(imageView);
     }
 
@@ -54,13 +53,7 @@ public class Turtle {
             imageView.setImage(newVal));
     }
 
-    private void init(Image image) {
-        turtleProperties.setLocation(new Point2D(0, 0));
-        turtleProperties.setVisible(true);
-        turtleProperties.setPenDown(true);
-        turtleProperties.setPenColor(Color.BLACK);
-        turtleProperties.setHeading(new Point2D(0, 0));
-    }
+
 
     Point2D getDirectionVector() {
         // getHeading returns the Point on the edge of the screen the turtle is currently facing

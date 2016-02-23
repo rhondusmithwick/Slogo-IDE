@@ -34,6 +34,16 @@ public final class TurtleProperties {
     }
 
 
+
+    void init(Image image) {
+        setImage(image);
+        setLocation(new Point2D(0, 0));
+        setVisible(true);
+        setPenDown(true);
+        setPenColor(Color.BLACK);
+        setHeading(new Point2D(0, 0));
+    }
+
     public Image getImage() {
         return image.get();
     }
