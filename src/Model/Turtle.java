@@ -28,16 +28,15 @@ public class Turtle {
     }
 
 
-    void moveTo(double newX, double newY) {
+    void moveTo(Point2D pointToMoveTo) {
         path.getElements().clear();
         Point2D location = turtleProperties.getLocation();
         path.getElements().add(new MoveTo(location.getX(), location.getY()));
-        path.getElements().add(new LineTo(newX, newY));
+        path.getElements().add(new LineTo(pointToMoveTo.getX(), pointToMoveTo.getY()));
         PathTransition pt = new PathTransition(Duration.millis(10000), path, imageView);
         pt.play();
-        turtleProperties.setLocation(new Point2D(newX, newY));
+        turtleProperties.setLocation(pointToMoveTo);
     }
-
 
 
     TurtleProperties getTurtleProperties() {
