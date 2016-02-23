@@ -1,5 +1,7 @@
-package Model;
+package Controller;
 
+import Model.Command;
+import Model.Turtle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -22,6 +24,7 @@ public class TurtleController implements Controller {
     private final Turtle myTurtle = new Turtle(new Image(getClass()
             .getClassLoader()
             .getResourceAsStream(DEFAULT_TURTLE_IMAGE)));
+
     private final CommandContainer container;
 
     private ResourceBundle myResources;
