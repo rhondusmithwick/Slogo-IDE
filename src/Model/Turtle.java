@@ -22,7 +22,7 @@ public class Turtle {
     private final TurtleProperties turtleProperties = new TurtleProperties();
 
     public Turtle(Image image) {
-        addListeners();
+        turtleProperties.addListeners(imageView, path);
         turtleProperties.init(image);
         root.getChildren().add(imageView);
     }
@@ -33,24 +33,9 @@ public class Turtle {
         Point2D location = turtleProperties.getLocation();
         path.getElements().add(new MoveTo(location.getX(), location.getY()));
         path.getElements().add(new LineTo(newX, newY));
-        PathTransition pt = new PathTransition(Duration.millis(10000), path);
-        pt.setNode(imageView);
+        PathTransition pt = new PathTransition(Duration.millis(10000), path, imageView);
         pt.play();
         turtleProperties.setLocation(new Point2D(newX, newY));
-    }
-
-
-    private void addListeners() {
-        turtleProperties.visibleProperty().addListener((ov, oldVal, newVal) ->
-                imageView.setVisible(newVal));
-        turtleProperties.locationProperty().addListener((ov, oldVal, newVal) ->
-                imageView.relocate(newVal.getX(), newVal.getY()));
-        turtleProperties.penDownProperty().addListener((ov, oldVal, newVal) ->
-                path.setVisible(newVal));
-        turtleProperties.penColorProperty().addListener((ov, oldVal, newVal) ->
-                path.setFill(newVal));
-        turtleProperties.imageProperty().addListener((ov, oldVal, newVal) ->
-            imageView.setImage(newVal));
     }
 
 
@@ -63,7 +48,7 @@ public class Turtle {
         return new Point2D(dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
     }
 
-    
+
     TurtleProperties getTurtleProperties() {
         return turtleProperties;
     }

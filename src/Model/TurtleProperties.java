@@ -5,7 +5,9 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -26,39 +28,34 @@ public final class TurtleProperties {
 
     private final SimpleObjectProperty<Color> penColor = new SimpleObjectProperty<>();
 
-    public final SimpleBooleanProperty visibleProperty() {
-        return visible;
-    }
-
-    public final SimpleObjectProperty<Point2D> locationProperty() {
-        return location;
-    }
-
-
-
-    void init(Image image) {
+    final void init(Image image) {
         setImage(image);
-        setLocation(new Point2D(0, 0));
         setVisible(true);
+        setLocation(new Point2D(0, 0));
+        setHeading(new Point2D(0, 0));
         setPenDown(true);
         setPenColor(Color.BLACK);
-        setHeading(new Point2D(0, 0));
     }
 
-    public Image getImage() {
-        return image.get();
+    void addListeners(ImageView imageView, Path path) {
+        visible.addListener((ov, oldVal, newVal) ->
+                imageView.setVisible(newVal));
+        location.addListener((ov, oldVal, newVal) ->
+                imageView.relocate(newVal.getX(), newVal.getY()));
+        penDown.addListener((ov, oldVal, newVal) ->
+                path.setVisible(newVal));
+        penColor.addListener((ov, oldVal, newVal) ->
+                path.setFill(newVal));
+        image.addListener((ov, oldVal, newVal) ->
+                imageView.setImage(newVal));
     }
 
-    public SimpleObjectProperty<Image> imageProperty() {
-        return image;
-    }
-
-    public void setImage(Image image) {
+    public final void setImage(Image image) {
         this.image.set(image);
     }
 
-    public boolean getVisible() {
-        return visible.get();
+    public void setVisible(boolean visible) {
+        this.visible.set(visible);
     }
 
     public final Point2D getLocation() {
@@ -69,10 +66,6 @@ public final class TurtleProperties {
         this.location.set(location);
     }
 
-    public void setVisible(boolean visible) {
-        this.visible.set(visible);
-    }
-
     public final Point2D getHeading() {
         return heading.get();
     }
@@ -81,31 +74,14 @@ public final class TurtleProperties {
         this.heading.set(heading);
     }
 
-    public final SimpleObjectProperty<Point2D> headingProperty() {
-        return heading;
-    }
 
-    public final boolean getPenDown() {
-        return penDown.get();
-    }
-
-    public void setPenDown(boolean penDown) {
+    public final void setPenDown(boolean penDown) {
         this.penDown.set(penDown);
     }
 
-    public final SimpleBooleanProperty penDownProperty() {
-        return penDown;
-    }
-
-    public final Color getPenColor() {
-        return penColor.get();
-    }
 
     public void setPenColor(Color penColor) {
         this.penColor.set(penColor);
     }
 
-    public final SimpleObjectProperty<Color> penColorProperty() {
-        return penColor;
-    }
 }
