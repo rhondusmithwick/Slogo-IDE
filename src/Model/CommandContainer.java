@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
  * @author Rhondu Smithwick
  */
 public class CommandContainer {
+
     private final Map<Class, Class<?>[]> parametersMap = new HashMap<>();
     private final Map<String, Class> inputMap = new HashMap<>();
 
@@ -26,14 +27,14 @@ public class CommandContainer {
     public CommandContainer(ResourceBundle resourceBundle) {
         addListeners();
         setResourceBundle(resourceBundle);
-        addToCommandStringList("Forward", "Backward");
+        addToCommandStringList("Forward", "Backward", "SetImage", "SetPenColor");
     }
 
     private void addListeners() {
         resourceBundle.addListener((ov, oldVal, newVal) ->
                 modifyInputMap());
         commandStringList.addListener((ListChangeListener<String>) c ->
-            modifyParametersMap());
+                modifyParametersMap());
     }
 
     private void modifyInputMap() {
@@ -64,7 +65,7 @@ public class CommandContainer {
 
     private Class<?> getClassForname(String className) {
         try {
-            return Class.forName("sloco_team12.Model." + className);
+            return Class.forName("Model." + className);
         } catch (Exception e) {
             return Forward.class;
         }

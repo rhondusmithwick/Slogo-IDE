@@ -22,12 +22,14 @@ public class TurtleController implements Controller {
     private final Turtle myTurtle = new Turtle(new Image(getClass()
             .getClassLoader()
             .getResourceAsStream(DEFAULT_TURTLE_IMAGE)));
+    private final CommandContainer container;
 
     private ResourceBundle myResources;
 
     public TurtleController() {
         addListeners();
         language.set(DEFAULT_LANGUAGE);
+        container = new CommandContainer(myResources);
         group.getChildren().add(myTurtle.getGroup());
     }
 
