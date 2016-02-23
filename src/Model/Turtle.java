@@ -25,11 +25,12 @@ public class Turtle {
         turtleProperties.addListeners(imageView, path);
         turtleProperties.init(image);
         root.getChildren().add(imageView);
+        root.getChildren().add(path);
     }
 
 
     void moveTo(Point2D pointToMoveTo) {
-        path.getElements().clear();
+//        path.getElements().clear();
         Point2D location = turtleProperties.getLocation();
         path.getElements().add(new MoveTo(location.getX(), location.getY()));
         path.getElements().add(new LineTo(pointToMoveTo.getX(), pointToMoveTo.getY()));
