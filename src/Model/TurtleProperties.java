@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 public final class TurtleProperties {
 
     private final SimpleObjectProperty<Image> image = new SimpleObjectProperty<>();
+
     private final SimpleBooleanProperty visible = new SimpleBooleanProperty();
 
     private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>();

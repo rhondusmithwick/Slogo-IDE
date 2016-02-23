@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.scene.Group;
+
 import java.util.List;
 
 /**
@@ -17,4 +19,6 @@ public interface Controller {
      * Get a list of all commands.
      **/
     List<Command> getCommands();
+
+    Group getGroup();
 }
