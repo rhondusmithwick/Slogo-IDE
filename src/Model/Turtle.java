@@ -39,15 +39,6 @@ public class Turtle {
     }
 
 
-    Point2D getDirectionVector() {
-        Point2D heading = turtleProperties.getHeading();
-        Point2D location = turtleProperties.getLocation();
-        double dirVectorX = heading.getX() - location.getX();
-        double dirVectorY = heading.getY() - location.getY();
-        double dirVectorDistance = Math.sqrt(dirVectorX * dirVectorX + dirVectorY * dirVectorY);
-        return new Point2D(dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
-    }
-
 
     TurtleProperties getTurtleProperties() {
         return turtleProperties;

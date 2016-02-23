@@ -2,6 +2,7 @@ package Model;
 
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -22,7 +23,7 @@ public final class TurtleProperties {
 
     private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>();
 
-    private final SimpleObjectProperty<Point2D> heading = new SimpleObjectProperty<>();
+    private final SimpleDoubleProperty heading = new SimpleDoubleProperty();
 
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty();
 
@@ -32,7 +33,7 @@ public final class TurtleProperties {
         setImage(image);
         setVisible(true);
         setLocation(new Point2D(0, 0));
-        setHeading(new Point2D(0, 0));
+        setHeading(0);
         setPenDown(true);
         setPenColor(Color.BLACK);
     }
@@ -48,6 +49,8 @@ public final class TurtleProperties {
                 path.setFill(newVal));
         image.addListener((ov, oldVal, newVal) ->
                 imageView.setImage(newVal));
+        heading.addListener((ov, oldVal, newVal) ->
+                imageView.setRotate(newVal.doubleValue()));
     }
 
     public final void setImage(Image image) {
@@ -66,19 +69,17 @@ public final class TurtleProperties {
         this.location.set(location);
     }
 
-    public final Point2D getHeading() {
+    public final double getHeading() {
         return heading.get();
     }
 
-    public void setHeading(Point2D heading) {
+    public void setHeading(double heading) {
         this.heading.set(heading);
     }
-
 
     public final void setPenDown(boolean penDown) {
         this.penDown.set(penDown);
     }
-
 
     public void setPenColor(Color penColor) {
         this.penColor.set(penColor);

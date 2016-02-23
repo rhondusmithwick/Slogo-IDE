@@ -16,10 +16,11 @@ public class Forward extends TurtleCommand {
     }
 
     public double execute() {
-        Point2D unitDirVector = getTurtle().getDirectionVector();
+        double heading = getTurtle().getTurtleProperties().getHeading();
+        double angle = Math.toRadians(heading);
         Point2D location = getTurtle().getTurtleProperties().getLocation();
-        double newX = location.getX() + (distance * unitDirVector.getX());
-        double newY = location.getY() + (distance * unitDirVector.getY());
+        double newX = location.getX() + (distance * Math.sin(angle));
+        double newY = location.getY() + (distance * Math.cos(angle));
         getTurtle().moveTo(newX, newY);
         return distance;
     }
