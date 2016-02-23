@@ -18,30 +18,22 @@ import java.util.ResourceBundle;
 public class CommandContainer {
     private final Map<Class, Class<?>[]> parametersMap = new HashMap<>();
     private final Map<String, Class> inputMap = new HashMap<>();
+
     private final ObservableList<String> commandStringList = FXCollections.observableArrayList();
-    private SimpleObjectProperty<ResourceBundle> resourceBundle = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<ResourceBundle> resourceBundle = new SimpleObjectProperty<>();
 
 
     public CommandContainer(ResourceBundle resourceBundle) {
         addListeners();
         setResourceBundle(resourceBundle);
-        addToCommandStringList("Model.Forward", "Model.Backward");
-    }
-
-    private static Class<?> getClassForname(String className) {
-        try {
-            return Class.forName("Model." + className);
-        } catch (Exception e) {
-            return Forward.class;
-        }
+        addToCommandStringList("Forward", "Backward");
     }
 
     private void addListeners() {
         resourceBundle.addListener((ov, oldVal, newVal) ->
                 modifyInputMap());
-        commandStringList.addListener((ListChangeListener<String>) c -> {
-            modifyParametersMap();
-        });
+        commandStringList.addListener((ListChangeListener<String>) c ->
+            modifyParametersMap());
     }
 
     private void modifyInputMap() {
@@ -68,6 +60,14 @@ public class CommandContainer {
     private Class<?>[] getParametersForClass(Class theClass) {
         Constructor[] allConstructors = theClass.getDeclaredConstructors();
         return allConstructors[0].getParameterTypes();
+    }
+
+    private Class<?> getClassForname(String className) {
+        try {
+            return Class.forName("sloco_team12.Model." + className);
+        } catch (Exception e) {
+            return Forward.class;
+        }
     }
 
     public void addToCommandStringList(String... commands) {
