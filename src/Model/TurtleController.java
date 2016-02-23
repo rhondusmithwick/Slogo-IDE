@@ -24,7 +24,7 @@ public class TurtleController implements Controller {
     public TurtleController() {
         group.getChildren().add(myTurtle.getGroup());
     }
-    
+
     @Override
     public void takeInput(String input) {
 

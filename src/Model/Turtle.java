@@ -54,9 +54,7 @@ public class Turtle {
     }
 
 
-
     Point2D getDirectionVector() {
-        // getHeading returns the Point on the edge of the screen the turtle is currently facing
         Point2D heading = turtleProperties.getHeading();
         Point2D location = turtleProperties.getLocation();
         double dirVectorX = heading.getX() - location.getX();
@@ -65,6 +63,10 @@ public class Turtle {
         return new Point2D(dirVectorX / dirVectorDistance, dirVectorY / dirVectorDistance);
     }
 
+    
+    TurtleProperties getTurtleProperties() {
+        return turtleProperties;
+    }
 
     public Group getGroup() {
         return root;

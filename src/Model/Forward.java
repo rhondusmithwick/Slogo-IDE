@@ -17,10 +17,9 @@ public class Forward extends TurtleCommand {
 
     public double execute() {
         Point2D unitDirVector = getTurtle().getDirectionVector();
-        double newX = getTurtle().getX() + (distance * unitDirVector.getX());
-        double newY = getTurtle().getY() + (distance * unitDirVector.getY());
-        // have turtle move to (newX, newY) drawing a line
-        // in the process if its pen is down
+        Point2D location = getTurtle().getTurtleProperties().getLocation();
+        double newX = location.getX() + (distance * unitDirVector.getX());
+        double newY = location.getY() + (distance * unitDirVector.getY());
         getTurtle().moveTo(newX, newY);
         return distance;
     }
