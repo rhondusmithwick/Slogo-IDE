@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 public class SetImage extends TurtleCommand {
 
     private final Image image;
-    
+
     public SetImage(Turtle myTurtle, Image image) {
         super(myTurtle);
         this.image = image;
