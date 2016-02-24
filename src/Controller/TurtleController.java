@@ -22,8 +22,10 @@ public class TurtleController implements Controller {
     private static final String DEFAULT_LANGUAGE = "English";
 
     private final Group group = new Group();
-    private final SimpleStringProperty language = new SimpleStringProperty();
-    private final SimpleStringProperty input = new SimpleStringProperty();
+
+    private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
+
+    private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
 
     private final Turtle myTurtle = new Turtle(new Image(getClass()
             .getClassLoader()
@@ -75,8 +77,7 @@ public class TurtleController implements Controller {
 
     @Override
     public SimpleStringProperty[] getProperties() {
-        return new SimpleStringProperty[] {
-            language, input,
+        return new SimpleStringProperty[] {language, input,
                 myTurtle.getTurtleProperties().penColorProperty()
         };
     }

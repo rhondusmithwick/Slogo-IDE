@@ -27,8 +27,15 @@ public class Slogo  {
    private void bindProperties() {
        SimpleStringProperty[] controllerProperties = controller.getProperties();
        SimpleStringProperty[] viewProperties = view.getProperties();
-       for (int i = 0; i < controllerProperties.length; i++ ) {
-           controllerProperties[i].bindBidirectional(viewProperties[i]);
+       for (SimpleStringProperty controllerProperty: controllerProperties) {
+           for (SimpleStringProperty viewProperty: viewProperties) {
+               String cName = controllerProperty.getName();
+               String vName = viewProperty.getName();
+               if (cName.equals(vName)) {
+                   controllerProperty.bindBidirectional(viewProperty);
+                   break;
+               }
+           }
        }
    }
 }

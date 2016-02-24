@@ -18,17 +18,17 @@ import javafx.scene.shape.Path;
  */
 public final class TurtleProperties {
 
-    private final SimpleObjectProperty<Image> image = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Image> image = new SimpleObjectProperty<>(this, "image");
 
-    private final SimpleBooleanProperty visible = new SimpleBooleanProperty();
+    private final SimpleBooleanProperty visible = new SimpleBooleanProperty(this, "visible");
 
-    private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
 
-    private final SimpleDoubleProperty heading = new SimpleDoubleProperty();
+    private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
 
-    private final SimpleBooleanProperty penDown = new SimpleBooleanProperty();
+    private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
 
-    private final SimpleStringProperty penColor = new SimpleStringProperty();
+    private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
 
     final void init(Image image) {
         setImage(image);
