@@ -1,7 +1,7 @@
 package view;
 
 
-import Model.Controller;
+import Controller.Controller;
 import javafx.scene.Group;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -15,14 +15,15 @@ public class View implements ViewInt{
 	private BorderPane UI;
 	private Controller controller;
 	private Group root;
+	private TurtleDisplay turtDisp;
 	
 	
 	
 	
-	public View(Group root){ //Controller controller){
-		//this.controller = controller;
+	public View(Controller controller){
+		this.controller = controller;
 		UI = new BorderPane();
-		//root = controller.getGroup();
+		root = controller.getGroup();
 		createScene();
 		root.getChildren().add(UI);
 		
@@ -60,12 +61,12 @@ public class View implements ViewInt{
 		right.getChildren().add(r);
 		
 		//turtle area here
-		TurtleDisplay turtDisp = new TurtleDisplay();
+		turtDisp = new TurtleDisplay();
 		turtDisp.createTurtleArea();
 		Node center = turtDisp.getTurtleArea();
 		
 		
-		//add real components here
+		//add components to scene
 		UI.setCenter(center);
 		UI.setRight(right);
 		UI.setLeft(left);
@@ -86,6 +87,10 @@ public class View implements ViewInt{
 	public void passInput(String command) {
 		controller.takeInput(command);
 		
+	}
+	
+	public Node getTurtleDisplay(){
+	    return turtDisp.getTurtleArea();
 	}
 
 }
