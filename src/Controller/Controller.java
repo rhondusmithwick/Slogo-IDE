@@ -1,5 +1,6 @@
-package Model;
+package Controller;
 
+import Model.Command;
 import javafx.scene.Group;
 
 import java.util.List;

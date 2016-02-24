@@ -1,5 +1,6 @@
-package Model;
+package Controller;
 
+import Model.Forward;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -15,10 +16,10 @@ import java.util.ResourceBundle;
  *
  * @author Rhondu Smithwick
  */
-public class CommandContainer {
+class CommandContainer {
 
-    private final Map<Class, Class<?>[]> parametersMap = new HashMap<>();
-    private final Map<String, Class> inputMap = new HashMap<>();
+    private final Map<Class<?>, Class<?>[]> parametersMap = new HashMap<>();
+    private final Map<String, Class<?>> inputMap = new HashMap<>();
 
     private final ObservableList<String> commandStringList = FXCollections.observableArrayList();
     private final SimpleObjectProperty<ResourceBundle> resourceBundle = new SimpleObjectProperty<>();
@@ -39,7 +40,8 @@ public class CommandContainer {
 
     private void modifyInputMap() {
         inputMap.clear();
-        for (String key : resourceBundle.get().keySet()) {
+//        for (String key : resourceBundle.get().keySet()) {
+        for (String key: commandStringList) {
             String val = resourceBundle.get().getString(key);
             String[] valArray = val.split("|");
             Class<?> commandClass = getClassForname(key);
