@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Command;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 
@@ -18,7 +17,7 @@ public interface Controller {
      **/
     void takeInput(String input);
 
-   SimpleStringProperty[] getProperties();
+    SimpleStringProperty[] getProperties();
 
     /**
      * Get a list of all commands.

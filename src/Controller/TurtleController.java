@@ -2,13 +2,12 @@ package Controller;
 
 import Model.Command;
 import Model.Turtle;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
 /**
@@ -20,7 +19,6 @@ public class TurtleController implements Controller {
 
     private static final String DEFAULT_TURTLE_IMAGE = "....";
     private static final String DEFAULT_LANGUAGE = "English";
-
     private final Group group = new Group();
 
     private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
@@ -30,6 +28,8 @@ public class TurtleController implements Controller {
     private final Turtle myTurtle = new Turtle(new Image(getClass()
             .getClassLoader()
             .getResourceAsStream(DEFAULT_TURTLE_IMAGE)));
+
+    private final ProgramParser parser = new ProgramParser();
 
     private final CommandContainer container;
 
@@ -45,11 +45,12 @@ public class TurtleController implements Controller {
     public TurtleController(String language) {
         this();
         setLanguage(language);
+        parser.addPatterns("Syntax");
     }
 
     @Override
     public void takeInput(String input) {
-
+        List<Entry<String, String>> commandQueue = parser.parseText(input);
     }
 
     @Override
@@ -69,15 +70,17 @@ public class TurtleController implements Controller {
     }
 
     void addListeners() {
-        language.addListener((ov, oldVal, newVal) ->
-                myResources = ResourceBundle.getBundle(newVal + ".properties"));
+        language.addListener((ov, oldVal, newVal) -> {
+            myResources = ResourceBundle.getBundle(newVal);
+            parser.addPatterns(newVal);
+        });
         input.addListener((ov, oldVal, newVal) ->
                 takeInput(newVal));
     }
 
     @Override
     public SimpleStringProperty[] getProperties() {
-        return new SimpleStringProperty[] {language, input,
+        return new SimpleStringProperty[]{language, input,
                 myTurtle.getTurtleProperties().penColorProperty()
         };
     }

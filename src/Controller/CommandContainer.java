@@ -41,7 +41,7 @@ public class CommandContainer {
     private void modifyInputMap() {
 //        inputMap.clear();
 //        for (String key : resourceBundle.get().keySet()) {
-        for (String key: commandStringList) {
+        for (String key : commandStringList) {
             String val = resourceBundle.get().getString(key);
             String[] valArray = val.split("|");
             Class<?> commandClass = getClassForName(key);

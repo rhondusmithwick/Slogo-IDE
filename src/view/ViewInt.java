@@ -27,9 +27,10 @@ public interface ViewInt {
      * @param command String indicating SLOGO command that the user has entered
      */
     void passInput(String command);
-    
+
     /**
      * This method returns the Node that will be used to display the turtle and its path.
+     *
      * @return
      */
     Node getTurtleDisplay();
