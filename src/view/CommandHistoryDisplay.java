@@ -16,13 +16,10 @@ import javafx.scene.control.ScrollPane;
  */
 
 public class CommandHistoryDisplay implements CommHistory {
-	
-	private final double SCROLLPANE_MIN_WIDTH = 200.0;
-	private final double SCROLLPANE_MAX_WIDTH = 200.0;
-	private final double SCROLLPANE_MIN_HEIGHT = 170.0;
-	private final double SCROLLPANE_MAX_HEIGHT = 170.0;
-	
-	
+
+	private final double SCROLLPANE_WIDTH = 200.0;
+	private final double SCROLLPANE_HEIGHT = 170.0;
+
 	private ScrollPane myScrollPane;
 	private Label myCommandHistory;
 	private List<String> commands;
@@ -35,8 +32,8 @@ public class CommandHistoryDisplay implements CommHistory {
 	public void createCommHistory() {
 		myCommandHistory = new Label();
 		myScrollPane = new ScrollPane();
-		myScrollPane.setMaxSize(SCROLLPANE_MAX_WIDTH, SCROLLPANE_MAX_HEIGHT);
-		myScrollPane.setMinSize(SCROLLPANE_MIN_WIDTH, SCROLLPANE_MIN_HEIGHT);
+		myScrollPane.setMaxSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
+		myScrollPane.setMinSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
 		myScrollPane.setContent(myCommandHistory);
 	}
 
@@ -60,7 +57,7 @@ public class CommandHistoryDisplay implements CommHistory {
 	public List<String> getCommands() {
 		return commands;
 	}
-	
+
 	public Node getRootNode() {
 		return myScrollPane;
 	}

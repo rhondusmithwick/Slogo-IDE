@@ -53,6 +53,7 @@ public class View implements ViewInt{
 		top.getChildren().add(r);
 		
 		//errors and command history here
+		
 //		r = new Rectangle(1000,200);
 //		r.setFill(Color.BLACK);
 		HBox bottom = new HBox();
