@@ -16,14 +16,14 @@ import java.util.ResourceBundle;
  *
  * @author Rhondu Smithwick
  */
-class CommandContainer {
+public class CommandContainer {
 
     private final Map<Class<?>, Class<?>[]> parametersMap = new HashMap<>();
     private final Map<String, Class<?>> inputMap = new HashMap<>();
 
     private final ObservableList<String> commandStringList = FXCollections.observableArrayList();
     private final SimpleObjectProperty<ResourceBundle> resourceBundle = new SimpleObjectProperty<>();
-
+    private final ResourceBundle commandLocations = ResourceBundle.getBundle("commandLocations");
 
     public CommandContainer(ResourceBundle resourceBundle) {
         addListeners();
@@ -39,7 +39,7 @@ class CommandContainer {
     }
 
     private void modifyInputMap() {
-        inputMap.clear();
+//        inputMap.clear();
 //        for (String key : resourceBundle.get().keySet()) {
         for (String key: commandStringList) {
             String val = resourceBundle.get().getString(key);
@@ -67,17 +67,17 @@ class CommandContainer {
 
     private Class<?> getClassForname(String className) {
         try {
-            return Class.forName("Model." + className);
+            return Class.forName(commandLocations.getString(className));
         } catch (Exception e) {
             return Forward.class;
         }
     }
 
-    public void addToCommandStringList(String... commands) {
+    void addToCommandStringList(String... commands) {
         commandStringList.addAll(commands);
     }
 
-    public void setResourceBundle(ResourceBundle resourceBundle) {
+    void setResourceBundle(ResourceBundle resourceBundle) {
         this.resourceBundle.set(resourceBundle);
     }
 

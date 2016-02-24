@@ -10,12 +10,14 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
+import java.util.Observable;
+
 /**
  * Created by rhondusmithwick on 2/22/16.
  *
  * @author Rhondu Smithwick
  */
-public class Turtle {
+public class Turtle extends Observable {
     private final Group root = new Group();
     private final ImageView imageView = new ImageView();
     private final Path path = new Path();
