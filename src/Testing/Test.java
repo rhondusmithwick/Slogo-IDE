@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 public class Test {
 
     public static void main(String[] args) {
-        CommandContainer c = new CommandContainer(ResourceBundle.getBundle("English"));
+        CommandContainer c = new CommandContainer(ResourceBundle.getBundle("languages/English"));
         Class cls = c.getClass();
         String name = cls.getName();
         System.out.println("Class Name = " + name);
