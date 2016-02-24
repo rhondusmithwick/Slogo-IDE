@@ -60,7 +60,8 @@ public class View implements ViewInt{
 		
 		commandHistory = new CommandHistoryDisplay();
 		commandHistory.createCommHistory();
-		Node commandHistoryBox = commandHistory.getHistoryGraphic();
+		Node commandHistoryBox = commandHistory.getRootNode();
+		commandHistoryBox.setTranslateX(800.0); // make this a variable
 		bottom.getChildren().add(commandHistoryBox);
 		
 		
@@ -75,7 +76,7 @@ public class View implements ViewInt{
 		VBox right = new VBox();
 		CommandEntry commandEntry = new CommandEntry();
 		commandEntry.createEntryBox();
-		Node entryBox = commandEntry.getTextBox();
+		Node entryBox = commandEntry.getRootNode();
 		right.getChildren().add(entryBox);
 		
 		executeButton = new Button(EXECUTE_BUTTON_LABEL);
