@@ -2,6 +2,10 @@ package view;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+
 
 
 public class TurtleDisplay implements TurtleAreaInterface {
@@ -25,6 +29,7 @@ public class TurtleDisplay implements TurtleAreaInterface {
     public Node getTurtleArea() {
         return dispArea;
     }
+    
 
 
 }
