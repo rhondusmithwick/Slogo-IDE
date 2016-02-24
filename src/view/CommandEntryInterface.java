@@ -1,5 +1,8 @@
 package view;
 
+import java.util.List;
+
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 
 /**
@@ -23,7 +26,7 @@ public interface CommandEntryInterface {
      *
      * @return String[] of entered commands to be executed
      */
-    String[] getCommands();
+    SimpleStringProperty getCommands();
 
     /**
      * Clears the textbox of any currently entered but not yet run commands
