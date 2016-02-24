@@ -33,9 +33,11 @@ public class HelpScreen {
 
 
     private void createHTMLViewer (Group root) {
+        ClassLoader classLoader = getClass().getClassLoader();
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
-        URL urlHello = getClass().getResource(htmlHelp);
+        System.out.println(htmlHelp);
+        URL urlHello = classLoader.getResource("resources.html/SLOGO_help.html");
         System.out.println(urlHello);
         webEngine.load(urlHello.toExternalForm());
     
