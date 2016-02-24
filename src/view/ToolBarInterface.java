@@ -24,6 +24,6 @@ public interface ToolBarInterface {
      *
      * @return List of Nodes to be placed on the toolbar
      */
-    List<Node> getToolBarMembers();
+    Node getToolBarMembers();
 
 }
