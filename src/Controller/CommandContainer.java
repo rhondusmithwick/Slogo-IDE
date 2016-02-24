@@ -23,7 +23,7 @@ public class CommandContainer {
 
     private final ObservableList<String> commandStringList = FXCollections.observableArrayList();
     private final SimpleObjectProperty<ResourceBundle> resourceBundle = new SimpleObjectProperty<>();
-    private final ResourceBundle commandLocations = ResourceBundle.getBundle("commandLocations");
+    private final ResourceBundle commandLocations = ResourceBundle.getBundle("Model/commandLocations");
 
     public CommandContainer(ResourceBundle resourceBundle) {
         addListeners();
@@ -41,10 +41,10 @@ public class CommandContainer {
     private void modifyInputMap() {
 //        inputMap.clear();
 //        for (String key : resourceBundle.get().keySet()) {
-        for (String key: commandStringList) {
+        for (String key : commandStringList) {
             String val = resourceBundle.get().getString(key);
             String[] valArray = val.split("|");
-            Class<?> commandClass = getClassForname(key);
+            Class<?> commandClass = getClassForName(key);
             for (String commandInput : valArray) {
                 inputMap.put(commandInput, commandClass);
             }
@@ -54,7 +54,7 @@ public class CommandContainer {
     private void modifyParametersMap() {
         parametersMap.clear();
         for (String commandString : commandStringList) {
-            Class theClass = getClassForname(commandString);
+            Class theClass = getClassForName(commandString);
             Class<?>[] parameters = getParametersForClass(theClass);
             parametersMap.put(theClass, parameters);
         }
@@ -65,7 +65,7 @@ public class CommandContainer {
         return allConstructors[0].getParameterTypes();
     }
 
-    private Class<?> getClassForname(String className) {
+    private Class<?> getClassForName(String className) {
         try {
             return Class.forName(commandLocations.getString(className));
         } catch (Exception e) {

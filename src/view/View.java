@@ -3,27 +3,37 @@ package view;
 
 import Controller.Controller;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.Node;
 
 public class View implements ViewInt{
+	
+	private final String EXECUTE_BUTTON_LABEL = "Execute";
+	private final double EXECUTE_BUTTON_HEIGHT = 20.0;
+	private final double EXECUTE_BUTTON_WIDTH = 200.0;
+	
 	
 	private BorderPane UI;
 	private Controller controller;
 	private Group root;
 	private TurtleDisplay turtDisp;
+	private Button executeButton;
+	private CommandHistoryDisplay commandHistory;
 	
 	
 	
 	
-	public View(Controller controller){
+	public View(Group group) {
+//	public View(Controller controller){
 		this.controller = controller;
 		UI = new BorderPane();
-		root = controller.getGroup();
+//		root = controller.getGroup();
+		root = group;
 		createScene();
 		root.getChildren().add(UI);
 		
@@ -43,10 +53,17 @@ public class View implements ViewInt{
 		top.getChildren().add(r);
 		
 		//errors and command history here
-		r = new Rectangle(1000,200);
-		r.setFill(Color.BLACK);
+//		r = new Rectangle(1000,200);
+//		r.setFill(Color.BLACK);
 		HBox bottom = new HBox();
-		bottom.getChildren().add(r);
+//		bottom.getChildren().add(r);
+		
+		commandHistory = new CommandHistoryDisplay();
+		commandHistory.createCommHistory();
+		Node commandHistoryBox = commandHistory.getHistoryGraphic();
+		bottom.getChildren().add(commandHistoryBox);
+		
+		
 		
 		//variables and methods here
 		VBox left = new VBox();
@@ -56,9 +73,20 @@ public class View implements ViewInt{
 
 		//text entry and execute button here
 		VBox right = new VBox();
-		r = new Rectangle(100, 400);
-		r.setFill(Color.RED);
-		right.getChildren().add(r);
+		CommandEntry commandEntry = new CommandEntry();
+		commandEntry.createEntryBox();
+		Node entryBox = commandEntry.getTextBox();
+		right.getChildren().add(entryBox);
+		
+		executeButton = new Button(EXECUTE_BUTTON_LABEL);
+		executeButton.setMaxHeight(EXECUTE_BUTTON_HEIGHT);
+		executeButton.setMaxWidth(EXECUTE_BUTTON_WIDTH);
+		executeButton.setOnAction(e -> {
+			commandHistory.addCommand(commandEntry.getTextBox().getText());
+			commandEntry.clearCommands();
+			
+		});
+		right.getChildren().add(executeButton);
 		
 		//turtle area here
 		turtDisp = new TurtleDisplay();

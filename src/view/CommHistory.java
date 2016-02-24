@@ -1,6 +1,8 @@
 package view;
 
-import javafx.scene.Node;
+import java.util.List;
+
+import javafx.scene.control.Label;
 
 /**
  * This is an internal API for the view. It regulates any class that will be implemented to keep track of the command history. It ensures there is a way to access the node
@@ -30,7 +32,7 @@ public interface CommHistory {
      *
      * @return graphical node displaying command history
      */
-    Node getHistoryGraphic();
+    Label getHistoryGraphic();
 
 
     /**
@@ -38,6 +40,6 @@ public interface CommHistory {
      *
      * @return String array of command history
      */
-    String[] getCommands();
+    List<String> getCommands();
 
 }
