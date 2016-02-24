@@ -42,7 +42,7 @@ public class Turtle extends Observable {
     }
 
 
-    TurtleProperties getTurtleProperties() {
+    public TurtleProperties getTurtleProperties() {
         return turtleProperties;
     }
 

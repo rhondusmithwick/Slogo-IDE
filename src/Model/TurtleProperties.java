@@ -4,6 +4,7 @@ package Model;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,7 +28,7 @@ public final class TurtleProperties {
 
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty();
 
-    private final SimpleObjectProperty<Color> penColor = new SimpleObjectProperty<>();
+    private final SimpleStringProperty penColor = new SimpleStringProperty();
 
     final void init(Image image) {
         setImage(image);
@@ -35,7 +36,7 @@ public final class TurtleProperties {
         setLocation(new Point2D(0, 0));
         setHeading(0);
         setPenDown(true);
-        setPenColor(Color.BLACK);
+        setPenColor("black");
     }
 
     void addListeners(ImageView imageView, Path path) {
@@ -46,7 +47,7 @@ public final class TurtleProperties {
         penDown.addListener((ov, oldVal, newVal) ->
                 path.setVisible(newVal));
         penColor.addListener((ov, oldVal, newVal) ->
-                path.setFill(newVal));
+                path.setFill(Color.valueOf(newVal)));
         image.addListener((ov, oldVal, newVal) ->
                 imageView.setImage(newVal));
         heading.addListener((ov, oldVal, newVal) ->
@@ -81,8 +82,11 @@ public final class TurtleProperties {
         this.penDown.set(penDown);
     }
 
-    public void setPenColor(Color penColor) {
+    public void setPenColor(String penColor) {
         this.penColor.set(penColor);
     }
 
+    public SimpleStringProperty penColorProperty() {
+        return penColor;
+    }
 }

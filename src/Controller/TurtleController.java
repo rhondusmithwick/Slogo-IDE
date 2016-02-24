@@ -2,6 +2,8 @@ package Controller;
 
 import Model.Command;
 import Model.Turtle;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -21,6 +23,8 @@ public class TurtleController implements Controller {
 
     private final Group group = new Group();
     private final SimpleStringProperty language = new SimpleStringProperty();
+    private final SimpleStringProperty input = new SimpleStringProperty();
+
     private final Turtle myTurtle = new Turtle(new Image(getClass()
             .getClassLoader()
             .getResourceAsStream(DEFAULT_TURTLE_IMAGE)));
@@ -65,6 +69,15 @@ public class TurtleController implements Controller {
     void addListeners() {
         language.addListener((ov, oldVal, newVal) ->
                 myResources = ResourceBundle.getBundle(newVal + ".properties"));
+        input.addListener((ov, oldVal, newVal) ->
+                takeInput(newVal));
     }
 
+    @Override
+    public SimpleStringProperty[] getProperties() {
+        return new SimpleStringProperty[] {
+            language, input,
+                myTurtle.getTurtleProperties().penColorProperty()
+        };
+    }
 }
