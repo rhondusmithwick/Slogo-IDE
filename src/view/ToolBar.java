@@ -1,5 +1,6 @@
 package view;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -21,6 +22,8 @@ import java.util.ResourceBundle;
 
 public class ToolBar implements ToolBarInterface {
 
+    private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
+	
     private static final double TB_SPACING = 10.0;
     private static final int TB_HEIGHT = 75;
     private static final int TB_WIDTH = 1000;
@@ -29,7 +32,7 @@ public class ToolBar implements ToolBarInterface {
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
-    private String language, bColor, pColor, pLanguage;
+    private String dispLang, bColor, pColor, pLanguage;
     private TurtleAreaInterface tDisp;
     private CommandEntryInterface cEnt;
     private ErrorDisplayInterface eDisp;
@@ -40,14 +43,14 @@ public class ToolBar implements ToolBarInterface {
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
     public ToolBar() {
-        this.language = "english";
+        this.dispLang = "english";
         container = new HBox();
         container.setPrefWidth(TB_WIDTH);
         container.setPrefHeight(TB_HEIGHT);
         container.setAlignment(Pos.CENTER);
         container.setSpacing(TB_SPACING);
         hScreen = new HelpScreen();
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
     }
 
     @Override
@@ -87,7 +90,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void setLang() {
         pLanguage = langBox.getSelectionModel().getSelectedItem();
-        System.out.println("Language is now " + pLanguage);
+        language.set(pLanguage);
     }
 
     private ComboBox<String> createBox(String label, ArrayList<String> choices, EventHandler<ActionEvent> handler) {
@@ -177,6 +180,11 @@ public class ToolBar implements ToolBarInterface {
     public void setEDisp(ErrorDisplayInterface errorDisp){
     	this.eDisp=errorDisp;
     }
+
+	@Override
+	public SimpleStringProperty getLanguage() {
+		return language;
+	}
 
 
 

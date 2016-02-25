@@ -24,7 +24,7 @@ public interface CommandEntryInterface {
      *
      * @return String[] of entered commands to be executed
      */
-    SimpleStringProperty getCommandsFromString(String s);
+    void getCommandsFromString(String s);
 
     /**
      * Clears the textbox of any currently entered but not yet run commands
@@ -40,5 +40,7 @@ public interface CommandEntryInterface {
     void passInternalCommands(String command);
     
     void getBoxCommands();
+    
+    SimpleStringProperty getInput();
     
 }

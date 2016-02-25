@@ -1,5 +1,6 @@
 package view;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 
 /**
@@ -29,5 +30,7 @@ public interface ToolBarInterface {
     void setEDisp(ErrorDisplayInterface eDisp);
     
     void setCommEnt(CommandEntryInterface commEnt);
+    
+    SimpleStringProperty getLanguage();
 
 }

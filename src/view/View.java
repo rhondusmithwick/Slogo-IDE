@@ -7,7 +7,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,6 +15,9 @@ import javafx.scene.shape.Rectangle;
 
 public class View implements ViewInt {
 
+	
+
+   
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
@@ -32,12 +34,14 @@ public class View implements ViewInt {
     private final Dimension2D turtleDispDimension;
     private ErrorDisplay errorDisplay;
 
+
     public View(Dimension2D turtleDispDimension) {
         this.turtleDispDimension = turtleDispDimension;
         UI = new BorderPane();
         root = new Group();
         createScene();
         root.getChildren().add(UI);
+        
 
     }
 
@@ -92,7 +96,6 @@ public class View implements ViewInt {
         VBox right = new VBox();
         Label commandEntTitle = new Label("Enter Commands Here");
         right.getChildren().add(commandEntTitle);
-
         commandEntry = new CommandEntry();
         commandEntry.createEntryBox();
         Node entryBox = commandEntry.getTextBox();
@@ -145,8 +148,12 @@ public class View implements ViewInt {
 
     @Override
     public SimpleStringProperty[] getProperties() {
-        // TODO Auto-generated method stub
-        return null;
+        SimpleStringProperty input = commandEntry.getInput();
+        SimpleStringProperty language = tBar.getLanguage();
+        SimpleStringProperty[] properties = new SimpleStringProperty[2];
+        properties[0] = language;
+        properties[1]= input;
+        return properties;
     }
 
 }

@@ -16,21 +16,21 @@ import javafx.scene.control.TextArea;
 
 public class CommandEntry implements CommandEntryInterface {
 
+	 private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
 	private final double WIDTH = 200.0;
 	private final double HEIGHT = 400.0;
 	private TextArea myEntryBox;
 	private ScrollPane myScrollPane;
 
+	
 	@Override
 	public TextArea getTextBox() {
 		return myEntryBox;
 	}
 
 	@Override
-	public SimpleStringProperty getCommandsFromString(String text) {
-		SimpleStringProperty stringWrapper = new SimpleStringProperty();
-		stringWrapper.setValue(text);
-		return stringWrapper;
+	public void getCommandsFromString(String text) {
+		input.set(text);
 		
 	}
 
@@ -62,6 +62,11 @@ public class CommandEntry implements CommandEntryInterface {
 		String text = myEntryBox.getText();
 		getCommandsFromString(text);
 		
+	}
+
+	@Override
+	public SimpleStringProperty getInput() {
+		return input;
 	}
 
 
