@@ -60,8 +60,15 @@ public class CommandContainer {
         return parametersMap;
     }
 
-    public Map<String, Class<?>> getClassMap() {
-        return classMap;
+    public Class<?> getClass(String className) {
+        return classMap.get(className);
     }
 
+    public Class<?>[] getParameters(Class<?> theClass) {
+        return parametersMap.get(theClass);
+    }
+
+    public ObservableList<String> getCommandStringList() {
+        return commandStringList;
+    }
 }
