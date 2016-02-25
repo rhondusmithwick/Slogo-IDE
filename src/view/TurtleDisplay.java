@@ -18,7 +18,7 @@ public class TurtleDisplay implements TurtleAreaInterface {
 
 
     @Override
-    public void createTurtleArea(int height, int width) {
+    public void createTurtleArea(double width, double height) {
     	background = new Rectangle(width, height, Color.WHITE);
         dispArea = new Group();
         setBackground("red");

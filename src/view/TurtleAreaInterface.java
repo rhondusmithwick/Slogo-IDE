@@ -12,7 +12,7 @@ public interface TurtleAreaInterface {
     /**
      * creates the turtles display area.
      */
-    void createTurtleArea(int height, int width);
+    void createTurtleArea(double width, double height);
 
     /**
      * Sets the background color of the turtles display area

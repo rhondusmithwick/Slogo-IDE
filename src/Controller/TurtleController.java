@@ -29,20 +29,14 @@ public class TurtleController implements Controller {
 
     private final ProgramParser parser = new ProgramParser("languages/Syntax");
 
-    private final CommandContainer container;
+    private final CommandContainer container = new CommandContainer();
 
     private ResourceBundle myResources;
 
-    public TurtleController() {
+    public TurtleController(double width, double height) {
         addListeners();
         language.set(DEFAULT_LANGUAGE);
-        container = new CommandContainer();
         group.getChildren().add(myTurtle.getGroup());
-    }
-
-    public TurtleController(String language) {
-        this();
-        setLanguage(language);
     }
 
     @Override

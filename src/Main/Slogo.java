@@ -4,6 +4,7 @@ import Controller.TurtleController;
 
 import Controller.Controller;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Dimension2D;
 import view.ViewInt;
 import view.View;
 
@@ -13,9 +14,11 @@ import view.View;
  * @author Rhondu Smithwick
  */
 public class Slogo  {
-    private final Controller controller = new TurtleController();
+    private static final Dimension2D turtleDimension = new Dimension2D(600, 450);
 
-//    private final ViewInt view = new View();
+    private final Controller controller = new TurtleController(turtleDimension.getWidth(), turtleDimension.getHeight());
+
+    private final ViewInt view = new View(turtleDimension.getWidth(), turtleDimension.getHeight());
 
     public Slogo() {
         bindProperties();

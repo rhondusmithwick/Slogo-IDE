@@ -26,13 +26,13 @@ public class View implements ViewInt{
     private ToolBar tBar;
     private Button executeButton;
     private CommandHistoryDisplay commandHistory;
-    private int width, height;
+    private double width, height;
 
 
 
 
 
-    public View(int height, int width) {
+    public View(double width, double height) {
     	this.height=height;
     	this.width=width;
         UI = new BorderPane();
@@ -51,7 +51,7 @@ public class View implements ViewInt{
 
         //turtle area here
         turtDisp = new TurtleDisplay(root);
-        turtDisp.createTurtleArea(height, width);
+        turtDisp.createTurtleArea(width, height);
         ScrollPane center = new ScrollPane();
         center.setMaxHeight(450);
         center.setMaxWidth(600);
