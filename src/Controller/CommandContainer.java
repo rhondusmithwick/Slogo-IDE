@@ -1,7 +1,6 @@
 package Controller;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.lang.reflect.Constructor;
@@ -16,35 +15,16 @@ import java.util.ResourceBundle;
  */
 public class CommandContainer {
 
-    private final Map<Class<?>, Class<?>[]> parametersMap = new HashMap<>();
-
-    private final ObservableList<String> commandStringList = FXCollections.observableArrayList();
-
+    private final ObservableList<String> commandStringList = createCommandsStringList();
     private final ResourceBundle commandLocations = ResourceBundle.getBundle("Model/commandLocations");
-
-    public CommandContainer() {
-        addListeners();
-        addToCommandStringList("Forward", "Backward", "PenDown", "PenUp", "SetPenColor");
-    }
-
-    private void addListeners() {
-        commandStringList.addListener((ListChangeListener<String>) c ->
-                modifyParametersMap());
-    }
-
-    private void modifyParametersMap() {
-        parametersMap.clear();
-        for (String commandString : commandStringList) {
-            Class theClass = getClassForName(commandString);
-            Class<?>[] parameters = getParametersForClass(theClass);
-            parametersMap.put(theClass, parameters);
-        }
-    }
+    private final Map<String, Class<?>> classMap = createClassMap();
+    private final Map<Class<?>, Class<?>[]> parametersMap = createParametersMap();
 
     private Class<?>[] getParametersForClass(Class theClass) {
         Constructor[] allConstructors = theClass.getDeclaredConstructors();
         return allConstructors[0].getParameterTypes();
     }
+
 
     private Class<?> getClassForName(String className) {
         try {
@@ -54,12 +34,34 @@ public class CommandContainer {
         }
     }
 
-    void addToCommandStringList(String... commands) {
-        commandStringList.addAll(commands);
+    private ObservableList<String> createCommandsStringList() {
+        return FXCollections.observableArrayList("Forward", "Backward", "PenDown", "PenUp", "SetPenColor");
     }
 
-    Map<Class<?>, Class<?>[]> getParametersMap() {
+    private Map<String, Class<?>> createClassMap() {
+        Map<String, Class<?>> classMap = new HashMap<>();
+        for (String commandString : commandStringList) {
+            Class theClass = getClassForName(commandString);
+            classMap.put(commandString, theClass);
+        }
+        return classMap;
+    }
+
+    private Map<Class<?>, Class<?>[]> createParametersMap() {
+        Map<Class<?>, Class<?>[]> parametersMap = new HashMap<>();
+        for (Class<?> theClass : classMap.values()) {
+            Class<?>[] parameters = getParametersForClass(theClass);
+            parametersMap.put(theClass, parameters);
+        }
         return parametersMap;
+    }
+
+    public Map<Class<?>, Class<?>[]> getParametersMap() {
+        return parametersMap;
+    }
+
+    public Map<String, Class<?>> getClassMap() {
+        return classMap;
     }
 
 }

@@ -2,6 +2,7 @@ package Controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 
@@ -12,9 +13,13 @@ public class TestParsing {
         CommandContainer commandContainer = new CommandContainer();
         String userInput = "fd 50 rt 90 BACK :distance Left :angle";
         List<Entry<String, String>> commandQueue = lang.parseText(userInput);
-        System.out.println(commandQueue);
-        for (Entry<Class<?>, Class<?>[]> entry : commandContainer.getParametersMap().entrySet()) {
-            System.out.printf("The class was %s and the %s were the parameters\n", entry.getKey(), Arrays.toString(entry.getValue()));
+        Map<Class<?>, Class<?>[]> parametersMap = commandContainer.getParametersMap();
+        Map<String, Class<?>> classMap = commandContainer.getClassMap();
+        for (Entry<String, String> entry : commandQueue) {
+            Class<?> theClass = classMap.get(entry.getKey());
+            if (parametersMap.containsKey(theClass)) {
+                System.out.printf("The class was %s and the parameters are %s \n", theClass, Arrays.toString(parametersMap.get(theClass)));
+            }
         }
     }
 }
