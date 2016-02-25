@@ -22,7 +22,7 @@ public class Slogo {
     private final ViewInt view = new View(turtleDimension.getWidth(), turtleDimension.getHeight());
 
     public Slogo() {
-        bindProperties();
+//        bindProperties();
         view.getInnerGroup().getChildren().add(controller.getGroup());
     }
 
@@ -34,10 +34,10 @@ public class Slogo {
 
     private void bindProperties() {
         SimpleStringProperty[] controllerProperties = controller.getProperties();
-        SimpleStringProperty[] viewProperties = view.getProperties();
-        for (SimpleStringProperty controllerProperty : controllerProperties) {
-            findTwin(controllerProperty, viewProperties);
-        }
+//        SimpleStringProperty[] viewProperties = view.getProperties();
+//        for (SimpleStringProperty controllerProperty : controllerProperties) {
+//            findTwin(controllerProperty, viewProperties);
+//        }
     }
 
     private boolean findTwin(SimpleStringProperty controllerProperty,
