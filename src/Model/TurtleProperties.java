@@ -19,9 +19,11 @@ import javafx.scene.shape.Path;
  */
 public final class TurtleProperties {
 
-    private static final String DEFAULT_TURTLE_IMAGE = "images/turtle_default.jpg";
+    private static final String DEFAULT_TURTLE_IMAGE = "images/blackarrow.png";
 
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
+
+    private final SimpleObjectProperty<Dimension2D> imageDimensions = new SimpleObjectProperty<>(this, "imageDimensions");
 
     private final SimpleBooleanProperty visible = new SimpleBooleanProperty(this, "visible");
 
@@ -39,8 +41,8 @@ public final class TurtleProperties {
     final void init(Dimension2D turtleDispDimension) {
         setImage(DEFAULT_TURTLE_IMAGE);
         setVisible(true);
-        home.set(new Point2D(turtleDispDimension.getWidth() / 2,
-                turtleDispDimension.getHeight() / 2));
+        home.set(new Point2D(turtleDispDimension.getWidth() / 2 - imageDimensions.get().getWidth() / 2,
+                turtleDispDimension.getHeight() / 2 - imageDimensions.get().getHeight() / 2));
         setLocation(getHome());
         setHeading(0);
         setPenDown(true);
@@ -56,8 +58,11 @@ public final class TurtleProperties {
                 path.setVisible(newVal));
         penColor.addListener((ov, oldVal, newVal) ->
                 path.setFill(Color.valueOf(newVal)));
-        image.addListener((ov, oldVal, newVal) ->
-                imageView.setImage(createImage(newVal)));
+        image.addListener((ov, oldVal, newVal) -> {
+            Image theImage = createImage(newVal);
+            imageView.setImage(theImage);
+            imageDimensions.set(new Dimension2D(theImage.getWidth(), theImage.getHeight()));
+        });
         heading.addListener((ov, oldVal, newVal) ->
                 imageView.setRotate(newVal.doubleValue()));
     }
