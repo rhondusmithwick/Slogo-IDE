@@ -4,6 +4,7 @@ package view;
  * must have a method to set background color and a method to return the node upon which the turtle is drawing.
  */
 
+import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 
 public interface TurtleAreaInterface {
@@ -12,7 +13,7 @@ public interface TurtleAreaInterface {
     /**
      * creates the turtles display area.
      */
-    void createTurtleArea(double width, double height);
+    void createTurtleArea(Dimension2D turtleDispDimension);
 
     /**
      * Sets the background color of the turtles display area

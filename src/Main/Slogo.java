@@ -15,11 +15,11 @@ import view.ViewInt;
  * @author Rhondu Smithwick
  */
 class Slogo {
-    private static final Dimension2D turtleDimension = new Dimension2D(600, 450);
+    private static final Dimension2D turtleDispDimension = new Dimension2D(600, 450);
 
-    private final Controller controller = new TurtleController(turtleDimension.getWidth(), turtleDimension.getHeight());
+    private final Controller controller = new TurtleController(turtleDispDimension);
 
-    private final ViewInt view = new View(turtleDimension.getWidth(), turtleDimension.getHeight());
+    private final ViewInt view = new View(turtleDispDimension);
 
     public Slogo() {
 //        bindProperties();
@@ -34,10 +34,10 @@ class Slogo {
 
     private void bindProperties() {
         SimpleStringProperty[] controllerProperties = controller.getProperties();
-//        SimpleStringProperty[] viewProperties = view.getProperties();
-//        for (SimpleStringProperty controllerProperty : controllerProperties) {
-//            findTwin(controllerProperty, viewProperties);
-//        }
+        SimpleStringProperty[] viewProperties = view.getProperties();
+        for (SimpleStringProperty controllerProperty : controllerProperties) {
+            findTwin(controllerProperty, viewProperties);
+        }
     }
 
     private boolean findTwin(SimpleStringProperty controllerProperty,

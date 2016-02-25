@@ -1,5 +1,6 @@
 package view;
 
+import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -15,8 +16,8 @@ public class TurtleDisplay implements TurtleAreaInterface {
 
 
     @Override
-    public void createTurtleArea(double width, double height) {
-        background = new Rectangle(width, height, Color.WHITE);
+    public void createTurtleArea(Dimension2D turtleDispDeminsion) {
+        background = new Rectangle(turtleDispDeminsion.getWidth(), turtleDispDeminsion.getHeight(), Color.WHITE);
         dispArea = new Group();
         setBackground("red");
         dispArea.getChildren().add(background);

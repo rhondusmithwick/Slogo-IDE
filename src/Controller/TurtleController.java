@@ -3,6 +3,7 @@ package Controller;
 import Model.Command;
 import Model.Turtle;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class TurtleController implements Controller {
 
     private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
 
-    private final Turtle myTurtle = new Turtle();
+    private final Turtle myTurtle;
 
     private final ProgramParser parser = new ProgramParser("languages/Syntax");
 
@@ -32,7 +33,8 @@ public class TurtleController implements Controller {
 
     private ResourceBundle myResources;
 
-    public TurtleController(double width, double height) {
+    public TurtleController(Dimension2D turtleDispDimension) {
+        myTurtle = new Turtle(turtleDispDimension);
         addListeners();
         language.set(DEFAULT_LANGUAGE);
         group.getChildren().add(myTurtle.getGroup());

@@ -1,6 +1,7 @@
 package Model;
 
 import javafx.animation.PathTransition;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -18,11 +19,12 @@ public class Turtle {
     private final Group root = new Group();
     private final ImageView imageView = new ImageView();
     private final Path path = new Path();
-    private final TurtleProperties turtleProperties = new TurtleProperties();
+    private final TurtleProperties turtleProperties;
 
-    public Turtle() {
+    public Turtle(Dimension2D turtleDispDimension) {
+        turtleProperties = new TurtleProperties();
         turtleProperties.addListeners(imageView, path);
-        turtleProperties.init();
+        turtleProperties.init(turtleDispDimension);
         root.getChildren().add(imageView);
         root.getChildren().add(path);
     }

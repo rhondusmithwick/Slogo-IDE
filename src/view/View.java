@@ -2,6 +2,7 @@ package view;
 
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -27,12 +28,10 @@ public class View implements ViewInt {
     private ToolBar tBar;
     private Button executeButton;
     private CommandHistoryDisplay commandHistory;
-    private double width, height;
+    private final Dimension2D turtleDispDimension;
 
-
-    public View(double width, double height) {
-        this.height = height;
-        this.width = width;
+    public View(Dimension2D turtleDispDimension) {
+        this.turtleDispDimension = turtleDispDimension;
         UI = new BorderPane();
         root = new Group();
         createScene();
@@ -46,7 +45,7 @@ public class View implements ViewInt {
 
         //turtle area here
         turtDisp = new TurtleDisplay(root);
-        turtDisp.createTurtleArea(width, height);
+        turtDisp.createTurtleArea(turtleDispDimension);
         ScrollPane center = new ScrollPane();
         center.setMaxHeight(450);
         center.setMaxWidth(600);

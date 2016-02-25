@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,16 +27,21 @@ public final class TurtleProperties {
 
     private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
 
+    private final SimpleObjectProperty<Point2D> home = new SimpleObjectProperty<>(this, "home");
+
     private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
 
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
 
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
 
-    final void init() {
+
+    final void init(Dimension2D turtleDispDimension) {
         setImage(DEFAULT_TURTLE_IMAGE);
         setVisible(true);
-        setLocation(new Point2D(0, 0));
+        home.set(new Point2D(turtleDispDimension.getWidth() / 2,
+                turtleDispDimension.getHeight() / 2));
+        setLocation(new Point2D(getHome().getX(), getHome().getY()));
         setHeading(0);
         setPenDown(true);
         setPenColor("black");
@@ -70,6 +76,10 @@ public final class TurtleProperties {
 
     public final Point2D getLocation() {
         return location.get();
+    }
+
+    public final Point2D getHome() {
+        return home.get();
     }
 
     public void setLocation(Point2D location) {
