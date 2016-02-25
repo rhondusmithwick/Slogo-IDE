@@ -4,7 +4,7 @@
     <!-- ORGANIZATION is replaced with the organization name (duke-compsci308-fall2014) -->
     <!-- REPO is replaced with the repo name (slogo_team01) -->
     <groupId>duke-compsci308-spring2016.slogo_team12</groupId>
-    <artifactId>slogo_team{team_num}</artifactId>
+    <artifactId>slogo_team12</artifactId>
     <version>master-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
