@@ -6,8 +6,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sun.java2d.pipe.SpanShapeRenderer;
 import view.View;
 import view.ViewInt;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by rhondusmithwick on 2/23/16.
@@ -36,20 +41,27 @@ class Slogo {
         SimpleStringProperty[] controllerProperties = controller.getProperties();
         SimpleStringProperty[] viewProperties = view.getProperties();
         for (SimpleStringProperty controllerProperty : controllerProperties) {
-            findTwin(controllerProperty, viewProperties);
+            findTwin(controllerProperty, Arrays.asList(viewProperties));
         }
     }
 
-    private boolean findTwin(SimpleStringProperty controllerProperty,
-                             SimpleStringProperty[] viewProperties) {
+    private void findTwin(SimpleStringProperty controllerProperty,
+                             List<SimpleStringProperty> viewProperties) {
+        viewProperties.stream().filter(viewProp -> shouldBindTogether(controllerProperty, viewProp))
+                .forEach(controllerProperty::bindBidirectional);
+//        for (SimpleStringProperty viewProperty : viewProperties) {
+//            String vName = viewProperty.getName();
+//            if (cName.equals(vName)) {
+//                controllerProperty.bindBidirectional(viewProperty);
+//                return true;
+//            }
+//        }
+//        return false;
+    }
+
+    private boolean shouldBindTogether(SimpleStringProperty controllerProperty, SimpleStringProperty viewProperty) {
         String cName = controllerProperty.getName();
-        for (SimpleStringProperty viewProperty : viewProperties) {
-            String vName = viewProperty.getName();
-            if (cName.equals(vName)) {
-                controllerProperty.bindBidirectional(viewProperty);
-                return true;
-            }
-        }
-        return false;
+        String vName = viewProperty.getName();
+        return Objects.equals(cName, vName);
     }
 }
