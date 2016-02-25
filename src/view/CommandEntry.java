@@ -1,6 +1,7 @@
 package view;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -44,10 +45,8 @@ public class CommandEntry implements CommandEntryInterface {
 	public void createEntryBox() {
 		myEntryBox = new TextArea();
 		myEntryBox.setPrefSize(WIDTH, HEIGHT);
-		myScrollPane = new ScrollPane();
-		myScrollPane.setMaxSize(WIDTH, HEIGHT);
-		myScrollPane.setMinSize(WIDTH, HEIGHT);
-		myScrollPane.setContent(myEntryBox);
+		myScrollPane = new ScrollPane(myEntryBox);
+		myScrollPane.setPrefSize(WIDTH, HEIGHT);
 	}
 	
 	public Node getRootNode() {
