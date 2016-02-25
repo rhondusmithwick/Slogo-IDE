@@ -18,11 +18,11 @@ public class TurtleDisplay implements TurtleAreaInterface {
     @Override
     public void createTurtleArea() {
         dispArea = new Group();
-        setBackground("white");
+        setBackground("red");
         
         Path path = new Path();
 
-        path.getElements().add(new MoveTo(297f, 200.0f));
+        path.getElements().add(new MoveTo(0.0, 0.0f));
         path.getElements().add(new LineTo(100.0f, 100.0f));
         dispArea.getChildren().add(path);
 
@@ -30,7 +30,7 @@ public class TurtleDisplay implements TurtleAreaInterface {
 
     @Override
     public void setBackground(String color) {
-        Rectangle bg = new Rectangle(594,440, Color.web(color));
+        Rectangle bg = new Rectangle(600,450, Color.web(color));
         dispArea.getChildren().add(bg);
 
     }
