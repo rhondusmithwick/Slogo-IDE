@@ -55,7 +55,6 @@ public class TurtleController implements Controller {
         return group;
     }
 
-
     @Override
     public void setLanguage(String language) {
         this.language.set(language);
