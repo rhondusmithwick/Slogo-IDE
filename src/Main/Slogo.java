@@ -14,7 +14,7 @@ import view.ViewInt;
  *
  * @author Rhondu Smithwick
  */
-public class Slogo {
+class Slogo {
     private static final Dimension2D turtleDimension = new Dimension2D(600, 450);
 
     private final Controller controller = new TurtleController(turtleDimension.getWidth(), turtleDimension.getHeight());

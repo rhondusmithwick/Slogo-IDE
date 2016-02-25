@@ -20,7 +20,7 @@ public class CommandContainer {
     private final Map<String, Class<?>> classMap = createClassMap();
     private final Map<Class<?>, Class<?>[]> parametersMap = createParametersMap();
 
-    private Class<?>[] getParametersForClass(Class theClass) {
+    public static Class<?>[] getParametersForClass(Class theClass) {
         Constructor[] allConstructors = theClass.getDeclaredConstructors();
         return allConstructors[0].getParameterTypes();
     }
