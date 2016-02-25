@@ -1,7 +1,6 @@
 package view;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -28,8 +27,7 @@ public class CommandEntry implements CommandEntryInterface {
 	}
 
 	@Override
-	public SimpleStringProperty getCommands() {
-		String text = myEntryBox.getText();
+	public SimpleStringProperty getCommandsFromString(String text) {
 		SimpleStringProperty stringWrapper = new SimpleStringProperty();
 		stringWrapper.setValue(text);
 		return stringWrapper;
@@ -51,6 +49,19 @@ public class CommandEntry implements CommandEntryInterface {
 	
 	public Node getRootNode() {
 		return myScrollPane;
+	}
+
+	@Override
+	public void passInternalCommands(String command) {
+		getCommandsFromString(command);
+		
+	}
+
+	@Override
+	public void getBoxCommands() {
+		String text = myEntryBox.getText();
+		getCommandsFromString(text);
+		
 	}
 
 

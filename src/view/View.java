@@ -90,8 +90,7 @@ public class View implements ViewInt {
         executeButton.setMaxHeight(EXECUTE_BUTTON_HEIGHT);
         executeButton.setMaxWidth(EXECUTE_BUTTON_WIDTH);
         executeButton.setOnAction(e -> {
-            commandHistory.addCommand(commandEntry.getTextBox().getText());
-            commandEntry.clearCommands();
+            processExecute();
 
         });
         right.getChildren().add(executeButton);
@@ -105,6 +104,13 @@ public class View implements ViewInt {
         UI.setTop(tBar.getToolBarMembers());
         setToolBar();
     }
+
+
+	private void processExecute() {
+		commandHistory.addCommand(commandEntry.getTextBox().getText());
+		commandEntry.getBoxCommands();
+		commandEntry.clearCommands();
+	}
 
 
     private void setToolBar() {

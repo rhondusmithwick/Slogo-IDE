@@ -24,7 +24,7 @@ public interface CommandEntryInterface {
      *
      * @return String[] of entered commands to be executed
      */
-    SimpleStringProperty getCommands();
+    SimpleStringProperty getCommandsFromString(String s);
 
     /**
      * Clears the textbox of any currently entered but not yet run commands
@@ -35,5 +35,10 @@ public interface CommandEntryInterface {
      * create the graphical nod to allow user to enter commands
      */
     void createEntryBox();
+    
+    
+    void passInternalCommands(String command);
+    
+    void getBoxCommands();
     
 }
