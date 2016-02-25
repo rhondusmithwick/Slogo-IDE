@@ -13,7 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
@@ -25,13 +24,19 @@ public class ToolBar implements ToolBarInterface {
     private static final double TB_SPACING = 10.0;
     private static final int TB_HEIGHT = 75;
     private static final int TB_WIDTH = 1000;
-    private static final String DEFAULT_LOCATION = "resources/buttons/";
+    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
-    private String language;
-    private ArrayList<String> parseLangs, possColors;
+    private String language, bColor, pColor, pLanguage;
+    private TurtleAreaInterface tDisp;
+    private CommandEntryInterface cEnt;
+    private ErrorDisplayInterface eDisp;
+
+
+
+	private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
     public ToolBar() {
@@ -71,18 +76,18 @@ public class ToolBar implements ToolBarInterface {
 
 
     private void setPColor() {
-        String chosenColor = pColorBox.getSelectionModel().getSelectedItem();
-        System.out.println("New pen Color is " + chosenColor);
+        pColor = pColorBox.getSelectionModel().getSelectedItem();
+        
     }
 
     private void setBackground() {
-        String chosenColor = bColorBox.getSelectionModel().getSelectedItem();
-        System.out.println("New Background Color is " + chosenColor);
+        bColor = bColorBox.getSelectionModel().getSelectedItem();
+        tDisp.setBackground(bColor.toLowerCase());
     }
 
     private void setLang() {
-        String chosenLang = langBox.getSelectionModel().getSelectedItem();
-        System.out.println("Language is now " + chosenLang);
+        pLanguage = langBox.getSelectionModel().getSelectedItem();
+        System.out.println("Language is now " + pLanguage);
     }
 
     private ComboBox<String> createBox(String label, ArrayList<String> choices, EventHandler<ActionEvent> handler) {
@@ -155,12 +160,26 @@ public class ToolBar implements ToolBarInterface {
             String imagepath = file.toURI().toURL().toString();
             System.out.println(imagepath);
 
-        }
-        //make this observable for ErrorDisplay
+        }	
         catch (MalformedURLException e) {
-            System.out.print("hook this up to error display");
+            eDisp.showError(myResources.getString("picError"));
         }
     }
+    
+    public void setTDisp(TurtleAreaInterface tDisp){
+    	this.tDisp=tDisp;
+    }
+    
+    public void setCommEnt(CommandEntryInterface commEnt){
+    	this.cEnt=commEnt;
+    }
+    
+    public void setEDisp(ErrorDisplayInterface errorDisp){
+    	this.eDisp=errorDisp;
+    }
+
+
+
 
 
 }
