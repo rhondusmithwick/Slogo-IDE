@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
@@ -68,9 +69,7 @@ public class TurtleController implements Controller {
     }
 
     @Override
-    public SimpleStringProperty[] getProperties() {
-        return new SimpleStringProperty[]{
-                language, input, myTurtle.getTurtleProperties().imageProperty()
-        };
+    public List<SimpleStringProperty> getProperties() {
+        return Arrays.asList(language, input, myTurtle.getTurtleProperties().imageProperty());
     }
 }

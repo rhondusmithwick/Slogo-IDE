@@ -19,7 +19,7 @@ public class View implements ViewInt {
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
-    private final double COMMAND_HIST_X_POS = 800.0;
+    private final double COMMAND_HIST_X_POS =600.0;
 
 
     private BorderPane UI;
@@ -28,7 +28,9 @@ public class View implements ViewInt {
     private ToolBar tBar;
     private Button executeButton;
     private CommandHistoryDisplay commandHistory;
+    private CommandEntry commandEntry;
     private final Dimension2D turtleDispDimension;
+    private ErrorDisplay errorDisplay;
 
     public View(Dimension2D turtleDispDimension) {
         this.turtleDispDimension = turtleDispDimension;
@@ -46,10 +48,7 @@ public class View implements ViewInt {
         //turtle area here
         turtDisp = new TurtleDisplay(root);
         turtDisp.createTurtleArea(turtleDispDimension);
-        ScrollPane center = new ScrollPane();
-        center.setMaxHeight(450);
-        center.setMaxWidth(600);
-        center.setContent(turtDisp.getTurtleArea());
+        
 
         //Tool Bar here
         tBar = new ToolBar();
@@ -66,6 +65,9 @@ public class View implements ViewInt {
         Node commandHistoryBox = commandHistory.getHistoryGraphic();
         commandHistoryBox.setTranslateX(COMMAND_HIST_X_POS);
         bottom.getChildren().add(commandHistoryBox);
+        
+        errorDisplay = new ErrorDisplay();
+        
 
 
         //variables and methods here
@@ -76,13 +78,14 @@ public class View implements ViewInt {
         
     	//text entry and execute button here
         VBox right = initEntryBox();
-
+        
         //add components to scene
-        UI.setCenter(center);
+        UI.setCenter(turtDisp.getTurtlePane());
         UI.setRight(right);
         UI.setLeft(left);
         UI.setBottom(bottom);
         UI.setTop(tBar.getToolBarMembers());
+        setToolBar();
     }
 
     private VBox initEntryBox() {
@@ -90,7 +93,7 @@ public class View implements ViewInt {
         Label commandEntTitle = new Label("Enter Commands Here");
         right.getChildren().add(commandEntTitle);
 
-        CommandEntry commandEntry = new CommandEntry();
+        commandEntry = new CommandEntry();
         commandEntry.createEntryBox();
         Node entryBox = commandEntry.getTextBox();
         right.getChildren().add(entryBox);
@@ -98,15 +101,31 @@ public class View implements ViewInt {
         executeButton = new Button(EXECUTE_BUTTON_LABEL);
         executeButton.setPrefSize(EXECUTE_BUTTON_WIDTH, EXECUTE_BUTTON_HEIGHT);
         executeButton.setOnAction(e -> {
-            commandHistory.addCommand(commandEntry.getTextBox().getText());
-            commandEntry.clearCommands();
+            processExecute();
 
         });
         right.getChildren().add(executeButton);
         return right;
     }
 
-    public void passError(String Error) {
+
+
+	private void processExecute() {
+		commandHistory.addCommand(commandEntry.getTextBox().getText());
+		commandEntry.getBoxCommands();
+		commandEntry.clearCommands();
+	}
+
+
+    private void setToolBar() {
+		tBar.setCommEnt(commandEntry);
+		tBar.setTDisp(turtDisp);
+		tBar.setEDisp(errorDisplay);
+		
+	}
+
+
+	public void passError(String Error) {
         // TODO Auto-generated method stub
 
     }
