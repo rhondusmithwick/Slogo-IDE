@@ -2,8 +2,6 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 public class CommandHistoryDisplay implements CommHistory {
@@ -13,12 +11,14 @@ public class CommandHistoryDisplay implements CommHistory {
 
 	public CommandHistoryDisplay() {
 		commands = new ArrayList<String>();
+		
 	}
 
 	@Override
 	public void createCommHistory() {
 		myCommandHistory = new Label();
 		myCommandHistory.setBorder(null);
+		addCommand("Command History");
 		
 	}
 
