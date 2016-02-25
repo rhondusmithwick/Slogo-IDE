@@ -2,9 +2,11 @@ package view;
 
 
 import Controller.Controller;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,12 +28,11 @@ public class View implements ViewInt{
     private ToolBar tBar;
     private Button executeButton;
     private CommandHistoryDisplay commandHistory;
-    private Stage stage;
 
 
 
 
-    public View(Group group, Stage stage) {
+    public View(Group group) {
         //	public View(Controller controller){
         this.controller = controller;
         UI = new BorderPane();
@@ -55,7 +56,7 @@ public class View implements ViewInt{
         Node center = turtDisp.getTurtleArea();
 
         //Tool Bar here
-        tBar = new ToolBar(stage);
+        tBar = new ToolBar();
         tBar.createToolBarMembers();
 
         //errors and command history here
@@ -79,6 +80,9 @@ public class View implements ViewInt{
 
         //text entry and execute button here
         VBox right = new VBox();
+        Label commandEntTitle = new Label("Enter Commands Here");
+        right.getChildren().add(commandEntTitle);
+        
         CommandEntry commandEntry = new CommandEntry();
         commandEntry.createEntryBox();
         Node entryBox = commandEntry.getTextBox();

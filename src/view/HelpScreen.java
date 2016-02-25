@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class HelpScreen {
 
-    private static final String htmlHelp = "SLOGO_help.html";
+    private static final String HTML_HELP = "resources/html/SLOGO_help.html";
 
     public HelpScreen(){
 
@@ -23,7 +23,7 @@ public class HelpScreen {
         root = new Group();
         Stage stage = new Stage();
         stage.setTitle("SLOGO Help");
-        stage.setScene(new Scene(root, 1000, 600));
+        stage.setScene(new Scene(root, 800, 600));
         createHTMLViewer(root);
         stage.show();
     }
@@ -36,9 +36,7 @@ public class HelpScreen {
         ClassLoader classLoader = getClass().getClassLoader();
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
-        System.out.println(htmlHelp);
-        URL urlHello = classLoader.getResource("resources.html/SLOGO_help.html");
-        System.out.println(urlHello);
+        URL urlHello = classLoader.getResource(HTML_HELP);
         webEngine.load(urlHello.toExternalForm());
     
 
