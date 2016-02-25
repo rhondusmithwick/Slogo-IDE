@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
 /**
@@ -17,13 +18,18 @@ import java.util.ResourceBundle;
 public class TurtleController implements Controller {
 
     private static final String DEFAULT_TURTLE_IMAGE = "....";
-    private static final String DEFAULT_LANGUAGE = "English";
-
+    private static final String DEFAULT_LANGUAGE = "languages/English";
     private final Group group = new Group();
-    private final SimpleStringProperty language = new SimpleStringProperty();
+
+    private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
+
+    private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
+
     private final Turtle myTurtle = new Turtle(new Image(getClass()
             .getClassLoader()
             .getResourceAsStream(DEFAULT_TURTLE_IMAGE)));
+
+    private final ProgramParser parser = new ProgramParser("languages/Syntax");
 
     private final CommandContainer container;
 
@@ -43,7 +49,7 @@ public class TurtleController implements Controller {
 
     @Override
     public void takeInput(String input) {
-
+        List<Entry<String, String>> commandQueue = parser.parseText(input);
     }
 
     @Override
@@ -63,8 +69,18 @@ public class TurtleController implements Controller {
     }
 
     void addListeners() {
-        language.addListener((ov, oldVal, newVal) ->
-                myResources = ResourceBundle.getBundle(newVal + ".properties"));
+        language.addListener((ov, oldVal, newVal) -> {
+            myResources = ResourceBundle.getBundle(newVal);
+            parser.addPatterns(newVal);
+        });
+        input.addListener((ov, oldVal, newVal) ->
+                takeInput(newVal));
     }
 
+    @Override
+    public SimpleStringProperty[] getProperties() {
+        return new SimpleStringProperty[]{language, input,
+                myTurtle.getTurtleProperties().penColorProperty()
+        };
+    }
 }

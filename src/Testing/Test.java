@@ -1,9 +1,7 @@
 package Testing;
 
 import Controller.CommandContainer;
-import Controller.TurtleController;
 
-import javax.annotation.Resource;
 import java.util.ResourceBundle;
 
 /**

@@ -17,7 +17,7 @@ import java.util.Observable;
  *
  * @author Rhondu Smithwick
  */
-public class Turtle extends Observable {
+public class Turtle {
     private final Group root = new Group();
     private final ImageView imageView = new ImageView();
     private final Path path = new Path();
@@ -42,7 +42,7 @@ public class Turtle extends Observable {
     }
 
 
-    TurtleProperties getTurtleProperties() {
+    public TurtleProperties getTurtleProperties() {
         return turtleProperties;
     }
 

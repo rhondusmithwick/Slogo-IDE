@@ -18,7 +18,7 @@ import javafx.scene.control.ScrollPane;
 public class CommandHistoryDisplay implements CommHistory {
 
 	private final double SCROLLPANE_WIDTH = 200.0;
-	private final double SCROLLPANE_HEIGHT = 170.0;
+	private final double SCROLLPANE_HEIGHT = 195.0;
 
 	private ScrollPane myScrollPane;
 	private Label myCommandHistory;
@@ -26,6 +26,7 @@ public class CommandHistoryDisplay implements CommHistory {
 
 	public CommandHistoryDisplay() {
 		commands = new ArrayList<String>();
+		
 	}
 
 	@Override
@@ -35,6 +36,7 @@ public class CommandHistoryDisplay implements CommHistory {
 		myScrollPane.setMaxSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
 		myScrollPane.setMinSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
 		myScrollPane.setContent(myCommandHistory);
+		addCommand("Command History");
 	}
 
 	@Override
