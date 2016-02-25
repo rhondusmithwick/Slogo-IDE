@@ -77,7 +77,7 @@ public class View implements ViewInt {
         left.getChildren().add(r);
         
     	//text entry and execute button here
-        VBox right = initEntryBox();
+        VBox right = initRightPane();
         
         //add components to scene
         UI.setCenter(turtDisp.getTurtlePane());
@@ -88,7 +88,7 @@ public class View implements ViewInt {
         setToolBar();
     }
 
-    private VBox initEntryBox() {
+    private VBox initRightPane() {
         VBox right = new VBox();
         Label commandEntTitle = new Label("Enter Commands Here");
         right.getChildren().add(commandEntTitle);
@@ -100,10 +100,7 @@ public class View implements ViewInt {
 
         executeButton = new Button(EXECUTE_BUTTON_LABEL);
         executeButton.setPrefSize(EXECUTE_BUTTON_WIDTH, EXECUTE_BUTTON_HEIGHT);
-        executeButton.setOnAction(e -> {
-            processExecute();
-
-        });
+        executeButton.setOnAction(e -> processExecute());
         right.getChildren().add(executeButton);
         return right;
     }
