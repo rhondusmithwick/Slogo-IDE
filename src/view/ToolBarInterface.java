@@ -2,8 +2,6 @@ package view;
 
 import javafx.scene.Node;
 
-import java.util.List;
-
 /**
  * This is an internal interface intended to allow the views main class to create and access buttons and comboboxes that will be located on the tool bar. This class ensures that any
  * class to create a tool bar will have a method to create all the nodes needed for the tool bar as well as a method to access all the nodes of the tool bar. This holds any tool bar

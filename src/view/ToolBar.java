@@ -22,12 +22,11 @@ import javafx.stage.Stage;
 public class ToolBar implements ToolBarInterface {
 
     private static final double TB_SPACING = 10.0;
-    private static final int TB_HEIGHT = 75;
+    private static final int TB_HEIGHT = 50;
     private static final int TB_WIDTH = 1000;
     private static final String DEFAULT_LOCATION = "resources/buttons/";
     private static final String DISP = "disp";
     private HBox container;
-    private Stage stage;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
     private String language;

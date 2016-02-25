@@ -18,7 +18,7 @@ public class ViewTester extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Group root = new Group();
-        myScene = new Scene(root, 1000, 700);
+        myScene = new Scene(root, 600, 1000);
         View v = new View(root);
         primaryStage.setScene(myScene);
         primaryStage.show();
