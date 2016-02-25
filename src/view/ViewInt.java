@@ -1,5 +1,7 @@
 package view;
 
+import javafx.beans.property.StringProperty;
+import javafx.scene.Group;
 import javafx.scene.Node;
 
 /**
@@ -33,6 +35,8 @@ public interface ViewInt {
      *
      * @return main group for the scene
      */
-    Node getGroup();
+    Group getGroup();
+
+    StringProperty[] getProperties();
 
 }

@@ -125,15 +125,15 @@ public class View implements ViewInt{
 
     }
 
-    public Node getGroup(){
+    @Override
+    public Group getGroup(){
         return root;
     }
 
 
 
-
-
-	public static SimpleStringProperty[] getProperties() {
+    @Override
+	public SimpleStringProperty[] getProperties() {
 		// TODO Auto-generated method stub
 		return null;
 	}
