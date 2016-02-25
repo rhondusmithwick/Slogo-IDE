@@ -2,10 +2,7 @@
 //
 //import Controller.TurtleController;
 //
-//import java.util.Observable;
-//import java.util.Observer;
 //import Controller.Controller;
-//import javafx.beans.property.Property;
 //import javafx.beans.property.SimpleStringProperty;
 //import view.ViewInt;
 //import view.View;
@@ -28,14 +25,20 @@
 //       SimpleStringProperty[] controllerProperties = controller.getProperties();
 //       SimpleStringProperty[] viewProperties = view.getProperties();
 //       for (SimpleStringProperty controllerProperty: controllerProperties) {
-//           for (SimpleStringProperty viewProperty: viewProperties) {
-//               String cName = controllerProperty.getName();
-//               String vName = viewProperty.getName();
-//               if (cName.equals(vName)) {
-//                   controllerProperty.bindBidirectional(viewProperty);
-//                   break;
-//               }
-//           }
+//          findTwin(controllerProperty, viewProperties);
 //       }
 //   }
+//
+//    private boolean findTwin(SimpleStringProperty controllerProperty,
+//                          SimpleStringProperty[] viewProperties) {
+//        String cName = controllerProperty.getName();
+//        for (SimpleStringProperty viewProperty: viewProperties) {
+//            String vName = viewProperty.getName();
+//            if (cName.equals(vName)) {
+//                controllerProperty.bindBidirectional(viewProperty);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 //}

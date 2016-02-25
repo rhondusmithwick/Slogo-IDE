@@ -16,8 +16,11 @@ public class ProgramParser {
 
     private final String WHITESPACE = "\\p{Space}";
 
-    public ProgramParser() {
+    public ProgramParser(String... bundles) {
         mySymbols = new ArrayList<>();
+        for (String bundle: bundles) {
+            addPatterns(bundle);
+        }
     }
 
     // adds the given resource file to this language's recognized types

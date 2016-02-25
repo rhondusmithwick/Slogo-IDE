@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 public class TurtleController implements Controller {
 
     private static final String DEFAULT_TURTLE_IMAGE = "....";
-    private static final String DEFAULT_LANGUAGE = "English";
+    private static final String DEFAULT_LANGUAGE = "languages/English";
     private final Group group = new Group();
 
     private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
@@ -29,7 +29,7 @@ public class TurtleController implements Controller {
             .getClassLoader()
             .getResourceAsStream(DEFAULT_TURTLE_IMAGE)));
 
-    private final ProgramParser parser = new ProgramParser();
+    private final ProgramParser parser = new ProgramParser("languages/Syntax");
 
     private final CommandContainer container;
 
@@ -45,7 +45,6 @@ public class TurtleController implements Controller {
     public TurtleController(String language) {
         this();
         setLanguage(language);
-        parser.addPatterns("Syntax");
     }
 
     @Override

@@ -22,13 +22,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        final String WHITESPACE = "\\p{Space}";
-        ProgramParser lang = new ProgramParser();
-        // these are more specific, so add them first to ensure they are checked first
-        lang.addPatterns("resources/languages/English");
-        lang.addPatterns("resources/languages/Syntax");
+        ProgramParser lang = new ProgramParser("languages/English", "languages/Syntax");
         String userInput = "fd 50 rt 90 BACK :distance Left :angle";
-        List<Entry<String, String>> commandQueue = parseText(lang, userInput.split(WHITESPACE));
+        List<Entry<String, String>> commandQueue = lang.parseText(userInput);
         System.out.println(commandQueue);
     }
 }
