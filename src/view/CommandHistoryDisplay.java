@@ -45,6 +45,7 @@ public class CommandHistoryDisplay implements CommHistory {
 		myScrollPane.setContent(myCommHistory);
 		title = addCommand(myResources.getString("commBTitle"));
 		title.setAlignment(Pos.TOP_CENTER);
+		title.setOnMouseClicked(null);
 	}
 
 

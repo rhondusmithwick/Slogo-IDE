@@ -163,7 +163,6 @@ public class ToolBar implements ToolBarInterface {
         //make this observable for backend
         try {
             String imagepath = file.toURI().toURL().toString();
-            System.out.println(imagepath);
 
         }	
         catch (MalformedURLException e) {
