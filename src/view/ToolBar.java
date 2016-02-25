@@ -116,7 +116,6 @@ public class ToolBar implements ToolBarInterface {
     private void getLanguages(){
         parseLangs = new ArrayList<String>();
         File directory = new File("resources/languages");
-        //get all the files from a directory
         File[] fList = directory.listFiles();
         String name = null;
         for (File file : fList){

@@ -1,24 +1,28 @@
 package view;
 
-import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
+
 
 
 
 public class TurtleDisplay implements TurtleAreaInterface {
 
-    private Group dispArea;
+    private AnchorPane dispArea;
 
 
     @Override
     public void createTurtleArea() {
-        dispArea = new Group();
+        dispArea = new AnchorPane();
         setBackground("red");
+        dispArea.setMaxHeight(450);
+        dispArea.setMaxWidth(600);
         
         Path path = new Path();
 
@@ -30,8 +34,7 @@ public class TurtleDisplay implements TurtleAreaInterface {
 
     @Override
     public void setBackground(String color) {
-        Rectangle bg = new Rectangle(600,450, Color.web(color));
-        dispArea.getChildren().add(bg);
+        dispArea.setBackground(new Background(new BackgroundFill(Color.web(color), null, null)));
 
     }
 

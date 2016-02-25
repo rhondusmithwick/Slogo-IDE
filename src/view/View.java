@@ -54,9 +54,6 @@ public class View implements ViewInt{
         //turtle area here
         turtDisp = new TurtleDisplay();
         turtDisp.createTurtleArea();
-        //ScrollPane center = new ScrollPane();
-        //center.setContent(turtDisp.getTurtleArea());
-        //center.setMaxSize(600, 450);
         Node center = turtDisp.getTurtleArea();
 
         //Tool Bar here
