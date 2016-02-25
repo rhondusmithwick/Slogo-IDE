@@ -25,16 +25,14 @@ public class CommandHistoryDisplay implements CommHistory {
 	private List<String> commands;
 
 	public CommandHistoryDisplay() {
-		commands = new ArrayList<String>();
-		
+		commands = new ArrayList<String>();	
 	}
 
 	@Override
 	public void createCommHistory() {
 		myCommandHistory = new Label();
 		myScrollPane = new ScrollPane();
-		myScrollPane.setMaxSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
-		myScrollPane.setMinSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
+		myScrollPane.setPrefSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
 		myScrollPane.setContent(myCommandHistory);
 		addCommand("Command History");
 	}
