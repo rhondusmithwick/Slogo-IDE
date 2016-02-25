@@ -75,8 +75,20 @@ public class View implements ViewInt {
         Rectangle r = new Rectangle(100, 400);
         r.setFill(Color.BLUE);
         left.getChildren().add(r);
+        
+    	//text entry and execute button here
+        VBox right = initRightPane();
+        
+        //add components to scene
+        UI.setCenter(turtDisp.getTurtlePane());
+        UI.setRight(right);
+        UI.setLeft(left);
+        UI.setBottom(bottom);
+        UI.setTop(tBar.getToolBarMembers());
+        setToolBar();
+    }
 
-        //text entry and execute button here
+    private VBox initRightPane() {
         VBox right = new VBox();
         Label commandEntTitle = new Label("Enter Commands Here");
         right.getChildren().add(commandEntTitle);
@@ -87,23 +99,12 @@ public class View implements ViewInt {
         right.getChildren().add(entryBox);
 
         executeButton = new Button(EXECUTE_BUTTON_LABEL);
-        executeButton.setMaxHeight(EXECUTE_BUTTON_HEIGHT);
-        executeButton.setMaxWidth(EXECUTE_BUTTON_WIDTH);
-        executeButton.setOnAction(e -> {
-            processExecute();
-
-        });
+        executeButton.setPrefSize(EXECUTE_BUTTON_WIDTH, EXECUTE_BUTTON_HEIGHT);
+        executeButton.setOnAction(e -> processExecute());
         right.getChildren().add(executeButton);
-
-
-        //add components to scene
-        UI.setCenter(turtDisp.getTurtlePane());
-        UI.setRight(right);
-        UI.setLeft(left);
-        UI.setBottom(bottom);
-        UI.setTop(tBar.getToolBarMembers());
-        setToolBar();
+        return right;
     }
+
 
 
 	private void processExecute() {
