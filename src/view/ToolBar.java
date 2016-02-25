@@ -27,7 +27,6 @@ public class ToolBar implements ToolBarInterface {
     private static final String DEFAULT_LOCATION = "resources/buttons/";
     private static final String DISP = "disp";
     private HBox container;
-    private Stage stage;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
     private String language;

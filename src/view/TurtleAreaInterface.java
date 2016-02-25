@@ -8,10 +8,11 @@ import javafx.scene.Node;
 
 public interface TurtleAreaInterface {
 
+	
     /**
      * creates the turtles display area.
      */
-    void createTurtleArea();
+    void createTurtleArea(int height, int width);
 
     /**
      * Sets the background color of the turtles display area

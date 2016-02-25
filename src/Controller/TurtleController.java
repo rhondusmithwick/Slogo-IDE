@@ -17,17 +17,15 @@ import java.util.ResourceBundle;
  */
 public class TurtleController implements Controller {
 
-    private static final String DEFAULT_TURTLE_IMAGE = "....";
     private static final String DEFAULT_LANGUAGE = "languages/English";
+
     private final Group group = new Group();
 
     private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
 
     private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
 
-    private final Turtle myTurtle = new Turtle(new Image(getClass()
-            .getClassLoader()
-            .getResourceAsStream(DEFAULT_TURTLE_IMAGE)));
+    private final Turtle myTurtle = new Turtle();
 
     private final ProgramParser parser = new ProgramParser("languages/Syntax");
 
@@ -38,7 +36,7 @@ public class TurtleController implements Controller {
     public TurtleController() {
         addListeners();
         language.set(DEFAULT_LANGUAGE);
-        container = new CommandContainer(myResources);
+        container = new CommandContainer();
         group.getChildren().add(myTurtle.getGroup());
     }
 
@@ -70,17 +68,15 @@ public class TurtleController implements Controller {
 
     void addListeners() {
         language.addListener((ov, oldVal, newVal) -> {
-            myResources = ResourceBundle.getBundle(newVal);
             parser.addPatterns(newVal);
         });
-        input.addListener((ov, oldVal, newVal) ->
-                takeInput(newVal));
+        input.addListener((ov, oldVal, newVal) -> takeInput(newVal));
     }
 
     @Override
     public SimpleStringProperty[] getProperties() {
-        return new SimpleStringProperty[]{language, input,
-                myTurtle.getTurtleProperties().penColorProperty()
+        return new SimpleStringProperty[] {
+                language, input, myTurtle.getTurtleProperties().imageProperty()
         };
     }
 }
