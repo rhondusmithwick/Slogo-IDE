@@ -2,7 +2,6 @@ package view;
 
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -17,9 +16,8 @@ public class ViewTester extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Group root = new Group();
-        myScene = new Scene(root, 1000, 700);
-        View v = new View(600,450);
+        ViewInt v = new View(600, 450);
+        myScene = new Scene(v.getGroup(), 1000, 700);
         primaryStage.setScene(myScene);
         primaryStage.show();
 

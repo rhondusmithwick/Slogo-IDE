@@ -51,7 +51,7 @@ public final class TurtleProperties {
         penColor.addListener((ov, oldVal, newVal) ->
                 path.setFill(Color.valueOf(newVal)));
         image.addListener((ov, oldVal, newVal) ->
-            imageView.setImage(createImage(newVal)));
+                imageView.setImage(createImage(newVal)));
         heading.addListener((ov, oldVal, newVal) ->
                 imageView.setRotate(newVal.doubleValue()));
     }

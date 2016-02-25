@@ -4,7 +4,6 @@ import Model.Command;
 import Model.Turtle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -69,7 +68,7 @@ public class TurtleController implements Controller {
 
     @Override
     public SimpleStringProperty[] getProperties() {
-        return new SimpleStringProperty[] {
+        return new SimpleStringProperty[]{
                 language, input, myTurtle.getTurtleProperties().imageProperty()
         };
     }

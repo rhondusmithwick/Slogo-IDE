@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class View implements ViewInt{
+public class View implements ViewInt {
 
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
@@ -29,21 +29,15 @@ public class View implements ViewInt{
     private double width, height;
 
 
-
-
-
     public View(double width, double height) {
-    	this.height=height;
-    	this.width=width;
+        this.height = height;
+        this.width = width;
         UI = new BorderPane();
         root = new Group();
         createScene();
         root.getChildren().add(UI);
 
     }
-
-
-
 
 
     private void createScene() {
@@ -73,7 +67,6 @@ public class View implements ViewInt{
         bottom.getChildren().add(commandHistoryBox);
 
 
-
         //variables and methods here
         VBox left = new VBox();
         Rectangle r = new Rectangle(100, 400);
@@ -84,7 +77,7 @@ public class View implements ViewInt{
         VBox right = new VBox();
         Label commandEntTitle = new Label("Enter Commands Here");
         right.getChildren().add(commandEntTitle);
-        
+
         CommandEntry commandEntry = new CommandEntry();
         commandEntry.createEntryBox();
         Node entryBox = commandEntry.getTextBox();
@@ -100,8 +93,6 @@ public class View implements ViewInt{
         });
         right.getChildren().add(executeButton);
 
-       
-
 
         //add components to scene
         UI.setCenter(center);
@@ -110,9 +101,6 @@ public class View implements ViewInt{
         UI.setBottom(bottom);
         UI.setTop(tBar.getToolBarMembers());
     }
-
-
-
 
 
     public void passError(String Error) {
@@ -126,16 +114,20 @@ public class View implements ViewInt{
     }
 
     @Override
-    public Group getGroup(){
+    public Group getGroup() {
         return root;
     }
 
 
+    @Override
+    public Group getInnerGroup() {
+        return turtDisp.getTurtleArea();
+    }
 
     @Override
-	public SimpleStringProperty[] getProperties() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public SimpleStringProperty[] getProperties() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
