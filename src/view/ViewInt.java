@@ -1,5 +1,7 @@
 package view;
 
+import javafx.scene.Node;
+
 /**
  * This is the external Interface for the View. It is the external API for displaying the results of SLOGO commands, as well as taking in the input SLOGO commands, and displaying
  * any errors that may be caught by the Model or Controller.
@@ -26,5 +28,11 @@ public interface ViewInt {
      */
     void passInput(String command);
 
+    /**
+     * This method returns the Node that will be used to display the turtle and its path.
+     *
+     * @return
+     */
+    Node getTurtleDisplay();
 
 }

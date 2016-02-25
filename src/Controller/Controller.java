@@ -1,4 +1,8 @@
-package Model;
+package Controller;
+
+import Model.Command;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.Group;
 
 import java.util.List;
 
@@ -13,8 +17,14 @@ public interface Controller {
      **/
     void takeInput(String input);
 
+    SimpleStringProperty[] getProperties();
+
     /**
      * Get a list of all commands.
      **/
     List<Command> getCommands();
+
+    Group getGroup();
+
+    void setLanguage(String language);
 }
