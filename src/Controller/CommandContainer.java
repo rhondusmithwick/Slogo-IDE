@@ -19,36 +19,18 @@ import java.util.ResourceBundle;
 public class CommandContainer {
 
     private final Map<Class<?>, Class<?>[]> parametersMap = new HashMap<>();
-    private final Map<String, Class<?>> inputMap = new HashMap<>();
 
     private final ObservableList<String> commandStringList = FXCollections.observableArrayList();
-    private final SimpleObjectProperty<ResourceBundle> resourceBundle = new SimpleObjectProperty<>();
     private final ResourceBundle commandLocations = ResourceBundle.getBundle("Model/commandLocations");
 
-    public CommandContainer(ResourceBundle resourceBundle) {
+    public CommandContainer() {
         addListeners();
-        setResourceBundle(resourceBundle);
-        addToCommandStringList("Forward", "Backward", "SetImage", "SetPenColor");
+        addToCommandStringList("Forward", "Backward", "PenDown", "PenUp", "SetPenColor");
     }
 
     private void addListeners() {
-        resourceBundle.addListener((ov, oldVal, newVal) ->
-                modifyInputMap());
         commandStringList.addListener((ListChangeListener<String>) c ->
                 modifyParametersMap());
-    }
-
-    private void modifyInputMap() {
-//        inputMap.clear();
-//        for (String key : resourceBundle.get().keySet()) {
-        for (String key : commandStringList) {
-            String val = resourceBundle.get().getString(key);
-            String[] valArray = val.split("|");
-            Class<?> commandClass = getClassForName(key);
-            for (String commandInput : valArray) {
-                inputMap.put(commandInput, commandClass);
-            }
-        }
     }
 
     private void modifyParametersMap() {
@@ -77,8 +59,8 @@ public class CommandContainer {
         commandStringList.addAll(commands);
     }
 
-    void setResourceBundle(ResourceBundle resourceBundle) {
-        this.resourceBundle.set(resourceBundle);
+    Map<Class<?>, Class<?>[]> getParametersMap() {
+        return parametersMap;
     }
 
 }

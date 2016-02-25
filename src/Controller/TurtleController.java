@@ -19,6 +19,7 @@ public class TurtleController implements Controller {
 
     private static final String DEFAULT_TURTLE_IMAGE = "....";
     private static final String DEFAULT_LANGUAGE = "languages/English";
+
     private final Group group = new Group();
 
     private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
@@ -38,7 +39,7 @@ public class TurtleController implements Controller {
     public TurtleController() {
         addListeners();
         language.set(DEFAULT_LANGUAGE);
-        container = new CommandContainer(myResources);
+        container = new CommandContainer();
         group.getChildren().add(myTurtle.getGroup());
     }
 
