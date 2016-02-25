@@ -3,8 +3,8 @@ package Controller;
 import Model.Command;
 import Model.Turtle;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -17,35 +17,27 @@ import java.util.ResourceBundle;
  */
 public class TurtleController implements Controller {
 
-    private static final String DEFAULT_TURTLE_IMAGE = "....";
-    private static final String DEFAULT_LANGUAGE = "English";
+    private static final String DEFAULT_LANGUAGE = "languages/English";
+
     private final Group group = new Group();
 
     private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
 
     private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
 
-    private final Turtle myTurtle = new Turtle(new Image(getClass()
-            .getClassLoader()
-            .getResourceAsStream(DEFAULT_TURTLE_IMAGE)));
+    private final Turtle myTurtle;
 
-    private final ProgramParser parser = new ProgramParser();
+    private final ProgramParser parser = new ProgramParser("languages/Syntax");
 
-    private final CommandContainer container;
+    private final CommandContainer container = new CommandContainer();
 
     private ResourceBundle myResources;
 
-    public TurtleController() {
+    public TurtleController(Dimension2D turtleDispDimension) {
+        myTurtle = new Turtle(turtleDispDimension);
         addListeners();
         language.set(DEFAULT_LANGUAGE);
-        container = new CommandContainer(myResources);
         group.getChildren().add(myTurtle.getGroup());
-    }
-
-    public TurtleController(String language) {
-        this();
-        setLanguage(language);
-        parser.addPatterns("Syntax");
     }
 
     @Override
@@ -63,7 +55,6 @@ public class TurtleController implements Controller {
         return group;
     }
 
-
     @Override
     public void setLanguage(String language) {
         this.language.set(language);
@@ -71,17 +62,15 @@ public class TurtleController implements Controller {
 
     void addListeners() {
         language.addListener((ov, oldVal, newVal) -> {
-            myResources = ResourceBundle.getBundle(newVal);
             parser.addPatterns(newVal);
         });
-        input.addListener((ov, oldVal, newVal) ->
-                takeInput(newVal));
+        input.addListener((ov, oldVal, newVal) -> takeInput(newVal));
     }
 
     @Override
     public SimpleStringProperty[] getProperties() {
-        return new SimpleStringProperty[]{language, input,
-                myTurtle.getTurtleProperties().penColorProperty()
+        return new SimpleStringProperty[]{
+                language, input, myTurtle.getTurtleProperties().imageProperty()
         };
     }
 }

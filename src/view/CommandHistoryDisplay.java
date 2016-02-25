@@ -1,41 +1,68 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
+
+/**
+ * This class implements the CommHistory interface and allows any previously executed commands 
+ * to be displayed on the GUI
+ * 
+ * @author Stephen
+ *
+ */
+
 public class CommandHistoryDisplay implements CommHistory {
-	
-	Label myCommandHistory;
-	List<String> commands;
+
+	private final double SCROLLPANE_WIDTH = 200.0;
+	private final double SCROLLPANE_HEIGHT = 195.0;
+
+	private ScrollPane myScrollPane;
+	private List<Label> commandLabels;
+	private List<String> commands;
+	private VBox myCommHistory;
 
 	public CommandHistoryDisplay() {
-		commands = new ArrayList<String>();
-		
+		commands = new ArrayList<String>();	
+		commandLabels = new ArrayList<Label>();
 	}
 
 	@Override
 	public void createCommHistory() {
-		myCommandHistory = new Label();
-		myCommandHistory.setBorder(null);
+		myCommHistory = new VBox();
+		myCommHistory.setPrefWidth(SCROLLPANE_WIDTH-10);
+		myScrollPane = new ScrollPane();
+		myScrollPane.setPrefSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
+		myScrollPane.setContent(myCommHistory);
 		addCommand("Command History");
-		
 	}
 
 	@Override
 	public void addCommand(String command) {
 		if (command.isEmpty()) return;
 		commands.add(command);
-		StringBuilder sb = new StringBuilder();
-		for (String s : commands) {
-			sb.append(s + "\n");
-		}
-		myCommandHistory.setText(sb.toString());
+		Label l = new Label(command+"\n");
+		l.setPrefWidth(SCROLLPANE_WIDTH);
+		l.setStyle("-fx-border-color: black;");
+		l.setWrapText(true);
+		l.setOnMouseClicked(e-> labelClicked(l));
+		commandLabels.add(l);
+		myCommHistory.getChildren().add(l);
+	}
+
+	private void labelClicked(Label l) {
+		System.out.print(l.getText());
 	}
 
 	@Override
-	public Label getHistoryGraphic() {
-		return myCommandHistory;
+	public Node getHistoryGraphic() {
+		return myScrollPane;
 	}
 
 	@Override

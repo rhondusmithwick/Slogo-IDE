@@ -2,7 +2,7 @@ package view;
 
 
 import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -17,9 +17,8 @@ public class ViewTester extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Group root = new Group();
-        myScene = new Scene(root, 1000, 700);
-        View v = new View(root);
+        ViewInt v = new View(new Dimension2D(600, 450));
+        myScene = new Scene(v.getGroup(), 1000, 700);
         primaryStage.setScene(myScene);
         primaryStage.show();
 

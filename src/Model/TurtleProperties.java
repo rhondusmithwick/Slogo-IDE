@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,11 +19,17 @@ import javafx.scene.shape.Path;
  */
 public final class TurtleProperties {
 
-    private final SimpleObjectProperty<Image> image = new SimpleObjectProperty<>(this, "image");
+    private static final String DEFAULT_TURTLE_IMAGE = "images/blackarrow.png";
+
+    private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
+
+    private final SimpleObjectProperty<Dimension2D> imageDimensions = new SimpleObjectProperty<>(this, "imageDimensions");
 
     private final SimpleBooleanProperty visible = new SimpleBooleanProperty(this, "visible");
 
     private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
+
+    private final SimpleObjectProperty<Point2D> home = new SimpleObjectProperty<>(this, "home");
 
     private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
 
@@ -30,10 +37,13 @@ public final class TurtleProperties {
 
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
 
-    final void init(Image image) {
-        setImage(image);
+
+    final void init(Dimension2D turtleDispDimension) {
+        setImage(DEFAULT_TURTLE_IMAGE);
         setVisible(true);
-        setLocation(new Point2D(0, 0));
+        home.set(new Point2D(turtleDispDimension.getWidth() / 2 - imageDimensions.get().getWidth() / 2,
+                turtleDispDimension.getHeight() / 2 - imageDimensions.get().getHeight() / 2));
+        setLocation(getHome());
         setHeading(0);
         setPenDown(true);
         setPenColor("black");
@@ -48,13 +58,20 @@ public final class TurtleProperties {
                 path.setVisible(newVal));
         penColor.addListener((ov, oldVal, newVal) ->
                 path.setFill(Color.valueOf(newVal)));
-        image.addListener((ov, oldVal, newVal) ->
-                imageView.setImage(newVal));
+        image.addListener((ov, oldVal, newVal) -> {
+            Image theImage = createImage(newVal);
+            imageView.setImage(theImage);
+            imageDimensions.set(new Dimension2D(theImage.getWidth(), theImage.getHeight()));
+        });
         heading.addListener((ov, oldVal, newVal) ->
                 imageView.setRotate(newVal.doubleValue()));
     }
 
-    public final void setImage(Image image) {
+    public final SimpleStringProperty imageProperty() {
+        return image;
+    }
+
+    public final void setImage(String image) {
         this.image.set(image);
     }
 
@@ -64,6 +81,10 @@ public final class TurtleProperties {
 
     public final Point2D getLocation() {
         return location.get();
+    }
+
+    public final Point2D getHome() {
+        return home.get();
     }
 
     public void setLocation(Point2D location) {
@@ -86,7 +107,8 @@ public final class TurtleProperties {
         this.penColor.set(penColor);
     }
 
-    public SimpleStringProperty penColorProperty() {
-        return penColor;
+    private Image createImage(String filePath) {
+        return new Image(getClass().getClassLoader().getResourceAsStream(filePath));
     }
+
 }

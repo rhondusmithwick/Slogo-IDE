@@ -1,8 +1,8 @@
 package view;
 
 
-import Controller.Controller;
-import javafx.geometry.Pos;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,48 +13,43 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
-public class View implements ViewInt{
+public class View implements ViewInt {
 
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
+    private final double COMMAND_HIST_X_POS = 800.0;
 
 
     private BorderPane UI;
-    private Controller controller;
     private Group root;
     private TurtleDisplay turtDisp;
     private ToolBar tBar;
     private Button executeButton;
     private CommandHistoryDisplay commandHistory;
+    private final Dimension2D turtleDispDimension;
 
-
-
-
-    public View(Group group) {
-        //	public View(Controller controller){
-        this.controller = controller;
+    public View(Dimension2D turtleDispDimension) {
+        this.turtleDispDimension = turtleDispDimension;
         UI = new BorderPane();
-        //		root = controller.getGroup();
-        root = group;
+        root = new Group();
         createScene();
         root.getChildren().add(UI);
 
     }
 
 
-
-
-
     private void createScene() {
 
 
         //turtle area here
-        turtDisp = new TurtleDisplay();
-        turtDisp.createTurtleArea();
-        Node center = turtDisp.getTurtleArea();
+        turtDisp = new TurtleDisplay(root);
+        turtDisp.createTurtleArea(turtleDispDimension);
+        ScrollPane center = new ScrollPane();
+        center.setMaxHeight(450);
+        center.setMaxWidth(600);
+        center.setContent(turtDisp.getTurtleArea());
 
         //Tool Bar here
         tBar = new ToolBar();
@@ -69,8 +64,8 @@ public class View implements ViewInt{
         commandHistory = new CommandHistoryDisplay();
         commandHistory.createCommHistory();
         Node commandHistoryBox = commandHistory.getHistoryGraphic();
+        commandHistoryBox.setTranslateX(COMMAND_HIST_X_POS);
         bottom.getChildren().add(commandHistoryBox);
-
 
 
         //variables and methods here
@@ -83,7 +78,7 @@ public class View implements ViewInt{
         VBox right = new VBox();
         Label commandEntTitle = new Label("Enter Commands Here");
         right.getChildren().add(commandEntTitle);
-        
+
         CommandEntry commandEntry = new CommandEntry();
         commandEntry.createEntryBox();
         Node entryBox = commandEntry.getTextBox();
@@ -99,8 +94,6 @@ public class View implements ViewInt{
         });
         right.getChildren().add(executeButton);
 
-       
-
 
         //add components to scene
         UI.setCenter(center);
@@ -111,9 +104,6 @@ public class View implements ViewInt{
     }
 
 
-
-
-
     public void passError(String Error) {
         // TODO Auto-generated method stub
 
@@ -121,12 +111,24 @@ public class View implements ViewInt{
 
 
     public void passInput(String command) {
-        controller.takeInput(command);
 
     }
 
-    public Node getTurtleDisplay(){
+    @Override
+    public Group getGroup() {
+        return root;
+    }
+
+
+    @Override
+    public Group getInnerGroup() {
         return turtDisp.getTurtleArea();
+    }
+
+    @Override
+    public SimpleStringProperty[] getProperties() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
