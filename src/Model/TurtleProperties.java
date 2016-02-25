@@ -18,7 +18,7 @@ import javafx.scene.shape.Path;
  */
 public final class TurtleProperties {
 
-    private static final String DEFAULT_TURTLE_IMAGE = "....";
+    private static final String DEFAULT_TURTLE_IMAGE = "images/turtle_default.jpg";
 
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
 
