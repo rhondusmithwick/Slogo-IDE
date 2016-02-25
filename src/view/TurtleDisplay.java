@@ -11,6 +11,10 @@ import javafx.scene.shape.Rectangle;
 public class TurtleDisplay implements TurtleAreaInterface {
 	private Rectangle background;
     private Group dispArea;
+    
+    public TurtleDisplay(Group root){
+    	dispArea = root;
+    }
 
 
     @Override

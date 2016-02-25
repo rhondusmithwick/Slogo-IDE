@@ -1,6 +1,7 @@
 package view;
 
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -30,11 +31,12 @@ public class View implements ViewInt{
 
 
 
-    public View(Group group, int height, int width) {
+
+    public View(int height, int width) {
     	this.height=height;
     	this.width=width;
         UI = new BorderPane();
-        root = group;
+        root = new Group();
         createScene();
         root.getChildren().add(UI);
 
@@ -48,7 +50,7 @@ public class View implements ViewInt{
 
 
         //turtle area here
-        turtDisp = new TurtleDisplay();
+        turtDisp = new TurtleDisplay(root);
         turtDisp.createTurtleArea(height, width);
         ScrollPane center = new ScrollPane();
         center.setMaxHeight(450);
@@ -123,8 +125,17 @@ public class View implements ViewInt{
 
     }
 
-    public Node getTurtleDisplay(){
-        return turtDisp.getTurtleArea();
+    public Node getGroup(){
+        return root;
     }
+
+
+
+
+
+	public static SimpleStringProperty[] getProperties() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

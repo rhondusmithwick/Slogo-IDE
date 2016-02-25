@@ -23,7 +23,7 @@ public class Slogo  {
 
    private void bindProperties() {
        SimpleStringProperty[] controllerProperties = controller.getProperties();
-       SimpleStringProperty[] viewProperties = view.getProperties();
+       SimpleStringProperty[] viewProperties = View.getProperties();
        for (SimpleStringProperty controllerProperty: controllerProperties) {
           findTwin(controllerProperty, viewProperties);
        }

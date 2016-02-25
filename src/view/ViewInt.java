@@ -29,10 +29,10 @@ public interface ViewInt {
     void passInput(String command);
 
     /**
-     * This method returns the Node that will be used to display the turtle and its path.
+     * This method returns the main group of nodes for the project.
      *
-     * @return
+     * @return main group for the scene
      */
-    Node getTurtleDisplay();
+    Node getGroup();
 
 }
