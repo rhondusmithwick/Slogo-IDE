@@ -1,7 +1,8 @@
 package view;
 
+import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
@@ -14,21 +15,23 @@ import javafx.scene.shape.Path;
 
 public class TurtleDisplay implements TurtleAreaInterface {
 
-    private AnchorPane dispArea;
+    private ScrollPane dispArea;
 
 
     @Override
     public void createTurtleArea() {
-        dispArea = new AnchorPane();
+        dispArea = new ScrollPane();
         setBackground("red");
         dispArea.setMaxHeight(450);
         dispArea.setMaxWidth(600);
+        Group root = new Group();
         
         Path path = new Path();
 
         path.getElements().add(new MoveTo(0.0, 0.0f));
         path.getElements().add(new LineTo(100.0f, 100.0f));
-        dispArea.getChildren().add(path);
+        root.getChildren().add(path);
+        dispArea.setContent(root);
 
     }
 
