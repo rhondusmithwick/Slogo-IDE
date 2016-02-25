@@ -19,7 +19,7 @@ public class View implements ViewInt {
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
-    private final double COMMAND_HIST_X_POS = 800.0;
+    private final double COMMAND_HIST_X_POS =600.0;
 
 
     private BorderPane UI;
@@ -48,10 +48,7 @@ public class View implements ViewInt {
         //turtle area here
         turtDisp = new TurtleDisplay(root);
         turtDisp.createTurtleArea(turtleDispDimension);
-        ScrollPane center = new ScrollPane();
-        center.setMaxHeight(450);
-        center.setMaxWidth(600);
-        center.setContent(turtDisp.getTurtleArea());
+        
 
         //Tool Bar here
         tBar = new ToolBar();
@@ -70,6 +67,7 @@ public class View implements ViewInt {
         bottom.getChildren().add(commandHistoryBox);
         
         errorDisplay = new ErrorDisplay();
+        
 
 
         //variables and methods here
@@ -100,7 +98,7 @@ public class View implements ViewInt {
 
 
         //add components to scene
-        UI.setCenter(center);
+        UI.setCenter(turtDisp.getTurtlePane());
         UI.setRight(right);
         UI.setLeft(left);
         UI.setBottom(bottom);

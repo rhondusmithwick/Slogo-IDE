@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 
 public class CommandHistoryDisplay implements CommHistory {
 
-	private final double SCROLLPANE_WIDTH = 200.0;
+	private final double SCROLLPANE_WIDTH = 400.00;
 	private final double SCROLLPANE_HEIGHT = 195.0;
 
 	private ScrollPane myScrollPane;

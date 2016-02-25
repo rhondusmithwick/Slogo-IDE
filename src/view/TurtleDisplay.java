@@ -2,6 +2,8 @@ package view;
 
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -9,9 +11,14 @@ import javafx.scene.shape.Rectangle;
 public class TurtleDisplay implements TurtleAreaInterface {
 	private Rectangle background;
 	private Group dispArea;
+	private ScrollPane scroll;
 
 	public TurtleDisplay(Group root) {
 		dispArea = root;
+		scroll = new ScrollPane();
+        scroll.setMaxHeight(450);
+        scroll.setMaxWidth(600);
+        
 	}
 
 
@@ -21,6 +28,7 @@ public class TurtleDisplay implements TurtleAreaInterface {
 		dispArea = new Group();
 		setBackground("white");
 		dispArea.getChildren().add(background);
+		scroll.setContent(dispArea);
 
 	}
 
@@ -29,6 +37,12 @@ public class TurtleDisplay implements TurtleAreaInterface {
 		background.setFill(Color.web(color));
 
 	}
+
+	@Override
+	public Node getTurtlePane() {
+		return scroll;
+	}
+
 
 	@Override
 	public Group getTurtleArea() {

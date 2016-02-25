@@ -1,5 +1,7 @@
 package view;
 
+import javafx.scene.Node;
+
 /**
  * This is an Internal API for the view. Its purpose is to provide a framework for any class looking to implement the feature to display
  * errors.
@@ -19,10 +21,9 @@ public interface ErrorDisplayInterface {
      * @param s Error message to be displayed
      */
     void showError(String s);
+    
+    Node getErrorDisplay();
 
-    /**
-     * Clears the error display box if any error message is currently displayed
-     */
-    void clearError();
+	void clearError();
 
 }

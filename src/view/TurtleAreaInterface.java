@@ -6,6 +6,7 @@ package view;
 
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 
 public interface TurtleAreaInterface {
 
@@ -30,5 +31,7 @@ public interface TurtleAreaInterface {
      * @return Node underlying turtle area
      */
     Group getTurtleArea();
+
+	Node getTurtlePane();
 
 }
