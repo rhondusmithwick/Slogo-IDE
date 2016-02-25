@@ -28,7 +28,9 @@ public class View implements ViewInt {
     private ToolBar tBar;
     private Button executeButton;
     private CommandHistoryDisplay commandHistory;
+    private CommandEntry commandEntry;
     private final Dimension2D turtleDispDimension;
+    private ErrorDisplay errorDisplay;
 
     public View(Dimension2D turtleDispDimension) {
         this.turtleDispDimension = turtleDispDimension;
@@ -66,6 +68,8 @@ public class View implements ViewInt {
         Node commandHistoryBox = commandHistory.getHistoryGraphic();
         commandHistoryBox.setTranslateX(COMMAND_HIST_X_POS);
         bottom.getChildren().add(commandHistoryBox);
+        
+        errorDisplay = new ErrorDisplay();
 
 
         //variables and methods here
@@ -79,7 +83,7 @@ public class View implements ViewInt {
         Label commandEntTitle = new Label("Enter Commands Here");
         right.getChildren().add(commandEntTitle);
 
-        CommandEntry commandEntry = new CommandEntry();
+        commandEntry = new CommandEntry();
         commandEntry.createEntryBox();
         Node entryBox = commandEntry.getTextBox();
         right.getChildren().add(entryBox);
@@ -101,10 +105,19 @@ public class View implements ViewInt {
         UI.setLeft(left);
         UI.setBottom(bottom);
         UI.setTop(tBar.getToolBarMembers());
+        setToolBar();
     }
 
 
-    public void passError(String Error) {
+    private void setToolBar() {
+		tBar.setCommEnt(commandEntry);
+		tBar.setTDisp(turtDisp);
+		tBar.setEDisp(errorDisplay);
+		
+	}
+
+
+	public void passError(String Error) {
         // TODO Auto-generated method stub
 
     }

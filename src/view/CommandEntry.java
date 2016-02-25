@@ -54,4 +54,5 @@ public class CommandEntry implements CommandEntryInterface {
 		return myScrollPane;
 	}
 
+
 }

@@ -35,4 +35,5 @@ public interface CommandEntryInterface {
      * create the graphical nod to allow user to enter commands
      */
     void createEntryBox();
+    
 }

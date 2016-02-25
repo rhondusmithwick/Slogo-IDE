@@ -23,5 +23,11 @@ public interface ToolBarInterface {
      * @return List of Nodes to be placed on the toolbar
      */
     Node getToolBarMembers();
+    
+    void setTDisp(TurtleAreaInterface tDisp);
+    
+    void setEDisp(ErrorDisplayInterface eDisp);
+    
+    void setCommEnt(CommandEntryInterface commEnt);
 
 }
