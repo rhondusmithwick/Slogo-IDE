@@ -1,8 +1,6 @@
 package view;
 
 
-import Controller.Controller;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,7 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
 public class View implements ViewInt{
 
@@ -23,21 +20,20 @@ public class View implements ViewInt{
 
 
     private BorderPane UI;
-    private Controller controller;
     private Group root;
     private TurtleDisplay turtDisp;
     private ToolBar tBar;
     private Button executeButton;
     private CommandHistoryDisplay commandHistory;
+    private int width, height;
 
 
 
 
-    public View(Group group) {
-        //	public View(Controller controller){
-        this.controller = controller;
+    public View(Group group, int height, int width) {
+    	this.height=height;
+    	this.width=width;
         UI = new BorderPane();
-        //		root = controller.getGroup();
         root = group;
         createScene();
         root.getChildren().add(UI);
@@ -53,8 +49,11 @@ public class View implements ViewInt{
 
         //turtle area here
         turtDisp = new TurtleDisplay();
-        turtDisp.createTurtleArea();
-        Node center = turtDisp.getTurtleArea();
+        turtDisp.createTurtleArea(height, width);
+        ScrollPane center = new ScrollPane();
+        center.setMaxHeight(450);
+        center.setMaxWidth(600);
+        center.setContent(turtDisp.getTurtleArea());
 
         //Tool Bar here
         tBar = new ToolBar();
@@ -121,7 +120,6 @@ public class View implements ViewInt{
 
 
     public void passInput(String command) {
-        controller.takeInput(command);
 
     }
 
