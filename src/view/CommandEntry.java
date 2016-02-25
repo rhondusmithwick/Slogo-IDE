@@ -16,7 +16,7 @@ import javafx.scene.control.TextArea;
 
 public class CommandEntry implements CommandEntryInterface {
 
-	 private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
+	private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
 	private final double WIDTH = 200.0;
 	private final double HEIGHT = 400.0;
 	private TextArea myEntryBox;

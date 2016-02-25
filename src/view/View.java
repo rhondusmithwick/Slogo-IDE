@@ -21,7 +21,6 @@ public class View implements ViewInt {
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
-    private final double COMMAND_HIST_X_POS =600.0;
 
 
     private BorderPane UI;
@@ -59,18 +58,19 @@ public class View implements ViewInt {
         tBar.createToolBarMembers();
 
         //errors and command history here
-        //		r = new Rectangle(1000,200);
-        //		r.setFill(Color.BLACK);
-        HBox bottom = new HBox();
-        //		bottom.getChildren().add(r);
-
+        HBox bottom = new HBox(50);
+        
+        errorDisplay = new ErrorDisplay();
+        errorDisplay.createErrorDisplay();
+        bottom.getChildren().add(errorDisplay.getErrorDisplay());
+        
         commandHistory = new CommandHistoryDisplay();
         commandHistory.createCommHistory();
         Node commandHistoryBox = commandHistory.getHistoryGraphic();
-        commandHistoryBox.setTranslateX(COMMAND_HIST_X_POS);
+        
         bottom.getChildren().add(commandHistoryBox);
         
-        errorDisplay = new ErrorDisplay();
+        
         
 
 

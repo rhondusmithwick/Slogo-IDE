@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 
 /**
  * This is an Internal API for the view. Its purpose is to provide a framework for any class looking to implement the feature to display
@@ -24,6 +25,6 @@ public interface ErrorDisplayInterface {
     
     Node getErrorDisplay();
 
-	void clearError();
+	void clearError(Label l);
 
 }

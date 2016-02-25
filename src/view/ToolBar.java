@@ -22,7 +22,9 @@ import java.util.ResourceBundle;
 
 public class ToolBar implements ToolBarInterface {
 
-    private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
+    private static final String LANGUAGE_PATH = "languages/";
+
+	private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
 	
     private static final double TB_SPACING = 10.0;
     private static final int TB_HEIGHT = 75;
@@ -89,7 +91,7 @@ public class ToolBar implements ToolBarInterface {
     }
 
     private void setLang() {
-        pLanguage = langBox.getSelectionModel().getSelectedItem();
+        pLanguage = LANGUAGE_PATH+langBox.getSelectionModel().getSelectedItem();
         language.set(pLanguage);
     }
 

@@ -1,12 +1,11 @@
 package view;
 
 import javafx.scene.control.Label;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.ResourceBundle;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
@@ -22,15 +21,19 @@ public class CommandHistoryDisplay implements CommHistory {
 
 	private final double SCROLLPANE_WIDTH = 400.00;
 	private final double SCROLLPANE_HEIGHT = 195.0;
-
+	
+    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
 	private ScrollPane myScrollPane;
+	private Label title;
 	private List<Label> commandLabels;
 	private List<String> commands;
 	private VBox myCommHistory;
+	private ResourceBundle myResources;
 
 	public CommandHistoryDisplay() {
 		commands = new ArrayList<String>();	
 		commandLabels = new ArrayList<Label>();
+		myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + "english"+"disp");
 	}
 
 	@Override
@@ -40,12 +43,15 @@ public class CommandHistoryDisplay implements CommHistory {
 		myScrollPane = new ScrollPane();
 		myScrollPane.setPrefSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
 		myScrollPane.setContent(myCommHistory);
-		addCommand("Command History");
+		title = addCommand(myResources.getString("commBTitle"));
+		title.setAlignment(Pos.TOP_CENTER);
 	}
 
+
+
 	@Override
-	public void addCommand(String command) {
-		if (command.isEmpty()) return;
+	public Label addCommand(String command) {
+		if (command.isEmpty()) return null;
 		commands.add(command);
 		Label l = new Label(command+"\n");
 		l.setPrefWidth(SCROLLPANE_WIDTH);
@@ -54,6 +60,7 @@ public class CommandHistoryDisplay implements CommHistory {
 		l.setOnMouseClicked(e-> labelClicked(l));
 		commandLabels.add(l);
 		myCommHistory.getChildren().add(l);
+		return l;
 	}
 
 	private void labelClicked(Label l) {
