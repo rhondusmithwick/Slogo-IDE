@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -53,7 +54,9 @@ public class View implements ViewInt{
         //turtle area here
         turtDisp = new TurtleDisplay();
         turtDisp.createTurtleArea();
-        Node center = turtDisp.getTurtleArea();
+        ScrollPane center = new ScrollPane();
+        center.setContent(turtDisp.getTurtleArea());
+        center.setMaxSize(600, 450);
 
         //Tool Bar here
         tBar = new ToolBar();

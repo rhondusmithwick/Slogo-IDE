@@ -2,9 +2,11 @@ package view;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 
 
 
@@ -16,12 +18,20 @@ public class TurtleDisplay implements TurtleAreaInterface {
     @Override
     public void createTurtleArea() {
         dispArea = new Group();
+        setBackground("white");
+        
+        Path path = new Path();
+
+        path.getElements().add(new MoveTo(297f, 200.0f));
+        path.getElements().add(new LineTo(100.0f, 100.0f));
+        dispArea.getChildren().add(path);
 
     }
 
     @Override
     public void setBackground(String color) {
-        // TODO Auto-generated method stub
+        Rectangle bg = new Rectangle(594,440, Color.web(color));
+        dispArea.getChildren().add(bg);
 
     }
 
