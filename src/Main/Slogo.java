@@ -38,11 +38,12 @@ class Slogo {
     }
 
     private void bindProperties() {
-        SimpleStringProperty[] controllerProperties = controller.getProperties();
-        SimpleStringProperty[] viewProperties = view.getProperties();
-        for (SimpleStringProperty controllerProperty : controllerProperties) {
-            findTwin(controllerProperty, Arrays.asList(viewProperties));
-        }
+        List<SimpleStringProperty> controllerProperties = controller.getProperties();
+        List<SimpleStringProperty> viewProperties = Arrays.asList(view.getProperties());
+        controllerProperties.stream().forEach(prop -> findTwin(prop, viewProperties));
+//        for (SimpleStringProperty controllerProperty : controllerProperties) {
+//            findTwin(controllerProperty, viewProperties);
+//        }
     }
 
     private void findTwin(SimpleStringProperty controllerProperty,
