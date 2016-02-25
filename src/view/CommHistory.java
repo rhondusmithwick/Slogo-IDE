@@ -1,5 +1,8 @@
 package view;
 
+import java.util.List;
+
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 import java.util.List;
@@ -32,7 +35,7 @@ public interface CommHistory {
      *
      * @return graphical node displaying command history
      */
-    Label getHistoryGraphic();
+    Node getHistoryGraphic();
 
 
     /**
