@@ -1,7 +1,5 @@
 package Model;
 
-import javafx.scene.paint.Color;
-
 /**
  * Created by rhondusmithwick on 2/23/16.
  *

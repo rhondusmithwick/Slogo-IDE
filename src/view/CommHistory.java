@@ -3,6 +3,9 @@ package view;
 import java.util.List;
 
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+
+import java.util.List;
 
 /**
  * This is an internal API for the view. It regulates any class that will be implemented to keep track of the command history. It ensures there is a way to access the node

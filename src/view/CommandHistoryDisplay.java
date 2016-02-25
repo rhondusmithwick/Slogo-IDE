@@ -1,5 +1,7 @@
 package view;
 
+import javafx.scene.control.Label;
+
 import java.util.ArrayList;
 import java.util.List;
 

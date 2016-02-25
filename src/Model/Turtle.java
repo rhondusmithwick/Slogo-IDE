@@ -3,14 +3,11 @@ package Model;
 import javafx.animation.PathTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
-
-import java.util.Observable;
 
 /**
  * Created by rhondusmithwick on 2/22/16.

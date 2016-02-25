@@ -4,11 +4,11 @@ package view;
  * must have a method to set background color and a method to return the node upon which the turtle is drawing.
  */
 
-import javafx.scene.Node;
+import javafx.scene.Group;
 
 public interface TurtleAreaInterface {
 
-	
+
     /**
      * creates the turtles display area.
      */
@@ -28,5 +28,5 @@ public interface TurtleAreaInterface {
      *
      * @return Node underlying turtle area
      */
-    Node getTurtleArea();
+    Group getTurtleArea();
 }

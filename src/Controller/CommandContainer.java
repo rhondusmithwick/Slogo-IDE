@@ -1,7 +1,5 @@
 package Controller;
 
-import Model.Forward;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
