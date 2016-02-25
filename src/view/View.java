@@ -63,7 +63,7 @@ public class View implements ViewInt {
 
         commandHistory = new CommandHistoryDisplay();
         commandHistory.createCommHistory();
-        Node commandHistoryBox = commandHistory.getRootNode();
+        Node commandHistoryBox = commandHistory.getHistoryGraphic();
         commandHistoryBox.setTranslateX(COMMAND_HIST_X_POS);
         bottom.getChildren().add(commandHistoryBox);
 
