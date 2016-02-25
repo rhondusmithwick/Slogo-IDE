@@ -2,17 +2,17 @@ package view;
 
 
 import Controller.Controller;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+import javafx.stage.Stage;
 
 public class View implements ViewInt{
 
@@ -92,7 +92,7 @@ public class View implements ViewInt{
         executeButton.setMaxHeight(EXECUTE_BUTTON_HEIGHT);
         executeButton.setMaxWidth(EXECUTE_BUTTON_WIDTH);
         executeButton.setOnAction(e -> {
-            commandHistory.addCommand(((TextArea) commandEntry.getTextBox()).getText());
+            commandHistory.addCommand(commandEntry.getTextBox().getText());
             commandEntry.clearCommands();
 
         });

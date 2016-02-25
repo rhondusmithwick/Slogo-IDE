@@ -11,7 +11,7 @@ public class CommandEntry implements CommandEntryInterface {
 	private TextArea myEntryBox;
 
 	@Override
-	public Node getTextBox() {
+	public TextArea getTextBox() {
 		return myEntryBox;
 	}
 
