@@ -21,6 +21,7 @@ public class CommandContainer {
     private final Map<Class<?>, Class<?>[]> parametersMap = new HashMap<>();
 
     private final ObservableList<String> commandStringList = FXCollections.observableArrayList();
+
     private final ResourceBundle commandLocations = ResourceBundle.getBundle("Model/commandLocations");
 
     public CommandContainer() {
@@ -51,7 +52,7 @@ public class CommandContainer {
         try {
             return Class.forName(commandLocations.getString(className));
         } catch (Exception e) {
-            return Forward.class;
+            return null;
         }
     }
 

@@ -16,7 +16,7 @@ public class ProgramParser {
 
     public ProgramParser(String... bundles) {
         mySymbols = new ArrayList<>();
-        for (String bundle: bundles) {
+        for (String bundle : bundles) {
             addPatterns(bundle);
         }
     }

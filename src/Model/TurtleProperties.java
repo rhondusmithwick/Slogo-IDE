@@ -18,7 +18,9 @@ import javafx.scene.shape.Path;
  */
 public final class TurtleProperties {
 
-    private final SimpleObjectProperty<Image> image = new SimpleObjectProperty<>(this, "image");
+    private static final String DEFAULT_TURTLE_IMAGE = "....";
+
+    private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
 
     private final SimpleBooleanProperty visible = new SimpleBooleanProperty(this, "visible");
 
@@ -30,8 +32,8 @@ public final class TurtleProperties {
 
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
 
-    final void init(Image image) {
-        setImage(image);
+    final void init() {
+        setImage(DEFAULT_TURTLE_IMAGE);
         setVisible(true);
         setLocation(new Point2D(0, 0));
         setHeading(0);
@@ -49,12 +51,16 @@ public final class TurtleProperties {
         penColor.addListener((ov, oldVal, newVal) ->
                 path.setFill(Color.valueOf(newVal)));
         image.addListener((ov, oldVal, newVal) ->
-                imageView.setImage(newVal));
+            imageView.setImage(createImage(newVal)));
         heading.addListener((ov, oldVal, newVal) ->
                 imageView.setRotate(newVal.doubleValue()));
     }
 
-    public final void setImage(Image image) {
+    public final SimpleStringProperty imageProperty() {
+        return image;
+    }
+
+    public final void setImage(String image) {
         this.image.set(image);
     }
 
@@ -86,7 +92,8 @@ public final class TurtleProperties {
         this.penColor.set(penColor);
     }
 
-    public SimpleStringProperty penColorProperty() {
-        return penColor;
+    private Image createImage(String filePath) {
+        return new Image(getClass().getClassLoader().getResourceAsStream(filePath));
     }
+
 }

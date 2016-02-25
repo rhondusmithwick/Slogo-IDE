@@ -23,9 +23,9 @@ public class Turtle {
     private final Path path = new Path();
     private final TurtleProperties turtleProperties = new TurtleProperties();
 
-    public Turtle(Image image) {
+    public Turtle() {
         turtleProperties.addListeners(imageView, path);
-        turtleProperties.init(image);
+        turtleProperties.init();
         root.getChildren().add(imageView);
         root.getChildren().add(path);
     }
