@@ -15,7 +15,7 @@ import javafx.util.Duration;
  *
  * @author Rhondu Smithwick
  */
-public class Turtle {
+public class Turtle implements TreeNode {
     private final Group root = new Group();
     private final ImageView imageView = new ImageView();
     private final Path path = new Path();
@@ -48,4 +48,6 @@ public class Turtle {
     public Group getGroup() {
         return root;
     }
+
+
 }

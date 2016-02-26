@@ -9,7 +9,6 @@ import javafx.scene.Group;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.ResourceBundle;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -20,6 +19,8 @@ public class TurtleController implements Controller {
 
     private static final String DEFAULT_LANGUAGE = "languages/English";
 
+    private final ProgramParser parser = new ProgramParser("languages/Syntax");
+
     private final Group group = new Group();
 
     private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
@@ -27,12 +28,6 @@ public class TurtleController implements Controller {
     private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
 
     private final Turtle myTurtle;
-
-    private final ProgramParser parser = new ProgramParser("languages/Syntax");
-
-    private final CommandContainer container = new CommandContainer();
-
-    private ResourceBundle myResources;
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
@@ -43,7 +38,9 @@ public class TurtleController implements Controller {
 
     @Override
     public void takeInput(String input) {
-        List<Entry<String, String>> commandQueue = parser.parseText(input);
+        List<Entry<String, String>> parsedText = parser.parseText(input);
+        ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
+        expressionTree.executeAll();
     }
 
     @Override

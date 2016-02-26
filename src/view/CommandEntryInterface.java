@@ -15,7 +15,7 @@ public interface CommandEntryInterface {
     /**
      * returns node that user is entering text into
      *
-     * @return Node that allows user to enter command into it
+     * @return CommandNode that allows user to enter command into it
      */
     Node getTextBox();
 

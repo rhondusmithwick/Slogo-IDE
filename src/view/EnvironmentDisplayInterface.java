@@ -13,7 +13,7 @@ public interface EnvironmentDisplayInterface {
     /**
      * gets the graphical node displaying the environmental variables or methods
      *
-     * @return Node displaying environmental variables or methods
+     * @return CommandNode displaying environmental variables or methods
      */
     Node getEnvDisplay();
 

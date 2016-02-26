@@ -56,7 +56,7 @@ public class ProgramParser {
 //                    throw new Exception();
 //                }
                 commandQueue.add(new SimpleEntry<>(symbol, s));
-                System.out.println(String.format("%s : %s", s, symbol));
+                System.out.println(String.format("%s : %s", symbol, s));
             }
         }
         System.out.println(commandQueue);

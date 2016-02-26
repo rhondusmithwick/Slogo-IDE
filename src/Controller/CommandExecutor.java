@@ -52,7 +52,8 @@ public class CommandExecutor {
         }
         currIndex++;
     }
-    public Command createCommandInstance( Class<?> commandClass) {
+
+    public Command createCommandInstance(Class<?> commandClass) {
         try {
             Constructor[] allConstructors = commandClass.getDeclaredConstructors();
             Constructor theConstructor = allConstructors[0];

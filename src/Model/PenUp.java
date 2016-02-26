@@ -7,12 +7,7 @@ package Model;
  */
 public class PenUp extends PenCommand {
 
-    public PenUp(Turtle myTurtle) {
-        super(myTurtle);
-    }
-
     public double execute() {
-        changePen(false);
-        return 0;
+        return changePen(false);
     }
 }
