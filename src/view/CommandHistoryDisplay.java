@@ -33,6 +33,7 @@ public class CommandHistoryDisplay implements CommHistory {
     private VBox myCommHistory;
     private ResourceBundle myResources;
     private String language;
+    private CommandEntryInterface commEntry;
 
     public CommandHistoryDisplay() {
     	this.language = DEFAULT_LANGUAGE;
@@ -53,6 +54,10 @@ public class CommandHistoryDisplay implements CommHistory {
         title.setOnMouseClicked(null);
     }
 
+    @Override
+    public void setCommEntry(CommandEntryInterface commEntry){
+    	this.commEntry= commEntry;
+    }
 
     @Override
     public Label addCommand(String command) {
@@ -69,7 +74,8 @@ public class CommandHistoryDisplay implements CommHistory {
     }
 
     private void labelClicked(Label l) {
-        System.out.print(l.getText());
+        commEntry.passInternalCommands(l.getText());
+        addCommand(l.getText());
     }
 
     @Override
