@@ -42,6 +42,7 @@ public class TurtleController implements Controller {
     public void takeInput(String input) {
         List<Entry<String, String>> parsedText = parser.parseText(input);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
+        System.out.println(expressionTree);
         expressionTree.executeAll();
     }
 
@@ -61,9 +62,8 @@ public class TurtleController implements Controller {
     }
 
     private void addListeners() {
-        language.addListener((ov, oldVal, newVal) -> {
-            parser.addPatterns(newVal);
-        });
+        language.addListener((ov, oldVal, newVal)
+                -> parser.addPatterns(newVal));
         input.addListener((ov, oldVal, newVal) -> takeInput(newVal));
     }
 

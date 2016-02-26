@@ -11,6 +11,7 @@ import view.ViewInt;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Created by rhondusmithwick on 2/23/16.
@@ -43,14 +44,12 @@ class Slogo {
 
     private void findTwin(SimpleStringProperty controllerProperty,
                           List<SimpleStringProperty> viewProperties) {
+        String cName = controllerProperty.getName();
+        Predicate<SimpleStringProperty> shouldBind = (p) ->
+                Objects.equals(p.getName(), cName);
         viewProperties.stream()
-                .filter(viewProp -> shouldBindTogether(controllerProperty, viewProp))
-                .forEach(controllerProperty::bindBidirectional);
+                .filter(shouldBind).findFirst()
+                .ifPresent(controllerProperty::bindBidirectional);
     }
 
-    private boolean shouldBindTogether(SimpleStringProperty controllerProperty, SimpleStringProperty viewProperty) {
-        String cName = controllerProperty.getName();
-        String vName = viewProperty.getName();
-        return Objects.equals(cName, vName);
-    }
 }

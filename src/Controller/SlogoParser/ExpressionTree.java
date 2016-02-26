@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.stream.IntStream;
 
 /**
  * Created by rhondusmithwick on 2/25/16.
@@ -62,17 +63,7 @@ public class ExpressionTree {
             currIndex++;
             createSubTree(n);
         }
-//        while (root.needsMoreChildren()) {
-//            TreeNode currNode = root;
-//            while (stillRoot(className)) {
-//                className = parsedText.get(currIndex).getKey();
-//                TreeNode n = createNode(className);
-//                currIndex++;
-//                createSubTree(className, n);
-//                currNode.addChild(n);
-//                currNode = n;
-//            }
-//        }
+//
     }
 
     private TreeNode createNode(String className) {
@@ -117,13 +108,11 @@ public class ExpressionTree {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < rootList.size(); i++) {
-            sb.append(i)
-                    .append("th Node:\n")
-                    .append(rootList.get(i))
-                    .append("\n");
-        }
+        IntStream.range(0, rootList.size()).forEach(i ->
+                sb.append(i).append("th Node:\n").append(rootList.get(i)).append("\n")
+        );
         return sb.toString();
     }
+
 
 }
