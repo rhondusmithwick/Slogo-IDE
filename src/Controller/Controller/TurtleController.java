@@ -41,7 +41,7 @@ public class TurtleController implements Controller {
 
     @Override
     public void takeInput(String input) {
-        System.out.printf("text from backend %s \n", input);
+        System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
         expressionTree.executeAll();
@@ -65,7 +65,9 @@ public class TurtleController implements Controller {
     private void addListeners() {
         language.addListener((ov, oldVal, newVal)
                 -> parser.addPatterns(newVal));
-        input.addListener((ov, oldVal, newVal) -> takeInput(newVal));
+        input.addListener((ov, oldVal, newVal) -> {
+            takeInput(newVal);
+        });
     }
 
     @Override

@@ -2,6 +2,7 @@ package Main;
 
 import Controller.Controller.Controller;
 import Controller.Controller.TurtleController;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
@@ -48,8 +49,10 @@ class Slogo {
         Predicate<SimpleStringProperty> shouldBind = (p) ->
                 Objects.equals(p.getName(), cName);
         viewProperties.stream()
-                .filter(shouldBind).findFirst()
-                .ifPresent(controllerProperty::bindBidirectional);
+                .filter(shouldBind)
+                .findFirst()
+                .ifPresent(c -> c.addListener((ov, oldVal, newVal) -> controllerProperty.set(newVal)));
+//                .ifPresent(controllerProperty::bindBidirectional);
     }
 
 }
