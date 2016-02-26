@@ -20,7 +20,8 @@ import java.util.ResourceBundle;
 public class View implements ViewInt {
 
 
-    private static final int LEFT_HEIGHT = 400;
+    private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
+	private static final int LEFT_HEIGHT = 400;
 	private static final int LEFT_WIDTH = 100;
 	private static final int BOTTOM_PADDING = 50;
 	private final String EXECUTE_BUTTON_LABEL = "Execute";
@@ -59,6 +60,7 @@ public class View implements ViewInt {
 
 
     private void createScene() {
+    	UI.setStyle(UI_BACKGROUND_COLOR);
         createTurtleDisplay();
         createToolBar();
         createBottomPane();
@@ -82,7 +84,7 @@ public class View implements ViewInt {
 	private void createLeftPane() {
 		left = new VBox();
         Rectangle r = new Rectangle(LEFT_WIDTH, LEFT_HEIGHT);
-        r.setFill(Color.BLUE);
+        r.setFill(Color.CORNFLOWERBLUE);
         left.getChildren().add(r);
 	}
 
@@ -121,11 +123,18 @@ public class View implements ViewInt {
         entryBox = commandEntry.getTextBox();
         right.getChildren().add(entryBox);
 
-        executeButton = new Button(EXECUTE_BUTTON_LABEL);
+        createExecute();
+    }
+
+
+	private void createExecute() {
+		executeButton = new Button(EXECUTE_BUTTON_LABEL);
         executeButton.setPrefSize(EXECUTE_BUTTON_WIDTH, EXECUTE_BUTTON_HEIGHT);
         executeButton.setOnAction(e -> processExecute());
         right.getChildren().add(executeButton);
-    }
+        
+	}
+	
 
 
     private void processExecute() {
