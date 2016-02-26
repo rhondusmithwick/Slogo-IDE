@@ -69,7 +69,7 @@ public class ToolBar implements ToolBarInterface {
         getLanguages();
         try {
             getColors();
-        } catch (ClassNotFoundException | IllegalArgumentException | IllegalAccessException e) {
+        } catch (Exception e) {
         	eDisp.showError(myResources.getString("colorError"));
         }
         createComboBoxes();
@@ -116,7 +116,7 @@ public class ToolBar implements ToolBarInterface {
     }
 
     @SuppressWarnings("rawtypes")
-    private void getColors() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    private void getColors() throws Exception {
         possColors = new ArrayList<>();
 
         Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
