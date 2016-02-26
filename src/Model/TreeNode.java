@@ -25,4 +25,17 @@ public interface TreeNode {
         return null;
     }
 
+    default int getNumChildren() {
+        return 0;
+    }
+
+    default boolean needsMoreChildren() {
+        return (getChildren() != null)
+                && (hasTurtle() && childrenCheck(1)
+                || (!hasTurtle() && childrenCheck(0)));
+    }
+
+    default boolean childrenCheck(int offset) {
+        return (getChildren().size() - offset) < getNumChildren();
+    }
 }

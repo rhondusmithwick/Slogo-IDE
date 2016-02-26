@@ -27,4 +27,8 @@ abstract class Movement extends TurtleCommand {
         return new Point2D(newX, newY);
     }
 
+    @Override
+    public int getNumChildren() {
+        return 1;
+    }
 }

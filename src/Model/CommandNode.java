@@ -29,6 +29,6 @@ public abstract class CommandNode implements TreeNode, Command {
     }
 
     public String toString() {
-        return String.format("I am a %s and my children are: %s", getClass().getSimpleName(), getChildren());
+        return String.format("%s: %s", getClass().getSimpleName(), getChildren());
     }
 }
