@@ -47,7 +47,7 @@ public class ToolBar implements ToolBarInterface {
     private ResourceBundle myResources;
     private String dispLang, bColor, pLanguage, pColor;
     private TurtleAreaInterface tDisp;
-    private CommandEntryInterface cEnt;
+    //private CommandEntryInterface cEnt;
     private ErrorDisplayInterface eDisp;
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
@@ -90,6 +90,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void setPColor() {
         pColor = pColorBox.getSelectionModel().getSelectedItem();
+        System.out.println(pColor);
 
     }
 
@@ -133,9 +134,8 @@ public class ToolBar implements ToolBarInterface {
         parseLangs = new ArrayList<>();
         File directory = new File(LANGUAGE_LOCATION);
         File[] fList = directory.listFiles();
-        String name = null;
         for (File file : fList) {
-            name = file.getName();
+            String name = file.getName();
             parseLangs.add(name.substring(0, name.lastIndexOf(FILE_EXTENSION)));
         }
     }
@@ -166,6 +166,7 @@ public class ToolBar implements ToolBarInterface {
         //make this observable for backend
         try {
             String imagepath = file.toURI().toURL().toString();
+            System.out.println(imagepath);
 
         } catch (MalformedURLException e) {
             eDisp.showError(myResources.getString("picError"));
@@ -188,7 +189,7 @@ public class ToolBar implements ToolBarInterface {
     }
 
     public void setCommEnt(CommandEntryInterface commEnt) {
-        this.cEnt = commEnt;
+        //this.cEnt = commEnt;
     }
 
     public void setEDisp(ErrorDisplayInterface errorDisp) {
