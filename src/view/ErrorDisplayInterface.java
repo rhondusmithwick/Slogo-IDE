@@ -22,9 +22,9 @@ public interface ErrorDisplayInterface {
      * @param s Error message to be displayed
      */
     void showError(String s);
-    
+
     Node getErrorDisplay();
 
-	void clearError(Label l);
+    void clearError(Label l);
 
 }

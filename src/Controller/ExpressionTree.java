@@ -21,6 +21,7 @@ public class ExpressionTree {
     private final List<Entry<String, String>> parsedText;
 
     private final List<TreeNode> rootList;
+
     private final Turtle myTurtle;
 
     private int currIndex = 0;
@@ -33,6 +34,7 @@ public class ExpressionTree {
     }
 
     public void executeAll() {
+        System.out.println(rootList);
         rootList.stream().forEach(TreeNode::getValue);
     }
 
@@ -47,6 +49,7 @@ public class ExpressionTree {
     private TreeNode createRoot() {
         String className = parsedText.get(currIndex).getKey();
         TreeNode root = createNodeInstance(className);
+        currIndex++;
         TreeNode currNode = root;
         while (stillRoot(className)) {
             className = parsedText.get(currIndex).getKey();
@@ -54,7 +57,6 @@ public class ExpressionTree {
             currNode.addChild(n);
             currNode = n;
             currIndex++;
-
         }
         return root;
     }
@@ -97,11 +99,11 @@ public class ExpressionTree {
         return (className.equals("Constant"));
     }
 
-    public Class<?> getClassForName(String className) {
-        try {
-            return Class.forName(commandLocations.getString(className));
-        } catch (Exception e) {
-            return null;
-        }
-    }
+//    public Class<?> getClassForName(String className) {
+//        try {
+//            return Class.forName(commandLocations.getString(className));
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
 }

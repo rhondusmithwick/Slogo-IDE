@@ -67,7 +67,7 @@ public class CommandExecutor {
                     params[i] = findDouble();
                 }
             }
-           return  (Command) theConstructor.newInstance(params);
+            return (Command) theConstructor.newInstance(params);
         } catch (Exception e) {
             return null;
         }

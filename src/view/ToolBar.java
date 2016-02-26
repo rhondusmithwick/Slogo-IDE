@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
@@ -23,14 +24,12 @@ import java.util.ResourceBundle;
 public class ToolBar implements ToolBarInterface {
 
     private static final String LANGUAGE_PATH = "languages/";
-
-	private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
-	
     private static final double TB_SPACING = 10.0;
     private static final int TB_HEIGHT = 75;
     private static final int TB_WIDTH = 1000;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
+    private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
@@ -40,8 +39,7 @@ public class ToolBar implements ToolBarInterface {
     private ErrorDisplayInterface eDisp;
 
 
-
-	private ArrayList<String> parseLangs, possColors;
+    private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
     public ToolBar() {
@@ -82,7 +80,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void setPColor() {
         pColor = pColorBox.getSelectionModel().getSelectedItem();
-        
+
     }
 
     private void setBackground() {
@@ -91,7 +89,7 @@ public class ToolBar implements ToolBarInterface {
     }
 
     private void setLang() {
-        pLanguage = LANGUAGE_PATH+langBox.getSelectionModel().getSelectedItem();
+        pLanguage = LANGUAGE_PATH + langBox.getSelectionModel().getSelectedItem();
         language.set(pLanguage);
     }
 
@@ -164,31 +162,27 @@ public class ToolBar implements ToolBarInterface {
         try {
             String imagepath = file.toURI().toURL().toString();
 
-        }	
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             eDisp.showError(myResources.getString("picError"));
         }
     }
-    
-    public void setTDisp(TurtleAreaInterface tDisp){
-    	this.tDisp=tDisp;
-    }
-    
-    public void setCommEnt(CommandEntryInterface commEnt){
-    	this.cEnt=commEnt;
-    }
-    
-    public void setEDisp(ErrorDisplayInterface errorDisp){
-    	this.eDisp=errorDisp;
+
+    public void setTDisp(TurtleAreaInterface tDisp) {
+        this.tDisp = tDisp;
     }
 
-	@Override
-	public SimpleStringProperty getLanguage() {
-		return language;
-	}
+    public void setCommEnt(CommandEntryInterface commEnt) {
+        this.cEnt = commEnt;
+    }
 
+    public void setEDisp(ErrorDisplayInterface errorDisp) {
+        this.eDisp = errorDisp;
+    }
 
-
+    @Override
+    public SimpleStringProperty getLanguage() {
+        return language;
+    }
 
 
 }

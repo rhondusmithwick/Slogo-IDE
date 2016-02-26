@@ -83,12 +83,12 @@ public final class TurtleProperties {
         return location.get();
     }
 
-    public final Point2D getHome() {
-        return home.get();
-    }
-
     public void setLocation(Point2D location) {
         this.location.set(location);
+    }
+
+    public final Point2D getHome() {
+        return home.get();
     }
 
     public final double getHeading() {

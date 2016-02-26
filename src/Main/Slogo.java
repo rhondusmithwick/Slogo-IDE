@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sun.java2d.pipe.SpanShapeRenderer;
 import view.View;
 import view.ViewInt;
 
@@ -47,7 +46,7 @@ class Slogo {
     }
 
     private void findTwin(SimpleStringProperty controllerProperty,
-                             List<SimpleStringProperty> viewProperties) {
+                          List<SimpleStringProperty> viewProperties) {
         viewProperties.stream().filter(viewProp -> shouldBindTogether(controllerProperty, viewProp))
                 .forEach(controllerProperty::bindBidirectional);
 //        for (SimpleStringProperty viewProperty : viewProperties) {

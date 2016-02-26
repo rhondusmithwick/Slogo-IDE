@@ -15,14 +15,11 @@ import javafx.scene.shape.Rectangle;
 
 public class View implements ViewInt {
 
-	
 
-   
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
-
-
+    private final Dimension2D turtleDispDimension;
     private BorderPane UI;
     private Group root;
     private TurtleDisplay turtDisp;
@@ -30,7 +27,6 @@ public class View implements ViewInt {
     private Button executeButton;
     private CommandHistoryDisplay commandHistory;
     private CommandEntry commandEntry;
-    private final Dimension2D turtleDispDimension;
     private ErrorDisplay errorDisplay;
 
 
@@ -40,7 +36,7 @@ public class View implements ViewInt {
         root = new Group();
         createScene();
         root.getChildren().add(UI);
-        
+
 
     }
 
@@ -51,7 +47,7 @@ public class View implements ViewInt {
         //turtle area here
         turtDisp = new TurtleDisplay(root);
         turtDisp.createTurtleArea(turtleDispDimension);
-        
+
 
         //Tool Bar here
         tBar = new ToolBar();
@@ -59,19 +55,16 @@ public class View implements ViewInt {
 
         //errors and command history here
         HBox bottom = new HBox(50);
-        
+
         errorDisplay = new ErrorDisplay();
         errorDisplay.createErrorDisplay();
         bottom.getChildren().add(errorDisplay.getErrorDisplay());
-        
+
         commandHistory = new CommandHistoryDisplay();
         commandHistory.createCommHistory();
         Node commandHistoryBox = commandHistory.getHistoryGraphic();
-        
+
         bottom.getChildren().add(commandHistoryBox);
-        
-        
-        
 
 
         //variables and methods here
@@ -79,10 +72,10 @@ public class View implements ViewInt {
         Rectangle r = new Rectangle(100, 400);
         r.setFill(Color.BLUE);
         left.getChildren().add(r);
-        
-    	//text entry and execute button here
+
+        //text entry and execute button here
         VBox right = initRightPane();
-        
+
         //add components to scene
         UI.setCenter(turtDisp.getTurtlePane());
         UI.setRight(right);
@@ -109,23 +102,22 @@ public class View implements ViewInt {
     }
 
 
-
-	private void processExecute() {
-		commandHistory.addCommand(commandEntry.getTextBox().getText());
-		commandEntry.getBoxCommands();
-		commandEntry.clearCommands();
-	}
+    private void processExecute() {
+        commandHistory.addCommand(commandEntry.getTextBox().getText());
+        commandEntry.getBoxCommands();
+        commandEntry.clearCommands();
+    }
 
 
     private void setToolBar() {
-		tBar.setCommEnt(commandEntry);
-		tBar.setTDisp(turtDisp);
-		tBar.setEDisp(errorDisplay);
-		
-	}
+        tBar.setCommEnt(commandEntry);
+        tBar.setTDisp(turtDisp);
+        tBar.setEDisp(errorDisplay);
+
+    }
 
 
-	public void passError(String Error) {
+    public void passError(String Error) {
         // TODO Auto-generated method stub
 
     }
@@ -152,7 +144,7 @@ public class View implements ViewInt {
         SimpleStringProperty language = tBar.getLanguage();
         SimpleStringProperty[] properties = new SimpleStringProperty[2];
         properties[0] = language;
-        properties[1]= input;
+        properties[1] = input;
         return properties;
     }
 

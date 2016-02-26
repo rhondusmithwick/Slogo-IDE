@@ -18,4 +18,8 @@ public class ConstantNode implements TreeNode {
         return value;
     }
 
+    public String toString() {
+        return String.format("%s with value: %f", getClass().getSimpleName(), value);
+    }
+
 }

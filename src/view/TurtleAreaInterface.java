@@ -32,6 +32,6 @@ public interface TurtleAreaInterface {
      */
     Group getTurtleArea();
 
-	Node getTurtlePane();
+    Node getTurtlePane();
 
 }

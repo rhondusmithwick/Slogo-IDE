@@ -58,7 +58,7 @@ public class TurtleController implements Controller {
         this.language.set(language);
     }
 
-    void addListeners() {
+    private void addListeners() {
         language.addListener((ov, oldVal, newVal) -> {
             parser.addPatterns(newVal);
         });

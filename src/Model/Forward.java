@@ -11,4 +11,5 @@ public class Forward extends Movement {
     public double execute() {
         return move(1);
     }
+
 }

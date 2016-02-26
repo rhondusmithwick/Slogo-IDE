@@ -11,13 +11,15 @@ public interface TreeNode {
 
     default boolean hasTurtle() {
         return false;
-    };
+    }
 
     default double getValue() {
         return 0.0;
-    };
+    }
 
-    default void addChild(TreeNode n) {};
+    default boolean addChild(TreeNode n) {
+        return false;
+    }
 
     default List<TreeNode> getChildren() {
         return null;
