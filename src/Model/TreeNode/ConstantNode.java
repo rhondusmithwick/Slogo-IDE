@@ -18,6 +18,7 @@ public class ConstantNode extends TreeNode {
         return value;
     }
 
+    @Override
     public String toString() {
         return String.format("%s with value: %f", getClass().getSimpleName(), value);
     }

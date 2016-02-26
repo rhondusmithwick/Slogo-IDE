@@ -29,7 +29,7 @@ abstract class Movement extends TurtleCommandNode {
     }
 
     @Override
-    public int getNumChildren() {
+    public int getNumChildrenRequired() {
         return 1;
     }
 }

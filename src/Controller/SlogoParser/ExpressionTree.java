@@ -2,6 +2,7 @@ package Controller.SlogoParser;
 
 import Model.TreeNode.ConstantNode;
 import Model.TreeNode.TreeNode;
+import Model.TreeNode.TurtleCommandNode;
 import Model.Turtle.Turtle;
 
 import java.util.LinkedList;
@@ -94,7 +95,7 @@ public class ExpressionTree {
         } catch (Exception e) {
             n = new ConstantNode(0);
         }
-        if (n.hasTurtle()) {
+        if (n instanceof TurtleCommandNode) {
             n.addChild(myTurtle);
         }
         return n;
@@ -113,6 +114,7 @@ public class ExpressionTree {
         return (className.equals("Constant"));
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < rootList.size(); i++) {

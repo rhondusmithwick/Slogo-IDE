@@ -14,8 +14,9 @@ public abstract class TurtleCommandNode extends CommandNode {
     }
 
     @Override
-    public boolean hasTurtle() {
-        return true;
+    public boolean needsMoreChildren() {
+        int numChildren = getChildren().size() - 1;
+        return (numChildren < getNumChildrenRequired());
     }
 
 }

@@ -12,10 +12,6 @@ public abstract class TreeNode {
 
     private final List<TreeNode> children = new ArrayList<>();
 
-    public boolean hasTurtle() {
-        return false;
-    }
-
     public double getValue() {
         return 0.0;
     }
@@ -28,19 +24,16 @@ public abstract class TreeNode {
         return children;
     }
 
-    protected int getNumChildren() {
+    public boolean needsMoreChildren() {
+        int numChildren = children.size();
+        return (numChildren < getNumChildrenRequired());
+    }
+
+    protected int getNumChildrenRequired() {
         return 0;
     }
 
-    public boolean needsMoreChildren() {
-        return (hasTurtle() && childrenCheck(1)
-                || (!hasTurtle() && childrenCheck(0)));
-    }
-
-    private boolean childrenCheck(int offset) {
-        return (children.size() - offset) < getNumChildren();
-    }
-
+    @Override
     public String toString() {
         return String.format("%s: %s", getClass().getSimpleName(), children);
     }
