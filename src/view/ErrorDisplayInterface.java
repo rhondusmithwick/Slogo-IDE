@@ -1,5 +1,8 @@
 package view;
 
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+
 /**
  * This is an Internal API for the view. Its purpose is to provide a framework for any class looking to implement the feature to display
  * errors.
@@ -20,9 +23,8 @@ public interface ErrorDisplayInterface {
      */
     void showError(String s);
 
-    /**
-     * Clears the error display box if any error message is currently displayed
-     */
-    void clearError();
+    Node getErrorDisplay();
+
+    void clearError(Label l);
 
 }

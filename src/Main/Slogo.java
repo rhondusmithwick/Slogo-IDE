@@ -1,13 +1,17 @@
 package Main;
 
-import Controller.Controller;
-import Controller.TurtleController;
+import Controller.Controller.Controller;
+import Controller.Controller.TurtleController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.View;
 import view.ViewInt;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Created by rhondusmithwick on 2/23/16.
@@ -22,7 +26,7 @@ class Slogo {
     private final ViewInt view = new View(turtleDispDimension);
 
     public Slogo() {
-//        bindProperties();
+        bindProperties();
         view.getInnerGroup().getChildren().add(controller.getGroup());
     }
 
@@ -33,23 +37,19 @@ class Slogo {
     }
 
     private void bindProperties() {
-        SimpleStringProperty[] controllerProperties = controller.getProperties();
-        SimpleStringProperty[] viewProperties = view.getProperties();
-        for (SimpleStringProperty controllerProperty : controllerProperties) {
-            findTwin(controllerProperty, viewProperties);
-        }
+        List<SimpleStringProperty> controllerProperties = controller.getProperties();
+        List<SimpleStringProperty> viewProperties = view.getProperties();
+        controllerProperties.stream().forEach(prop -> findTwin(prop, viewProperties));
     }
 
-    private boolean findTwin(SimpleStringProperty controllerProperty,
-                             SimpleStringProperty[] viewProperties) {
+    private void findTwin(SimpleStringProperty controllerProperty,
+                          List<SimpleStringProperty> viewProperties) {
         String cName = controllerProperty.getName();
-        for (SimpleStringProperty viewProperty : viewProperties) {
-            String vName = viewProperty.getName();
-            if (cName.equals(vName)) {
-                controllerProperty.bindBidirectional(viewProperty);
-                return true;
-            }
-        }
-        return false;
+        Predicate<SimpleStringProperty> shouldBind = (p) ->
+                Objects.equals(p.getName(), cName);
+        viewProperties.stream()
+                .filter(shouldBind).findFirst()
+                .ifPresent(controllerProperty::bindBidirectional);
     }
+
 }

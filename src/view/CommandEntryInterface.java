@@ -15,7 +15,7 @@ public interface CommandEntryInterface {
     /**
      * returns node that user is entering text into
      *
-     * @return Node that allows user to enter command into it
+     * @return CommandNode that allows user to enter command into it
      */
     Node getTextBox();
 
@@ -24,7 +24,7 @@ public interface CommandEntryInterface {
      *
      * @return String[] of entered commands to be executed
      */
-    SimpleStringProperty getCommands();
+    void getCommandsFromString(String s);
 
     /**
      * Clears the textbox of any currently entered but not yet run commands
@@ -35,5 +35,12 @@ public interface CommandEntryInterface {
      * create the graphical nod to allow user to enter commands
      */
     void createEntryBox();
-    
+
+
+    void passInternalCommands(String command);
+
+    void getBoxCommands();
+
+    SimpleStringProperty getInput();
+
 }

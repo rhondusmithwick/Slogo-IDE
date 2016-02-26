@@ -1,5 +1,6 @@
 package view;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -13,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
@@ -21,33 +23,36 @@ import java.util.ResourceBundle;
 
 public class ToolBar implements ToolBarInterface {
 
+    private static final String LANGUAGE_PATH = "languages/";
+    private static final String DEFAULT_LANGUAGE = "English";
+
     private static final double TB_SPACING = 10.0;
     private static final int TB_HEIGHT = 75;
     private static final int TB_WIDTH = 1000;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
+    private final SimpleStringProperty language = new SimpleStringProperty(this, "language", LANGUAGE_PATH + DEFAULT_LANGUAGE);
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
-    private String language, bColor, pColor, pLanguage;
+    private String dispLang, bColor, pColor, pLanguage;
     private TurtleAreaInterface tDisp;
     private CommandEntryInterface cEnt;
     private ErrorDisplayInterface eDisp;
 
 
-
-	private ArrayList<String> parseLangs, possColors;
+    private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
     public ToolBar() {
-        this.language = "english";
+        this.dispLang = "english";
         container = new HBox();
         container.setPrefWidth(TB_WIDTH);
         container.setPrefHeight(TB_HEIGHT);
         container.setAlignment(Pos.CENTER);
         container.setSpacing(TB_SPACING);
         hScreen = new HelpScreen();
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
     }
 
     @Override
@@ -77,7 +82,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void setPColor() {
         pColor = pColorBox.getSelectionModel().getSelectedItem();
-        
+
     }
 
     private void setBackground() {
@@ -86,8 +91,8 @@ public class ToolBar implements ToolBarInterface {
     }
 
     private void setLang() {
-        pLanguage = langBox.getSelectionModel().getSelectedItem();
-        System.out.println("Language is now " + pLanguage);
+        pLanguage = LANGUAGE_PATH + langBox.getSelectionModel().getSelectedItem();
+        language.set(pLanguage);
     }
 
     private ComboBox<String> createBox(String label, ArrayList<String> choices, EventHandler<ActionEvent> handler) {
@@ -158,28 +163,28 @@ public class ToolBar implements ToolBarInterface {
         //make this observable for backend
         try {
             String imagepath = file.toURI().toURL().toString();
-            System.out.println(imagepath);
 
-        }	
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             eDisp.showError(myResources.getString("picError"));
         }
     }
-    
-    public void setTDisp(TurtleAreaInterface tDisp){
-    	this.tDisp=tDisp;
-    }
-    
-    public void setCommEnt(CommandEntryInterface commEnt){
-    	this.cEnt=commEnt;
-    }
-    
-    public void setEDisp(ErrorDisplayInterface errorDisp){
-    	this.eDisp=errorDisp;
+
+    public void setTDisp(TurtleAreaInterface tDisp) {
+        this.tDisp = tDisp;
     }
 
+    public void setCommEnt(CommandEntryInterface commEnt) {
+        this.cEnt = commEnt;
+    }
 
+    public void setEDisp(ErrorDisplayInterface errorDisp) {
+        this.eDisp = errorDisp;
+    }
 
+    @Override
+    public SimpleStringProperty getLanguage() {
+        return language;
+    }
 
 
 }

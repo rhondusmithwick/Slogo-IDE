@@ -6,6 +6,7 @@ package view;
 
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 
 public interface TurtleAreaInterface {
 
@@ -24,11 +25,13 @@ public interface TurtleAreaInterface {
 
 
     /**
-     * Returns the node that the turtle is drawing on top of. It is only a Node so that the actual object the turtle draw on top of can be anything from a rectangle to
+     * Returns the node that the turtle is drawing on top of. It is only a CommandNode so that the actual object the turtle draw on top of can be anything from a rectangle to
      * a javafx canvas, to a preset image.
      *
-     * @return Node underlying turtle area
+     * @return CommandNode underlying turtle area
      */
     Group getTurtleArea();
+
+    Node getTurtlePane();
 
 }

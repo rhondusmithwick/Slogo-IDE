@@ -1,0 +1,71 @@
+package Controller.SlogoParser;
+
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+
+public class SlogoParser {
+
+    private final Map<String, Pattern> mySymbols;
+
+    private final String ERROR = "NO MATCH";
+
+    public SlogoParser(String... bundles) {
+        mySymbols = new HashMap<>();
+        for (String bundle : bundles) {
+            addPatterns(bundle);
+        }
+    }
+
+    public void addPatterns(String syntax) {
+        ResourceBundle resources = ResourceBundle.getBundle(syntax);
+        Enumeration<String> iter = resources.getKeys();
+        while (iter.hasMoreElements()) {
+            String key = iter.nextElement();
+            String regex = resources.getString(key);
+            mySymbols.put(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
+        }
+        mySymbols.remove("Command");
+        System.out.println(mySymbols);
+    }
+
+    private String getSymbol(String text) {
+        Predicate<Entry<String, Pattern>> matched = (e) -> match(text, e.getValue());
+        return mySymbols.entrySet()
+                .stream().filter(matched).findFirst()
+                .map(Entry::getKey).orElse(ERROR);
+    }
+
+    private boolean match(String text, Pattern regex) {
+        return regex.matcher(text).matches();
+    }
+
+    public List<Entry<String, String>> parseText(String input) {
+        Predicate<Entry<String, String>> containsError = (e) -> Objects.equals(e.getKey(), ERROR);
+        List<Entry<String, String>> parsedText = createParsedText(input);
+        if (parsedText.stream().anyMatch(containsError)) {
+            return null;
+        } else {
+            return parsedText;
+        }
+    }
+
+    private List<Entry<String, String>> createParsedText(String input) {
+        String WHITESPACE = "\\p{Space}";
+        List<String> text = Arrays.asList(input.split(WHITESPACE));
+        Predicate<String> notEmpty = (s) -> (s.trim().length() > 0);
+        return text.stream().filter(notEmpty)
+                .map(s -> new SimpleEntry<>(getSymbol(s), s))
+                .collect(Collectors.toList());
+    }
+}

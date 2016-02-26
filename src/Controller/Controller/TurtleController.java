@@ -1,14 +1,16 @@
-package Controller;
+package Controller.Controller;
 
-import Model.Command;
-import Model.Turtle;
+import Controller.SlogoParser.ExpressionTree;
+import Controller.SlogoParser.SlogoParser;
+import Model.Deprecated.Command;
+import Model.Turtle.Turtle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.ResourceBundle;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -19,6 +21,8 @@ public class TurtleController implements Controller {
 
     private static final String DEFAULT_LANGUAGE = "languages/English";
 
+    private final SlogoParser parser = new SlogoParser("languages/Syntax");
+
     private final Group group = new Group();
 
     private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
@@ -26,12 +30,6 @@ public class TurtleController implements Controller {
     private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
 
     private final Turtle myTurtle;
-
-    private final ProgramParser parser = new ProgramParser("languages/Syntax");
-
-    private final CommandContainer container = new CommandContainer();
-
-    private ResourceBundle myResources;
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
@@ -42,7 +40,10 @@ public class TurtleController implements Controller {
 
     @Override
     public void takeInput(String input) {
-        List<Entry<String, String>> commandQueue = parser.parseText(input);
+        List<Entry<String, String>> parsedText = parser.parseText(input);
+        ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
+        System.out.println(expressionTree);
+        expressionTree.executeAll();
     }
 
     @Override
@@ -60,17 +61,14 @@ public class TurtleController implements Controller {
         this.language.set(language);
     }
 
-    void addListeners() {
-        language.addListener((ov, oldVal, newVal) -> {
-            parser.addPatterns(newVal);
-        });
+    private void addListeners() {
+        language.addListener((ov, oldVal, newVal)
+                -> parser.addPatterns(newVal));
         input.addListener((ov, oldVal, newVal) -> takeInput(newVal));
     }
 
     @Override
-    public SimpleStringProperty[] getProperties() {
-        return new SimpleStringProperty[]{
-                language, input, myTurtle.getTurtleProperties().imageProperty()
-        };
+    public List<SimpleStringProperty> getProperties() {
+        return Arrays.asList(language, input, myTurtle.getTurtleProperties().imageProperty());
     }
 }
