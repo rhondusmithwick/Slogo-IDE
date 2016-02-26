@@ -1,11 +1,11 @@
-package Model;
+package Model.TreeNode;
 
 /**
  * Created by rhondusmithwick on 2/25/16.
  *
  * @author Rhondu Smithwick
  */
-public class ConstantNode implements TreeNode {
+public class ConstantNode extends TreeNode {
 
     private final double value;
 

@@ -1,6 +1,6 @@
-package Controller;
+package Controller.SlogoParser;
 
-import Model.Turtle;
+import Model.Turtle.Turtle;
 import javafx.application.Application;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
@@ -20,7 +20,7 @@ public class TestParsing extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        ProgramParser lang = new ProgramParser("languages/English", "languages/Syntax");
+        SlogoParser lang = new SlogoParser("languages/English", "languages/Syntax");
         Turtle myTurtle = new Turtle(turtleDispDimension);
         Scene myScene = new Scene(myTurtle.getGroup(), 800, 800);
         primaryStage.setScene(myScene);

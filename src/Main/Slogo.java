@@ -1,7 +1,7 @@
 package Main;
 
-import Controller.Controller;
-import Controller.TurtleController;
+import Controller.Controller.Controller;
+import Controller.Controller.TurtleController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import view.View;
 import view.ViewInt;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,25 +37,15 @@ class Slogo {
 
     private void bindProperties() {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
-        List<SimpleStringProperty> viewProperties = Arrays.asList(view.getProperties());
+        List<SimpleStringProperty> viewProperties = view.getProperties();
         controllerProperties.stream().forEach(prop -> findTwin(prop, viewProperties));
-//        for (SimpleStringProperty controllerProperty : controllerProperties) {
-//            findTwin(controllerProperty, viewProperties);
-//        }
     }
 
     private void findTwin(SimpleStringProperty controllerProperty,
                           List<SimpleStringProperty> viewProperties) {
-        viewProperties.stream().filter(viewProp -> shouldBindTogether(controllerProperty, viewProp))
+        viewProperties.stream()
+                .filter(viewProp -> shouldBindTogether(controllerProperty, viewProp))
                 .forEach(controllerProperty::bindBidirectional);
-//        for (SimpleStringProperty viewProperty : viewProperties) {
-//            String vName = viewProperty.getName();
-//            if (cName.equals(vName)) {
-//                controllerProperty.bindBidirectional(viewProperty);
-//                return true;
-//            }
-//        }
-//        return false;
     }
 
     private boolean shouldBindTogether(SimpleStringProperty controllerProperty, SimpleStringProperty viewProperty) {

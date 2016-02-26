@@ -5,7 +5,7 @@
 // *
 // * @author Rhondu Smithwick
 // */
-//public class SetPenColor extends TurtleCommand {
+//public class SetPenColor extends TurtleCommandNode {
 //
 //    private final String penColor;
 //

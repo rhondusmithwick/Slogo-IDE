@@ -1,11 +1,13 @@
-package Model;
+package Model.Pen;
+
+import Model.TreeNode.TurtleCommandNode;
 
 /**
  * Created by rhondusmithwick on 2/24/16.
  *
  * @author Rhondu Smithwick
  */
-abstract class PenCommand extends TurtleCommand {
+abstract class PenCommand extends TurtleCommandNode {
 
     protected double changePen(boolean t) {
         getTurtle().getTurtleProperties().setPenDown(t);

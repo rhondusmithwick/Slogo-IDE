@@ -1,4 +1,4 @@
-package Controller;
+package Controller.SlogoParser;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -9,10 +9,10 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 
-class ProgramParser {
+public class SlogoParser {
     private final List<Entry<String, Pattern>> mySymbols;
 
-    public ProgramParser(String... bundles) {
+    public SlogoParser(String... bundles) {
         mySymbols = new ArrayList<>();
         for (String bundle : bundles) {
             addPatterns(bundle);

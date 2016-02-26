@@ -1,8 +1,8 @@
-package Controller;
+package Controller.SlogoParser;
 
-import Model.ConstantNode;
-import Model.TreeNode;
-import Model.Turtle;
+import Model.TreeNode.ConstantNode;
+import Model.TreeNode.TreeNode;
+import Model.Turtle.Turtle;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +26,6 @@ public class ExpressionTree {
 
     private int currIndex = 0;
 
-
     public ExpressionTree(Turtle myTurtle, List<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
         this.parsedText = parsedText;
@@ -40,7 +39,8 @@ public class ExpressionTree {
     private List<TreeNode> createRootList() {
         List<TreeNode> rootList = new LinkedList<>();
         while (inBounds()) {
-            rootList.add(createRoot());
+            TreeNode root = createRoot();
+            rootList.add(root);
         }
         return rootList;
     }

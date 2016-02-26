@@ -1,4 +1,4 @@
-package Model;
+package Model.Turtle;
 
 
 import javafx.beans.property.SimpleBooleanProperty;

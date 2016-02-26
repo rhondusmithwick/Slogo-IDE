@@ -1,5 +1,6 @@
-package Model;
+package Model.Turtle;
 
+import Model.TreeNode.TreeNode;
 import javafx.animation.PathTransition;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -15,7 +16,7 @@ import javafx.util.Duration;
  *
  * @author Rhondu Smithwick
  */
-public class Turtle implements TreeNode {
+public class Turtle extends TreeNode {
     private final Group root = new Group();
     private final ImageView imageView = new ImageView();
     private final Path path = new Path();
@@ -30,7 +31,7 @@ public class Turtle implements TreeNode {
     }
 
 
-    void moveTo(Point2D pointToMoveTo) {
+    public void moveTo(Point2D pointToMoveTo) {
 //        path.getElements().clear();
         Point2D location = turtleProperties.getLocation();
         path.getElements().add(new MoveTo(location.getX(), location.getY()));
@@ -40,7 +41,6 @@ public class Turtle implements TreeNode {
         turtleProperties.setLocation(pointToMoveTo);
     }
 
-
     public TurtleProperties getTurtleProperties() {
         return turtleProperties;
     }
@@ -48,6 +48,5 @@ public class Turtle implements TreeNode {
     public Group getGroup() {
         return root;
     }
-
 
 }

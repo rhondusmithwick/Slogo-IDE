@@ -13,6 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class View implements ViewInt {
 
 
@@ -139,13 +142,10 @@ public class View implements ViewInt {
     }
 
     @Override
-    public SimpleStringProperty[] getProperties() {
+    public List<SimpleStringProperty> getProperties() {
         SimpleStringProperty input = commandEntry.getInput();
         SimpleStringProperty language = tBar.getLanguage();
-        SimpleStringProperty[] properties = new SimpleStringProperty[2];
-        properties[0] = language;
-        properties[1] = input;
-        return properties;
+        return Arrays.asList(input, language);
     }
 
 }
