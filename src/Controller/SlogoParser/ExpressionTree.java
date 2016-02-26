@@ -1,8 +1,8 @@
-package Controller;
+package Controller.SlogoParser;
 
-import Model.ConstantNode;
-import Model.TreeNode;
-import Model.Turtle;
+import Model.TreeNode.ConstantNode;
+import Model.TreeNode.TreeNode;
+import Model.Turtle.Turtle;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +26,6 @@ public class ExpressionTree {
 
     private int currIndex = 0;
 
-
     public ExpressionTree(Turtle myTurtle, List<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
         this.parsedText = parsedText;
@@ -34,14 +33,14 @@ public class ExpressionTree {
     }
 
     public void executeAll() {
-        System.out.println(rootList);
         rootList.stream().forEach(TreeNode::getValue);
     }
 
     private List<TreeNode> createRootList() {
         List<TreeNode> rootList = new LinkedList<>();
         while (inBounds()) {
-            rootList.add(createRoot());
+            TreeNode root = createRoot();
+            rootList.add(root);
         }
         return rootList;
     }
@@ -50,21 +49,36 @@ public class ExpressionTree {
         String className = parsedText.get(currIndex).getKey();
         TreeNode root = createNodeInstance(className);
         currIndex++;
-        TreeNode currNode = root;
-        while (stillRoot(className)) {
-            className = parsedText.get(currIndex).getKey();
-            TreeNode n = createNode(className);
-            currNode.addChild(n);
-            currNode = n;
-            currIndex++;
-        }
+        createSubTree(root);
         return root;
+    }
+
+    private void createSubTree(TreeNode root) {
+        while (stillRoot(root)) {
+            String className = parsedText.get(currIndex).getKey();
+            TreeNode n = createNode(className);
+            root.addChild(n);
+            currIndex++;
+            createSubTree(n);
+        }
+//        while (root.needsMoreChildren()) {
+//            TreeNode currNode = root;
+//            while (stillRoot(className)) {
+//                className = parsedText.get(currIndex).getKey();
+//                TreeNode n = createNode(className);
+//                currIndex++;
+//                createSubTree(className, n);
+//                currNode.addChild(n);
+//                currNode = n;
+//            }
+//        }
     }
 
     private TreeNode createNode(String className) {
         TreeNode n;
         if (isConstant(className)) {
-            Double constant = Double.parseDouble(parsedText.get(currIndex).getValue());
+            String doubleText = parsedText.get(currIndex).getValue();
+            Double constant = Double.parseDouble(doubleText);
             n = new ConstantNode(constant);
         } else {
             n = createNodeInstance(className);
@@ -73,7 +87,6 @@ public class ExpressionTree {
     }
 
     private TreeNode createNodeInstance(String className) {
-//        Class<?> theClass = getClassForName(className);
         TreeNode n;
         try {
             Class<?> theClass = Class.forName(commandLocations.getString(className));
@@ -87,8 +100,9 @@ public class ExpressionTree {
         return n;
     }
 
-    private boolean stillRoot(String className) {
-        return inBounds() && !isConstant(className);
+    private boolean stillRoot(TreeNode root) {
+        return inBounds()
+                && (root.needsMoreChildren());
     }
 
     private boolean inBounds() {
@@ -99,11 +113,15 @@ public class ExpressionTree {
         return (className.equals("Constant"));
     }
 
-//    public Class<?> getClassForName(String className) {
-//        try {
-//            return Class.forName(commandLocations.getString(className));
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < rootList.size(); i++) {
+            sb.append(i)
+                    .append("th Node:\n")
+                    .append(rootList.get(i))
+                    .append("\n");
+        }
+        return sb.toString();
+    }
+
 }

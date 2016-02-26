@@ -1,7 +1,9 @@
-package Controller;
+package Controller.Controller;
 
-import Model.Command;
-import Model.Turtle;
+import Controller.SlogoParser.ExpressionTree;
+import Controller.SlogoParser.SlogoParser;
+import Model.Deprecated.Command;
+import Model.Turtle.Turtle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
@@ -19,7 +21,7 @@ public class TurtleController implements Controller {
 
     private static final String DEFAULT_LANGUAGE = "languages/English";
 
-    private final ProgramParser parser = new ProgramParser("languages/Syntax");
+    private final SlogoParser parser = new SlogoParser("languages/Syntax");
 
     private final Group group = new Group();
 

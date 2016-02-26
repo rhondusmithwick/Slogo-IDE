@@ -1,13 +1,15 @@
-package Model;
+package Model.TreeNode;
+
+import Model.Turtle.Turtle;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
  *
  * @author Rhondu Smithwick
  */
-abstract class TurtleCommand extends CommandNode {
+public abstract class TurtleCommandNode extends CommandNode {
 
-    Turtle getTurtle() {
+    protected Turtle getTurtle() {
         return (Turtle) getChildren().get(0);
     }
 

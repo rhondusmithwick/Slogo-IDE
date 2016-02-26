@@ -1,4 +1,4 @@
-package Controller;
+package Controller.Deprecated;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

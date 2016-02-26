@@ -1,6 +1,6 @@
-package Controller;
+package Controller.Controller;
 
-import Model.Command;
+import Model.Deprecated.Command;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 

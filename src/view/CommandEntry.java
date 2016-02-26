@@ -29,7 +29,6 @@ public class CommandEntry implements CommandEntryInterface {
     @Override
     public void getCommandsFromString(String text) {
         input.set(text);
-
     }
 
     @Override
