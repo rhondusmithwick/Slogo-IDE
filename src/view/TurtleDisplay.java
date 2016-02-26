@@ -1,48 +1,53 @@
 package view;
 
+import javafx.geometry.Dimension2D;
+import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-
-
+import javafx.scene.shape.Rectangle;
 
 
 public class TurtleDisplay implements TurtleAreaInterface {
+    private Rectangle background;
+    private Group dispArea;
+    private ScrollPane scroll;
 
-    private AnchorPane dispArea;
+    public TurtleDisplay(Group root) {
+        dispArea = root;
+        scroll = new ScrollPane();
+        scroll.setMaxHeight(450);
+        scroll.setMaxWidth(600);
+
+    }
 
 
     @Override
-    public void createTurtleArea() {
-        dispArea = new AnchorPane();
-        setBackground("red");
-        dispArea.setMaxHeight(450);
-        dispArea.setMaxWidth(600);
-        
-        Path path = new Path();
-
-        path.getElements().add(new MoveTo(0.0, 0.0f));
-        path.getElements().add(new LineTo(100.0f, 100.0f));
-        dispArea.getChildren().add(path);
+    public void createTurtleArea(Dimension2D turtleDispDeminsion) {
+        background = new Rectangle(turtleDispDeminsion.getWidth(), turtleDispDeminsion.getHeight(), Color.WHITE);
+        dispArea = new Group();
+        setBackground("white");
+        dispArea.getChildren().add(background);
+        scroll.setContent(dispArea);
 
     }
 
     @Override
     public void setBackground(String color) {
-        dispArea.setBackground(new Background(new BackgroundFill(Color.web(color), null, null)));
+        background.setFill(Color.web(color));
 
     }
 
     @Override
-    public Node getTurtleArea() {
+    public Node getTurtlePane() {
+        return scroll;
+    }
+
+
+    @Override
+    public Group getTurtleArea() {
         return dispArea;
     }
-    
 
 
 }

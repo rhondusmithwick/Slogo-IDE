@@ -1,8 +1,7 @@
 package view;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
-
-import java.util.List;
 
 /**
  * This is an internal interface intended to allow the views main class to create and access buttons and comboboxes that will be located on the tool bar. This class ensures that any
@@ -25,5 +24,13 @@ public interface ToolBarInterface {
      * @return List of Nodes to be placed on the toolbar
      */
     Node getToolBarMembers();
+
+    void setTDisp(TurtleAreaInterface tDisp);
+
+    void setEDisp(ErrorDisplayInterface eDisp);
+
+    void setCommEnt(CommandEntryInterface commEnt);
+
+    SimpleStringProperty getLanguage();
 
 }

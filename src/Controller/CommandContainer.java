@@ -1,12 +1,8 @@
 package Controller;
 
-import Model.Forward;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -18,37 +14,12 @@ import java.util.ResourceBundle;
  */
 public class CommandContainer {
 
-    private final Map<Class<?>, Class<?>[]> parametersMap = new HashMap<>();
-
-    private final ObservableList<String> commandStringList = FXCollections.observableArrayList();
-
+    private final ObservableList<String> commandStringList = createCommandsStringList();
     private final ResourceBundle commandLocations = ResourceBundle.getBundle("Model/commandLocations");
 
-    public CommandContainer() {
-        addListeners();
-        addToCommandStringList("Forward", "Backward", "PenDown", "PenUp", "SetPenColor");
-    }
+    private final Map<String, Class<?>> classMap = createClassMap();
 
-    private void addListeners() {
-        commandStringList.addListener((ListChangeListener<String>) c ->
-                modifyParametersMap());
-    }
-
-    private void modifyParametersMap() {
-        parametersMap.clear();
-        for (String commandString : commandStringList) {
-            Class theClass = getClassForName(commandString);
-            Class<?>[] parameters = getParametersForClass(theClass);
-            parametersMap.put(theClass, parameters);
-        }
-    }
-
-    private Class<?>[] getParametersForClass(Class theClass) {
-        Constructor[] allConstructors = theClass.getDeclaredConstructors();
-        return allConstructors[0].getParameterTypes();
-    }
-
-    private Class<?> getClassForName(String className) {
+    public Class<?> getClassForName(String className) {
         try {
             return Class.forName(commandLocations.getString(className));
         } catch (Exception e) {
@@ -56,12 +27,24 @@ public class CommandContainer {
         }
     }
 
-    void addToCommandStringList(String... commands) {
-        commandStringList.addAll(commands);
+    private ObservableList<String> createCommandsStringList() {
+        return FXCollections.observableArrayList("Forward", "Backward", "PenDown", "PenUp", "SetPenColor");
     }
 
-    Map<Class<?>, Class<?>[]> getParametersMap() {
-        return parametersMap;
+    private Map<String, Class<?>> createClassMap() {
+        Map<String, Class<?>> classMap = new HashMap<>();
+        for (String commandString : commandStringList) {
+            Class theClass = getClassForName(commandString);
+            classMap.put(commandString, theClass);
+        }
+        return classMap;
     }
 
+    public Class<?> getClass(String className) {
+        return classMap.get(className);
+    }
+
+    public ObservableList<String> getCommandStringList() {
+        return commandStringList;
+    }
 }

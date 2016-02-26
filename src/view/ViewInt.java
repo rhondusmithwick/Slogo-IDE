@@ -1,6 +1,7 @@
 package view;
 
-import javafx.scene.Node;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.Group;
 
 /**
  * This is the external Interface for the View. It is the external API for displaying the results of SLOGO commands, as well as taking in the input SLOGO commands, and displaying
@@ -29,10 +30,14 @@ public interface ViewInt {
     void passInput(String command);
 
     /**
-     * This method returns the Node that will be used to display the turtle and its path.
+     * This method returns the main group of nodes for the project.
      *
-     * @return
+     * @return main group for the scene
      */
-    Node getTurtleDisplay();
+    Group getGroup();
+
+    SimpleStringProperty[] getProperties();
+
+    Group getInnerGroup();
 
 }

@@ -7,10 +7,6 @@ package Model;
  */
 public class Backward extends Movement {
 
-    public Backward(Turtle myTurtle, double distance) {
-        super(myTurtle, distance);
-    }
-
     @Override
     public double execute() {
         return move(-1);

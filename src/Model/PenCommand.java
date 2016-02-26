@@ -5,13 +5,10 @@ package Model;
  *
  * @author Rhondu Smithwick
  */
-public abstract class PenCommand extends TurtleCommand {
+abstract class PenCommand extends TurtleCommand {
 
-    public PenCommand(Turtle myTurtle) {
-        super(myTurtle);
-    }
-
-    protected void changePen(boolean t) {
+    protected double changePen(boolean t) {
         getTurtle().getTurtleProperties().setPenDown(t);
+        return t ? 1 : 0;
     }
 }

@@ -4,14 +4,17 @@ package view;
  * must have a method to set background color and a method to return the node upon which the turtle is drawing.
  */
 
+import javafx.geometry.Dimension2D;
+import javafx.scene.Group;
 import javafx.scene.Node;
 
 public interface TurtleAreaInterface {
 
+
     /**
      * creates the turtles display area.
      */
-    void createTurtleArea();
+    void createTurtleArea(Dimension2D turtleDispDimension);
 
     /**
      * Sets the background color of the turtles display area
@@ -22,10 +25,13 @@ public interface TurtleAreaInterface {
 
 
     /**
-     * Returns the node that the turtle is drawing on top of. It is only a Node so that the actual object the turtle draw on top of can be anything from a rectangle to
+     * Returns the node that the turtle is drawing on top of. It is only a CommandNode so that the actual object the turtle draw on top of can be anything from a rectangle to
      * a javafx canvas, to a preset image.
      *
-     * @return Node underlying turtle area
+     * @return CommandNode underlying turtle area
      */
-    Node getTurtleArea();
+    Group getTurtleArea();
+
+    Node getTurtlePane();
+
 }

@@ -7,11 +7,9 @@ package Model;
  */
 public class Forward extends Movement {
 
-    public Forward(Turtle myTurtle, double distance) {
-        super(myTurtle, distance);
-    }
-
+    @Override
     public double execute() {
         return move(1);
     }
+
 }

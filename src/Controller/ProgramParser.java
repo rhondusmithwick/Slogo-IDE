@@ -9,10 +9,8 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 
-public class ProgramParser {
+class ProgramParser {
     private final List<Entry<String, Pattern>> mySymbols;
-
-    private final String WHITESPACE = "\\p{Space}";
 
     public ProgramParser(String... bundles) {
         mySymbols = new ArrayList<>();
@@ -32,7 +30,7 @@ public class ProgramParser {
         }
     }
 
-    public String getSymbol(String text) {
+    private String getSymbol(String text) {
         final String ERROR = "NO MATCH";
         for (Entry<String, Pattern> e : mySymbols) {
             if (match(text, e.getValue())) {
@@ -47,20 +45,21 @@ public class ProgramParser {
     }
 
     public List<Entry<String, String>> parseText(String input) {
+        String WHITESPACE = "\\p{Space}";
         String[] text = input.split(WHITESPACE);
-        List<Entry<String, String>> commandQueue = new ArrayList<>();
+        List<Entry<String, String>> parsedText = new ArrayList<>();
         for (String s : text) {
             if (s.trim().length() > 0) {
                 String symbol = getSymbol(s);
 //                if (symbol.equals("Error")) {
 //                    throw new Exception();
 //                }
-                commandQueue.add(new SimpleEntry<>(symbol, s));
-                System.out.println(String.format("%s : %s", s, symbol));
+                parsedText.add(new SimpleEntry<>(symbol, s));
+                System.out.println(String.format("%s : %s", symbol, s));
             }
         }
-        System.out.println(commandQueue);
-        return commandQueue;
+        System.out.println(parsedText);
+        return parsedText;
     }
 
 }

@@ -1,20 +1,35 @@
 package Controller;
 
-import java.util.Arrays;
+import Model.Turtle;
+import javafx.application.Application;
+import javafx.geometry.Dimension2D;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.util.List;
 import java.util.Map.Entry;
 
 
-public class TestParsing {
+public class TestParsing extends Application {
+
+    private static final Dimension2D turtleDispDimension = new Dimension2D(600, 450);
 
     public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
         ProgramParser lang = new ProgramParser("languages/English", "languages/Syntax");
-        CommandContainer commandContainer = new CommandContainer();
-        String userInput = "fd 50 rt 90 BACK :distance Left :angle";
-        List<Entry<String, String>> commandQueue = lang.parseText(userInput);
-        System.out.println(commandQueue);
-        for (Entry<Class<?>, Class<?>[]> entry : commandContainer.getParametersMap().entrySet()) {
-            System.out.printf("The class was %s and the %s were the parameters\n", entry.getKey(), Arrays.toString(entry.getValue()));
-        }
+        Turtle myTurtle = new Turtle(turtleDispDimension);
+        Scene myScene = new Scene(myTurtle.getGroup(), 800, 800);
+        primaryStage.setScene(myScene);
+        primaryStage.setTitle("Slogo");
+        primaryStage.show();
+//        String userInput = "fd rt 90 BACK 30 Left 20";
+        String userInput = "fd fd 60 fd 20";
+        List<Entry<String, String>> parsedText = lang.parseText(userInput);
+        ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
+        expressionTree.executeAll();
     }
 }

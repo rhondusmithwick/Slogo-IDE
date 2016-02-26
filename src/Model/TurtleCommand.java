@@ -5,15 +5,15 @@ package Model;
  *
  * @author Rhondu Smithwick
  */
-abstract class TurtleCommand implements Command {
-    private final Turtle myTurtle;
-
-    TurtleCommand(Turtle myTurtle) {
-        this.myTurtle = myTurtle;
-    }
+abstract class TurtleCommand extends CommandNode {
 
     Turtle getTurtle() {
-        return myTurtle;
+        return (Turtle) getChildren().get(0);
+    }
+
+    @Override
+    public boolean hasTurtle() {
+        return true;
     }
 
 }

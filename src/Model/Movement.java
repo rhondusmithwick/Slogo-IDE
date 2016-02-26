@@ -9,20 +9,14 @@ import javafx.geometry.Point2D;
  */
 abstract class Movement extends TurtleCommand {
 
-    private final double distance;
-
-    protected Movement(Turtle myTurtle, double distance) {
-        super(myTurtle);
-        this.distance = distance;
-    }
-
     protected double move(int direction) {
-        Point2D pointToMoveTo = getPointToMoveTo(direction);
+        double distance = getChildren().get(1).getValue();
+        Point2D pointToMoveTo = getPointToMoveTo(distance, direction);
         getTurtle().moveTo(pointToMoveTo);
         return distance;
     }
 
-    private Point2D getPointToMoveTo(int direction) {
+    private Point2D getPointToMoveTo(double distance, int direction) {
         double heading = getTurtle().getTurtleProperties().getHeading();
         double angle = Math.toRadians(heading);
         Point2D location = getTurtle().getTurtleProperties().getLocation();

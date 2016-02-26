@@ -17,7 +17,7 @@ public interface Controller {
      **/
     void takeInput(String input);
 
-    SimpleStringProperty[] getProperties();
+    List<SimpleStringProperty> getProperties();
 
     /**
      * Get a list of all commands.

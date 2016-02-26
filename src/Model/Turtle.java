@@ -1,31 +1,30 @@
 package Model;
 
 import javafx.animation.PathTransition;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
-import java.util.Observable;
-
 /**
  * Created by rhondusmithwick on 2/22/16.
  *
  * @author Rhondu Smithwick
  */
-public class Turtle {
+public class Turtle implements TreeNode {
     private final Group root = new Group();
     private final ImageView imageView = new ImageView();
     private final Path path = new Path();
-    private final TurtleProperties turtleProperties = new TurtleProperties();
+    private final TurtleProperties turtleProperties;
 
-    public Turtle() {
+    public Turtle(Dimension2D turtleDispDimension) {
+        turtleProperties = new TurtleProperties();
         turtleProperties.addListeners(imageView, path);
-        turtleProperties.init();
+        turtleProperties.init(turtleDispDimension);
         root.getChildren().add(imageView);
         root.getChildren().add(path);
     }
@@ -49,4 +48,6 @@ public class Turtle {
     public Group getGroup() {
         return root;
     }
+
+
 }
