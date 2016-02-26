@@ -2,7 +2,9 @@ package Main;
 
 import Controller.Controller.Controller;
 import Controller.Controller.TurtleController;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -38,18 +40,20 @@ class Slogo {
 
     private void bindProperties() {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
-        List<SimpleStringProperty> viewProperties = view.getProperties();
-        controllerProperties.stream().forEach(prop -> findTwin(prop, viewProperties));
+        controllerProperties.stream()
+                .forEach(this::findTwin);
     }
 
-    private void findTwin(SimpleStringProperty controllerProperty,
-                          List<SimpleStringProperty> viewProperties) {
+    private void findTwin(SimpleStringProperty controllerProperty) {
         String cName = controllerProperty.getName();
+        List<SimpleStringProperty> viewProperties = view.getProperties();
         Predicate<SimpleStringProperty> shouldBind = (p) ->
                 Objects.equals(p.getName(), cName);
         viewProperties.stream()
-                .filter(shouldBind).findFirst()
-                .ifPresent(controllerProperty::bindBidirectional);
+                .filter(shouldBind)
+                .findFirst()
+                .ifPresent(c -> c.addListener((ov, oldVal, newVal)
+                                -> controllerProperty.set(newVal)));
     }
 
 }

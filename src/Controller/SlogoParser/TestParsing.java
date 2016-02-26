@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Queue;
 
 
 public class TestParsing extends Application {
@@ -28,7 +29,7 @@ public class TestParsing extends Application {
         primaryStage.show();
 //        String userInput = "fd rt 90 BACK 30 Left 20";
         String userInput = "fd fd 60 fd 20";
-        List<Entry<String, String>> parsedText = lang.parseText(userInput);
+        Queue<Entry<String, String>> parsedText = lang.parseText(userInput);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
         expressionTree.executeAll();
     }
