@@ -47,7 +47,7 @@ public class ToolBar implements ToolBarInterface {
     private ResourceBundle myResources;
     private String dispLang, bColor, pLanguage, pColor;
     private TurtleAreaInterface tDisp;
-    private CommandEntryInterface cEnt;
+    //private CommandEntryInterface cEnt;
     private ErrorDisplayInterface eDisp;
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
@@ -69,7 +69,7 @@ public class ToolBar implements ToolBarInterface {
         getLanguages();
         try {
             getColors();
-        } catch (ClassNotFoundException | IllegalArgumentException | IllegalAccessException e) {
+        } catch (Exception e) {
         	eDisp.showError(myResources.getString("colorError"));
         }
         createComboBoxes();
@@ -90,6 +90,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void setPColor() {
         pColor = pColorBox.getSelectionModel().getSelectedItem();
+        System.out.println(pColor);
 
     }
 
@@ -104,7 +105,7 @@ public class ToolBar implements ToolBarInterface {
     }
 
     private ComboBox<String> createBox(String label, ArrayList<String> choices, EventHandler<ActionEvent> handler) {
-        ComboBox<String> comBox = new ComboBox<String>();
+        ComboBox<String> comBox = new ComboBox<>();
         comBox.setPromptText(myResources.getString(label));
         for (String choice : choices) {
             comBox.getItems().add(choice);
@@ -116,8 +117,8 @@ public class ToolBar implements ToolBarInterface {
     }
 
     @SuppressWarnings("rawtypes")
-    private void getColors() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-        possColors = new ArrayList<String>();
+    private void getColors() throws Exception {
+        possColors = new ArrayList<>();
 
         Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
         Field[] fields = colorClass.getFields();
@@ -130,12 +131,11 @@ public class ToolBar implements ToolBarInterface {
     }
 
     private void getLanguages() {
-        parseLangs = new ArrayList<String>();
+        parseLangs = new ArrayList<>();
         File directory = new File(LANGUAGE_LOCATION);
         File[] fList = directory.listFiles();
-        String name = null;
         for (File file : fList) {
-            name = file.getName();
+            String name = file.getName();
             parseLangs.add(name.substring(0, name.lastIndexOf(FILE_EXTENSION)));
         }
     }
@@ -166,6 +166,7 @@ public class ToolBar implements ToolBarInterface {
         //make this observable for backend
         try {
             String imagepath = file.toURI().toURL().toString();
+            System.out.println(imagepath);
 
         } catch (MalformedURLException e) {
             eDisp.showError(myResources.getString("picError"));
@@ -188,7 +189,7 @@ public class ToolBar implements ToolBarInterface {
     }
 
     public void setCommEnt(CommandEntryInterface commEnt) {
-        this.cEnt = commEnt;
+        //this.cEnt = commEnt;
     }
 
     public void setEDisp(ErrorDisplayInterface errorDisp) {
