@@ -9,7 +9,7 @@ import Model.TreeNode.TurtleCommandNode;
  */
 abstract class PenCommand extends TurtleCommandNode {
 
-    protected double changePen(boolean t) {
+    double changePen(boolean t) {
         getTurtle().getTurtleProperties().setPenDown(t);
         return t ? 1 : 0;
     }

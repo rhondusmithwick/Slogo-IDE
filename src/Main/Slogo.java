@@ -25,7 +25,7 @@ class Slogo {
     private final ViewInt view = new View(turtleDispDimension);
 
     public Slogo() {
-//        bindProperties();
+        bindProperties();
         view.getInnerGroup().getChildren().add(controller.getGroup());
     }
 

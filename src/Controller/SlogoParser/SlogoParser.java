@@ -3,17 +3,19 @@ package Controller.SlogoParser;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 
 public class SlogoParser {
-    private final List<Entry<String, Pattern>> mySymbols;
+    private final Map<String, Pattern> mySymbols;
 
     public SlogoParser(String... bundles) {
-        mySymbols = new ArrayList<>();
+        mySymbols = new HashMap<>();
         for (String bundle : bundles) {
             addPatterns(bundle);
         }
@@ -25,14 +27,14 @@ public class SlogoParser {
         while (iter.hasMoreElements()) {
             String key = iter.nextElement();
             String regex = resources.getString(key);
-            mySymbols.add(new SimpleEntry<>(key,
-                    Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+            mySymbols.put(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
         }
+        mySymbols.remove("Command");
     }
 
     private String getSymbol(String text) {
         final String ERROR = "NO MATCH";
-        for (Entry<String, Pattern> e : mySymbols) {
+        for (Entry<String, Pattern> e : mySymbols.entrySet()) {
             if (match(text, e.getValue())) {
                 return e.getKey();
             }

@@ -30,7 +30,6 @@ public class TestParsing extends Application {
         String userInput = "fd fd 60 fd 20";
         List<Entry<String, String>> parsedText = lang.parseText(userInput);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
-        System.out.println(expressionTree);
         expressionTree.executeAll();
     }
 }
