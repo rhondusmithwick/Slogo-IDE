@@ -37,8 +37,8 @@ public class CommandHistoryDisplay implements CommHistory {
 
     public CommandHistoryDisplay() {
     	this.language = DEFAULT_LANGUAGE;
-        commands = new ArrayList<String>();
-        commandLabels = new ArrayList<Label>();
+        commands = new ArrayList<>();
+        commandLabels = new ArrayList<>();
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
     }
 
