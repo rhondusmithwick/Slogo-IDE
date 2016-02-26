@@ -33,12 +33,12 @@ public class View implements ViewInt {
     private ResourceBundle myResources;
     private BorderPane UI;
     private Group root;
-    private TurtleDisplay turtDisp;
+    private TurtleAreaInterface turtDisp;
     private ToolBar tBar;
     private Button executeButton;
-    private CommandHistoryDisplay commandHistory;
-    private CommandEntry commandEntry;
-    private ErrorDisplay errorDisplay;
+    private CommHistory commandHistory;
+    private CommandEntryInterface commandEntry;
+    private ErrorDisplayInterface errorDisplay;
     private HBox bottom;
     private VBox left, right;
     private Node commandHistoryBox, entryBox;
@@ -66,6 +66,7 @@ public class View implements ViewInt {
         createRightPane();
         addComponents();
         setToolBar();
+        commandHistory.setCommEntry(commandEntry);
     }
 
 
@@ -167,7 +168,8 @@ public class View implements ViewInt {
     public List<SimpleStringProperty> getProperties() {
         SimpleStringProperty input = commandEntry.getInput();
         SimpleStringProperty language = tBar.getLanguage();
-        return Arrays.asList(input, language);
+        SimpleStringProperty image = tBar.getTurtImage();
+        return Arrays.asList(input, language, image);
     }
 
 }

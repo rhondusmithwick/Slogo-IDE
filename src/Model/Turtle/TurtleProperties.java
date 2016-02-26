@@ -108,7 +108,7 @@ public final class TurtleProperties {
     }
 
     private Image createImage(String filePath) {
-        return new Image(getClass().getClassLoader().getResourceAsStream(filePath));
+        return new Image(filePath);
     }
 
 }

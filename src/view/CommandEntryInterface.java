@@ -2,6 +2,7 @@ package view;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
+import javafx.scene.control.TextArea;
 
 /**
  * This is an internal API for the view that provides a framework for any class implementing the feature allowing the user to enter text commands. It ensures that any class
@@ -17,7 +18,7 @@ public interface CommandEntryInterface {
      *
      * @return CommandNode that allows user to enter command into it
      */
-    Node getTextBox();
+    TextArea getTextBox();
 
     /**
      * Gets text from the text box and returns any commands currently entered into the text box

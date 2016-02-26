@@ -48,5 +48,11 @@ public interface ToolBarInterface {
      * @return simple string property for parsing language
      */
     SimpleStringProperty getLanguage();
+    
+    /**
+     * returns the simplestringproperty associated with turtle image's paht
+     * @return simple string property for the turtle's image
+     */
+    SimpleStringProperty getTurtImage();
 
 }

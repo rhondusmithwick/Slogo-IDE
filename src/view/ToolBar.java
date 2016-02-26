@@ -41,6 +41,8 @@ public class ToolBar implements ToolBarInterface {
     private static final int TB_WIDTH = 1000;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
+    
+    private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
     private final SimpleStringProperty language = new SimpleStringProperty(this, "language", LANGUAGE_PATH + DEFAULT_LANGUAGE);
     private HBox container;
     private HelpScreen hScreen;
@@ -166,7 +168,7 @@ public class ToolBar implements ToolBarInterface {
         //make this observable for backend
         try {
             String imagepath = file.toURI().toURL().toString();
-            System.out.println(imagepath);
+            image.set(imagepath);
 
         } catch (MalformedURLException e) {
             eDisp.showError(myResources.getString("picError"));
@@ -200,6 +202,13 @@ public class ToolBar implements ToolBarInterface {
     public SimpleStringProperty getLanguage() {
         return language;
     }
+
+	@Override
+	public SimpleStringProperty getTurtImage() {
+		return image;
+	}
+    
+    
 
 
 }
