@@ -24,7 +24,7 @@ public class CommandHistoryDisplay implements CommHistory {
 	private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DISP = "DISP";
-    private final double SCROLLPANE_WIDTH = 400.00;
+    private final double SCROLLPANE_WIDTH = 417.00;
     private final double SCROLLPANE_HEIGHT = 195.0;
     private ScrollPane myScrollPane;
     private Label title;
@@ -37,8 +37,8 @@ public class CommandHistoryDisplay implements CommHistory {
 
     public CommandHistoryDisplay() {
     	this.language = DEFAULT_LANGUAGE;
-        commands = new ArrayList<String>();
-        commandLabels = new ArrayList<Label>();
+        commands = new ArrayList<>();
+        commandLabels = new ArrayList<>();
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
     }
 
