@@ -28,6 +28,7 @@ public class CommandEntry implements CommandEntryInterface {
 
     @Override
     public void getCommandsFromString(String text) {
+        System.out.printf("text from frontend %s \n", text);
         input.set(text);
     }
 

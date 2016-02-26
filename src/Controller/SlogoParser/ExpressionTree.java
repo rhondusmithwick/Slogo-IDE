@@ -8,6 +8,7 @@ import Model.Turtle.Turtle;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.stream.IntStream;
 
@@ -20,21 +21,20 @@ public class ExpressionTree {
 
     private final ResourceBundle commandLocations = ResourceBundle.getBundle("Model/commandLocations");
 
-    private final List<Entry<String, String>> parsedText;
+    private final Queue<Entry<String, String>> parsedText;
 
     private final List<TreeNode> rootList;
 
     private final Turtle myTurtle;
 
-    private int currIndex = 0;
-
-    public ExpressionTree(Turtle myTurtle, List<Entry<String, String>> parsedText) {
+    public ExpressionTree(Turtle myTurtle, Queue<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
         this.parsedText = parsedText;
         rootList = createRootList();
     }
 
     public void executeAll() {
+        System.out.println(rootList);
         rootList.stream().forEach(TreeNode::getValue);
     }
 
@@ -48,32 +48,29 @@ public class ExpressionTree {
     }
 
     private TreeNode createRoot() {
-        String className = parsedText.get(currIndex).getKey();
-        TreeNode root = createNodeInstance(className);
-        currIndex++;
+        Entry<String, String> curr = parsedText.poll();
+        TreeNode root = createNode(curr);
         createSubTree(root);
         return root;
     }
 
     private void createSubTree(TreeNode root) {
         while (stillRoot(root)) {
-            String className = parsedText.get(currIndex).getKey();
-            TreeNode n = createNode(className);
+            Entry<String, String> curr = parsedText.poll();
+            TreeNode n = createNode(curr);
             root.addChild(n);
-            currIndex++;
             createSubTree(n);
         }
-//
     }
 
-    private TreeNode createNode(String className) {
+    private TreeNode createNode(Entry<String, String> curr) {
         TreeNode n;
-        if (isConstant(className)) {
-            String doubleText = parsedText.get(currIndex).getValue();
+        if (isConstant(curr.getKey())) {
+            String doubleText = curr.getValue();
             Double constant = Double.parseDouble(doubleText);
             n = new ConstantNode(constant);
         } else {
-            n = createNodeInstance(className);
+            n = createNodeInstance(curr.getKey());
         }
         return n;
     }
@@ -98,7 +95,7 @@ public class ExpressionTree {
     }
 
     private boolean inBounds() {
-        return (currIndex < parsedText.size());
+        return !parsedText.isEmpty();
     }
 
     private boolean isConstant(String className) {

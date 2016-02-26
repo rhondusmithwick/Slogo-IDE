@@ -4,11 +4,15 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Queue;
 import java.util.ResourceBundle;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -50,9 +54,9 @@ public class SlogoParser {
         return regex.matcher(text).matches();
     }
 
-    public List<Entry<String, String>> parseText(String input) {
+    public Queue<Entry<String, String>> parseText(String input) {
         Predicate<Entry<String, String>> containsError = (e) -> Objects.equals(e.getKey(), ERROR);
-        List<Entry<String, String>> parsedText = createParsedText(input);
+        Queue<Entry<String, String>> parsedText = createParsedText(input);
         if (parsedText.stream().anyMatch(containsError)) {
             return null;
         } else {
@@ -60,12 +64,13 @@ public class SlogoParser {
         }
     }
 
-    private List<Entry<String, String>> createParsedText(String input) {
+    private Queue<Entry<String, String>> createParsedText(String input) {
         String WHITESPACE = "\\p{Space}";
         List<String> text = Arrays.asList(input.split(WHITESPACE));
         Predicate<String> notEmpty = (s) -> (s.trim().length() > 0);
+        Queue<Entry<String, String>> answer = new LinkedList<>();
         return text.stream().filter(notEmpty)
                 .map(s -> new SimpleEntry<>(getSymbol(s), s))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(() -> answer));
     }
 }

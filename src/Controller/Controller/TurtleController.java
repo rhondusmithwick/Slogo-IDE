@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Queue;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -40,9 +41,9 @@ public class TurtleController implements Controller {
 
     @Override
     public void takeInput(String input) {
-        List<Entry<String, String>> parsedText = parser.parseText(input);
+        System.out.printf("text from backend %s \n", input);
+        Queue<Entry<String, String>> parsedText = parser.parseText(input);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
-        System.out.println(expressionTree);
         expressionTree.executeAll();
     }
 
