@@ -11,7 +11,9 @@ import javafx.scene.Group;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Queue;
+import java.util.function.Predicate;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -66,6 +68,7 @@ public class TurtleController implements Controller {
         language.addListener((ov, oldVal, newVal)
                 -> parser.addPatterns(newVal));
         input.addListener((ov, oldVal, newVal) -> {
+            System.out.printf("text backend is taking: %s \n", input);
             takeInput(newVal);
         });
     }
@@ -76,4 +79,5 @@ public class TurtleController implements Controller {
                 myTurtle.getTurtleProperties().imageProperty(),
                 myTurtle.getTurtleProperties().penColorProperty());
     }
+
 }

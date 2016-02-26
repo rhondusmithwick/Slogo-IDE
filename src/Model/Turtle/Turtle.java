@@ -6,6 +6,8 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -30,16 +32,18 @@ public class Turtle extends TreeNode {
         root.getChildren().add(path);
     }
 
-
     public void moveTo(Point2D pointToMoveTo) {
-//        path.getElements().clear();
+        path.getElements().clear();
         Point2D location = turtleProperties.getLocation();
+        Paint old = path.getStroke();
+        path.setStroke(Color.TRANSPARENT);
         path.getElements().add(new MoveTo(location.getX(), location.getY()));
         path.getElements().add(new LineTo(pointToMoveTo.getX(), pointToMoveTo.getY()));
-        PathTransition pt = new PathTransition(Duration.millis(10000), path, imageView);
+        PathTransition pt = new PathTransition(Duration.seconds(3), path, imageView);
+        pt.onFinishedProperty().set(t -> path.setStroke(old));
         pt.play();
         turtleProperties.setLocation(pointToMoveTo);
-    }
+}
 
     public TurtleProperties getTurtleProperties() {
         return turtleProperties;
