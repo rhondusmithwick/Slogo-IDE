@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 
@@ -37,22 +39,11 @@ public interface ToolBarInterface {
      */
     void setEDisp(ErrorDisplayInterface eDisp);
 
-    /**
-     * sets the command entry object so that toolbar can pass internal commands to backend
-     * @param commEnt command entry component
-     */
-    void setCommEnt(CommandEntryInterface commEnt);
-
-    /**
-     * returns the simplestringproperty associated with parsing language
-     * @return simple string property for parsing language
-     */
-    SimpleStringProperty getLanguage();
     
     /**
-     * returns the simplestringproperty associated with turtle image's paht
-     * @return simple string property for the turtle's image
+     * returns all properties set by tool bar
+     * @return list of properties set by tool bar
      */
-    SimpleStringProperty getTurtImage();
+    List<SimpleStringProperty> getProperties();
 
 }

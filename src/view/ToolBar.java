@@ -19,6 +19,8 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ToolBar implements ToolBarInterface {
@@ -44,12 +46,12 @@ public class ToolBar implements ToolBarInterface {
     
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
     private final SimpleStringProperty language = new SimpleStringProperty(this, "language", LANGUAGE_PATH + DEFAULT_LANGUAGE);
+    private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
     private String dispLang, bColor, pLanguage, pColor;
     private TurtleAreaInterface tDisp;
-    //private CommandEntryInterface cEnt;
     private ErrorDisplayInterface eDisp;
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
@@ -92,7 +94,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void setPColor() {
         pColor = pColorBox.getSelectionModel().getSelectedItem();
-        System.out.println(pColor);
+        penColor.set(pColor.toLowerCase());
 
     }
 
@@ -165,7 +167,6 @@ public class ToolBar implements ToolBarInterface {
         if (file == null) {
             return;
         }
-        //make this observable for backend
         try {
             String imagepath = file.toURI().toURL().toString();
             image.set(imagepath);
@@ -185,27 +186,20 @@ public class ToolBar implements ToolBarInterface {
         s.show();
         s.hide();
 	}
-
+	@Override
     public void setTDisp(TurtleAreaInterface tDisp) {
         this.tDisp = tDisp;
     }
 
-    public void setCommEnt(CommandEntryInterface commEnt) {
-        //this.cEnt = commEnt;
-    }
-
+	@Override
     public void setEDisp(ErrorDisplayInterface errorDisp) {
         this.eDisp = errorDisp;
     }
 
-    @Override
-    public SimpleStringProperty getLanguage() {
-        return language;
-    }
 
 	@Override
-	public SimpleStringProperty getTurtImage() {
-		return image;
+	public List<SimpleStringProperty> getProperties() {
+		return Arrays.asList(language,image,penColor);
 	}
     
     

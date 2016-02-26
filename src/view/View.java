@@ -145,7 +145,6 @@ public class View implements ViewInt {
 
 
     private void setToolBar() {
-        tBar.setCommEnt(commandEntry);
         tBar.setTDisp(turtDisp);
         tBar.setEDisp(errorDisplay);
 
@@ -175,10 +174,9 @@ public class View implements ViewInt {
 
     @Override
     public List<SimpleStringProperty> getProperties() {
-        SimpleStringProperty input = commandEntry.getInput();
-        SimpleStringProperty language = tBar.getLanguage();
-        SimpleStringProperty image = tBar.getTurtImage();
-        return Arrays.asList(input, language, image);
+    	List<SimpleStringProperty> tBarList = tBar.getProperties();
+        return Arrays.asList(tBarList.get(0), commandEntry.getInput(), tBarList.get(1), tBarList.get(2));
+
     }
 
 }
