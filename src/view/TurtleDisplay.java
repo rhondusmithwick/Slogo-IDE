@@ -9,24 +9,27 @@ import javafx.scene.shape.Rectangle;
 
 
 public class TurtleDisplay implements TurtleAreaInterface {
-    private Rectangle background;
+    private static final String DEFAULT_BACKGROUND_COLOR = "white";
+	private static final int SCROLL_WIDTH = 600;
+	private static final int SCROLL_HEIGHT = 450;
+	private Rectangle background;
     private Group dispArea;
     private ScrollPane scroll;
 
     public TurtleDisplay(Group root) {
         dispArea = root;
         scroll = new ScrollPane();
-        scroll.setMaxHeight(450);
-        scroll.setMaxWidth(600);
+        scroll.setMaxHeight(SCROLL_HEIGHT);
+        scroll.setMaxWidth(SCROLL_WIDTH);
 
     }
 
 
     @Override
     public void createTurtleArea(Dimension2D turtleDispDeminsion) {
-        background = new Rectangle(turtleDispDeminsion.getWidth(), turtleDispDeminsion.getHeight(), Color.WHITE);
+        background = new Rectangle(turtleDispDeminsion.getWidth(), turtleDispDeminsion.getHeight());
         dispArea = new Group();
-        setBackground("white");
+        setBackground(DEFAULT_BACKGROUND_COLOR);
         dispArea.getChildren().add(background);
         scroll.setContent(dispArea);
 

@@ -10,32 +10,33 @@ import java.net.URL;
 
 public class HelpScreen {
 
-    private static final String HTML_HELP = "resources/html/SLOGO_help.html";
 
-    public HelpScreen() {
+    private static final int HTML_HEIGHT = 600;
+	private static final int HTML_WIDTH = 800;
+
+
+	public HelpScreen() {
 
     }
 
 
-    public void showHelpScreen() {
+    public void showHelpScreen(String htmlFile) {
         Group root;
         root = new Group();
         Stage stage = new Stage();
         stage.setTitle("SLOGO Help");
-        stage.setScene(new Scene(root, 800, 600));
-        createHTMLViewer(root);
+        stage.setScene(new Scene(root, HTML_WIDTH, HTML_HEIGHT));
+        createHTMLViewer(root, htmlFile);
         stage.show();
     }
 
 
-    private void createHTMLViewer(Group root) {
+    private void createHTMLViewer(Group root, String htmlFile) {
         ClassLoader classLoader = getClass().getClassLoader();
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
-        URL urlHello = classLoader.getResource(HTML_HELP);
+        URL urlHello = classLoader.getResource(htmlFile);
         webEngine.load(urlHello.toExternalForm());
-
-
         root.getChildren().add(webView);
 
     }

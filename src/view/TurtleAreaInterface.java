@@ -32,6 +32,10 @@ public interface TurtleAreaInterface {
      */
     Group getTurtleArea();
 
+    /**
+     * returns the pane that the turtle area group exists in 
+     * @return pane that the turtle area group is in
+     */
     Node getTurtlePane();
 
 }

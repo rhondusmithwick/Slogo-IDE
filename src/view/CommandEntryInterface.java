@@ -36,11 +36,22 @@ public interface CommandEntryInterface {
      */
     void createEntryBox();
 
-
+    /**
+     * used to pass commands from one view component to the back end such as changing the pen color
+     * These commands do not come from user typed input
+     * @param command command to be run
+     */
     void passInternalCommands(String command);
-
+    
+    /**
+     * get user input commands from the text box in the gui
+     */
     void getBoxCommands();
-
+    
+    /**
+     * returns the simple string property bound to the input property in the back end 
+     * @return SimpleStringProperty containing input
+     */
     SimpleStringProperty getInput();
 
 }

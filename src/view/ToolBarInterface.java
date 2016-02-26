@@ -25,12 +25,28 @@ public interface ToolBarInterface {
      */
     Node getToolBarMembers();
 
+    /**
+     * sets the turtle display object so that toolbar can change the backgroud
+     * @param tDisp turtle display component
+     */
     void setTDisp(TurtleAreaInterface tDisp);
 
+    /**
+     * sets the error display object so that toolbar can show errors if needed
+     * @param eDisp error display component
+     */
     void setEDisp(ErrorDisplayInterface eDisp);
 
+    /**
+     * sets the command entry object so that toolbar can pass internal commands to backend
+     * @param commEnt command entry component
+     */
     void setCommEnt(CommandEntryInterface commEnt);
 
+    /**
+     * returns the simplestringproperty associated with parsing language
+     * @return simple string property for parsing language
+     */
     SimpleStringProperty getLanguage();
 
 }
