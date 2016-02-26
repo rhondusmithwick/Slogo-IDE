@@ -23,9 +23,19 @@ import java.util.ResourceBundle;
 
 public class ToolBar implements ToolBarInterface {
 
-    private static final String LANGUAGE_PATH = "languages/";
+    private static final String GIF_EXT = "*.gif";
+	private static final String GIF = "GIF";
+	private static final String JPG_EXT = "*.jpg";
+	private static final String JPG = "JPG";
+	private static final int MINI_HEIGHT = 1;
+	private static final int MINI_WIDTH = 1;
+	private static final String PNG_EXT = "*.png";
+	private static final String PNG = "PNG";
+	private static final char FILE_EXTENSION = '.';
+	private static final String LANGUAGE_LOCATION = "resources/languages";
+	private static final String JAVAFX_PAINT_CLASS = "javafx.scene.paint.Color";
+	private static final String LANGUAGE_PATH = "languages/";
     private static final String DEFAULT_LANGUAGE = "English";
-
     private static final double TB_SPACING = 10.0;
     private static final int TB_HEIGHT = 75;
     private static final int TB_WIDTH = 1000;
@@ -35,17 +45,15 @@ public class ToolBar implements ToolBarInterface {
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
-    private String dispLang, bColor, pColor, pLanguage;
+    private String dispLang, bColor, pLanguage, pColor;
     private TurtleAreaInterface tDisp;
     private CommandEntryInterface cEnt;
     private ErrorDisplayInterface eDisp;
-
-
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
     public ToolBar() {
-        this.dispLang = "english";
+        this.dispLang = DEFAULT_LANGUAGE;
         container = new HBox();
         container.setPrefWidth(TB_WIDTH);
         container.setPrefHeight(TB_HEIGHT);
@@ -62,7 +70,7 @@ public class ToolBar implements ToolBarInterface {
         try {
             getColors();
         } catch (ClassNotFoundException | IllegalArgumentException | IllegalAccessException e) {
-            System.out.println("Something went wrong, add better thing later");
+        	eDisp.showError(myResources.getString("colorError"));
         }
         createComboBoxes();
     }
@@ -111,7 +119,7 @@ public class ToolBar implements ToolBarInterface {
     private void getColors() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
         possColors = new ArrayList<String>();
 
-        Class colorClass = Class.forName("javafx.scene.paint.Color");
+        Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
         Field[] fields = colorClass.getFields();
         for (Field field : fields) {
             Object o = field.get(null);
@@ -123,12 +131,12 @@ public class ToolBar implements ToolBarInterface {
 
     private void getLanguages() {
         parseLangs = new ArrayList<String>();
-        File directory = new File("resources/languages");
+        File directory = new File(LANGUAGE_LOCATION);
         File[] fList = directory.listFiles();
         String name = null;
         for (File file : fList) {
             name = file.getName();
-            parseLangs.add(name.substring(0, name.lastIndexOf('.')));
+            parseLangs.add(name.substring(0, name.lastIndexOf(FILE_EXTENSION)));
         }
     }
 
@@ -141,20 +149,15 @@ public class ToolBar implements ToolBarInterface {
 
 
     private void createButtons() {
-        makeButton(myResources.getString("help"), e -> hScreen.showHelpScreen());
+        makeButton(myResources.getString("help"), e -> hScreen.showHelpScreen(myResources.getString("helpFile")));
         makeButton(myResources.getString("image"), e -> chooseTurtIm());
     }
 
 
     private void chooseTurtIm() {
-        Stage s = new Stage();
-        Group root = new Group();
-        s.setScene(new Scene(root, 1, 1));
         FileChooser fChoose = new FileChooser();
-        fChoose.setTitle(myResources.getString("getFile"));
-        fChoose.getExtensionFilters().addAll(new ExtensionFilter("PNG", "*.png"), new ExtensionFilter("JPG", "*.jpg"), new ExtensionFilter("GIF", "*.gif"));
-        s.show();
-        s.hide();
+        Stage s = new Stage();
+        setUpFileChooser(fChoose, s);
         File file = fChoose.showOpenDialog(s);
         s.close();
         if (file == null) {
@@ -168,6 +171,17 @@ public class ToolBar implements ToolBarInterface {
             eDisp.showError(myResources.getString("picError"));
         }
     }
+
+	private void setUpFileChooser(FileChooser fChoose, Stage s) {
+		Group root = new Group();
+        s.setScene(new Scene(root, MINI_WIDTH, MINI_HEIGHT));
+
+        fChoose.setTitle(myResources.getString("getFile"));
+        fChoose.getExtensionFilters().addAll(new ExtensionFilter(PNG, PNG_EXT), 
+        		new ExtensionFilter(JPG, JPG_EXT), new ExtensionFilter(GIF, GIF_EXT));
+        s.show();
+        s.hide();
+	}
 
     public void setTDisp(TurtleAreaInterface tDisp) {
         this.tDisp = tDisp;

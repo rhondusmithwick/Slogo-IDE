@@ -22,9 +22,17 @@ public interface ErrorDisplayInterface {
      * @param s Error message to be displayed
      */
     void showError(String s);
-
+    
+    /**
+     * returns graphical node used to display errors
+     * @return the graphical node that errors are displaed in
+     */
     Node getErrorDisplay();
-
+    
+    /**
+     * removes a label from the graphical error node
+     * @param l label to be removed
+     */
     void clearError(Label l);
 
 }
