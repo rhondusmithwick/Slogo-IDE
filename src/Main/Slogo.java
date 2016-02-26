@@ -21,7 +21,11 @@ import java.util.function.Predicate;
  * @author Rhondu Smithwick
  */
 class Slogo {
-    private static final Dimension2D turtleDispDimension = new Dimension2D(600, 450);
+    private static final int APP_HEIGHT = 700;
+
+	private static final int APP_WIDTH = 1000;
+
+	private static final Dimension2D turtleDispDimension = new Dimension2D(600, 450);
 
     private final Controller controller = new TurtleController(turtleDispDimension);
 
@@ -34,7 +38,7 @@ class Slogo {
 
 
     void init(Stage primaryStage) {
-        Scene scene = new Scene(view.getGroup(), 1000, 700);
+        Scene scene = new Scene(view.getGroup(), APP_WIDTH, APP_HEIGHT);
         primaryStage.setScene(scene);
     }
 
