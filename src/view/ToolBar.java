@@ -104,7 +104,7 @@ public class ToolBar implements ToolBarInterface {
     }
 
     private ComboBox<String> createBox(String label, ArrayList<String> choices, EventHandler<ActionEvent> handler) {
-        ComboBox<String> comBox = new ComboBox<String>();
+        ComboBox<String> comBox = new ComboBox<>();
         comBox.setPromptText(myResources.getString(label));
         for (String choice : choices) {
             comBox.getItems().add(choice);
@@ -117,7 +117,7 @@ public class ToolBar implements ToolBarInterface {
 
     @SuppressWarnings("rawtypes")
     private void getColors() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-        possColors = new ArrayList<String>();
+        possColors = new ArrayList<>();
 
         Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
         Field[] fields = colorClass.getFields();
@@ -130,7 +130,7 @@ public class ToolBar implements ToolBarInterface {
     }
 
     private void getLanguages() {
-        parseLangs = new ArrayList<String>();
+        parseLangs = new ArrayList<>();
         File directory = new File(LANGUAGE_LOCATION);
         File[] fList = directory.listFiles();
         String name = null;
