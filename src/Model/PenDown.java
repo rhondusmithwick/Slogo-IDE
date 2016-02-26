@@ -7,7 +7,6 @@ package Model;
  */
 public class PenDown extends PenCommand {
 
-
     public double execute() {
         return changePen(true);
     }
