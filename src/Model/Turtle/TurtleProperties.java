@@ -57,7 +57,7 @@ public final class TurtleProperties {
         penDown.addListener((ov, oldVal, newVal) ->
                 path.setVisible(newVal));
         penColor.addListener((ov, oldVal, newVal) ->
-                path.setFill(Color.valueOf(newVal)));
+                path.setStroke(Color.valueOf(newVal)));
         image.addListener((ov, oldVal, newVal) -> {
             Image theImage = createImage(newVal);
             imageView.setImage(theImage);
@@ -69,6 +69,10 @@ public final class TurtleProperties {
 
     public final SimpleStringProperty imageProperty() {
         return image;
+    }
+
+    public final SimpleStringProperty penColorProperty() {
+        return penColor;
     }
 
     public final void setImage(String image) {

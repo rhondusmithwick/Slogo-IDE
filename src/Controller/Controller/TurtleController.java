@@ -72,6 +72,8 @@ public class TurtleController implements Controller {
 
     @Override
     public List<SimpleStringProperty> getProperties() {
-        return Arrays.asList(language, input, myTurtle.getTurtleProperties().imageProperty());
+        return Arrays.asList(language, input,
+                myTurtle.getTurtleProperties().imageProperty(),
+                myTurtle.getTurtleProperties().penColorProperty());
     }
 }
