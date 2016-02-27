@@ -122,7 +122,6 @@ public class View implements ViewInt {
         commandEntry.createEntryBox();
         entryBox = commandEntry.getTextBox();
         right.getChildren().add(entryBox);
-
         createExecute();
     }
 
@@ -132,7 +131,6 @@ public class View implements ViewInt {
         executeButton.setPrefSize(EXECUTE_BUTTON_WIDTH, EXECUTE_BUTTON_HEIGHT);
         executeButton.setOnAction(e -> processExecute());
         right.getChildren().add(executeButton);
-        
 	}
 	
 
