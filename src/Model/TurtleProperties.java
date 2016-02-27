@@ -37,7 +37,6 @@ public final class TurtleProperties {
 
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
 
-
     final void init(Dimension2D turtleDispDimension) {
         setImage(DEFAULT_TURTLE_IMAGE);
         setVisible(true);
