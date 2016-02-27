@@ -71,7 +71,6 @@ public class TurtleController implements Controller, Observer {
             parser.addPatterns(language.get());
         }
         if (o == input) {
-            System.out.printf("text backend is taking: %s \n", input.get());
             takeInput(input.get());
         }
     }

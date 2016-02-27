@@ -19,4 +19,8 @@ public abstract class TurtleCommandNode extends CommandNode {
         return (numChildren < getNumChildrenRequired());
     }
 
+    @Override
+    public double getValue() {
+        return execute();
+    }
 }
