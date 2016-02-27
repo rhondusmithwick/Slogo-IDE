@@ -6,6 +6,7 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Queue;
 
@@ -29,7 +30,7 @@ public class TestParsing extends Application {
 //        String userInput = "fd rt 90 BACK 30 Left 20";
         String userInput = "fd fd 60 fd 20";
         Queue<Entry<String, String>> parsedText = lang.parseText(userInput);
-        ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
+        ExpressionTree expressionTree = new ExpressionTree(new HashMap<>(), myTurtle, parsedText);
         expressionTree.executeAll();
     }
 }

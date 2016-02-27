@@ -7,6 +7,7 @@ import Model.Turtle.Turtle;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.ResourceBundle;
@@ -27,7 +28,11 @@ public class ExpressionTree {
 
     private final Turtle myTurtle;
 
-    public ExpressionTree(Turtle myTurtle, Queue<Entry<String, String>> parsedText) {
+    private final Map<String, TreeNode> variables;
+
+    public ExpressionTree(Map<String, TreeNode> variables,
+                          Turtle myTurtle, Queue<Entry<String, String>> parsedText) {
+        this.variables = variables;
         this.myTurtle = myTurtle;
         this.parsedText = parsedText;
         rootList = createRootList();
@@ -49,8 +54,17 @@ public class ExpressionTree {
 
     private TreeNode createRoot() {
         Entry<String, String> curr = parsedText.poll();
-        TreeNode root = createNode(curr);
-        createSubTree(root);
+        TreeNode root = null;
+        if (curr.getKey().equals("MakeVariable")) {
+            String name = parsedText.poll().getValue();
+            curr = parsedText.poll();
+            root = createNode(curr);
+            createSubTree(root);
+            variables.put(name,root);
+        } else {
+            root = createNode(curr);
+            createSubTree(root);
+        }
         return root;
     }
 

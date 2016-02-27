@@ -3,13 +3,16 @@ package Controller.Controller;
 import Controller.SlogoParser.ExpressionTree;
 import Controller.SlogoParser.SlogoParser;
 import Model.Deprecated.Command;
+import Model.TreeNode.TreeNode;
 import Model.Turtle.Turtle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
@@ -23,6 +26,8 @@ import java.util.Queue;
 public class TurtleController implements Controller, Observer {
 
     private static final String DEFAULT_LANGUAGE = "languages/English";
+
+    private final Map<String, TreeNode> variables = new HashMap<>();
 
     private final SlogoParser parser = new SlogoParser("languages/Syntax");
 
@@ -51,7 +56,7 @@ public class TurtleController implements Controller, Observer {
     public void takeInput(String input) {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
-        ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
+        ExpressionTree expressionTree = new ExpressionTree(variables, myTurtle, parsedText);
         expressionTree.executeAll();
     }
 
