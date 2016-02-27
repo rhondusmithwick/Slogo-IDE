@@ -36,7 +36,7 @@ public class TurtleTesting extends Application {
         rectPath.setArcWidth(10);
         rectPath.setFill(Color.ORANGE);
         Path path = new Path();
-        path.getElements().add(new MoveTo(20,20));
+        path.getElements().add(new MoveTo(20, 20));
         path.getElements().add(new CubicCurveTo(380, 0, 380, 120, 200, 120));
         path.getElements().add(new CubicCurveTo(0, 120, 0, 240, 380, 240));
         PathTransition pathTransition = new PathTransition();

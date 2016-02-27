@@ -27,24 +27,24 @@ import java.util.ResourceBundle;
 public class ToolBar implements ToolBarInterface {
 
     private static final String GIF_EXT = "*.gif";
-	private static final String GIF = "GIF";
-	private static final String JPG_EXT = "*.jpg";
-	private static final String JPG = "JPG";
-	private static final int MINI_HEIGHT = 1;
-	private static final int MINI_WIDTH = 1;
-	private static final String PNG_EXT = "*.png";
-	private static final String PNG = "PNG";
-	private static final char FILE_EXTENSION = '.';
-	private static final String LANGUAGE_LOCATION = "resources/languages";
-	private static final String JAVAFX_PAINT_CLASS = "javafx.scene.paint.Color";
-	private static final String LANGUAGE_PATH = "languages/";
+    private static final String GIF = "GIF";
+    private static final String JPG_EXT = "*.jpg";
+    private static final String JPG = "JPG";
+    private static final int MINI_HEIGHT = 1;
+    private static final int MINI_WIDTH = 1;
+    private static final String PNG_EXT = "*.png";
+    private static final String PNG = "PNG";
+    private static final char FILE_EXTENSION = '.';
+    private static final String LANGUAGE_LOCATION = "resources/languages";
+    private static final String JAVAFX_PAINT_CLASS = "javafx.scene.paint.Color";
+    private static final String LANGUAGE_PATH = "languages/";
     private static final String DEFAULT_LANGUAGE = "English";
     private static final double TB_SPACING = 10.0;
     private static final int TB_HEIGHT = 75;
     private static final int TB_WIDTH = 1000;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
-    
+
     private final SimpleStringProperty image;
     private final SimpleStringProperty language;
     private final SimpleStringProperty penColor;
@@ -78,7 +78,7 @@ public class ToolBar implements ToolBarInterface {
         try {
             getColors();
         } catch (Exception e) {
-        	eDisp.showError(myResources.getString("colorError"));
+            eDisp.showError(myResources.getString("colorError"));
         }
         createComboBoxes();
     }
@@ -180,33 +180,32 @@ public class ToolBar implements ToolBarInterface {
         }
     }
 
-	private void setUpFileChooser(FileChooser fChoose, Stage s) {
-		Group root = new Group();
+    private void setUpFileChooser(FileChooser fChoose, Stage s) {
+        Group root = new Group();
         s.setScene(new Scene(root, MINI_WIDTH, MINI_HEIGHT));
 
         fChoose.setTitle(myResources.getString("getFile"));
-        fChoose.getExtensionFilters().addAll(new ExtensionFilter(PNG, PNG_EXT), 
-        		new ExtensionFilter(JPG, JPG_EXT), new ExtensionFilter(GIF, GIF_EXT));
+        fChoose.getExtensionFilters().addAll(new ExtensionFilter(PNG, PNG_EXT),
+                new ExtensionFilter(JPG, JPG_EXT), new ExtensionFilter(GIF, GIF_EXT));
         s.show();
         s.hide();
-	}
-	@Override
+    }
+
+    @Override
     public void setTDisp(TurtleAreaInterface tDisp) {
         this.tDisp = tDisp;
     }
 
-	@Override
+    @Override
     public void setEDisp(ErrorDisplayInterface errorDisp) {
         this.eDisp = errorDisp;
     }
 
 
-	@Override
-	public List<SimpleStringProperty> getProperties() {
-		return Arrays.asList(language,image,penColor);
-	}
-    
-    
+    @Override
+    public List<SimpleStringProperty> getProperties() {
+        return Arrays.asList(language, image, penColor);
+    }
 
 
 }

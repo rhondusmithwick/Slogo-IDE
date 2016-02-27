@@ -10,11 +10,8 @@ import javafx.scene.Group;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Queue;
-import java.util.function.Predicate;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -28,12 +25,9 @@ public class TurtleController implements Controller {
     private final SlogoParser parser = new SlogoParser("languages/Syntax");
 
     private final Group group = new Group();
-
-    private SimpleStringProperty language = new SimpleStringProperty(this, "language");
-
-    private SimpleStringProperty input = new SimpleStringProperty(this, "input");
-
     private final Turtle myTurtle;
+    private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
+    private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
