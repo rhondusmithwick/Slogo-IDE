@@ -1,15 +1,13 @@
 package Model.Turtle;
 
 import Model.TreeNode.TreeNode;
-import javafx.animation.PathTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
 /**
@@ -22,6 +20,7 @@ public class Turtle extends TreeNode {
     private final ImageView imageView = new ImageView();
     private final TurtleProperties turtleProperties;
 
+
     public Turtle(Dimension2D turtleDispDimension) {
         turtleProperties = new TurtleProperties();
         turtleProperties.addListeners(imageView);
@@ -30,22 +29,42 @@ public class Turtle extends TreeNode {
     }
 
     public void moveTo(Point2D pointToMoveTo) {
-        Path path = createPath(pointToMoveTo);
-        PathTransition pt = new PathTransition(Duration.seconds(3), path, imageView);
-        pt.onFinishedProperty().set(t -> root.getChildren().add(path));
-        pt.play();
-        turtleProperties.setLocation(pointToMoveTo);
+        Line penLine = createPenLine();
+        root.getChildren().add(penLine);
+        TranslateTransition transition = createMovement(pointToMoveTo);
+        imageView.setVisible(false);
+        transition.onFinishedProperty().set(t -> cleanUpMove(penLine, pointToMoveTo));
+        getTurtleProperties().setIsMoving(true);
+        transition.play();
     }
 
-    private Path createPath(Point2D pointToMoveTo) {
+    private Line createPenLine() {
+        Line penLine = new Line();
         Point2D location = turtleProperties.getLocation();
-        Path path = new Path();
-        path.setVisible(turtleProperties.getVisible());
-        Paint penColor = Paint.valueOf(turtleProperties.getPenColor());
-        path.setStroke(penColor);
-        path.getElements().add(new MoveTo(location.getX(), location.getY()));
-        path.getElements().add(new LineTo(pointToMoveTo.getX(), pointToMoveTo.getY()));
-        return path;
+        penLine.setStartX(location.getX());
+        penLine.setStartY(location.getY());
+        penLine.endXProperty().bind(imageView.translateXProperty());
+        penLine.endYProperty().bind(imageView.translateYProperty());
+        Paint stroke = Paint.valueOf(turtleProperties.getPenColor());
+        penLine.setStroke(stroke);
+        penLine.setVisible(turtleProperties.getPenDown());
+        return penLine;
+    }
+
+    private TranslateTransition createMovement(Point2D pointToMoveTo) {
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(1), imageView);
+        transition.setToX(pointToMoveTo.getX());
+        transition.setToY(pointToMoveTo.getY());
+        transition.setNode(imageView);
+        return transition;
+    }
+
+    private void cleanUpMove(Line penLine, Point2D pointToMoveTo) {
+        penLine.endXProperty().unbind();
+        penLine.endYProperty().unbind();
+        turtleProperties.setLocation(pointToMoveTo);
+        imageView.setVisible(turtleProperties.getVisible());
+        getTurtleProperties().setIsMoving(false);
     }
 
     public TurtleProperties getTurtleProperties() {

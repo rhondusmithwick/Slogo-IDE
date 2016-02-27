@@ -27,20 +27,21 @@ public final class TurtleProperties {
 
     private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
 
-    private final SimpleObjectProperty<Point2D> position = new SimpleObjectProperty<>(this, "position");
-
     private final SimpleObjectProperty<Point2D> home = new SimpleObjectProperty<>(this, "home");
     private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
 
-    public boolean getVisible() {
-        return visible.get();
+    public boolean getIsMoving() {
+        return isMoving.get();
     }
 
-    public void setVisible(boolean visible) {
-        this.visible.set(visible);
+
+    public void setIsMoving(boolean isMoving) {
+        this.isMoving.set(isMoving);
     }
+
+    private final SimpleBooleanProperty isMoving = new SimpleBooleanProperty(this, "isMoving", false);
 
     public String getPenColor() {
         return penColor.get();
@@ -55,7 +56,6 @@ public final class TurtleProperties {
         setVisible(true);
         home.set(new Point2D(turtleDispDimension.getWidth() / 2 - imageDimensions.get().getWidth() / 2,
                 turtleDispDimension.getHeight() / 2 - imageDimensions.get().getHeight() / 2));
-        setPosition(getHome());
         setLocation(getHome());
         setHeading(180);
         setPenDown(true);
@@ -65,10 +65,9 @@ public final class TurtleProperties {
     void addListeners(ImageView imageView) {
         visible.addListener((ov, oldVal, newVal) ->
                 imageView.setVisible(newVal));
-        position.addListener((ov, oldVal, newVal) -> {
-            imageView.setX(newVal.getX());
-            imageView.setY(newVal.getY());
-            location.set(newVal);
+        location.addListener((ov, oldVal, newVal) -> {
+            imageView.setTranslateX(newVal.getX());
+            imageView.setTranslateY(newVal.getY());
         });
         image.addListener((ov, oldVal, newVal) -> {
             Image theImage = createImage(newVal);
@@ -79,16 +78,28 @@ public final class TurtleProperties {
 //                imageView.setRotate(newVal.doubleValue()));
     }
 
+    public boolean getVisible() {
+        return visible.get();
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible.set(visible);
+    }
+
+    public boolean getPenDown() {
+        return penDown.get();
+    }
+
+    public final void setPenDown(boolean penDown) {
+        this.penDown.set(penDown);
+    }
+
     public final SimpleStringProperty imageProperty() {
         return image;
     }
 
     public final SimpleStringProperty penColorProperty() {
         return penColor;
-    }
-
-    public void setPosition(Point2D position) {
-        this.position.set(position);
     }
 
     public final void setImage(String image) {
@@ -113,10 +124,6 @@ public final class TurtleProperties {
 
     public void setHeading(double heading) {
         this.heading.set(heading);
-    }
-
-    public final void setPenDown(boolean penDown) {
-        this.penDown.set(penDown);
     }
 
     private Image createImage(String filePath) {
