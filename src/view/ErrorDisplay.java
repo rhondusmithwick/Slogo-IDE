@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 public class ErrorDisplay implements ErrorDisplayInterface {
 
     private static final String CSS_BORDER_STYLE = "-fx-border-color: black;";
-	private static final String DEFAULT_LOCATION = "resources/guiStrings/";
+    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DISP = "disp";
     private final double SCROLLPANE_WIDTH = 550.00;
@@ -21,11 +21,11 @@ public class ErrorDisplay implements ErrorDisplayInterface {
     private Label title;
     private ResourceBundle myResources;
     private VBox errorContain;
-    private String language; 
+    private String language;
 
     @Override
     public void createErrorDisplay() {
-    	this.language = DEFAULT_LANGUAGE;
+        this.language = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
         errorDisp = new ScrollPane();
         errorDisp.setMaxSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
@@ -38,12 +38,12 @@ public class ErrorDisplay implements ErrorDisplayInterface {
 
     }
 
-	private void setTitle() {
-		title = new Label(myResources.getString("errorBTitle"));
+    private void setTitle() {
+        title = new Label(myResources.getString("errorBTitle"));
         title.setPrefWidth(SCROLLPANE_WIDTH);
         title.setAlignment(Pos.TOP_CENTER);
         title.setStyle(CSS_BORDER_STYLE);
-	}
+    }
 
     @Override
     public void showError(String s) {

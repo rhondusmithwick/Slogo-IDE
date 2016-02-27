@@ -9,8 +9,6 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Path;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -32,12 +30,25 @@ public final class TurtleProperties {
     private final SimpleObjectProperty<Point2D> position = new SimpleObjectProperty<>(this, "position");
 
     private final SimpleObjectProperty<Point2D> home = new SimpleObjectProperty<>(this, "home");
-
     private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
-
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
-
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
+
+    public boolean getVisible() {
+        return visible.get();
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible.set(visible);
+    }
+
+    public String getPenColor() {
+        return penColor.get();
+    }
+
+    public void setPenColor(String penColor) {
+        this.penColor.set(penColor);
+    }
 
     final void init(Dimension2D turtleDispDimension) {
         setImage(DEFAULT_TURTLE_IMAGE);
@@ -51,7 +62,7 @@ public final class TurtleProperties {
         setPenColor("black");
     }
 
-    void addListeners(ImageView imageView, Path path) {
+    void addListeners(ImageView imageView) {
         visible.addListener((ov, oldVal, newVal) ->
                 imageView.setVisible(newVal));
         position.addListener((ov, oldVal, newVal) -> {
@@ -59,10 +70,6 @@ public final class TurtleProperties {
             imageView.setY(newVal.getY());
             location.set(newVal);
         });
-        penDown.addListener((ov, oldVal, newVal) ->
-                path.setVisible(newVal));
-        penColor.addListener((ov, oldVal, newVal) ->
-                path.setStroke(Color.valueOf(newVal)));
         image.addListener((ov, oldVal, newVal) -> {
             Image theImage = createImage(newVal);
             imageView.setImage(theImage);
@@ -71,8 +78,6 @@ public final class TurtleProperties {
 //        heading.addListener((ov, oldVal, newVal) ->
 //                imageView.setRotate(newVal.doubleValue()));
     }
-
-
 
     public final SimpleStringProperty imageProperty() {
         return image;
@@ -88,10 +93,6 @@ public final class TurtleProperties {
 
     public final void setImage(String image) {
         this.image.set(image);
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible.set(visible);
     }
 
     public final Point2D getLocation() {
@@ -116,10 +117,6 @@ public final class TurtleProperties {
 
     public final void setPenDown(boolean penDown) {
         this.penDown.set(penDown);
-    }
-
-    public void setPenColor(String penColor) {
-        this.penColor.set(penColor);
     }
 
     private Image createImage(String filePath) {
