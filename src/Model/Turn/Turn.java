@@ -11,7 +11,7 @@ public abstract class Turn extends TurtleCommandNode {
 
     public double turn(int direction) {
         double currAngle = getTurtle().getTurtleProperties().getHeading();
-        double degrees = getChildren().get(1).getValue();
+        double degrees = getChildren().get(0).getValue();
         double newAngle = currAngle + (direction *degrees);
         getTurtle().getTurtleProperties().setHeading(newAngle);
         return degrees;

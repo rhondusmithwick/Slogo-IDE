@@ -15,7 +15,7 @@ import javafx.util.Duration;
  *
  * @author Rhondu Smithwick
  */
-public class Turtle extends TreeNode {
+public class Turtle {
     private final Group root = new Group();
     private final ImageView imageView = new ImageView();
     private final TurtleProperties turtleProperties;

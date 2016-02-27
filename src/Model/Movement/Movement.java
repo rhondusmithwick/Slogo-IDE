@@ -11,7 +11,7 @@ import javafx.geometry.Point2D;
 abstract class Movement extends TurtleCommandNode {
 
     double move(int direction) {
-        double distance = getChildren().get(1).getValue();
+        double distance = getChildren().get(0).getValue();
         Point2D pointToMoveTo = getPointToMoveTo(distance, direction);
         getTurtle().moveTo(pointToMoveTo);
         return distance;
