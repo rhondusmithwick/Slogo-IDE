@@ -5,11 +5,13 @@ import Model.TreeNode.TreeNode;
 import Model.TreeNode.TurtleCommandNode;
 import Model.Turtle.Turtle;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.ResourceBundle;
+import java.util.concurrent.DelayQueue;
 import java.util.stream.IntStream;
 
 /**
@@ -23,7 +25,7 @@ public class ExpressionTree {
 
     private final Queue<Entry<String, String>> parsedText;
 
-    private final List<TreeNode> rootList;
+    private final DelayQueue<TreeNode> rootList;
 
     private final Turtle myTurtle;
 
@@ -34,12 +36,20 @@ public class ExpressionTree {
     }
 
     public void executeAll() {
-        System.out.println(rootList);
-        rootList.stream().forEach(TreeNode::getValue);
+        System.out.println(this);
+        while(!rootList.isEmpty()) {
+            try {
+                TreeNode root = rootList.take();
+                root.getValue();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+//        rootList.stream().forEach(TreeNode::getValue);
     }
 
-    private List<TreeNode> createRootList() {
-        List<TreeNode> rootList = new LinkedList<>();
+    private DelayQueue<TreeNode> createRootList() {
+        DelayQueue<TreeNode> rootList = new DelayQueue<>();
         while (inBounds()) {
             TreeNode root = createRoot();
             rootList.add(root);
@@ -84,7 +94,8 @@ public class ExpressionTree {
             n = new ConstantNode(0);
         }
         if (n instanceof TurtleCommandNode) {
-            n.addChild(myTurtle);
+            TurtleCommandNode turtleN = (TurtleCommandNode) n;
+            turtleN.setTurtle(myTurtle);
         }
         return n;
     }
@@ -99,15 +110,20 @@ public class ExpressionTree {
     }
 
     private boolean isConstant(String className) {
+        System.out.println(className);
         return (className.equals("Constant"));
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        IntStream.range(0, rootList.size()).forEach(i ->
-                sb.append(i).append("th Node:\n").append(rootList.get(i)).append("\n")
-        );
+        Iterator<TreeNode> iter = rootList.iterator();
+        int i = 0;
+        while (iter.hasNext()) {
+            TreeNode curr = iter.next();
+            sb.append(i).append("th Node:\n").append(curr).append("\n");
+            i++;
+        }
         return sb.toString();
     }
 

@@ -1,6 +1,7 @@
 package Model.TreeNode;
 
 import Model.Turtle.Turtle;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -9,18 +10,27 @@ import Model.Turtle.Turtle;
  */
 public abstract class TurtleCommandNode extends CommandNode {
 
-    protected Turtle getTurtle() {
-        return (Turtle) getChildren().get(0);
+    private Turtle myTurtle;
+
+    public void setTurtle(Turtle myTurtle) {
+        this.myTurtle = myTurtle;
     }
 
-    @Override
-    public boolean needsMoreChildren() {
-        int numChildren = getChildren().size() - 1;
-        return (numChildren < getNumChildrenRequired());
+    protected Turtle getTurtle() {
+        return myTurtle;
+
     }
 
     @Override
     public double getValue() {
         return execute();
+    }
+
+    @Override
+    public long getDelay(TimeUnit unit) {
+        if (getTurtle().getTurtleProperties().getIsMoving()) {
+            return 5000L;
+        }
+        return super.getDelay(unit);
     }
 }

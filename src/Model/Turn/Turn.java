@@ -1,5 +1,6 @@
 package Model.Turn;
 
+import Model.TreeNode.TreeNode;
 import Model.TreeNode.TurtleCommandNode;
 
 /**
@@ -11,8 +12,9 @@ public abstract class Turn extends TurtleCommandNode {
 
     public double turn(int direction) {
         double currAngle = getTurtle().getTurtleProperties().getHeading();
-        double degrees = getChildren().get(1).getValue();
-        double newAngle = currAngle + (direction *degrees);
+        TreeNode degreesNode = getChild();
+        double degrees = degreesNode != null ? degreesNode.getValue() : 0;
+        double newAngle = currAngle + (direction * degrees);
         getTurtle().getTurtleProperties().setHeading(newAngle);
         return degrees;
     }

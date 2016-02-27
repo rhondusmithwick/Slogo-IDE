@@ -1,5 +1,6 @@
 package Model.Turn;
 
+import Model.TreeNode.TreeNode;
 import Model.TreeNode.TurtleCommandNode;
 
 /**
@@ -10,7 +11,8 @@ import Model.TreeNode.TurtleCommandNode;
 public class SetHeading extends TurtleCommandNode {
 
     public double execute() {
-        double degrees = getChildren().get(1).getValue();
+        TreeNode degreesNode = getChild();
+        double degrees = degreesNode != null ? degreesNode.getValue() : 0;
         getTurtle().getTurtleProperties().setHeading(degrees);
         return degrees;
     }

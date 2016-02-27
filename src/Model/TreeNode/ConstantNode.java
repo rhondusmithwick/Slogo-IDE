@@ -1,5 +1,7 @@
 package Model.TreeNode;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by rhondusmithwick on 2/25/16.
  *
@@ -23,4 +25,8 @@ public class ConstantNode extends TreeNode {
         return String.format("%s with value: %f", getClass().getSimpleName(), value);
     }
 
+    @Override
+    public long getDelay(TimeUnit unit) {
+        return 0L;
+    }
 }

@@ -10,6 +10,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by rhondusmithwick on 2/22/16.
  *
@@ -74,5 +76,6 @@ public class Turtle extends TreeNode {
     public Group getGroup() {
         return root;
     }
+
 
 }
