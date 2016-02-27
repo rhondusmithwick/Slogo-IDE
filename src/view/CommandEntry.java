@@ -1,11 +1,10 @@
 package view;
 
+import Controller.Controller.StringObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-
-import java.util.Map;
 
 /**
  * This class implements the CommandEntryInterface interface and allows the user to input
@@ -16,15 +15,14 @@ import java.util.Map;
 
 public class CommandEntry implements CommandEntryInterface {
 
-    private final SimpleStringProperty input;
+    private final StringObservable input;
     private final double WIDTH = 200.0;
     private final double HEIGHT = 400.0;
     private TextArea myEntryBox;
     private ScrollPane myScrollPane;
 
-    public CommandEntry(Map<String, SimpleStringProperty> propertyMap) {
-        System.out.println(propertyMap);
-        this.input = propertyMap.get("input");
+    public CommandEntry(StringObservable input) {
+        this.input = input;
     }
 
     @Override
@@ -70,7 +68,7 @@ public class CommandEntry implements CommandEntryInterface {
 
     @Override
     public SimpleStringProperty getInput() {
-        return input;
+        return null;
     }
 
 
