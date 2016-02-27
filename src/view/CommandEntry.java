@@ -5,6 +5,8 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 
+import java.util.Map;
+
 /**
  * This class implements the CommandEntryInterface interface and allows the user to input
  * commands to be executed when execute button (within View class) is clicked
@@ -14,12 +16,16 @@ import javafx.scene.control.TextArea;
 
 public class CommandEntry implements CommandEntryInterface {
 
-    private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
+    private final SimpleStringProperty input;
     private final double WIDTH = 200.0;
     private final double HEIGHT = 400.0;
     private TextArea myEntryBox;
     private ScrollPane myScrollPane;
 
+    public CommandEntry(Map<String, SimpleStringProperty> propertyMap) {
+        System.out.println(propertyMap);
+        this.input = propertyMap.get("input");
+    }
 
     @Override
     public TextArea getTextBox() {

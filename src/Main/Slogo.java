@@ -11,7 +11,9 @@ import javafx.stage.Stage;
 import view.View;
 import view.ViewInt;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -29,35 +31,27 @@ class Slogo {
 
     private final Controller controller = new TurtleController(turtleDispDimension);
 
-    private final ViewInt view = new View(turtleDispDimension);
+    private final ViewInt view;
 
-    public Slogo() {
-        bindProperties();
+    Slogo() {
+        Map<String, SimpleStringProperty> propertyMap = createPropertyMap();
+        view = new View(propertyMap, turtleDispDimension);
         view.getInnerGroup().getChildren().add(controller.getGroup());
     }
-
 
     void init(Stage primaryStage) {
         Scene scene = new Scene(view.getGroup(), APP_WIDTH, APP_HEIGHT);
         primaryStage.setScene(scene);
     }
 
-    private void bindProperties() {
-        List<SimpleStringProperty> controllerProperties = controller.getProperties();
-        controllerProperties.stream()
-                .forEach(this::findTwin);
+    private Map<String, SimpleStringProperty> createPropertyMap() {
+        Map<String, SimpleStringProperty> propertyMap = new HashMap<>();
+        controller.getProperties().stream().forEach(prop -> putInPropertyMap(propertyMap, prop));
+        return propertyMap;
     }
 
-    private void findTwin(SimpleStringProperty controllerProperty) {
-        String cName = controllerProperty.getName();
-        List<SimpleStringProperty> viewProperties = view.getProperties();
-        Predicate<SimpleStringProperty> shouldBind = (p) ->
-                Objects.equals(p.getName(), cName);
-        viewProperties.stream()
-                .filter(shouldBind)
-                .findFirst()
-                .ifPresent(c -> c.addListener((ov, oldVal, newVal)
-                                -> controllerProperty.set(newVal)));
+    private void putInPropertyMap(Map<String, SimpleStringProperty> propertyMap, SimpleStringProperty prop) {
+        propertyMap.put(prop.getName(), prop);
     }
 
 }

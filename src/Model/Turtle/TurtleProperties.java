@@ -72,6 +72,8 @@ public final class TurtleProperties {
 //                imageView.setRotate(newVal.doubleValue()));
     }
 
+
+
     public final SimpleStringProperty imageProperty() {
         return image;
     }

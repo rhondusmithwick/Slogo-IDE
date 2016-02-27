@@ -10,6 +10,7 @@ import javafx.scene.Group;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Queue;
@@ -28,9 +29,9 @@ public class TurtleController implements Controller {
 
     private final Group group = new Group();
 
-    private final SimpleStringProperty language = new SimpleStringProperty(this, "language");
+    private SimpleStringProperty language = new SimpleStringProperty(this, "language");
 
-    private final SimpleStringProperty input = new SimpleStringProperty(this, "input");
+    private SimpleStringProperty input = new SimpleStringProperty(this, "input");
 
     private final Turtle myTurtle;
 
@@ -59,10 +60,6 @@ public class TurtleController implements Controller {
         return group;
     }
 
-    @Override
-    public void setLanguage(String language) {
-        this.language.set(language);
-    }
 
     private void addListeners() {
         language.addListener((ov, oldVal, newVal)
@@ -79,5 +76,6 @@ public class TurtleController implements Controller {
                 myTurtle.getTurtleProperties().imageProperty(),
                 myTurtle.getTurtleProperties().penColorProperty());
     }
+
 
 }

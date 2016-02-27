@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class View implements ViewInt {
@@ -45,8 +46,10 @@ public class View implements ViewInt {
     private Node commandHistoryBox, entryBox;
     private String language;
 
+    private final Map<String, SimpleStringProperty> propertyMap;
 
-    public View(Dimension2D turtleDispDimension) {
+    public View(Map<String, SimpleStringProperty> propertyMap, Dimension2D turtleDispDimension) {
+        this.propertyMap = propertyMap;
     	this.language=DEFAULT_LANGUAGE;
     	myResources = ResourceBundle.getBundle(DEFAULT_LOCATION+language+DISP);
         this.turtleDispDimension = turtleDispDimension;
@@ -104,7 +107,7 @@ public class View implements ViewInt {
 
 
 	private void createToolBar() {
-		tBar = new ToolBar();
+		tBar = new ToolBar(propertyMap);
         tBar.createToolBarMembers();
 	}
 
@@ -118,7 +121,7 @@ public class View implements ViewInt {
         right = new VBox();
         Label commandEntTitle = new Label(myResources.getString("entryTitle"));
         right.getChildren().add(commandEntTitle);
-        commandEntry = new CommandEntry();
+        commandEntry = new CommandEntry(propertyMap);
         commandEntry.createEntryBox();
         entryBox = commandEntry.getTextBox();
         right.getChildren().add(entryBox);
