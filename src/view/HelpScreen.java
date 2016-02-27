@@ -12,10 +12,10 @@ public class HelpScreen {
 
 
     private static final int HTML_HEIGHT = 600;
-	private static final int HTML_WIDTH = 800;
+    private static final int HTML_WIDTH = 800;
 
 
-	public HelpScreen() {
+    public HelpScreen() {
 
     }
 

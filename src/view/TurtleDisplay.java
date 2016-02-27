@@ -10,9 +10,9 @@ import javafx.scene.shape.Rectangle;
 
 public class TurtleDisplay implements TurtleAreaInterface {
     private static final String DEFAULT_BACKGROUND_COLOR = "white";
-	private static final int SCROLL_WIDTH = 600;
-	private static final int SCROLL_HEIGHT = 450;
-	private Rectangle background;
+    private static final int SCROLL_WIDTH = 600;
+    private static final int SCROLL_HEIGHT = 450;
+    private Rectangle background;
     private Group dispArea;
     private ScrollPane scroll;
 

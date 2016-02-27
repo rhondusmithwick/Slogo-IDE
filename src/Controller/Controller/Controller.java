@@ -26,5 +26,7 @@ public interface Controller {
 
     Group getGroup();
 
-    void setLanguage(String language);
+    StringObservable getLanguage();
+
+    StringObservable getInput();
 }

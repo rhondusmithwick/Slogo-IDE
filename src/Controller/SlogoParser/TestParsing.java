@@ -6,7 +6,6 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Queue;
 

@@ -37,16 +37,18 @@ public interface ViewInt {
      * @return main group for the scene
      */
     Group getGroup();
-    
+
     /**
      * gets all string properties that are part of the view or the view components, so that they can be bound in slogo to their
      * twin properties in the controller
+     *
      * @return list of views properties
      */
     List<SimpleStringProperty> getProperties();
 
     /**
      * Gets the group that defines the turtle area, and which sits inside the turtle areas display pane
+     *
      * @return group that defines turtles area
      */
     Group getInnerGroup();
