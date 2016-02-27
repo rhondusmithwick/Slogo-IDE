@@ -51,8 +51,7 @@ class Slogo {
                 Objects.equals(p.getName(), cName);
         viewProperties.stream()
                 .filter(shouldBind)
-                .findFirst()
-                .ifPresent(c -> c.addListener((ov, oldVal, newVal)
+                .findFirst().ifPresent(c -> c.addListener((ov, oldVal, newVal)
                         -> controllerProperty.set(newVal)));
     }
 

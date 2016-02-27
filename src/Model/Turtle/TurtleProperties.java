@@ -32,6 +32,17 @@ public final class TurtleProperties {
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
 
+    public boolean getIsMoving() {
+        return isMoving.get();
+    }
+
+
+    public void setIsMoving(boolean isMoving) {
+        this.isMoving.set(isMoving);
+    }
+
+    private final SimpleBooleanProperty isMoving = new SimpleBooleanProperty(this, "isMoving", false);
+
     public String getPenColor() {
         return penColor.get();
     }

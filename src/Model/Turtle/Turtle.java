@@ -20,6 +20,7 @@ public class Turtle extends TreeNode {
     private final ImageView imageView = new ImageView();
     private final TurtleProperties turtleProperties;
 
+
     public Turtle(Dimension2D turtleDispDimension) {
         turtleProperties = new TurtleProperties();
         turtleProperties.addListeners(imageView);
@@ -33,6 +34,7 @@ public class Turtle extends TreeNode {
         TranslateTransition transition = createMovement(pointToMoveTo);
         imageView.setVisible(false);
         transition.onFinishedProperty().set(t -> cleanUpMove(penLine, pointToMoveTo));
+        getTurtleProperties().setIsMoving(true);
         transition.play();
     }
 
@@ -58,10 +60,11 @@ public class Turtle extends TreeNode {
     }
 
     private void cleanUpMove(Line penLine, Point2D pointToMoveTo) {
-        penLine.translateXProperty().unbind();
-        penLine.translateYProperty().unbind();
+        penLine.endXProperty().unbind();
+        penLine.endYProperty().unbind();
         turtleProperties.setLocation(pointToMoveTo);
         imageView.setVisible(turtleProperties.getVisible());
+        getTurtleProperties().setIsMoving(false);
     }
 
     public TurtleProperties getTurtleProperties() {
