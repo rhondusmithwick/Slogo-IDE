@@ -25,4 +25,8 @@ public interface Controller {
     List<Command> getCommands();
 
     Group getGroup();
+
+    StringObservable getLanguage();
+
+    StringObservable getInput();
 }

@@ -1,6 +1,7 @@
 package view;
 
 
+import Controller.Controller.StringObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
@@ -13,9 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class View implements ViewInt {
@@ -32,7 +31,8 @@ public class View implements ViewInt {
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
     private final Dimension2D turtleDispDimension;
-    private final Map<String, SimpleStringProperty> propertyMap;
+    private final StringObservable language;
+    private final StringObservable input;
     private ResourceBundle myResources;
     private BorderPane UI;
     private Group root;
@@ -45,12 +45,11 @@ public class View implements ViewInt {
     private HBox bottom;
     private VBox left, right;
     private Node commandHistoryBox, entryBox;
-    private String language;
 
-    public View(Map<String, SimpleStringProperty> propertyMap, Dimension2D turtleDispDimension) {
-        this.propertyMap = propertyMap;
-        this.language = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+    public View(Dimension2D turtleDispDimension, StringObservable input, StringObservable language) {
+        this.language = language;
+        this.input = input;
+        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + "english" + DISP);
         this.turtleDispDimension = turtleDispDimension;
         UI = new BorderPane();
         root = new Group();
@@ -106,7 +105,7 @@ public class View implements ViewInt {
 
 
     private void createToolBar() {
-        tBar = new ToolBar(propertyMap);
+        tBar = new ToolBar(language);
         tBar.createToolBarMembers();
     }
 
@@ -120,7 +119,7 @@ public class View implements ViewInt {
         right = new VBox();
         Label commandEntTitle = new Label(myResources.getString("entryTitle"));
         right.getChildren().add(commandEntTitle);
-        commandEntry = new CommandEntry(propertyMap);
+        commandEntry = new CommandEntry(input);
         commandEntry.createEntryBox();
         entryBox = commandEntry.getTextBox();
         right.getChildren().add(entryBox);
@@ -175,9 +174,7 @@ public class View implements ViewInt {
 
     @Override
     public List<SimpleStringProperty> getProperties() {
-        List<SimpleStringProperty> tBarList = tBar.getProperties();
-        return Arrays.asList(tBarList.get(0), commandEntry.getInput(), tBarList.get(1), tBarList.get(2));
-
+        return tBar.getProperties();
     }
 
 }
