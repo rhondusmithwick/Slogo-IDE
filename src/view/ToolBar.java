@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ToolBar implements ToolBarInterface {
@@ -44,9 +45,9 @@ public class ToolBar implements ToolBarInterface {
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
     
-    private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
-    private final SimpleStringProperty language = new SimpleStringProperty(this, "language", LANGUAGE_PATH + DEFAULT_LANGUAGE);
-    private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
+    private final SimpleStringProperty image;
+    private final SimpleStringProperty language;
+    private final SimpleStringProperty penColor;
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
@@ -56,7 +57,10 @@ public class ToolBar implements ToolBarInterface {
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
-    public ToolBar() {
+    public ToolBar(Map<String, SimpleStringProperty> propertyMap) {
+        this.image = propertyMap.get("turtleImage");
+        this.language = propertyMap.get("language");
+        this.penColor = propertyMap.get("penColor");
         this.dispLang = DEFAULT_LANGUAGE;
         container = new HBox();
         container.setPrefWidth(TB_WIDTH);

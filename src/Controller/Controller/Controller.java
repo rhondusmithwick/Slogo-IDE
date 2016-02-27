@@ -1,6 +1,7 @@
 package Controller.Controller;
 
 import Model.Deprecated.Command;
+import Model.Turtle.Turtle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 
@@ -25,6 +26,4 @@ public interface Controller {
     List<Command> getCommands();
 
     Group getGroup();
-
-    void setLanguage(String language);
 }
