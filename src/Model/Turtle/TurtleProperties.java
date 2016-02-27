@@ -1,4 +1,4 @@
-package Model;
+package Model.Turtle;
 
 
 import javafx.beans.property.SimpleBooleanProperty;
@@ -9,8 +9,6 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Path;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -30,12 +28,28 @@ public final class TurtleProperties {
     private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
 
     private final SimpleObjectProperty<Point2D> home = new SimpleObjectProperty<>(this, "home");
-
     private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
-
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
-
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
+
+    public boolean getIsMoving() {
+        return isMoving.get();
+    }
+
+
+    public void setIsMoving(boolean isMoving) {
+        this.isMoving.set(isMoving);
+    }
+
+    private final SimpleBooleanProperty isMoving = new SimpleBooleanProperty(this, "isMoving", false);
+
+    public String getPenColor() {
+        return penColor.get();
+    }
+
+    public void setPenColor(String penColor) {
+        this.penColor.set(penColor);
+    }
 
     final void init(Dimension2D turtleDispDimension) {
         setImage(DEFAULT_TURTLE_IMAGE);
@@ -43,51 +57,65 @@ public final class TurtleProperties {
         home.set(new Point2D(turtleDispDimension.getWidth() / 2 - imageDimensions.get().getWidth() / 2,
                 turtleDispDimension.getHeight() / 2 - imageDimensions.get().getHeight() / 2));
         setLocation(getHome());
-        setHeading(0);
+        setHeading(180);
         setPenDown(true);
         setPenColor("black");
     }
 
-    void addListeners(ImageView imageView, Path path) {
+    void addListeners(ImageView imageView) {
         visible.addListener((ov, oldVal, newVal) ->
                 imageView.setVisible(newVal));
-        location.addListener((ov, oldVal, newVal) ->
-                imageView.relocate(newVal.getX(), newVal.getY()));
-        penDown.addListener((ov, oldVal, newVal) ->
-                path.setVisible(newVal));
-        penColor.addListener((ov, oldVal, newVal) ->
-                path.setFill(Color.valueOf(newVal)));
+        location.addListener((ov, oldVal, newVal) -> {
+            imageView.setTranslateX(newVal.getX());
+            imageView.setTranslateY(newVal.getY());
+        });
         image.addListener((ov, oldVal, newVal) -> {
             Image theImage = createImage(newVal);
             imageView.setImage(theImage);
             imageDimensions.set(new Dimension2D(theImage.getWidth(), theImage.getHeight()));
         });
-        heading.addListener((ov, oldVal, newVal) ->
-                imageView.setRotate(newVal.doubleValue()));
+//        heading.addListener((ov, oldVal, newVal) ->
+//                imageView.setRotate(newVal.doubleValue()));
     }
 
-    public final SimpleStringProperty imageProperty() {
-        return image;
-    }
-
-    public final void setImage(String image) {
-        this.image.set(image);
+    public boolean getVisible() {
+        return visible.get();
     }
 
     public void setVisible(boolean visible) {
         this.visible.set(visible);
     }
 
+    public boolean getPenDown() {
+        return penDown.get();
+    }
+
+    public final void setPenDown(boolean penDown) {
+        this.penDown.set(penDown);
+    }
+
+    public final SimpleStringProperty imageProperty() {
+        return image;
+    }
+
+    public final SimpleStringProperty penColorProperty() {
+        return penColor;
+    }
+
+    public final void setImage(String image) {
+        this.image.set(image);
+    }
+
     public final Point2D getLocation() {
         return location.get();
     }
 
-    public final Point2D getHome() {
-        return home.get();
-    }
-
     public void setLocation(Point2D location) {
         this.location.set(location);
+    }
+
+    public final Point2D getHome() {
+        return home.get();
     }
 
     public final double getHeading() {
@@ -98,16 +126,8 @@ public final class TurtleProperties {
         this.heading.set(heading);
     }
 
-    public final void setPenDown(boolean penDown) {
-        this.penDown.set(penDown);
-    }
-
-    public void setPenColor(String penColor) {
-        this.penColor.set(penColor);
-    }
-
     private Image createImage(String filePath) {
-        return new Image(getClass().getClassLoader().getResourceAsStream(filePath));
+        return new Image(filePath);
     }
 
 }

@@ -1,4 +1,4 @@
-package Model;
+package Model.Pen;
 
 /**
  * Created by rhondusmithwick on 2/24/16.
@@ -7,12 +7,7 @@ package Model;
  */
 public class PenDown extends PenCommand {
 
-    public PenDown(Turtle myTurtle) {
-        super(myTurtle);
-    }
-
     public double execute() {
-        changePen(true);
-        return 1;
+        return changePen(true);
     }
 }

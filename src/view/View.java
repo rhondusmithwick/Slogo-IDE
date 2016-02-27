@@ -1,106 +1,153 @@
 package view;
 
 
+import Controller.Controller.StringObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.List;
+import java.util.ResourceBundle;
+
 public class View implements ViewInt {
 
+
+    private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
+    private static final int LEFT_HEIGHT = 400;
+    private static final int LEFT_WIDTH = 100;
+    private static final int BOTTOM_PADDING = 50;
+    private static final String DEFAULT_LANGUAGE = "english";
+    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
+    private static final String DISP = "disp";
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
-    private final double COMMAND_HIST_X_POS = 800.0;
-
-
+    private final Dimension2D turtleDispDimension;
+    private final StringObservable language;
+    private final StringObservable input;
+    private ResourceBundle myResources;
     private BorderPane UI;
     private Group root;
-    private TurtleDisplay turtDisp;
+    private TurtleAreaInterface turtDisp;
     private ToolBar tBar;
     private Button executeButton;
-    private CommandHistoryDisplay commandHistory;
-    private final Dimension2D turtleDispDimension;
+    private CommHistory commandHistory;
+    private CommandEntryInterface commandEntry;
+    private ErrorDisplayInterface errorDisplay;
+    private HBox bottom;
+    private VBox left, right;
+    private Node commandHistoryBox, entryBox;
 
-    public View(Dimension2D turtleDispDimension) {
+    public View(Dimension2D turtleDispDimension, StringObservable input, StringObservable language) {
+        this.language = language;
+        this.input = input;
+        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + "english" + DISP);
         this.turtleDispDimension = turtleDispDimension;
         UI = new BorderPane();
         root = new Group();
         createScene();
         root.getChildren().add(UI);
 
+
     }
 
 
     private void createScene() {
+        UI.setStyle(UI_BACKGROUND_COLOR);
+        createTurtleDisplay();
+        createToolBar();
+        createBottomPane();
+        createLeftPane();
+        createRightPane();
+        addComponents();
+        setToolBar();
+        commandHistory.setCommEntry(commandEntry);
+    }
 
 
-        //turtle area here
-        turtDisp = new TurtleDisplay(root);
-        turtDisp.createTurtleArea(turtleDispDimension);
-        ScrollPane center = new ScrollPane();
-        center.setMaxHeight(450);
-        center.setMaxWidth(600);
-        center.setContent(turtDisp.getTurtleArea());
-
-        //Tool Bar here
-        tBar = new ToolBar();
-        tBar.createToolBarMembers();
-
-        //errors and command history here
-        //		r = new Rectangle(1000,200);
-        //		r.setFill(Color.BLACK);
-        HBox bottom = new HBox();
-        //		bottom.getChildren().add(r);
-
-        commandHistory = new CommandHistoryDisplay();
-        commandHistory.createCommHistory();
-        Node commandHistoryBox = commandHistory.getHistoryGraphic();
-        commandHistoryBox.setTranslateX(COMMAND_HIST_X_POS);
-        bottom.getChildren().add(commandHistoryBox);
-
-
-        //variables and methods here
-        VBox left = new VBox();
-        Rectangle r = new Rectangle(100, 400);
-        r.setFill(Color.BLUE);
-        left.getChildren().add(r);
-
-        //text entry and execute button here
-        VBox right = new VBox();
-        Label commandEntTitle = new Label("Enter Commands Here");
-        right.getChildren().add(commandEntTitle);
-
-        CommandEntry commandEntry = new CommandEntry();
-        commandEntry.createEntryBox();
-        Node entryBox = commandEntry.getTextBox();
-        right.getChildren().add(entryBox);
-
-        executeButton = new Button(EXECUTE_BUTTON_LABEL);
-        executeButton.setMaxHeight(EXECUTE_BUTTON_HEIGHT);
-        executeButton.setMaxWidth(EXECUTE_BUTTON_WIDTH);
-        executeButton.setOnAction(e -> {
-            commandHistory.addCommand(commandEntry.getTextBox().getText());
-            commandEntry.clearCommands();
-
-        });
-        right.getChildren().add(executeButton);
-
-
-        //add components to scene
-        UI.setCenter(center);
+    private void addComponents() {
+        UI.setCenter(turtDisp.getTurtlePane());
         UI.setRight(right);
         UI.setLeft(left);
         UI.setBottom(bottom);
         UI.setTop(tBar.getToolBarMembers());
+    }
+
+
+    private void createLeftPane() {
+        left = new VBox();
+        Rectangle r = new Rectangle(LEFT_WIDTH, LEFT_HEIGHT);
+        r.setFill(Color.CORNFLOWERBLUE);
+        left.getChildren().add(r);
+    }
+
+
+    private void createBottomPane() {
+        bottom = new HBox(BOTTOM_PADDING);
+
+        errorDisplay = new ErrorDisplay();
+        errorDisplay.createErrorDisplay();
+        bottom.getChildren().add(errorDisplay.getErrorDisplay());
+
+        commandHistory = new CommandHistoryDisplay();
+        commandHistory.createCommHistory();
+        commandHistoryBox = commandHistory.getHistoryGraphic();
+        bottom.getChildren().add(commandHistoryBox);
+    }
+
+
+    private void createToolBar() {
+        tBar = new ToolBar(language);
+        tBar.createToolBarMembers();
+    }
+
+
+    private void createTurtleDisplay() {
+        turtDisp = new TurtleDisplay(root);
+        turtDisp.createTurtleArea(turtleDispDimension);
+    }
+
+    private void createRightPane() {
+        right = new VBox();
+        Label commandEntTitle = new Label(myResources.getString("entryTitle"));
+        right.getChildren().add(commandEntTitle);
+        commandEntry = new CommandEntry(input);
+        commandEntry.createEntryBox();
+        entryBox = commandEntry.getTextBox();
+        right.getChildren().add(entryBox);
+
+        createExecute();
+    }
+
+
+    private void createExecute() {
+        executeButton = new Button(EXECUTE_BUTTON_LABEL);
+        executeButton.setPrefSize(EXECUTE_BUTTON_WIDTH, EXECUTE_BUTTON_HEIGHT);
+        executeButton.setOnAction(e -> processExecute());
+        right.getChildren().add(executeButton);
+
+    }
+
+
+    private void processExecute() {
+        commandHistory.addCommand(commandEntry.getTextBox().getText());
+        commandEntry.getBoxCommands();
+        commandEntry.clearCommands();
+    }
+
+
+    private void setToolBar() {
+        tBar.setTDisp(turtDisp);
+        tBar.setEDisp(errorDisplay);
+
     }
 
 
@@ -126,9 +173,8 @@ public class View implements ViewInt {
     }
 
     @Override
-    public SimpleStringProperty[] getProperties() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<SimpleStringProperty> getProperties() {
+        return tBar.getProperties();
     }
 
 }

@@ -1,6 +1,6 @@
-package Controller;
+package Controller.Controller;
 
-import Model.Command;
+import Model.Deprecated.Command;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 
@@ -17,7 +17,7 @@ public interface Controller {
      **/
     void takeInput(String input);
 
-    SimpleStringProperty[] getProperties();
+    List<SimpleStringProperty> getProperties();
 
     /**
      * Get a list of all commands.
@@ -26,5 +26,7 @@ public interface Controller {
 
     Group getGroup();
 
-    void setLanguage(String language);
+    StringObservable getLanguage();
+
+    StringObservable getInput();
 }

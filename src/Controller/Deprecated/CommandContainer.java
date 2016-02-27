@@ -1,9 +1,8 @@
-package Controller;
+package Controller.Deprecated;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -17,16 +16,10 @@ public class CommandContainer {
 
     private final ObservableList<String> commandStringList = createCommandsStringList();
     private final ResourceBundle commandLocations = ResourceBundle.getBundle("Model/commandLocations");
+
     private final Map<String, Class<?>> classMap = createClassMap();
-    private final Map<Class<?>, Class<?>[]> parametersMap = createParametersMap();
 
-    public static Class<?>[] getParametersForClass(Class theClass) {
-        Constructor[] allConstructors = theClass.getDeclaredConstructors();
-        return allConstructors[0].getParameterTypes();
-    }
-
-
-    private Class<?> getClassForName(String className) {
+    public Class<?> getClassForName(String className) {
         try {
             return Class.forName(commandLocations.getString(className));
         } catch (Exception e) {
@@ -47,21 +40,11 @@ public class CommandContainer {
         return classMap;
     }
 
-    private Map<Class<?>, Class<?>[]> createParametersMap() {
-        Map<Class<?>, Class<?>[]> parametersMap = new HashMap<>();
-        for (Class<?> theClass : classMap.values()) {
-            Class<?>[] parameters = getParametersForClass(theClass);
-            parametersMap.put(theClass, parameters);
-        }
-        return parametersMap;
+    public Class<?> getClass(String className) {
+        return classMap.get(className);
     }
 
-    public Map<Class<?>, Class<?>[]> getParametersMap() {
-        return parametersMap;
+    public ObservableList<String> getCommandStringList() {
+        return commandStringList;
     }
-
-    public Map<String, Class<?>> getClassMap() {
-        return classMap;
-    }
-
 }

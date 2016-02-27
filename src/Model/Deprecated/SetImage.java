@@ -1,5 +1,7 @@
-//package Model;
+//package Model.Deprecated;
 //
+//import Model.TreeNode.TurtleCommandNode;
+//import Model.Turtle.Turtle;
 //import javafx.scene.image.Image;
 //
 ///**
@@ -7,7 +9,7 @@
 // *
 // * @author Rhondu Smithwick
 // */
-//public class SetImage extends TurtleCommand {
+//public class SetImage extends TurtleCommandNode {
 //
 //    private final Image image;
 //
