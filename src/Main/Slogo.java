@@ -44,22 +44,16 @@ class Slogo {
                 .forEach(this::findTwin);
     }
 
-    private void findTwin(SimpleStringProperty controllerProperty) {
-        String cName = controllerProperty.getName();
+    private void findTwin(SimpleStringProperty cProp) {
+        String cName = cProp.getName();
         List<SimpleStringProperty> viewProperties = view.getProperties();
         Predicate<SimpleStringProperty> shouldBind = (p) ->
                 Objects.equals(p.getName(), cName);
         viewProperties.parallelStream()
                 .filter(shouldBind)
                 .findFirst()
-                .ifPresent(vProp -> biBind(controllerProperty, vProp));
+                .ifPresent(vProp -> vProp.bindBidirectional(cProp));
     }
 
-    private void biBind(SimpleStringProperty cProp, SimpleStringProperty vProp) {
-        cProp.addListener((ov, oldVal, newVal)
-                -> vProp.set(newVal));
-       vProp.addListener((ov, oldVal, newVal)
-                -> cProp.set(newVal));
-    }
 
 }
