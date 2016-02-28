@@ -4,6 +4,7 @@ import Controller.SlogoParser.ExpressionTree;
 import Controller.SlogoParser.SlogoParser;
 import Model.Deprecated.Command;
 import Model.Turtle.Turtle;
+import Model.Turtle.TurtleAction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
@@ -14,6 +15,7 @@ import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -53,8 +55,28 @@ public class TurtleController implements Controller, Observer {
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
         expressionTree.executeAll();
+        new Thread(this::runActions).start();
     }
 
+    private void runActions() {
+        Queue<TurtleAction> actions = myTurtle.getActions();
+        while (!actions.isEmpty()) {
+            TurtleAction action = actions.poll();
+            runAction(action);
+        }
+        myTurtle.clearActions();
+    }
+
+    private void runAction(TurtleAction action) {
+        new Thread(action).start();
+        while (!action.isDone()) {
+            try {
+                TimeUnit.NANOSECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     @Override
     public List<Command> getCommands() {
         return null;

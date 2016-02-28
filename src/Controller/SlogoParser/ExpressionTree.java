@@ -83,9 +83,7 @@ public class ExpressionTree {
         } catch (Exception e) {
             n = new ConstantNode(0);
         }
-        if (n instanceof TurtleCommandNode) {
-            n.addChild(myTurtle);
-        }
+        addTurtleIfShould(n);
         return n;
     }
 
@@ -111,5 +109,11 @@ public class ExpressionTree {
         return sb.toString();
     }
 
+    private void addTurtleIfShould(TreeNode n) {
+        if (n instanceof TurtleCommandNode) {
+            TurtleCommandNode turtleNode = (TurtleCommandNode) n;
+            turtleNode.setTurtle(myTurtle);
+        }
+    }
 
 }
