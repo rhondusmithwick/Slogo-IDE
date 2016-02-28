@@ -23,7 +23,8 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     @Override
     public void updateEnvNode () {
-        System.out.println(variablesString.toString());
+        System.out.println("These are the variables: " + variablesString.get());
+
 
     }
 
