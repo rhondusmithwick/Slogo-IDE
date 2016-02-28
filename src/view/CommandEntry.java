@@ -1,6 +1,6 @@
 package view;
 
-import Controller.Controller.StringObservable;
+import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
@@ -15,13 +15,13 @@ import javafx.scene.control.TextArea;
 
 public class CommandEntry implements CommandEntryInterface {
 
-    private final StringObservable input;
+    private final ObjectObservable<String> input;
     private final double WIDTH = 200.0;
     private final double HEIGHT = 400.0;
     private TextArea myEntryBox;
     private ScrollPane myScrollPane;
 
-    public CommandEntry(StringObservable input) {
+    public CommandEntry(ObjectObservable<String> input) {
         this.input = input;
     }
 
@@ -33,7 +33,6 @@ public class CommandEntry implements CommandEntryInterface {
     @Override
     public void getCommandsFromString(String text) {
         input.set(text);
-        System.out.printf("text from frontend %s \n", text);
     }
 
     @Override
@@ -54,8 +53,15 @@ public class CommandEntry implements CommandEntryInterface {
     }
 
     @Override
-    public void passInternalCommands(String command) {
-        getCommandsFromString(command);
+    public void passInternalCommands(String command, boolean showInTextBox) {
+        if(showInTextBox){
+            String curr = myEntryBox.getText();
+            curr = curr + "\n" + command;
+            myEntryBox.setText(curr);
+        }else{
+            getCommandsFromString(command);
+        }
+        
 
     }
 

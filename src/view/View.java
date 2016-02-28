@@ -1,7 +1,7 @@
 package view;
 
 
-import Controller.Controller.StringObservable;
+import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
@@ -11,9 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -30,8 +28,8 @@ public class View implements ViewInt {
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
     private final Dimension2D turtleDispDimension;
-    private final StringObservable language;
-    private final StringObservable input;
+    private final ObjectObservable<String> language;
+    private final ObjectObservable<String> input;
     private ResourceBundle myResources;
     private BorderPane UI;
     private Group root;
@@ -46,7 +44,7 @@ public class View implements ViewInt {
     private Node commandHistoryBox, entryBox;
     private EnvironmentDisplayInterface vDisplay;
 
-    public View(Dimension2D turtleDispDimension, StringObservable input, StringObservable language) {
+    public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> language) {
         this.language = language;
         this.input = input;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + DEFAULT_LANGUAGE + DISP);

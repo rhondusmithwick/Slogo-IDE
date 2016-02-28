@@ -1,16 +1,14 @@
 package view;
 
 import java.util.ResourceBundle;
-import Controller.Controller.StringObservable;
+import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
 
 public class VariableDisplay implements EnvironmentDisplayInterface {
     
@@ -21,14 +19,14 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private static final String DEFAULT_LANGUAGE = "English";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
 
-    private final SimpleStringProperty variablesString = new SimpleStringProperty(this, "variablesString");
+    private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
     private VariableUpdate updater;
     private String dispLang;
     private ResourceBundle myResources;
     private ScrollPane scroll;
     private VBox vBox;
     private String[] vArray;
-    private StringObservable pLang;
+    private ObjectObservable pLang;
     private CommandEntryInterface cEnt;
     
     public VariableDisplay(){
@@ -55,7 +53,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private void createCurrVDisp () {
         vBox = new VBox();
         setTitle();
-        String vString = variablesString.get();
+        String vString = variables.get();
         if(vString!=null){
             
             vArray = vString.split("\n");
@@ -101,11 +99,11 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     @Override
     public SimpleStringProperty getEnvProperty () {
-        return variablesString;
+        return variables;
     }
     
     @Override
-    public void setPLang(StringObservable str){
+    public void setPLang(ObjectObservable str){
         this.pLang=str;
     }
     

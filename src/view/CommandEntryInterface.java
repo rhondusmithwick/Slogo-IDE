@@ -42,7 +42,7 @@ public interface CommandEntryInterface {
      *
      * @param command command to be run
      */
-    void passInternalCommands(String command);
+    void passInternalCommands (String command, boolean showInTextBox);
 
     /**
      * get user input commands from the text box in the gui
@@ -55,5 +55,7 @@ public interface CommandEntryInterface {
      * @return SimpleStringProperty containing input
      */
     SimpleStringProperty getInput();
+
+
 
 }

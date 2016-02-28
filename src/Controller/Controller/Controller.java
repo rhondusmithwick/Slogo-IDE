@@ -1,6 +1,7 @@
 package Controller.Controller;
 
 import Model.Deprecated.Command;
+import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 
@@ -26,7 +27,7 @@ public interface Controller {
 
     Group getGroup();
 
-    StringObservable getLanguage();
+    ObjectObservable<String> getLanguage();
 
-    StringObservable getInput();
+    ObjectObservable<String> getInput();
 }

@@ -7,14 +7,14 @@ import Model.Action.VisionAction;
 import Model.Deprecated.Command;
 import Model.TreeNode.TreeNode;
 import Model.Turtle.Turtle;
+import Observables.MapObservable;
+import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
@@ -34,25 +34,26 @@ public class TurtleController implements Controller, Observer {
 
     private final Group group = new Group();
     private final Turtle myTurtle;
-    private final StringObservable language = new StringObservable();
-    private final StringObservable input = new StringObservable();
-    private final SimpleStringProperty variablesString = new SimpleStringProperty(this, "variablesString");
+    private final ObjectObservable<String> language = new ObjectObservable<>();
+    private final ObjectObservable<String> input = new ObjectObservable<>();
 
-    private final Map<String, TreeNode> variables = new HashMap<>();
+    private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
         language.addObserver(this);
         input.addObserver(this);
         language.set(DEFAULT_LANGUAGE);
+        variables.addObserver(this);
         group.getChildren().add(myTurtle.getGroup());
     }
 
-    public StringObservable getLanguage() {
+
+    public ObjectObservable<String> getLanguage() {
         return language;
     }
 
-    public StringObservable getInput() {
+    public ObjectObservable<String> getInput() {
         return input;
     }
 
@@ -62,8 +63,7 @@ public class TurtleController implements Controller, Observer {
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
         expressionTree.executeAll();
-        updateVariablesString();
-        System.out.println(variablesString.get());
+        variables.modifyIfShould();
         new Thread(this::runActions).start();
     }
 
@@ -110,24 +110,12 @@ public class TurtleController implements Controller, Observer {
         }
     }
 
-
-    private void updateVariablesString() {
-        StringBuilder sb = new StringBuilder();
-        variables.entrySet().stream().forEach(e ->
-            sb.append(e.getKey())
-                    .append(" ")
-                    .append(e.getValue().getValue())
-                    .append("\n")
-        );
-        variablesString.set(sb.toString());
-    }
-
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
                 myTurtle.getTurtleProperties().imageProperty(),
                 myTurtle.getTurtleProperties().penColorProperty(),
-                variablesString);
+                variables.getStringProperty());
     }
 
 
