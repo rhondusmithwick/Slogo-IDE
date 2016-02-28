@@ -1,6 +1,7 @@
 package Model.TreeNode;
 
 import Model.Turtle.Turtle;
+import Model.Turtle.TurtleAction;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -22,5 +23,9 @@ public abstract class TurtleCommandNode extends CommandNode {
     @Override
     public double getValue() {
         return execute();
+    }
+
+    protected void addAction(TurtleAction action) {
+        myTurtle.addAction(action);
     }
 }
