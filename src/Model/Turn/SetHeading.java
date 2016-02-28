@@ -1,7 +1,5 @@
 package Model.Turn;
 
-import Model.TreeNode.TurtleCommandNode;
-
 /**
  * Created by rhondusmithwick on 2/27/16.
  *
@@ -15,8 +13,4 @@ public class SetHeading extends Turn {
         return degrees;
     }
 
-    @Override
-    public int getNumChildrenRequired() {
-        return 1;
-    }
 }

@@ -19,28 +19,17 @@ public final class TurtleProperties {
 
     private static final String DEFAULT_TURTLE_IMAGE = "images/blackarrow.png";
 
+    private final ImageView imageView = new ImageView();
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
-
     private final SimpleObjectProperty<Dimension2D> imageDimensions = new SimpleObjectProperty<>(this, "imageDimensions");
-
     private final SimpleBooleanProperty visible = new SimpleBooleanProperty(this, "visible");
-
     private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
-
     private final SimpleObjectProperty<Point2D> home = new SimpleObjectProperty<>(this, "home");
     private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
 
-    public String getPenColor() {
-        return penColor.get();
-    }
-
-    public void setPenColor(String penColor) {
-        this.penColor.set(penColor);
-    }
-
-    final void init(Dimension2D turtleDispDimension) {
+    void init(Dimension2D turtleDispDimension) {
         setImage(DEFAULT_TURTLE_IMAGE);
         setVisible(true);
         home.set(new Point2D(turtleDispDimension.getWidth() / 2 - imageDimensions.get().getWidth() / 2,
@@ -51,7 +40,7 @@ public final class TurtleProperties {
         setPenColor("black");
     }
 
-    void addListeners(ImageView imageView) {
+    void addListeners() {
         visible.addListener((ov, oldVal, newVal) ->
                 imageView.setVisible(newVal));
         location.addListener((ov, oldVal, newVal) -> {
@@ -63,14 +52,22 @@ public final class TurtleProperties {
             imageView.setImage(theImage);
             imageDimensions.set(new Dimension2D(theImage.getWidth(), theImage.getHeight()));
         });
-        heading.addListener((ov, oldVal, newVal) -> {
-            double val = newVal.doubleValue();
-            if (val >= 360) {
-                heading.set(val - 360);
-            } else if (val < 0) {
-                heading.set(val + 360);
-            }
-        });
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public SimpleStringProperty imageProperty() {
+        return image;
+    }
+
+    private Image createImage(String filePath) {
+        return new Image(filePath);
+    }
+
+    public void setImage(String image) {
+        this.image.set(image);
     }
 
     public boolean getVisible() {
@@ -81,27 +78,7 @@ public final class TurtleProperties {
         this.visible.set(visible);
     }
 
-    public boolean getPenDown() {
-        return penDown.get();
-    }
-
-    public final void setPenDown(boolean penDown) {
-        this.penDown.set(penDown);
-    }
-
-    public final SimpleStringProperty imageProperty() {
-        return image;
-    }
-
-    public final SimpleStringProperty penColorProperty() {
-        return penColor;
-    }
-
-    public final void setImage(String image) {
-        this.image.set(image);
-    }
-
-    public final Point2D getLocation() {
+    public Point2D getLocation() {
         return location.get();
     }
 
@@ -109,20 +86,42 @@ public final class TurtleProperties {
         this.location.set(location);
     }
 
-    public final Point2D getHome() {
+    public Point2D getHome() {
         return home.get();
     }
 
-    public final double getHeading() {
+    public double getHeading() {
         return heading.get();
     }
 
     public void setHeading(double heading) {
+        if (heading >= 360) {
+            heading -= 360;
+        } else if (heading < 0) {
+            heading += 360;
+        }
         this.heading.set(heading);
     }
 
-    private Image createImage(String filePath) {
-        return new Image(filePath);
+    public boolean getPenDown() {
+        return penDown.get();
     }
+
+    public void setPenDown(boolean penDown) {
+        this.penDown.set(penDown);
+    }
+
+    public String getPenColor() {
+        return penColor.get();
+    }
+
+    public void setPenColor(String penColor) {
+        this.penColor.set(penColor);
+    }
+
+    public SimpleStringProperty penColorProperty() {
+        return penColor;
+    }
+
 
 }

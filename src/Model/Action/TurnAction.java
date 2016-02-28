@@ -1,4 +1,6 @@
-package Model.Turtle;
+package Model.Action;
+
+import Model.Turtle.Turtle;
 
 /**
  * Created by rhondusmithwick on 2/27/16.
@@ -20,12 +22,7 @@ public class TurnAction extends TurtleAction {
     @Override
     public void run() {
         double currAngle = getMyTurtle().getTurtleProperties().getHeading();
-        double newAngle;
-        if (direction == 0) {
-            newAngle = degrees;
-        } else {
-            newAngle = currAngle + (direction * degrees);
-        }
+        double newAngle = (direction == 0) ? degrees : (currAngle + (direction * degrees));
         getMyTurtle().getTurtleProperties().setHeading(newAngle);
         super.run();
     }

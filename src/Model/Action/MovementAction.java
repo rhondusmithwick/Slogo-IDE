@@ -1,5 +1,6 @@
-package Model.Turtle;
+package Model.Action;
 
+import Model.Turtle.Turtle;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;
@@ -13,19 +14,15 @@ import javafx.util.Duration;
  *
  * @author Rhondu Smithwick
  */
-public class TransitionAction extends TurtleAction {
+public class MovementAction extends TurtleAction {
 
     private final double distance;
     private final int direction;
+    private final Line penLine;
     private Point2D pointToMoveTo;
 
-    private final Line penLine;
-
-    private final Node node;
-
-    public TransitionAction(Turtle myTurtle, Node node, Line penLine, double distance, int direction) {
+    public MovementAction(Turtle myTurtle, Line penLine, double distance, int direction) {
         super(myTurtle);
-        this.node = node;
         this.penLine = penLine;
         this.distance = distance;
         this.direction = direction;
@@ -35,32 +32,33 @@ public class TransitionAction extends TurtleAction {
     public void run() {
         pointToMoveTo = getPointToMoveTo(distance, direction);
         modifyPenLine();
-        Transition transition = createTransition(node, pointToMoveTo);
+        Transition transition = createTransition(pointToMoveTo);
         transition.onFinishedProperty().set(t -> cleanUpMove());
         transition.play();
     }
 
-    public void cleanUpMove() {
+    private void cleanUpMove() {
         penLine.endXProperty().unbind();
         penLine.endYProperty().unbind();
         getMyTurtle().getTurtleProperties().setLocation(pointToMoveTo);
         super.run();
     }
 
-    private TranslateTransition createTransition(Node node, Point2D pointToMoveTo) {
+    private TranslateTransition createTransition(Point2D pointToMoveTo) {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(1));
-        transition.setNode(node);
+        transition.setNode(getMyTurtle().getTurtleProperties().getImageView());
         transition.setToX(pointToMoveTo.getX());
         transition.setToY(pointToMoveTo.getY());
         return transition;
     }
 
-    public void modifyPenLine() {
+    private void modifyPenLine() {
         Point2D location = getMyTurtle().getTurtleProperties().getLocation();
         penLine.setStartX(location.getX());
         penLine.setStartY(location.getY());
-        penLine.endXProperty().bind(node.translateXProperty());
-        penLine.endYProperty().bind(node.translateYProperty());
+        Node imageView = getMyTurtle().getTurtleProperties().getImageView();
+        penLine.endXProperty().bind(imageView.translateXProperty());
+        penLine.endYProperty().bind(imageView.translateYProperty());
         Paint stroke = Paint.valueOf(getMyTurtle().getTurtleProperties().getPenColor());
         penLine.setStroke(stroke);
         penLine.setVisible(getMyTurtle().getTurtleProperties().getPenDown());

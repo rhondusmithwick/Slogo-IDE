@@ -44,7 +44,7 @@ public class SlogoParser {
     private String getSymbol(String text) {
         Predicate<Entry<String, Pattern>> matched = (e) -> match(text, e.getValue());
         return mySymbols.entrySet()
-                .stream().filter(matched).findFirst()
+                .parallelStream().filter(matched).findFirst()
                 .map(Entry::getKey).orElse(ERROR);
     }
 

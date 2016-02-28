@@ -204,6 +204,10 @@ public class ToolBar implements ToolBarInterface {
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(image, penColor);
     }
+    
+    public StringObservable getParseLang(){
+        return language;
+    }
 
 
 }

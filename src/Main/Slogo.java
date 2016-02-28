@@ -19,7 +19,7 @@ import java.util.function.Predicate;
  * @author Rhondu Smithwick
  */
 class Slogo {
-    private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1000, 700);
+    private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1200, 700);
 
     private static final Dimension2D turtleDispDimension = new Dimension2D(600, 450);
 
@@ -40,19 +40,20 @@ class Slogo {
 
     private void bindProperties() {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
-        controllerProperties.stream()
+        controllerProperties.parallelStream()
                 .forEach(this::findTwin);
     }
 
-    private void findTwin(SimpleStringProperty controllerProperty) {
-        String cName = controllerProperty.getName();
+    private void findTwin(SimpleStringProperty cProp) {
+        String cName = cProp.getName();
         List<SimpleStringProperty> viewProperties = view.getProperties();
         Predicate<SimpleStringProperty> shouldBind = (p) ->
                 Objects.equals(p.getName(), cName);
-        viewProperties.stream()
+        viewProperties.parallelStream()
                 .filter(shouldBind)
-                .findFirst().ifPresent(c -> c.addListener((ov, oldVal, newVal)
-                        -> controllerProperty.set(newVal)));
+                .findFirst()
+                .ifPresent(vProp -> vProp.bindBidirectional(cProp));
     }
+
 
 }

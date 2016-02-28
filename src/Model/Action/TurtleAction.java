@@ -1,4 +1,6 @@
-package Model.Turtle;
+package Model.Action;
+
+import Model.Turtle.Turtle;
 
 /**
  * Created by rhondusmithwick on 2/27/16.
@@ -7,15 +9,14 @@ package Model.Turtle;
  */
 public abstract class TurtleAction implements Runnable {
 
-    private boolean isDone = false;
-
     private final Turtle myTurtle;
+    private volatile boolean isDone = false;
 
-    public TurtleAction(Turtle myTurtle) {
+    TurtleAction(Turtle myTurtle) {
         this.myTurtle = myTurtle;
     }
 
-    public boolean isDone() {
+    public synchronized boolean isDone() {
         return isDone;
     }
 
@@ -24,7 +25,7 @@ public abstract class TurtleAction implements Runnable {
         isDone = true;
     }
 
-    public Turtle getMyTurtle() {
+    protected Turtle getMyTurtle() {
         return myTurtle;
     }
 

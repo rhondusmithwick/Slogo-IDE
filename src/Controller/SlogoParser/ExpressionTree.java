@@ -4,9 +4,11 @@ import Model.TreeNode.ConstantNode;
 import Model.TreeNode.TreeNode;
 import Model.TreeNode.TurtleCommandNode;
 import Model.Turtle.Turtle;
+import Model.UserControl.MakeVariable;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.ResourceBundle;
@@ -24,11 +26,12 @@ public class ExpressionTree {
     private final Queue<Entry<String, String>> parsedText;
 
     private final List<TreeNode> rootList;
-
+    private final Map<String, TreeNode> variables;
     private final Turtle myTurtle;
 
-    public ExpressionTree(Turtle myTurtle, Queue<Entry<String, String>> parsedText) {
+    public ExpressionTree(Turtle myTurtle, Map<String, TreeNode> variables, Queue<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
+        this.variables = variables;
         this.parsedText = parsedText;
         rootList = createRootList();
     }
@@ -56,11 +59,21 @@ public class ExpressionTree {
 
     private void createSubTree(TreeNode root) {
         while (stillRoot(root)) {
-            Entry<String, String> curr = parsedText.poll();
-            TreeNode n = createNode(curr);
+            TreeNode n = createSingleNode();
             root.addChild(n);
             createSubTree(n);
         }
+    }
+
+    private TreeNode createSingleNode() {
+        Entry<String, String> curr = parsedText.poll();
+        TreeNode n;
+        if (variables.containsKey(curr.getValue())) {
+            n = variables.get(curr.getValue());
+        } else {
+            n = createNode(curr);
+        }
+        return n;
     }
 
     private TreeNode createNode(Entry<String, String> curr) {
@@ -84,6 +97,7 @@ public class ExpressionTree {
             n = new ConstantNode(0);
         }
         addTurtleIfShould(n);
+        addVariableIfShould(n);
         return n;
     }
 
@@ -115,5 +129,14 @@ public class ExpressionTree {
             turtleNode.setTurtle(myTurtle);
         }
     }
+
+    private void addVariableIfShould(TreeNode n) {
+        if (n instanceof MakeVariable) {
+            Entry<String, String> curr = parsedText.poll();
+            variables.put(curr.getValue(), n);
+            createSubTree(n);
+        }
+    }
+
 
 }
