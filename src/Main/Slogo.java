@@ -52,12 +52,14 @@ class Slogo {
         viewProperties.parallelStream()
                 .filter(shouldBind)
                 .findFirst()
-                .ifPresent(c ->  {
-                    c.addListener((ov, oldVal, newVal)
-                            -> controllerProperty.set(newVal));
-                    controllerProperty.addListener((ov, oldVal, newVal)
-                    -> c.set(newVal));
-                });
+                .ifPresent(vProp -> biBind(controllerProperty, vProp));
+    }
+
+    private void biBind(SimpleStringProperty cProp, SimpleStringProperty vProp) {
+        cProp.addListener((ov, oldVal, newVal)
+                -> vProp.set(newVal));
+       vProp.addListener((ov, oldVal, newVal)
+                -> cProp.set(newVal));
     }
 
 }
