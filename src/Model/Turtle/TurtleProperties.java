@@ -66,10 +66,11 @@ public final class TurtleProperties {
         heading.addListener((ov, oldVal, newVal) -> {
             double val = newVal.doubleValue();
             if (val >= 360) {
-                heading.set(val - 360);
+                val -= 360;
             } else if (val < 0) {
-                heading.set(val + 360);
+                val += 360;
             }
+            heading.set(val);
         });
     }
 

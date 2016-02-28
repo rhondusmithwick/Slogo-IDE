@@ -9,7 +9,7 @@ import Model.Turtle.Turtle;
  */
 public abstract class TurtleAction implements Runnable {
 
-    private boolean isDone = false;
+    private volatile boolean isDone = false;
 
     private final Turtle myTurtle;
 
@@ -17,7 +17,7 @@ public abstract class TurtleAction implements Runnable {
         this.myTurtle = myTurtle;
     }
 
-    public boolean isDone() {
+    public synchronized boolean isDone() {
         return isDone;
     }
 
