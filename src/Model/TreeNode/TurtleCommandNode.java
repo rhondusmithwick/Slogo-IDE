@@ -1,7 +1,7 @@
 package Model.TreeNode;
 
-import Model.Turtle.Turtle;
 import Model.Action.TurtleAction;
+import Model.Turtle.Turtle;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
