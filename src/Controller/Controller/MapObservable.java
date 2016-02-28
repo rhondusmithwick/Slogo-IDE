@@ -15,6 +15,11 @@ public class MapObservable<K, V> extends Observable {
 
     private final Map<K, V> map = new HashMap<>();
 
+    private final SimpleStringProperty myString;
+
+    public MapObservable(String name) {
+        this.myString = new SimpleStringProperty(this, name, "");
+    }
     public void put(K key, V value) {
         map.put(key, value);
         setChanged();
@@ -28,7 +33,14 @@ public class MapObservable<K, V> extends Observable {
         return map.containsKey(key);
     }
 
-    public String toString() {
+    public void modifyIfShould() {
+        if (hasChanged()) {
+            modifyString();
+            clearChanged();
+        }
+    }
+
+    private void modifyString() {
         StringBuilder sb = new StringBuilder();
         map.entrySet().parallelStream().forEach(e ->
                 sb.append(e.getKey())
@@ -36,7 +48,10 @@ public class MapObservable<K, V> extends Observable {
                         .append(e.getValue())
                         .append("\n")
         );
-        clearChanged();
-        return sb.toString();
+        myString.set(sb.toString());
+    }
+
+    public SimpleStringProperty getStringProperty() {
+        return myString;
     }
 }
