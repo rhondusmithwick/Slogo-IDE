@@ -2,6 +2,7 @@ package Model.Movement;
 
 import Model.TreeNode.TurtleCommandNode;
 import Model.Turtle.TransitionAction;
+import Model.Turtle.Turtle;
 import Model.Turtle.TurtleAction;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
@@ -15,12 +16,13 @@ import javafx.scene.shape.Line;
 abstract class Movement extends TurtleCommandNode {
 
     double move(int direction) {
+        Turtle myTurtle = getTurtle();
         double distance = getChildren().get(0).getValue();
         Line penLine = new Line();
-        getTurtle().getGroup().getChildren().add(penLine);
-        ImageView imageView = getTurtle().getView();
-        TurtleAction action = new TransitionAction(getTurtle(), imageView, penLine, distance, direction);
-        getTurtle().addAction(action);
+        myTurtle.getGroup().getChildren().add(penLine);
+        ImageView imageView = myTurtle.getView();
+        TurtleAction action = new TransitionAction(myTurtle, imageView, penLine, distance, direction);
+        addAction(action);
         return distance;
     }
 

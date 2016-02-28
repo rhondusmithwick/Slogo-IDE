@@ -7,11 +7,11 @@ import Model.TreeNode.TurtleCommandNode;
  *
  * @author Rhondu Smithwick
  */
-public class SetHeading extends TurtleCommandNode {
+public class SetHeading extends Turn {
 
     public double execute() {
-        double degrees = getChildren().get(1).getValue();
-        getTurtle().getTurtleProperties().setHeading(degrees);
+        double degrees = getChildren().get(0).getValue();
+        turn(0);
         return degrees;
     }
 
