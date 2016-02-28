@@ -1,7 +1,7 @@
 package view;
 
 import java.util.ResourceBundle;
-import Controller.Controller.StringObservable;
+import Controller.Controller.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -26,7 +26,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private ScrollPane scroll;
     private VBox vBox;
     private String[] vArray;
-    private StringObservable pLang;
+    private ObjectObservable pLang;
     private CommandEntryInterface cEnt;
     
     public VariableDisplay(){
@@ -103,7 +103,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     }
     
     @Override
-    public void setPLang(StringObservable str){
+    public void setPLang(ObjectObservable str){
         this.pLang=str;
     }
     

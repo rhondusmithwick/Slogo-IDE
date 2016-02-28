@@ -1,14 +1,12 @@
 package view;
 
 import java.util.ResourceBundle;
-import Controller.Controller.StringObservable;
-import javafx.beans.property.SimpleStringProperty;
+import Controller.Controller.ObjectObservable;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -35,7 +33,7 @@ public class VariableUpdate {
     private Button setB;
     private Label label;
 
-    public VariableUpdate (ResourceBundle myResources, CommandEntryInterface cEnt, StringObservable pLang) {
+    public VariableUpdate (ResourceBundle myResources, CommandEntryInterface cEnt, ObjectObservable pLang) {
         this.myResources = myResources;
         myCommands = ResourceBundle.getBundle(LANGUAGE_LOCATION + pLang.get());
         this.cEnt = cEnt;

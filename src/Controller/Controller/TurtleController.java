@@ -7,18 +7,12 @@ import Model.Action.VisionAction;
 import Model.Deprecated.Command;
 import Model.TreeNode.TreeNode;
 import Model.Turtle.Turtle;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
-import javafx.util.StringConverter;
-import javafx.util.converter.FormatStringConverter;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
@@ -38,8 +32,8 @@ public class TurtleController implements Controller, Observer {
 
     private final Group group = new Group();
     private final Turtle myTurtle;
-    private final StringObservable language = new StringObservable();
-    private final StringObservable input = new StringObservable();
+    private final ObjectObservable<String> language = new ObjectObservable<>();
+    private final ObjectObservable<String> input = new ObjectObservable<>();
     private final SimpleStringProperty variablesString = new SimpleStringProperty(this, "variablesString");
 
     private final MapObservable<String, TreeNode> variables = new MapObservable<>();
@@ -54,11 +48,11 @@ public class TurtleController implements Controller, Observer {
     }
 
 
-    public StringObservable getLanguage() {
+    public ObjectObservable<String> getLanguage() {
         return language;
     }
 
-    public StringObservable getInput() {
+    public ObjectObservable<String> getInput() {
         return input;
     }
 
