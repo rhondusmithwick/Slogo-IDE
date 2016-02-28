@@ -32,17 +32,6 @@ public final class TurtleProperties {
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
 
-    public boolean getIsMoving() {
-        return isMoving.get();
-    }
-
-
-    public void setIsMoving(boolean isMoving) {
-        this.isMoving.set(isMoving);
-    }
-
-    private final SimpleBooleanProperty isMoving = new SimpleBooleanProperty(this, "isMoving", false);
-
     public String getPenColor() {
         return penColor.get();
     }
@@ -74,14 +63,14 @@ public final class TurtleProperties {
             imageView.setImage(theImage);
             imageDimensions.set(new Dimension2D(theImage.getWidth(), theImage.getHeight()));
         });
-//        heading.addListener((ov, oldVal, newVal) -> {
-//            double val = newVal.doubleValue();
-//            if (val >= 360) {
-//                heading.set(val - 360);
-//            } else if (val < 0) {
-//                heading.set(val + 360);
-//            }
-//        });
+        heading.addListener((ov, oldVal, newVal) -> {
+            double val = newVal.doubleValue();
+            if (val >= 360) {
+                heading.set(val - 360);
+            } else if (val < 0) {
+                heading.set(val + 360);
+            }
+        });
     }
 
     public boolean getVisible() {
