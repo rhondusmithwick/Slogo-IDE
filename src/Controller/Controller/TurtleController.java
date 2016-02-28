@@ -4,7 +4,7 @@ import Controller.SlogoParser.ExpressionTree;
 import Controller.SlogoParser.SlogoParser;
 import Model.Deprecated.Command;
 import Model.Turtle.Turtle;
-import Model.Turtle.TurtleAction;
+import Model.Action.TurtleAction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;

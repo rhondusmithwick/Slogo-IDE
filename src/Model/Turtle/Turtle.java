@@ -1,15 +1,9 @@
 package Model.Turtle;
 
-import Model.TreeNode.TreeNode;
-import javafx.animation.TranslateTransition;
+import Model.Action.TurtleAction;
 import javafx.geometry.Dimension2D;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Line;
-import javafx.util.Duration;
 
 import java.util.LinkedList;
 import java.util.Queue;
