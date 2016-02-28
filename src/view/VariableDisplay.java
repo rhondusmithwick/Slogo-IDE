@@ -19,7 +19,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private static final String DEFAULT_LANGUAGE = "English";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
 
-    private final SimpleStringProperty variablesString = new SimpleStringProperty(this, "variablesString");
+    private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
     private VariableUpdate updater;
     private String dispLang;
     private ResourceBundle myResources;
@@ -53,7 +53,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private void createCurrVDisp () {
         vBox = new VBox();
         setTitle();
-        String vString = variablesString.get();
+        String vString = variables.get();
         if(vString!=null){
             
             vArray = vString.split("\n");
@@ -99,7 +99,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     @Override
     public SimpleStringProperty getEnvProperty () {
-        return variablesString;
+        return variables;
     }
     
     @Override

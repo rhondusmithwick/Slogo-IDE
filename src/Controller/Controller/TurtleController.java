@@ -34,9 +34,8 @@ public class TurtleController implements Controller, Observer {
     private final Turtle myTurtle;
     private final ObjectObservable<String> language = new ObjectObservable<>();
     private final ObjectObservable<String> input = new ObjectObservable<>();
-    private final SimpleStringProperty variablesString = new SimpleStringProperty(this, "variablesString");
 
-    private final MapObservable<String, TreeNode> variables = new MapObservable<>();
+    private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
@@ -62,9 +61,7 @@ public class TurtleController implements Controller, Observer {
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
         expressionTree.executeAll();
-        if (variables.hasChanged()) {
-            variablesString.set(variables.toString());
-        }
+        variables.modifyIfShould();
         new Thread(this::runActions).start();
     }
 
@@ -116,7 +113,7 @@ public class TurtleController implements Controller, Observer {
         return Arrays.asList(
                 myTurtle.getTurtleProperties().imageProperty(),
                 myTurtle.getTurtleProperties().penColorProperty(),
-                variablesString);
+                variables.getStringProperty());
     }
 
 
