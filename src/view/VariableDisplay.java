@@ -7,6 +7,7 @@ import javafx.scene.control.ScrollPane;
 
 public class VariableDisplay implements EnvironmentDisplayInterface {
     private final SimpleStringProperty variablesString = new SimpleStringProperty(this, "variablesString");
+
     private ScrollPane scroll;
     
     @Override
@@ -23,7 +24,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     @Override
     public void updateEnvNode () {
-        System.out.println(variablesString.toString());
+        System.out.println(variablesString.get());
 
     }
 

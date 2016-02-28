@@ -52,8 +52,12 @@ class Slogo {
         viewProperties.parallelStream()
                 .filter(shouldBind)
                 .findFirst()
-                .ifPresent(c -> c.addListener((ov, oldVal, newVal)
-                        -> controllerProperty.set(newVal)));
+                .ifPresent(c ->  {
+                    c.addListener((ov, oldVal, newVal)
+                            -> controllerProperty.set(newVal));
+                    controllerProperty.addListener((ov, oldVal, newVal)
+                    -> c.set(newVal));
+                });
     }
 
 }

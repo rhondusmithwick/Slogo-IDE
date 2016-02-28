@@ -63,6 +63,7 @@ public class TurtleController implements Controller, Observer {
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
         expressionTree.executeAll();
         updateVariablesString();
+        System.out.println(variablesString.get());
         new Thread(this::runActions).start();
     }
 
