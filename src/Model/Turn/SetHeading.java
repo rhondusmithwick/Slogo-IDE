@@ -13,8 +13,4 @@ public class SetHeading extends Turn {
         return degrees;
     }
 
-    @Override
-    public int getNumChildrenRequired() {
-        return 1;
-    }
 }

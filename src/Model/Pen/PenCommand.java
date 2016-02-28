@@ -11,9 +11,9 @@ import Model.TreeNode.TurtleCommandNode;
  */
 abstract class PenCommand extends TurtleCommandNode {
 
-    double changePen(boolean t) {
-        TurtleAction action = new PenAction(getTurtle(), t);
+    double changePen(boolean b) {
+        TurtleAction action = new PenAction(getTurtle(), b);
         addAction(action);
-        return t ? 1 : 0;
+        return b ? 1 : 0;
     }
 }

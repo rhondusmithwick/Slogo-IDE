@@ -40,7 +40,7 @@ class Slogo {
 
     private void bindProperties() {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
-        controllerProperties.stream()
+        controllerProperties.parallelStream()
                 .forEach(this::findTwin);
     }
 
@@ -49,10 +49,11 @@ class Slogo {
         List<SimpleStringProperty> viewProperties = view.getProperties();
         Predicate<SimpleStringProperty> shouldBind = (p) ->
                 Objects.equals(p.getName(), cName);
-        viewProperties.stream()
+        viewProperties.parallelStream()
                 .filter(shouldBind)
-                .findFirst().ifPresent(c -> c.addListener((ov, oldVal, newVal)
-                -> controllerProperty.set(newVal)));
+                .findFirst()
+                .ifPresent(c -> c.addListener((ov, oldVal, newVal)
+                        -> controllerProperty.set(newVal)));
     }
 
 }
