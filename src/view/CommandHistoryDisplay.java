@@ -74,7 +74,7 @@ public class CommandHistoryDisplay implements CommHistory {
     }
 
     private void labelClicked(Label l) {
-        commEntry.passInternalCommands(l.getText());
+        commEntry.passInternalCommands(l.getText(), true);
         
     }
 

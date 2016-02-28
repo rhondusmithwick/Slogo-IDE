@@ -70,7 +70,7 @@ public class VariableUpdate {
             return;
         }
         String toPass = createMakeCommand(newVal);
-        cEnt.passInternalCommands(toPass);
+        cEnt.passInternalCommands(toPass, false);
         label.setText(variable + SPACE + newVal);
         s.close();
         

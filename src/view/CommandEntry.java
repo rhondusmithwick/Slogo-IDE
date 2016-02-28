@@ -33,7 +33,6 @@ public class CommandEntry implements CommandEntryInterface {
     @Override
     public void getCommandsFromString(String text) {
         input.set(text);
-        System.out.printf("text from frontend %s \n", text);
     }
 
     @Override
@@ -54,10 +53,15 @@ public class CommandEntry implements CommandEntryInterface {
     }
 
     @Override
-    public void passInternalCommands(String command) {
-        String curr = myEntryBox.getText();
-        curr = curr + "\n" + command;
-        myEntryBox.setText(curr);
+    public void passInternalCommands(String command, boolean showInTextBox) {
+        if(showInTextBox){
+            String curr = myEntryBox.getText();
+            curr = curr + "\n" + command;
+            myEntryBox.setText(curr);
+        }else{
+            getCommandsFromString(command);
+        }
+        
 
     }
 
