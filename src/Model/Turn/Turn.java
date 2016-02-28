@@ -1,9 +1,9 @@
 package Model.Turn;
 
-import Model.TreeNode.TurtleCommandNode;
 import Model.Action.TurnAction;
-import Model.Turtle.Turtle;
 import Model.Action.TurtleAction;
+import Model.TreeNode.TurtleCommandNode;
+import Model.Turtle.Turtle;
 
 /**
  * Created by rhondusmithwick on 2/27/16.
@@ -12,7 +12,7 @@ import Model.Action.TurtleAction;
  */
 public abstract class Turn extends TurtleCommandNode {
 
-    public double turn(int direction) {
+    protected double turn(int direction) {
         double degrees = getChildren().get(0).getValue();
         Turtle myTurtle = getTurtle();
         TurtleAction action = new TurnAction(myTurtle, degrees, direction);

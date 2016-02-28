@@ -1,8 +1,8 @@
 package Model.Pen;
 
-import Model.TreeNode.TurtleCommandNode;
 import Model.Action.PenAction;
 import Model.Action.TurtleAction;
+import Model.TreeNode.TurtleCommandNode;
 
 /**
  * Created by rhondusmithwick on 2/24/16.

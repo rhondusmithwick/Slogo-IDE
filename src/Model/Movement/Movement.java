@@ -1,10 +1,9 @@
 package Model.Movement;
 
-import Model.TreeNode.TurtleCommandNode;
 import Model.Action.MovementAction;
-import Model.Turtle.Turtle;
 import Model.Action.TurtleAction;
-import javafx.scene.image.ImageView;
+import Model.TreeNode.TurtleCommandNode;
+import Model.Turtle.Turtle;
 import javafx.scene.shape.Line;
 
 /**
@@ -19,8 +18,7 @@ abstract class Movement extends TurtleCommandNode {
         double distance = getChildren().get(0).getValue();
         Line penLine = new Line();
         myTurtle.getGroup().getChildren().add(penLine);
-        ImageView imageView = myTurtle.getView();
-        TurtleAction action = new MovementAction(myTurtle, imageView, penLine, distance, direction);
+        TurtleAction action = new MovementAction(myTurtle, penLine, distance, direction);
         addAction(action);
         return distance;
     }

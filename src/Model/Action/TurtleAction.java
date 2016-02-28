@@ -9,11 +9,10 @@ import Model.Turtle.Turtle;
  */
 public abstract class TurtleAction implements Runnable {
 
+    private final Turtle myTurtle;
     private volatile boolean isDone = false;
 
-    private final Turtle myTurtle;
-
-    public TurtleAction(Turtle myTurtle) {
+    TurtleAction(Turtle myTurtle) {
         this.myTurtle = myTurtle;
     }
 
@@ -26,7 +25,7 @@ public abstract class TurtleAction implements Runnable {
         isDone = true;
     }
 
-    public Turtle getMyTurtle() {
+    protected Turtle getMyTurtle() {
         return myTurtle;
     }
 
