@@ -1,5 +1,7 @@
 package Controller.Controller;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;

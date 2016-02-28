@@ -7,17 +7,17 @@ import java.util.Observable;
  *
  * @author Rhondu Smithwick
  */
-public class StringObservable extends Observable {
+public class ObjectObservable<E> extends Observable {
 
-    private String value = "";
+    private E value = null;
 
-    public void set(String value) {
+    public void set(E value) {
         this.value = value;
         setChanged();
         notifyObservers();
     }
 
-    public String get() {
+    public E get() {
         return value;
     }
 }

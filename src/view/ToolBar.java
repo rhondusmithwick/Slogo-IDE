@@ -1,6 +1,6 @@
 package view;
 
-import Controller.Controller.StringObservable;
+import Controller.Controller.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -46,7 +46,7 @@ public class ToolBar implements ToolBarInterface {
     private static final String DISP = "disp";
 
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
-    private final StringObservable language;
+    private final ObjectObservable<String> language;
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
     private HBox container;
     private HelpScreen hScreen;
@@ -57,7 +57,7 @@ public class ToolBar implements ToolBarInterface {
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
-    public ToolBar(StringObservable language) {
+    public ToolBar(ObjectObservable<String> language) {
         this.language = language;
         this.dispLang = DEFAULT_LANGUAGE;
         container = new HBox();
@@ -205,7 +205,7 @@ public class ToolBar implements ToolBarInterface {
         return Arrays.asList(image, penColor);
     }
     
-    public StringObservable getParseLang(){
+    public ObjectObservable getParseLang(){
         return language;
     }
 

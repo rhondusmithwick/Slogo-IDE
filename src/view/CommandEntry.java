@@ -1,6 +1,6 @@
 package view;
 
-import Controller.Controller.StringObservable;
+import Controller.Controller.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
@@ -15,13 +15,13 @@ import javafx.scene.control.TextArea;
 
 public class CommandEntry implements CommandEntryInterface {
 
-    private final StringObservable input;
+    private final ObjectObservable<String> input;
     private final double WIDTH = 200.0;
     private final double HEIGHT = 400.0;
     private TextArea myEntryBox;
     private ScrollPane myScrollPane;
 
-    public CommandEntry(StringObservable input) {
+    public CommandEntry(ObjectObservable<String> input) {
         this.input = input;
     }
 
