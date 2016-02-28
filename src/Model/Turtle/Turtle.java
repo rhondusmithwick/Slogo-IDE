@@ -1,6 +1,6 @@
-package model.turtle;
+package Model.Turtle;
 
-import model.action.TurtleAction;
+import Model.Action.TurtleAction;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 

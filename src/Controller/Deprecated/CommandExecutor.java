@@ -1,7 +1,7 @@
-package controller.deprecated;
+package Controller.Deprecated;
 
-import model.deprecated.Command;
-import model.turtle.Turtle;
+import Model.Deprecated.Command;
+import Model.Turtle.Turtle;
 
 import java.lang.reflect.Constructor;
 import java.util.LinkedList;

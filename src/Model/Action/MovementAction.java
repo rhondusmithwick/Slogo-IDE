@@ -1,6 +1,6 @@
-package model.action;
+package Model.Action;
 
-import model.turtle.Turtle;
+import Model.Turtle.Turtle;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;

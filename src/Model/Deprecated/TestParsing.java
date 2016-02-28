@@ -1,6 +1,6 @@
 //package Controller.SlogoParser;
 //
-//import model.turtle.turtle;
+//import Model.Turtle.Turtle;
 //import javafx.application.Application;
 //import javafx.geometry.Dimension2D;
 //import javafx.scene.Scene;
@@ -20,8 +20,8 @@
 //
 //    @Override
 //    public void start(Stage primaryStage) {
-//        slogoparser lang = new slogoparser("languages/English", "languages/Syntax");
-//        turtle myTurtle = new turtle(turtleDispDimension);
+//        SlogoParser lang = new SlogoParser("languages/English", "languages/Syntax");
+//        Turtle myTurtle = new Turtle(turtleDispDimension);
 //        Scene myScene = new Scene(myTurtle.getGroup(), 800, 800);
 //        primaryStage.setScene(myScene);
 //        primaryStage.setTitle("Slogo");

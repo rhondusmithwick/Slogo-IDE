@@ -1,9 +1,9 @@
-package model.movement;
+package Model.Movement;
 
-import model.action.MovementAction;
-import model.action.TurtleAction;
-import model.treenode.TurtleCommandNode;
-import model.turtle.Turtle;
+import Model.Action.MovementAction;
+import Model.Action.TurtleAction;
+import Model.TreeNode.TurtleCommandNode;
+import Model.Turtle.Turtle;
 import javafx.scene.shape.Line;
 
 /**

@@ -1,7 +1,7 @@
 //package Model.Deprecated;
 //
-//import model.treenode.TurtleCommandNode;
-//import model.turtle.turtle;
+//import Model.TreeNode.TurtleCommandNode;
+//import Model.Turtle.Turtle;
 //import javafx.scene.image.Image;
 //
 ///**
@@ -13,7 +13,7 @@
 //
 //    private final Image image;
 //
-//    public SetImage(turtle myTurtle, Image image) {
+//    public SetImage(Turtle myTurtle, Image image) {
 //        super(myTurtle);
 //        this.image = image;
 //    }

@@ -1,9 +1,9 @@
-package model.turn;
+package Model.Turn;
 
-import model.action.TurnAction;
-import model.action.TurtleAction;
-import model.treenode.TurtleCommandNode;
-import model.turtle.Turtle;
+import Model.Action.TurnAction;
+import Model.Action.TurtleAction;
+import Model.TreeNode.TurtleCommandNode;
+import Model.Turtle.Turtle;
 
 /**
  * Created by rhondusmithwick on 2/27/16.

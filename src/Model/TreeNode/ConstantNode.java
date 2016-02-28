@@ -1,4 +1,4 @@
-package model.treenode;
+package Model.TreeNode;
 
 /**
  * Created by rhondusmithwick on 2/25/16.

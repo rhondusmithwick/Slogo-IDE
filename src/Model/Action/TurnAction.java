@@ -1,6 +1,6 @@
-package model.action;
+package Model.Action;
 
-import model.turtle.Turtle;
+import Model.Turtle.Turtle;
 
 /**
  * Created by rhondusmithwick on 2/27/16.

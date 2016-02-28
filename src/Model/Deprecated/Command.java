@@ -1,4 +1,4 @@
-package model.deprecated;
+package Model.Deprecated;
 
 /**
  * Created by rhondusmithwick on 2/22/16.

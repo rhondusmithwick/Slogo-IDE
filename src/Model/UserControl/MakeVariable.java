@@ -1,6 +1,6 @@
-package model.usercontrol;
+package Model.UserControl;
 
-import model.treenode.TreeNode;
+import Model.TreeNode.TreeNode;
 
 /**
  * Created by rhondusmithwick on 2/28/16.

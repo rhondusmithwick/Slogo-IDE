@@ -1,7 +1,7 @@
-package main;
+package Main;
 
-import controller.controller.Controller;
-import controller.controller.TurtleController;
+import Controller.Controller.Controller;
+import Controller.Controller.TurtleController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;

@@ -1,8 +1,8 @@
-package model.turtlevision;
+package Model.TurtleVision;
 
-import model.action.TurtleAction;
-import model.action.VisionAction;
-import model.treenode.TurtleCommandNode;
+import Model.Action.TurtleAction;
+import Model.Action.VisionAction;
+import Model.TreeNode.TurtleCommandNode;
 
 abstract class Vision extends TurtleCommandNode {
 
