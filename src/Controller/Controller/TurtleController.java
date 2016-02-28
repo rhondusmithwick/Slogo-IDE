@@ -2,6 +2,7 @@ package Controller.Controller;
 
 import Controller.SlogoParser.ExpressionTree;
 import Controller.SlogoParser.SlogoParser;
+import Model.Action.VisionAction;
 import Model.Deprecated.Command;
 import Model.Turtle.Turtle;
 import Model.Action.TurtleAction;
@@ -60,23 +61,27 @@ public class TurtleController implements Controller, Observer {
 
     private void runActions() {
         Queue<TurtleAction> actions = myTurtle.getActions();
-        while (!actions.isEmpty()) {
-            TurtleAction action = actions.poll();
-            runAction(action);
+        if (!actions.isEmpty()) {
+            boolean isVisible = myTurtle.getTurtleProperties().getVisible();
+            runAction(new VisionAction(myTurtle, false));
+            actions.stream().forEach(this::runAction);
+            runAction(new VisionAction(myTurtle, isVisible));
+            myTurtle.clearActions();
         }
-        myTurtle.clearActions();
     }
+
 
     private void runAction(TurtleAction action) {
         new Thread(action).start();
         while (!action.isDone()) {
             try {
-                TimeUnit.NANOSECONDS.sleep(1);
+                TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
+
     @Override
     public List<Command> getCommands() {
         return null;
