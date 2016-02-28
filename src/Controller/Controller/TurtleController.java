@@ -117,7 +117,6 @@ public class TurtleController implements Controller, Observer {
         }
     }
 
-
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
