@@ -1,4 +1,4 @@
-package Controller.Controller;
+package Observables;
 
 import java.util.Observable;
 

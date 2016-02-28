@@ -1,16 +1,14 @@
 package Controller.SlogoParser;
 
-import Controller.Controller.MapObservable;
+import Observables.MapObservable;
 import Model.TreeNode.ConstantNode;
 import Model.TreeNode.TreeNode;
 import Model.TreeNode.TurtleCommandNode;
 import Model.Turtle.Turtle;
 import Model.UserControl.MakeVariable;
-import javafx.beans.property.SimpleObjectProperty;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.ResourceBundle;

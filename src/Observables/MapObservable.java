@@ -1,4 +1,4 @@
-package Controller.Controller;
+package Observables;
 
 import javafx.beans.property.SimpleStringProperty;
 

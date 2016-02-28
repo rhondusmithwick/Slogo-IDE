@@ -1,7 +1,7 @@
 package view;
 
 
-import Controller.Controller.ObjectObservable;
+import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;

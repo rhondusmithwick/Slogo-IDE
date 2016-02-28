@@ -1,6 +1,6 @@
 package view;
 
-import Controller.Controller.ObjectObservable;
+import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

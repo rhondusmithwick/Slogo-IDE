@@ -1,7 +1,7 @@
 package view;
 
 import java.util.ResourceBundle;
-import Controller.Controller.ObjectObservable;
+import Observables.ObjectObservable;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
