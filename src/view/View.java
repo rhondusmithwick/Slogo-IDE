@@ -166,7 +166,7 @@ public class View implements ViewInt {
     @Override
     public List<SimpleStringProperty> getProperties() {
         List<SimpleStringProperty> tProps = tBar.getProperties();
-        return Arrays.asList(vDisplay.getEnvProperty(), tProps.get(0), tProps.get(1));
+        return Arrays.asList(tProps.get(0), tProps.get(1),vDisplay.getEnvProperty());
     }
 
 }
