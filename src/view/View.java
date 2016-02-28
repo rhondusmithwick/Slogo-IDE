@@ -13,7 +13,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -45,11 +46,12 @@ public class View implements ViewInt {
     private HBox bottom;
     private VBox left, right;
     private Node commandHistoryBox, entryBox;
+    private EnvironmentDisplayInterface vDisplay;
 
     public View(Dimension2D turtleDispDimension, StringObservable input, StringObservable language) {
         this.language = language;
         this.input = input;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + "english" + DISP);
+        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + DEFAULT_LANGUAGE + DISP);
         this.turtleDispDimension = turtleDispDimension;
         UI = new BorderPane();
         root = new Group();
@@ -84,9 +86,8 @@ public class View implements ViewInt {
 
     private void createLeftPane() {
         left = new VBox();
-        Rectangle r = new Rectangle(LEFT_WIDTH, LEFT_HEIGHT);
-        r.setFill(Color.CORNFLOWERBLUE);
-        left.getChildren().add(r);
+        vDisplay = new VariableDisplay();
+        
     }
 
 
@@ -141,6 +142,7 @@ public class View implements ViewInt {
         commandHistory.addCommand(commandEntry.getTextBox().getText());
         commandEntry.getBoxCommands();
         commandEntry.clearCommands();
+        vDisplay.updateEnvNode();
     }
 
 
@@ -149,18 +151,7 @@ public class View implements ViewInt {
         tBar.setEDisp(errorDisplay);
 
     }
-
-
-    public void passError(String Error) {
-        // TODO Auto-generated method stub
-
-    }
-
-
-    public void passInput(String command) {
-
-    }
-
+    
     @Override
     public Group getGroup() {
         return root;
@@ -174,7 +165,8 @@ public class View implements ViewInt {
 
     @Override
     public List<SimpleStringProperty> getProperties() {
-        return tBar.getProperties();
+        List<SimpleStringProperty> tProps = tBar.getProperties();
+        return Arrays.asList(vDisplay.getEnvProperty(), tProps.get(0), tProps.get(1));
     }
 
 }

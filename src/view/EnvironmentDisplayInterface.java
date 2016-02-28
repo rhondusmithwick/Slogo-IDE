@@ -1,5 +1,6 @@
 package view;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 
 /**
@@ -29,6 +30,8 @@ public interface EnvironmentDisplayInterface {
      * state of these variables in the backend.
      */
     void updateEnvNode();
+    
+    SimpleStringProperty getEnvProperty();
 
 
 }
