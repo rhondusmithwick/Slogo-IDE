@@ -5,13 +5,16 @@ import Controller.SlogoParser.SlogoParser;
 import Model.Action.TurtleAction;
 import Model.Action.VisionAction;
 import Model.Deprecated.Command;
+import Model.TreeNode.TreeNode;
 import Model.Turtle.Turtle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
@@ -33,6 +36,9 @@ public class TurtleController implements Controller, Observer {
     private final Turtle myTurtle;
     private final StringObservable language = new StringObservable();
     private final StringObservable input = new StringObservable();
+    private final SimpleStringProperty variablesString = new SimpleStringProperty(this, "variablesString");
+
+    private final Map<String, TreeNode> variables = new HashMap<>();
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
@@ -54,8 +60,9 @@ public class TurtleController implements Controller, Observer {
     public void takeInput(String input) {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
-        ExpressionTree expressionTree = new ExpressionTree(myTurtle, parsedText);
+        ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
         expressionTree.executeAll();
+        updateVariablesString();
         new Thread(this::runActions).start();
     }
 
@@ -103,9 +110,22 @@ public class TurtleController implements Controller, Observer {
     }
 
 
+    private void updateVariablesString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("The Variables: \n");
+        variables.entrySet().stream().forEach(e ->
+            sb.append(e.getKey())
+                    .append(" ")
+                    .append(e.getValue().getValue())
+                    .append("\n")
+        );
+        variablesString.set(sb.toString());
+    }
+
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
+                variablesString,
                 myTurtle.getTurtleProperties().imageProperty(),
                 myTurtle.getTurtleProperties().penColorProperty());
     }
