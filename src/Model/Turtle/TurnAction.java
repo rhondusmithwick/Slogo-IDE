@@ -20,7 +20,12 @@ public class TurnAction extends TurtleAction {
     @Override
     public void run() {
         double currAngle = getMyTurtle().getTurtleProperties().getHeading();
-        double newAngle = currAngle + (direction * degrees);
+        double newAngle;
+        if (direction == 0) {
+            newAngle = degrees;
+        } else {
+            newAngle = currAngle + (direction * degrees);
+        }
         getMyTurtle().getTurtleProperties().setHeading(newAngle);
         super.run();
     }
