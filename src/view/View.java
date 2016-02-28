@@ -13,7 +13,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -21,9 +22,7 @@ public class View implements ViewInt {
 
 
     private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
-    private static final int LEFT_HEIGHT = 400;
-    private static final int LEFT_WIDTH = 100;
-    private static final int BOTTOM_PADDING = 50;
+    private static final int BOTTOM_PADDING =250;
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
@@ -45,11 +44,12 @@ public class View implements ViewInt {
     private HBox bottom;
     private VBox left, right;
     private Node commandHistoryBox, entryBox;
+    private EnvironmentDisplayInterface vDisplay;
 
     public View(Dimension2D turtleDispDimension, StringObservable input, StringObservable language) {
         this.language = language;
         this.input = input;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + "english" + DISP);
+        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + DEFAULT_LANGUAGE + DISP);
         this.turtleDispDimension = turtleDispDimension;
         UI = new BorderPane();
         root = new Group();
@@ -65,8 +65,8 @@ public class View implements ViewInt {
         createTurtleDisplay();
         createToolBar();
         createBottomPane();
-        createLeftPane();
         createRightPane();
+        createLeftPane();
         addComponents();
         setToolBar();
         commandHistory.setCommEntry(commandEntry);
@@ -84,9 +84,17 @@ public class View implements ViewInt {
 
     private void createLeftPane() {
         left = new VBox();
-        Rectangle r = new Rectangle(LEFT_WIDTH, LEFT_HEIGHT);
-        r.setFill(Color.CORNFLOWERBLUE);
-        left.getChildren().add(r);
+        setVDisplay();
+        left.getChildren().add(vDisplay.getEnvDisplay());
+        
+    }
+
+
+    private void setVDisplay () {
+        vDisplay = new VariableDisplay();
+        vDisplay.createEnvNode();
+        vDisplay.setCommEntry(commandEntry);
+        vDisplay.setPLang(tBar.getParseLang());
     }
 
 
@@ -140,7 +148,9 @@ public class View implements ViewInt {
     private void processExecute() {
         commandHistory.addCommand(commandEntry.getTextBox().getText());
         commandEntry.getBoxCommands();
+        vDisplay.updateEnvNode();
         commandEntry.clearCommands();
+        
     }
 
 
@@ -149,18 +159,7 @@ public class View implements ViewInt {
         tBar.setEDisp(errorDisplay);
 
     }
-
-
-    public void passError(String Error) {
-        // TODO Auto-generated method stub
-
-    }
-
-
-    public void passInput(String command) {
-
-    }
-
+    
     @Override
     public Group getGroup() {
         return root;
@@ -174,7 +173,8 @@ public class View implements ViewInt {
 
     @Override
     public List<SimpleStringProperty> getProperties() {
-        return tBar.getProperties();
+        List<SimpleStringProperty> tProps = tBar.getProperties();
+        return Arrays.asList(tProps.get(0), tProps.get(1),vDisplay.getEnvProperty());
     }
 
 }

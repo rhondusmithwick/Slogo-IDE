@@ -1,10 +1,12 @@
 package Controller.SlogoParser;
 
+import Controller.Controller.MapObservable;
 import Model.TreeNode.ConstantNode;
 import Model.TreeNode.TreeNode;
 import Model.TreeNode.TurtleCommandNode;
 import Model.Turtle.Turtle;
 import Model.UserControl.MakeVariable;
+import javafx.beans.property.SimpleObjectProperty;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,10 +28,11 @@ public class ExpressionTree {
     private final Queue<Entry<String, String>> parsedText;
 
     private final List<TreeNode> rootList;
-    private final Map<String, TreeNode> variables;
+
+    private final MapObservable<String, TreeNode> variables;
     private final Turtle myTurtle;
 
-    public ExpressionTree(Turtle myTurtle, Map<String, TreeNode> variables, Queue<Entry<String, String>> parsedText) {
+    public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, Queue<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
         this.variables = variables;
         this.parsedText = parsedText;
@@ -37,7 +40,6 @@ public class ExpressionTree {
     }
 
     public void executeAll() {
-        System.out.println(rootList);
         rootList.stream().forEach(TreeNode::getValue);
     }
 

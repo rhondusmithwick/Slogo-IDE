@@ -55,7 +55,9 @@ public class CommandEntry implements CommandEntryInterface {
 
     @Override
     public void passInternalCommands(String command) {
-        getCommandsFromString(command);
+        String curr = myEntryBox.getText();
+        curr = curr + "\n" + command;
+        myEntryBox.setText(curr);
 
     }
 

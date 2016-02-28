@@ -1,5 +1,6 @@
 package view;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
@@ -36,5 +37,7 @@ public interface ErrorDisplayInterface {
      * @param l label to be removed
      */
     void clearError(Label l);
+    
+
 
 }

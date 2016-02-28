@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 
 import java.util.List;
+import Controller.Controller.StringObservable;
 
 /**
  * This is an internal interface intended to allow the views main class to create and access buttons and comboboxes that will be located on the tool bar. This class ensures that any
@@ -48,5 +49,7 @@ public interface ToolBarInterface {
      * @return list of properties set by tool bar
      */
     List<SimpleStringProperty> getProperties();
+    
+    StringObservable getParseLang();
 
 }
