@@ -89,7 +89,8 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     
     private void updateVariable (Label l) {
         updater = new VariableUpdate(myResources, cEnt, pLang);
-        updater.updateVariable(l.getText());
+        updater.updateVariable(l);
+        
     }
 
     @Override

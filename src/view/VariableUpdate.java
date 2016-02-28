@@ -15,27 +15,29 @@ import javafx.stage.Stage;
 
 public class VariableUpdate {
     
+    private static final char SPLITTER = '|';
     private static final int PADDING = 75;
     private static final String SPACE = " ";
     private static final int WIDTH = 300;
     private static final int HEIGHT = 300;
     private static final int T_WIDTH = 200;
     private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
+    private static final String LANGUAGE_LOCATION = "resources/";
     
     private VBox vBox;
-    private ResourceBundle myResources;
-    private StringObservable pLang;
+    private ResourceBundle myResources, myCommands;
     private CommandEntryInterface cEnt;
     private Stage s;
     private Group root;
     private Scene scene;
-    private String variable, value;
+    private String variable, newVal;
     private TextField tField;
     private Button setB;
+    private Label label;
 
     public VariableUpdate (ResourceBundle myResources, CommandEntryInterface cEnt, StringObservable pLang) {
         this.myResources = myResources;
-        this.pLang = pLang;
+        myCommands = ResourceBundle.getBundle(LANGUAGE_LOCATION + pLang.get());
         this.cEnt = cEnt;
         s = new Stage();
         root = new Group();
@@ -63,7 +65,29 @@ public class VariableUpdate {
     }
 
     private void setNewValue() {
+        newVal = tField.getText();
+        if(newVal.length()==0){
+            return;
+        }
+        String toPass = createMakeCommand(newVal);
+        cEnt.passInternalCommands(toPass);
+        label.setText(variable + SPACE + newVal);
+        s.close();
         
+        
+    }
+
+    private String createMakeCommand (String newVal) {
+        String posCommands = myCommands.getString("MakeVariable");
+        String command;
+        int multCommands = posCommands.indexOf(SPLITTER);
+        if(multCommands >0){
+            command = posCommands.substring(0, multCommands);
+        }else{
+            command = posCommands;
+        }
+        command = command +SPACE +variable + SPACE +newVal;
+        return command;
     }
 
     private void createTextArea () {
@@ -80,16 +104,19 @@ public class VariableUpdate {
         
     }
     
-    public void updateVariable(String variableAndValue){
-        String[] splitUp = variableAndValue.split(SPACE);
-        this.variable = splitUp[0];
-        this.value = splitUp[1];
+    public void updateVariable(Label l){
+        this.label = l;
+        String[] splitUp = l.getText().split(SPACE);
+        this.variable = splitUp[0];;
         createTitle();
         vBox.getChildren().add(tField);
         vBox.getChildren().add(setB);
         s.setScene(scene);
         s.show();
-}
+        
+    }
+    
+
    
     
     

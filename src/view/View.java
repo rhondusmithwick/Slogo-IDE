@@ -65,8 +65,8 @@ public class View implements ViewInt {
         createTurtleDisplay();
         createToolBar();
         createBottomPane();
-        createLeftPane();
         createRightPane();
+        createLeftPane();
         addComponents();
         setToolBar();
         commandHistory.setCommEntry(commandEntry);
