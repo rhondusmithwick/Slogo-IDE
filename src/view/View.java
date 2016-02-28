@@ -22,9 +22,7 @@ public class View implements ViewInt {
 
 
     private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
-    private static final int LEFT_HEIGHT = 400;
-    private static final int LEFT_WIDTH = 100;
-    private static final int BOTTOM_PADDING = 50;
+    private static final int BOTTOM_PADDING =250;
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
@@ -86,8 +84,17 @@ public class View implements ViewInt {
 
     private void createLeftPane() {
         left = new VBox();
-        vDisplay = new VariableDisplay();
+        setVDisplay();
+        left.getChildren().add(vDisplay.getEnvDisplay());
         
+    }
+
+
+    private void setVDisplay () {
+        vDisplay = new VariableDisplay();
+        vDisplay.createEnvNode();
+        vDisplay.setCommEntry(commandEntry);
+        vDisplay.setPLang(tBar.getParseLang());
     }
 
 
@@ -141,8 +148,9 @@ public class View implements ViewInt {
     private void processExecute() {
         commandHistory.addCommand(commandEntry.getTextBox().getText());
         commandEntry.getBoxCommands();
-        commandEntry.clearCommands();
         vDisplay.updateEnvNode();
+        commandEntry.clearCommands();
+        
     }
 
 

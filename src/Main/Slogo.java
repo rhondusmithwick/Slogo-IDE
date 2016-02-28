@@ -19,7 +19,7 @@ import java.util.function.Predicate;
  * @author Rhondu Smithwick
  */
 class Slogo {
-    private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1000, 700);
+    private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1200, 700);
 
     private static final Dimension2D turtleDispDimension = new Dimension2D(600, 450);
 

@@ -113,7 +113,6 @@ public class TurtleController implements Controller, Observer {
 
     private void updateVariablesString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("The Variables: \n");
         variables.entrySet().stream().forEach(e ->
             sb.append(e.getKey())
                     .append(" ")
