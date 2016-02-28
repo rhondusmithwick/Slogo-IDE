@@ -1,5 +1,6 @@
-package Model.Turtle;
+package Model.Action;
 
+import Model.Turtle.Turtle;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;
@@ -13,7 +14,7 @@ import javafx.util.Duration;
  *
  * @author Rhondu Smithwick
  */
-public class TransitionAction extends TurtleAction {
+public class MovementAction extends TurtleAction {
 
     private final double distance;
     private final int direction;
@@ -23,7 +24,7 @@ public class TransitionAction extends TurtleAction {
 
     private final Node node;
 
-    public TransitionAction(Turtle myTurtle, Node node, Line penLine, double distance, int direction) {
+    public MovementAction(Turtle myTurtle, Node node, Line penLine, double distance, int direction) {
         super(myTurtle);
         this.node = node;
         this.penLine = penLine;
