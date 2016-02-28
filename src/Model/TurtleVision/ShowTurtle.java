@@ -1,4 +1,4 @@
-package Model.TurtleVision;
+package model.turtlevision;
 
 public class ShowTurtle extends Vision {
 

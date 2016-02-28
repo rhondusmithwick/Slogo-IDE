@@ -1,4 +1,4 @@
-package Model.Movement;
+package model.movement;
 
 /**
  * Created by rhondusmithwick on 2/22/16.

@@ -1,4 +1,4 @@
-package Model.Turtle;
+package model.turtle;
 
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;

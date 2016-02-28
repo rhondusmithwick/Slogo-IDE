@@ -9,7 +9,7 @@
 //
 //    private final String penColor;
 //
-//    public SetPenColor(Turtle myTurtle, String penColor) {
+//    public SetPenColor(turtle myTurtle, String penColor) {
 //        super(myTurtle);
 //        this.penColor = penColor;
 //    }

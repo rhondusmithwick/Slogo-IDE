@@ -1,6 +1,6 @@
-package Model.Action;
+package model.action;
 
-import Model.Turtle.Turtle;
+import model.turtle.Turtle;
 
 public class VisionAction extends TurtleAction {
 

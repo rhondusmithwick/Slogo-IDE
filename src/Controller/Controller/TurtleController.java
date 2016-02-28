@@ -1,12 +1,12 @@
-package Controller.Controller;
+package controller.controller;
 
-import Controller.SlogoParser.ExpressionTree;
-import Controller.SlogoParser.SlogoParser;
-import Model.Action.TurtleAction;
-import Model.Action.VisionAction;
-import Model.Deprecated.Command;
-import Model.TreeNode.TreeNode;
-import Model.Turtle.Turtle;
+import controller.slogoparser.ExpressionTree;
+import controller.slogoparser.SlogoParser;
+import model.action.TurtleAction;
+import model.action.VisionAction;
+import model.deprecated.Command;
+import model.treenode.TreeNode;
+import model.turtle.Turtle;
 import Observables.MapObservable;
 import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;

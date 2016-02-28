@@ -1,4 +1,4 @@
-package Model.Turn;
+package model.turn;
 
 /**
  * Created by rhondusmithwick on 2/27/16.

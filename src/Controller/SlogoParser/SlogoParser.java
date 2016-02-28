@@ -1,4 +1,4 @@
-package Controller.SlogoParser;
+package controller.slogoparser;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;

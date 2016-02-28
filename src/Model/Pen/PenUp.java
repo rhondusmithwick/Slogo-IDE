@@ -1,4 +1,4 @@
-package Model.Pen;
+package model.pen;
 
 /**
  * Created by rhondusmithwick on 2/24/16.

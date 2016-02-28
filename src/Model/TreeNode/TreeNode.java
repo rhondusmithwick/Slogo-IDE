@@ -1,4 +1,4 @@
-package Model.TreeNode;
+package model.treenode;
 
 import java.util.ArrayList;
 import java.util.List;

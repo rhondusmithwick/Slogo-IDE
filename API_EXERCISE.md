@@ -32,7 +32,7 @@ We chose to critique Cali's Cell Society Team 13.
 5. Backend gives back the turtle to the frontend.
 
 ### Create Your APIs
-* Model
+* model
   * Command interface
     * void execute (Turtle turtle)
       * will execute the given command on this turtle

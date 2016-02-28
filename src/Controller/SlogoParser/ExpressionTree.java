@@ -1,11 +1,11 @@
-package Controller.SlogoParser;
+package controller.slogoparser;
 
 import Observables.MapObservable;
-import Model.TreeNode.ConstantNode;
-import Model.TreeNode.TreeNode;
-import Model.TreeNode.TurtleCommandNode;
-import Model.Turtle.Turtle;
-import Model.UserControl.MakeVariable;
+import model.treenode.ConstantNode;
+import model.treenode.TreeNode;
+import model.treenode.TurtleCommandNode;
+import model.turtle.Turtle;
+import model.usercontrol.MakeVariable;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package Model.TurtleVision;
+package model.turtlevision;
 
 public class HideTurtle extends Vision {
     public double execute() {
