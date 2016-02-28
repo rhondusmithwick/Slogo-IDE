@@ -23,4 +23,12 @@ public class MakeVariable extends TreeNode {
     protected int getNumChildrenRequired() {
         return 1;
     }
+
+    @Override
+    public String toString() {
+        if (value == null) {
+            return "value not yet visible";
+        }
+        return value.toString();
+    }
 }

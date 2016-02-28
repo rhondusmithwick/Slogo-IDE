@@ -7,9 +7,13 @@ import Model.Action.VisionAction;
 import Model.Deprecated.Command;
 import Model.TreeNode.TreeNode;
 import Model.Turtle.Turtle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
+import javafx.util.StringConverter;
+import javafx.util.converter.FormatStringConverter;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,15 +42,17 @@ public class TurtleController implements Controller, Observer {
     private final StringObservable input = new StringObservable();
     private final SimpleStringProperty variablesString = new SimpleStringProperty(this, "variablesString");
 
-    private final Map<String, TreeNode> variables = new HashMap<>();
+    private final MapObservable<String, TreeNode> variables = new MapObservable<>();
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
         language.addObserver(this);
         input.addObserver(this);
         language.set(DEFAULT_LANGUAGE);
+        variables.addObserver(this);
         group.getChildren().add(myTurtle.getGroup());
     }
+
 
     public StringObservable getLanguage() {
         return language;
@@ -62,8 +68,9 @@ public class TurtleController implements Controller, Observer {
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
         expressionTree.executeAll();
-        updateVariablesString();
-        System.out.println(variablesString.get());
+        if (variables.hasChanged()) {
+            variablesString.set(variables.toString());
+        }
         new Thread(this::runActions).start();
     }
 
@@ -110,18 +117,6 @@ public class TurtleController implements Controller, Observer {
         }
     }
 
-
-    private void updateVariablesString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("The Variables: \n");
-        variables.entrySet().stream().forEach(e ->
-            sb.append(e.getKey())
-                    .append(" ")
-                    .append(e.getValue().getValue())
-                    .append("\n")
-        );
-        variablesString.set(sb.toString());
-    }
 
     @Override
     public List<SimpleStringProperty> getProperties() {
