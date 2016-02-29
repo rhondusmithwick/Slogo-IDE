@@ -55,7 +55,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         setTitle();
         String vString = variables.get();
         if(vString!=null){
-            
+            System.out.println("these are the variables " + vString);
             vArray = vString.split("\n");
             populateVBox();
         }
@@ -75,6 +75,9 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private void populateVBox () {
         for(String var:vArray){
             Label l = new Label(var);
+            if(var.length()==0){
+            	continue;
+            }
             l.setPrefWidth(SCROLL_WIDTH);
             l.setWrapText(true);
             l.setStyle(CSS_BLACK_BORDER);

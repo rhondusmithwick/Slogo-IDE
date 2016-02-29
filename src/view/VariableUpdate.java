@@ -69,8 +69,11 @@ public class VariableUpdate {
         }
         String toPass = createMakeCommand(newVal);
         cEnt.passInternalCommands(toPass, false);
-        label.setText(variable + SPACE + newVal);
         s.close();
+        label.setText(null);
+        label.setText(variable + SPACE + newVal);
+        
+        
         
         
     }
