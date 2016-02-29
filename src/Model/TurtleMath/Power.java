@@ -1,8 +1,5 @@
 package Model.TurtleMath;
 
-import Model.Action.MathAction;
-import Model.Action.TurtleAction;
-
 public class Power extends TurtleMath {
 
 	@Override
@@ -12,20 +9,11 @@ public class Power extends TurtleMath {
 		
 		double result = Math.pow(base, exp);
 		
-		TurtleAction action = new MathAction(getTurtle(), result);
-		addAction(action);
-		
 		return result;
 	}
 
 	@Override
-	protected double execute() {
-		return calculate();
-	}
-	
-	@Override
 	public int getNumChildrenRequired() {
 		return 2;
 	}
-
 }

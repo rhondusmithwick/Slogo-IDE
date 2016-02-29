@@ -1,8 +1,5 @@
 package Model.TurtleMath;
 
-import Model.Action.MathAction;
-import Model.Action.TurtleAction;
-
 public class Random extends TurtleMath {
 
 	@Override
@@ -10,16 +7,7 @@ public class Random extends TurtleMath {
 		double value = getChildren().get(0).getValue();
 		
 		double result = Math.random() * value;
-		
-		TurtleAction action = new MathAction(getTurtle(), result);
-		addAction(action);
 				
 		return result;
 	}
-
-	@Override
-	protected double execute() {
-		return calculate();
-	}
-
 }
