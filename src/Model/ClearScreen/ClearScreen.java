@@ -4,6 +4,8 @@ import Model.Action.ScreenAction;
 import Model.Action.TurtleAction;
 import Model.TreeNode.TurtleCommandNode;
 import Model.Turtle.Turtle;
+import javafx.geometry.Point2D;
+
 
 public class ClearScreen extends TurtleCommandNode {
 
@@ -12,14 +14,13 @@ public class ClearScreen extends TurtleCommandNode {
 		return clear();
 	}
 	
-	protected double clear() {
+	private double clear() {
 		Turtle myTurtle = getTurtle();
-		
-		double distance = 0;
-		
-		TurtleAction action = new ScreenAction(myTurtle, myTurtle.getTurtleProperties());
+		Point2D location = myTurtle.getTurtleProperties().getLocation();
+		Point2D home = myTurtle.getTurtleProperties().getHome();
+		double distance = location.distance(home);
+		TurtleAction action = new ScreenAction(myTurtle);
 		addAction(action);
-		
 		return distance;
 	}
 }

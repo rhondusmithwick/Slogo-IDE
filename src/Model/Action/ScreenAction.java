@@ -5,24 +5,21 @@ import Model.Turtle.TurtleProperties;
 import javafx.application.Platform;
 
 public class ScreenAction extends TurtleAction {
-	
-	private final TurtleProperties properties;
 
-	public ScreenAction(Turtle myTurtle, TurtleProperties properties) {
-		super(myTurtle);
-		this.properties = properties;
-	}
-	
+    public ScreenAction(Turtle myTurtle) {
+        super(myTurtle);
+    }
+
 	@Override
 	public void run() {
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				getMyTurtle().getGroup().getChildren().clear();
-				properties.setLocation(properties.getHome());
-				getMyTurtle().getGroup().getChildren().add(properties.getImageView());
-			}
-		});
+		Platform.runLater(this::runLater);
 		super.run();
 	}
+
+    private void runLater() {
+        TurtleProperties properties = getMyTurtle().getTurtleProperties();
+        getMyTurtle().getGroup().getChildren().clear();
+        properties.setLocation(properties.getHome());
+        getMyTurtle().getGroup().getChildren().add(properties.getImageView());
+    }
 }
