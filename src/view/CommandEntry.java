@@ -14,7 +14,8 @@ import javafx.scene.control.TextArea;
 
 public class CommandEntry implements CommandEntryInterface {
 
-    private final ObjectObservable<String> input;
+    private static final String NEW_LINE = "\n";
+	private final ObjectObservable<String> input;
     private final double WIDTH = 200.0;
     private final double HEIGHT = 400.0;
     private TextArea myEntryBox;
@@ -51,7 +52,11 @@ public class CommandEntry implements CommandEntryInterface {
     public void passInternalCommands(String command, boolean showInTextBox) {
         if(showInTextBox){
             String curr = myEntryBox.getText();
-            curr = curr + "\n" + command;
+            if(!curr.endsWith(NEW_LINE) && !curr.equals("")){
+            	curr = curr + NEW_LINE + command;
+            }else{
+            	curr = curr + command;
+            }
             myEntryBox.setText(curr);
         }else{
             getCommandsFromString(command);

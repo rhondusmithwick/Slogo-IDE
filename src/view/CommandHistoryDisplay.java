@@ -63,7 +63,7 @@ public class CommandHistoryDisplay implements CommHistory {
     public Label addCommand(String command) {
         if (command.isEmpty()) return null;
         commands.add(command);
-        Label l = new Label(command + NEW_LINE);
+        Label l = new Label(command);
         l.setPrefWidth(SCROLLPANE_WIDTH);
         l.setStyle(CSS_BLACK_BORDER);
         l.setWrapText(true);
