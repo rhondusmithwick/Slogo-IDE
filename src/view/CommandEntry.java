@@ -2,7 +2,6 @@ package view;
 
 import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 
@@ -48,10 +47,6 @@ public class CommandEntry implements CommandEntryInterface {
         myScrollPane.setPrefSize(WIDTH, HEIGHT);
     }
 
-    public Node getRootNode() {
-        return myScrollPane;
-    }
-
     @Override
     public void passInternalCommands(String command, boolean showInTextBox) {
         if(showInTextBox){
@@ -61,15 +56,12 @@ public class CommandEntry implements CommandEntryInterface {
         }else{
             getCommandsFromString(command);
         }
-        
-
     }
 
     @Override
     public void getBoxCommands() {
         String text = myEntryBox.getText();
         getCommandsFromString(text);
-
     }
 
     @Override
