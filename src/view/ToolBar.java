@@ -205,7 +205,7 @@ public class ToolBar implements ToolBarInterface {
         return Arrays.asList(image, penColor);
     }
     
-    public ObjectObservable getParseLang(){
+    public ObjectObservable<String> getParseLang(){
         return language;
     }
 

@@ -34,8 +34,9 @@ public interface EnvironmentDisplayInterface {
     
     SimpleStringProperty getEnvProperty();
 
-    void setPLang(ObjectObservable str);
-
 
     void setCommEntry (CommandEntryInterface cEnt);
+
+
+	void setPLang(ObjectObservable<String> str);
 }

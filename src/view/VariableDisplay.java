@@ -26,7 +26,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private ScrollPane scroll;
     private VBox vBox;
     private String[] vArray;
-    private ObjectObservable pLang;
+    private ObjectObservable<String> pLang;
     private CommandEntryInterface cEnt;
     
     public VariableDisplay(){
@@ -103,7 +103,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     }
     
     @Override
-    public void setPLang(ObjectObservable str){
+    public void setPLang(ObjectObservable<String> str){
         this.pLang=str;
     }
     

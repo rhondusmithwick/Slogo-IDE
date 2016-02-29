@@ -33,7 +33,7 @@ public class VariableUpdate {
     private Button setB;
     private Label label;
 
-    public VariableUpdate (ResourceBundle myResources, CommandEntryInterface cEnt, ObjectObservable pLang) {
+    public VariableUpdate (ResourceBundle myResources, CommandEntryInterface cEnt, ObjectObservable<String> pLang) {
         this.myResources = myResources;
         myCommands = ResourceBundle.getBundle(LANGUAGE_LOCATION + pLang.get());
         this.cEnt = cEnt;
@@ -56,7 +56,7 @@ public class VariableUpdate {
     }
 
     private void createSetButton () {
-        setB = new Button(myResources.getString("varButton"));
+        setB = new Button(myResources.getString("upButton"));
         setB.setAlignment(Pos.TOP_CENTER);
         setB.setOnAction(e->setNewValue());
         
@@ -75,7 +75,7 @@ public class VariableUpdate {
         
     }
 
-    private String createMakeCommand (String newVal) {
+    public String createMakeCommand (String newVal) {
         String posCommands = myCommands.getString("MakeVariable");
         String command;
         int multCommands = posCommands.indexOf(SPLITTER);
