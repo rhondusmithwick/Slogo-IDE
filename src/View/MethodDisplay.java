@@ -20,13 +20,13 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
     
     private final SimpleStringProperty methods = new SimpleStringProperty(this, "methods");
-    private VariableUpdate updater;
+    private MethodUpdate updater;
     private String displayLanguage;
     private ResourceBundle myResources;
     private ScrollPane myScrollPane;
     private VBox vBox;
     private String[] vArray;
-    private ObjectObservable<String> pLang;
+    private ObjectObservable<String> parsingLanguage;
     private CommandEntryInterface commandEntry;
 
 	public MethodDisplay() {
@@ -49,10 +49,10 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     private void createCurrVDisp () {
         vBox = new VBox();
         setTitle();
-        String vString = methods.get();
-        if(vString!=null){
-            System.out.println("these are the variables " + vString);
-            vArray = vString.split("\n");
+        String methodsString = methods.get();
+        if(methodsString!=null){
+            System.out.println("these are the variables " + methodsString);
+            vArray = methodsString.split("\n");
             populateVBox();
         }
         myScrollPane.setContent(vBox);
@@ -76,23 +76,21 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
             l.setPrefWidth(SCROLL_WIDTH);
             l.setWrapText(true);
             l.setStyle(CSS_BLACK_BORDER);
-            l.setOnMouseClicked(e->updateVariable(l));
+            l.setOnMouseClicked(e->updateMethod(l));
             vBox.getChildren().add(l);
         }
         
     }
 
     
-    private void updateVariable (Label l) {
-        updater = new VariableUpdate(myResources, commandEntry, pLang);
-        updater.updateVariable(l);
-        
+    private void updateMethod (Label label) {
+        updater = new MethodUpdate(myResources, commandEntry, parsingLanguage);
+//        updater.updateMethod(label); // different from the method in this class      
     }
 
 	@Override
 	public void updateEnvNode() {
-		// TODO Auto-generated method stub
-
+		createCurrVDisp();
 	}
 
 	@Override
@@ -107,8 +105,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
 
 	@Override
 	public void setPLang(ObjectObservable<String> str) {
-		// TODO Auto-generated method stub
-
+		this.parsingLanguage=str;
 	}
 
 }

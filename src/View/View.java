@@ -38,7 +38,7 @@ public class View implements ViewInt {
     private CommHistory commandHistory;
     private CommandEntryInterface commandEntry;
     private ErrorDisplayInterface errorDisplay;
-    private EnvironmentDisplayInterface vDisplay;
+    private EnvironmentDisplayInterface vDisplay, methodsDisplay;
     private ConsoleInterface console;
     private HBox bottom;
     private VBox left, right;
@@ -84,7 +84,8 @@ public class View implements ViewInt {
         left = new VBox();
         setVDisplay();
         left.getChildren().add(vDisplay.getEnvDisplay());
-        
+        setMethodsDisplay();
+        left.getChildren().add(methodsDisplay.getEnvDisplay());
     }
 
 
@@ -93,6 +94,13 @@ public class View implements ViewInt {
         vDisplay.createEnvNode();
         vDisplay.setCommEntry(commandEntry);
         vDisplay.setPLang(tBar.getParseLang());
+    }
+    
+    private void setMethodsDisplay() {
+    	methodsDisplay = new MethodDisplay();
+    	methodsDisplay.createEnvNode();
+    	methodsDisplay.setCommEntry(commandEntry);
+    	methodsDisplay.setPLang(tBar.getParseLang());
     }
 
 
