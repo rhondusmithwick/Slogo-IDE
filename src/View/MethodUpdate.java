@@ -29,7 +29,7 @@ public class MethodUpdate {
     private Stage s;
     private Group root;
     private Scene scene;
-    private String variable, newVal;
+    private String name, mNewVal, vNewVal;
     private TextField vField, mField;
     private Button setB;
     private Label label, titleV, titleM;
@@ -54,10 +54,7 @@ public class MethodUpdate {
         vBox.setPrefSize(WIDTH, HEIGHT);
         vBox.setAlignment(Pos.TOP_CENTER);
         root.getChildren().add(vBox);
-        
-        titleV = createTitle(myResources.getString("upMethVar"));
         vField = createTextArea();
-        titleM = createTitle (myResources.getString("upMeth"));
         mField = createTextArea();
         createSetButton();
 		
@@ -74,10 +71,19 @@ public class MethodUpdate {
 
 
 
-	private Object setNewValue() {
-		// TODO Auto-generated method stub
-		return null;
+	private void setNewValue() {
+		mNewVal = mField.getText();
+		vNewVal = vField.getText();
+		if(mNewVal.length()==0 && vNewVal.length()==0){
+			return;
+		}
+		
+		//String toPass = makeCommand(String s);
+		
 	}
+
+
+
 
 
 
@@ -97,6 +103,19 @@ public class MethodUpdate {
         vBox.getChildren().add(title);
         return title;
 	}
+	   public void updateMethod(Label l){
+	        this.label = l;
+	        String[] splitUp = label.getText().split(SPACE);
+	        this.name = splitUp[0];
+	        titleM = createTitle(myResources.getString("methTitle") + SPACE + name);
+	        vBox.getChildren().add(mField);
+	        titleV = createTitle(myResources.getString("methVarTitle") + SPACE + name); 
+	        vBox.getChildren().add(vField);
+	        vBox.getChildren().add(setB);
+	        s.setScene(scene);
+	        s.show();
+	        
+	    }
 	
 	
 	
