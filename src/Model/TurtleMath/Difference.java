@@ -1,8 +1,5 @@
 package Model.TurtleMath;
 
-import Model.Action.MathAction;
-import Model.Action.TurtleAction;
-
 public class Difference extends TurtleMath {
 
 	@Override
@@ -11,21 +8,12 @@ public class Difference extends TurtleMath {
 		double value2 = getChildren().get(1).getValue();
 		
 		double result = value1 - value2;
-		
-		TurtleAction action = new MathAction(getTurtle(), result);
-		addAction(action);
-		
-		return result;
-	}
 
-	@Override
-	protected double execute() {
-		return calculate();
+		return result;
 	}
 	
 	@Override
 	public int getNumChildrenRequired() {
 		return 2;
 	}
-
 }
