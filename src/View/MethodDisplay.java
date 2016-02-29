@@ -25,7 +25,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     private ResourceBundle myResources;
     private ScrollPane myScrollPane;
     private VBox vBox;
-    private String[] vArray;
+    private String[] methodsArray;
     private ObjectObservable<String> parsingLanguage;
     private CommandEntryInterface commandEntry;
 
@@ -52,7 +52,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
         String methodsString = methods.get();
         if(methodsString!=null){
             System.out.println("these are the variables " + methodsString);
-            vArray = methodsString.split("\n");
+            methodsArray = methodsString.split("\n");
             populateVBox();
         }
         myScrollPane.setContent(vBox);
@@ -68,7 +68,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     }
 
     private void populateVBox () {
-        for(String var:vArray){
+        for(String var: methodsArray){
             Label l = new Label(var);
             if(var.length()==0){
             	continue;
@@ -85,7 +85,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     
     private void updateMethod (Label label) {
         updater = new MethodUpdate(myResources, commandEntry, parsingLanguage);
-//        updater.updateMethod(label); // different from the method in this class      
+        updater.updateMethod(label); // different from the method in this class      
     }
 
 	@Override
