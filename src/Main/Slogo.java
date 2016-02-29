@@ -2,9 +2,7 @@ package Main;
 
 import Controller.Controller.Controller;
 import Controller.Controller.TurtleController;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,43 +19,41 @@ import java.util.function.Predicate;
  * @author Rhondu Smithwick
  */
 class Slogo {
-    private static final int APP_HEIGHT = 700;
+    private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1200, 700);
 
-	private static final int APP_WIDTH = 1000;
-
-	private static final Dimension2D turtleDispDimension = new Dimension2D(600, 450);
+    private static final Dimension2D turtleDispDimension = new Dimension2D(600, 450);
 
     private final Controller controller = new TurtleController(turtleDispDimension);
 
-    private final ViewInt view = new View(turtleDispDimension);
+    private final ViewInt view = new View(turtleDispDimension, controller.getInput(), controller.getLanguage());
 
-    public Slogo() {
-        bindProperties();
+    Slogo() {
         view.getInnerGroup().getChildren().add(controller.getGroup());
+        bindProperties();
     }
 
-
     void init(Stage primaryStage) {
-        Scene scene = new Scene(view.getGroup(), APP_WIDTH, APP_HEIGHT);
+        Scene scene = new Scene(view.getGroup(), APP_DIMENSIONS.getWidth(), APP_DIMENSIONS.getHeight());
         primaryStage.setScene(scene);
     }
 
+
     private void bindProperties() {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
-        controllerProperties.stream()
+        controllerProperties.parallelStream()
                 .forEach(this::findTwin);
     }
 
-    private void findTwin(SimpleStringProperty controllerProperty) {
-        String cName = controllerProperty.getName();
+    private void findTwin(SimpleStringProperty cProp) {
+        String cName = cProp.getName();
         List<SimpleStringProperty> viewProperties = view.getProperties();
         Predicate<SimpleStringProperty> shouldBind = (p) ->
                 Objects.equals(p.getName(), cName);
-        viewProperties.stream()
+        viewProperties.parallelStream()
                 .filter(shouldBind)
                 .findFirst()
-                .ifPresent(c -> c.addListener((ov, oldVal, newVal)
-                                -> controllerProperty.set(newVal)));
+                .ifPresent(vProp -> vProp.bindBidirectional(cProp));
     }
+
 
 }

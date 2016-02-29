@@ -11,8 +11,6 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.ResourceBundle;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -46,7 +44,7 @@ public class SlogoParser {
     private String getSymbol(String text) {
         Predicate<Entry<String, Pattern>> matched = (e) -> match(text, e.getValue());
         return mySymbols.entrySet()
-                .stream().filter(matched).findFirst()
+                .parallelStream().filter(matched).findFirst()
                 .map(Entry::getKey).orElse(ERROR);
     }
 

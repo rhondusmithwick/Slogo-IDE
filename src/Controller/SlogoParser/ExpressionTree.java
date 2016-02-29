@@ -1,9 +1,11 @@
 package Controller.SlogoParser;
 
+import Observables.MapObservable;
 import Model.TreeNode.ConstantNode;
 import Model.TreeNode.TreeNode;
 import Model.TreeNode.TurtleCommandNode;
 import Model.Turtle.Turtle;
+import Model.UserControl.MakeVariable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,16 +27,17 @@ public class ExpressionTree {
 
     private final List<TreeNode> rootList;
 
+    private final MapObservable<String, TreeNode> variables;
     private final Turtle myTurtle;
 
-    public ExpressionTree(Turtle myTurtle, Queue<Entry<String, String>> parsedText) {
+    public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, Queue<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
+        this.variables = variables;
         this.parsedText = parsedText;
         rootList = createRootList();
     }
 
     public void executeAll() {
-        System.out.println(rootList);
         rootList.stream().forEach(TreeNode::getValue);
     }
 
@@ -56,11 +59,21 @@ public class ExpressionTree {
 
     private void createSubTree(TreeNode root) {
         while (stillRoot(root)) {
-            Entry<String, String> curr = parsedText.poll();
-            TreeNode n = createNode(curr);
+            TreeNode n = createSingleNode();
             root.addChild(n);
             createSubTree(n);
         }
+    }
+
+    private TreeNode createSingleNode() {
+        Entry<String, String> curr = parsedText.poll();
+        TreeNode n;
+        if (variables.containsKey(curr.getValue())) {
+            n = variables.get(curr.getValue());
+        } else {
+            n = createNode(curr);
+        }
+        return n;
     }
 
     private TreeNode createNode(Entry<String, String> curr) {
@@ -83,9 +96,8 @@ public class ExpressionTree {
         } catch (Exception e) {
             n = new ConstantNode(0);
         }
-        if (n instanceof TurtleCommandNode) {
-            n.addChild(myTurtle);
-        }
+        addTurtleIfShould(n);
+        addVariableIfShould(n);
         return n;
     }
 
@@ -109,6 +121,21 @@ public class ExpressionTree {
                 sb.append(i).append("th Node:\n").append(rootList.get(i)).append("\n")
         );
         return sb.toString();
+    }
+
+    private void addTurtleIfShould(TreeNode n) {
+        if (n instanceof TurtleCommandNode) {
+            TurtleCommandNode turtleNode = (TurtleCommandNode) n;
+            turtleNode.setTurtle(myTurtle);
+        }
+    }
+
+    private void addVariableIfShould(TreeNode n) {
+        if (n instanceof MakeVariable) {
+            Entry<String, String> curr = parsedText.poll();
+            variables.put(curr.getValue(), n);
+            createSubTree(n);
+        }
     }
 
 

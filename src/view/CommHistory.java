@@ -43,13 +43,14 @@ public interface CommHistory {
      * @return String array of command history
      */
     List<String> getCommands();
-    
+
     /**
      * this sets the command entry object in the command history so that commands can be passed to the
      * entry model when clicked
+     *
      * @param commEntry command entry module to be set
      */
-    
+
     void setCommEntry(CommandEntryInterface commEntry);
 
 }

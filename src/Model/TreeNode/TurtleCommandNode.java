@@ -1,5 +1,6 @@
 package Model.TreeNode;
 
+import Model.Action.TurtleAction;
 import Model.Turtle.Turtle;
 
 /**
@@ -9,14 +10,22 @@ import Model.Turtle.Turtle;
  */
 public abstract class TurtleCommandNode extends CommandNode {
 
+    private Turtle myTurtle;
+
     protected Turtle getTurtle() {
-        return (Turtle) getChildren().get(0);
+        return myTurtle;
+    }
+
+    public void setTurtle(Turtle myTurtle) {
+        this.myTurtle = myTurtle;
     }
 
     @Override
-    public boolean needsMoreChildren() {
-        int numChildren = getChildren().size() - 1;
-        return (numChildren < getNumChildrenRequired());
+    public double getValue() {
+        return execute();
     }
 
+    protected void addAction(TurtleAction action) {
+        myTurtle.addAction(action);
+    }
 }

@@ -3,6 +3,9 @@ package view;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 
+import java.util.List;
+import Observables.ObjectObservable;
+
 /**
  * This is an internal interface intended to allow the views main class to create and access buttons and comboboxes that will be located on the tool bar. This class ensures that any
  * class to create a tool bar will have a method to create all the nodes needed for the tool bar as well as a method to access all the nodes of the tool bar. This holds any tool bar
@@ -27,32 +30,26 @@ public interface ToolBarInterface {
 
     /**
      * sets the turtle display object so that toolbar can change the backgroud
+     *
      * @param tDisp turtle display component
      */
     void setTDisp(TurtleAreaInterface tDisp);
 
     /**
      * sets the error display object so that toolbar can show errors if needed
+     *
      * @param eDisp error display component
      */
     void setEDisp(ErrorDisplayInterface eDisp);
 
-    /**
-     * sets the command entry object so that toolbar can pass internal commands to backend
-     * @param commEnt command entry component
-     */
-    void setCommEnt(CommandEntryInterface commEnt);
 
     /**
-     * returns the simplestringproperty associated with parsing language
-     * @return simple string property for parsing language
+     * returns all properties set by tool bar
+     *
+     * @return list of properties set by tool bar
      */
-    SimpleStringProperty getLanguage();
+    List<SimpleStringProperty> getProperties();
     
-    /**
-     * returns the simplestringproperty associated with turtle image's paht
-     * @return simple string property for the turtle's image
-     */
-    SimpleStringProperty getTurtImage();
+    ObjectObservable getParseLang();
 
 }

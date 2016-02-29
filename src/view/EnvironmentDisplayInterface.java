@@ -1,5 +1,7 @@
 package view;
 
+import Observables.ObjectObservable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 
 /**
@@ -29,6 +31,11 @@ public interface EnvironmentDisplayInterface {
      * state of these variables in the backend.
      */
     void updateEnvNode();
+    
+    SimpleStringProperty getEnvProperty();
+
+    void setPLang(ObjectObservable str);
 
 
+    void setCommEntry (CommandEntryInterface cEnt);
 }

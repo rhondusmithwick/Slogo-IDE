@@ -1,44 +1,41 @@
 package Model.Turtle;
 
-import Model.TreeNode.TreeNode;
-import javafx.animation.PathTransition;
+import Model.Action.TurtleAction;
 import javafx.geometry.Dimension2D;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.util.Duration;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
  *
  * @author Rhondu Smithwick
  */
-public class Turtle extends TreeNode {
+public class Turtle {
+
     private final Group root = new Group();
-    private final ImageView imageView = new ImageView();
-    private final Path path = new Path();
     private final TurtleProperties turtleProperties;
+
+    private final Queue<TurtleAction> myActions = new LinkedList<>();
 
     public Turtle(Dimension2D turtleDispDimension) {
         turtleProperties = new TurtleProperties();
-        turtleProperties.addListeners(imageView, path);
+        turtleProperties.addListeners();
         turtleProperties.init(turtleDispDimension);
-        root.getChildren().add(imageView);
-        root.getChildren().add(path);
+        root.getChildren().add(turtleProperties.getImageView());
     }
 
+    public void clearActions() {
+        myActions.clear();
+    }
 
-    public void moveTo(Point2D pointToMoveTo) {
-//        path.getElements().clear();
-        Point2D location = turtleProperties.getLocation();
-        path.getElements().add(new MoveTo(location.getX(), location.getY()));
-        path.getElements().add(new LineTo(pointToMoveTo.getX(), pointToMoveTo.getY()));
-        PathTransition pt = new PathTransition(Duration.millis(10000), path, imageView);
-        pt.play();
-        turtleProperties.setLocation(pointToMoveTo);
+    public Queue<TurtleAction> getActions() {
+        return myActions;
+    }
+
+    public void addAction(TurtleAction action) {
+        myActions.add(action);
     }
 
     public TurtleProperties getTurtleProperties() {
@@ -48,5 +45,6 @@ public class Turtle extends TreeNode {
     public Group getGroup() {
         return root;
     }
+
 
 }

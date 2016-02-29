@@ -20,8 +20,8 @@ import java.util.ResourceBundle;
 public class CommandHistoryDisplay implements CommHistory {
 
     private static final String NEW_LINE = "\n";
-	private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
-	private static final String DEFAULT_LOCATION = "resources/guiStrings/";
+    private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
+    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DISP = "DISP";
     private final double SCROLLPANE_WIDTH = 417.00;
@@ -36,7 +36,7 @@ public class CommandHistoryDisplay implements CommHistory {
     private CommandEntryInterface commEntry;
 
     public CommandHistoryDisplay() {
-    	this.language = DEFAULT_LANGUAGE;
+        this.language = DEFAULT_LANGUAGE;
         commands = new ArrayList<>();
         commandLabels = new ArrayList<>();
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
@@ -55,8 +55,8 @@ public class CommandHistoryDisplay implements CommHistory {
     }
 
     @Override
-    public void setCommEntry(CommandEntryInterface commEntry){
-    	this.commEntry= commEntry;
+    public void setCommEntry(CommandEntryInterface commEntry) {
+        this.commEntry = commEntry;
     }
 
     @Override
@@ -74,8 +74,8 @@ public class CommandHistoryDisplay implements CommHistory {
     }
 
     private void labelClicked(Label l) {
-        commEntry.passInternalCommands(l.getText());
-        addCommand(l.getText());
+        commEntry.passInternalCommands(l.getText(), true);
+        
     }
 
     @Override

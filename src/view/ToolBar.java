@@ -1,5 +1,6 @@
 package view;
 
+import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,42 +20,45 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ToolBar implements ToolBarInterface {
 
     private static final String GIF_EXT = "*.gif";
-	private static final String GIF = "GIF";
-	private static final String JPG_EXT = "*.jpg";
-	private static final String JPG = "JPG";
-	private static final int MINI_HEIGHT = 1;
-	private static final int MINI_WIDTH = 1;
-	private static final String PNG_EXT = "*.png";
-	private static final String PNG = "PNG";
-	private static final char FILE_EXTENSION = '.';
-	private static final String LANGUAGE_LOCATION = "resources/languages";
-	private static final String JAVAFX_PAINT_CLASS = "javafx.scene.paint.Color";
-	private static final String LANGUAGE_PATH = "languages/";
+    private static final String GIF = "GIF";
+    private static final String JPG_EXT = "*.jpg";
+    private static final String JPG = "JPG";
+    private static final int MINI_HEIGHT = 1;
+    private static final int MINI_WIDTH = 1;
+    private static final String PNG_EXT = "*.png";
+    private static final String PNG = "PNG";
+    private static final char FILE_EXTENSION = '.';
+    private static final String LANGUAGE_LOCATION = "resources/languages";
+    private static final String JAVAFX_PAINT_CLASS = "javafx.scene.paint.Color";
+    private static final String LANGUAGE_PATH = "languages/";
     private static final String DEFAULT_LANGUAGE = "English";
     private static final double TB_SPACING = 10.0;
     private static final int TB_HEIGHT = 75;
     private static final int TB_WIDTH = 1000;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
-    
+
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
-    private final SimpleStringProperty language = new SimpleStringProperty(this, "language", LANGUAGE_PATH + DEFAULT_LANGUAGE);
+    private final ObjectObservable<String> language;
+    private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
     private String dispLang, bColor, pLanguage, pColor;
     private TurtleAreaInterface tDisp;
-    //private CommandEntryInterface cEnt;
     private ErrorDisplayInterface eDisp;
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
-    public ToolBar() {
+    public ToolBar(ObjectObservable<String> language) {
+        this.language = language;
         this.dispLang = DEFAULT_LANGUAGE;
         container = new HBox();
         container.setPrefWidth(TB_WIDTH);
@@ -72,7 +76,7 @@ public class ToolBar implements ToolBarInterface {
         try {
             getColors();
         } catch (Exception e) {
-        	eDisp.showError(myResources.getString("colorError"));
+            eDisp.showError(myResources.getString("colorError"));
         }
         createComboBoxes();
     }
@@ -92,7 +96,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void setPColor() {
         pColor = pColorBox.getSelectionModel().getSelectedItem();
-        System.out.println(pColor);
+        penColor.set(pColor.toLowerCase());
 
     }
 
@@ -165,7 +169,6 @@ public class ToolBar implements ToolBarInterface {
         if (file == null) {
             return;
         }
-        //make this observable for backend
         try {
             String imagepath = file.toURI().toURL().toString();
             image.set(imagepath);
@@ -175,40 +178,36 @@ public class ToolBar implements ToolBarInterface {
         }
     }
 
-	private void setUpFileChooser(FileChooser fChoose, Stage s) {
-		Group root = new Group();
+    private void setUpFileChooser(FileChooser fChoose, Stage s) {
+        Group root = new Group();
         s.setScene(new Scene(root, MINI_WIDTH, MINI_HEIGHT));
 
         fChoose.setTitle(myResources.getString("getFile"));
-        fChoose.getExtensionFilters().addAll(new ExtensionFilter(PNG, PNG_EXT), 
-        		new ExtensionFilter(JPG, JPG_EXT), new ExtensionFilter(GIF, GIF_EXT));
+        fChoose.getExtensionFilters().addAll(new ExtensionFilter(PNG, PNG_EXT),
+                new ExtensionFilter(JPG, JPG_EXT), new ExtensionFilter(GIF, GIF_EXT));
         s.show();
         s.hide();
-	}
+    }
 
+    @Override
     public void setTDisp(TurtleAreaInterface tDisp) {
         this.tDisp = tDisp;
     }
 
-    public void setCommEnt(CommandEntryInterface commEnt) {
-        //this.cEnt = commEnt;
-    }
-
+    @Override
     public void setEDisp(ErrorDisplayInterface errorDisp) {
         this.eDisp = errorDisp;
     }
 
+
     @Override
-    public SimpleStringProperty getLanguage() {
+    public List<SimpleStringProperty> getProperties() {
+        return Arrays.asList(image, penColor);
+    }
+    
+    public ObjectObservable getParseLang(){
         return language;
     }
-
-	@Override
-	public SimpleStringProperty getTurtImage() {
-		return image;
-	}
-    
-    
 
 
 }

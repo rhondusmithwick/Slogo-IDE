@@ -1,7 +1,10 @@
 package Model.Movement;
 
+import Model.Action.MovementAction;
+import Model.Action.TurtleAction;
 import Model.TreeNode.TurtleCommandNode;
-import javafx.geometry.Point2D;
+import Model.Turtle.Turtle;
+import javafx.scene.shape.Line;
 
 /**
  * Created by rhondusmithwick on 2/23/16.
@@ -11,21 +14,13 @@ import javafx.geometry.Point2D;
 abstract class Movement extends TurtleCommandNode {
 
     double move(int direction) {
-        double distance = getChildren().get(1).getValue();
-        Point2D pointToMoveTo = getPointToMoveTo(distance, direction);
-        getTurtle().moveTo(pointToMoveTo);
+        Turtle myTurtle = getTurtle();
+        double distance = getChildren().get(0).getValue();
+        Line penLine = new Line();
+        myTurtle.getGroup().getChildren().add(penLine);
+        TurtleAction action = new MovementAction(myTurtle, penLine, distance, direction);
+        addAction(action);
         return distance;
-    }
-
-    private Point2D getPointToMoveTo(double distance, int direction) {
-        double heading = getTurtle().getTurtleProperties().getHeading();
-        double angle = Math.toRadians(heading);
-        Point2D location = getTurtle().getTurtleProperties().getLocation();
-        double offsetX = direction * (distance * Math.sin(angle));
-        double offsetY = direction * (distance * Math.cos(angle));
-        double newX = location.getX() + offsetX;
-        double newY = location.getY() + offsetY;
-        return new Point2D(newX, newY);
     }
 
     @Override
