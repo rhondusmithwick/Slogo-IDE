@@ -32,6 +32,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
 	public MethodDisplay() {
 		this.displayLanguage = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + displayLanguage + DISP);
+        methods.set("bark [:side :to] [fd :side]");
 	}
 
 	@Override
@@ -51,8 +52,8 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
         setTitle();
         String methodsString = methods.get();
         if(methodsString!=null){
-            System.out.println("these are the variables " + methodsString);
             methodsArray = methodsString.split("\n");
+
             populateVBox();
         }
         myScrollPane.setContent(vBox);
