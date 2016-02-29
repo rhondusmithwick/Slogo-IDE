@@ -11,7 +11,7 @@ import Model.Turtle.Turtle;
  * @author Rhondu Smithwick
  */
 public abstract class Turn extends TurtleCommandNode {
-
+	
     protected double turn(int direction) {
         double degrees = getChildren().get(0).getValue();
         Turtle myTurtle = getTurtle();
