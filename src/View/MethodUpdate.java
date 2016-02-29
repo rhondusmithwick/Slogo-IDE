@@ -32,7 +32,8 @@ public class MethodUpdate {
     private String name, mNewVal, vNewVal;
     private TextField vField, mField;
     private Button setB;
-    private Label label, titleV, titleM;
+    private Label label;
+    private String[] splitUp;
     
     
     
@@ -72,18 +73,41 @@ public class MethodUpdate {
 
 
 	private void setNewValue() {
-		mNewVal = mField.getText();
-		vNewVal = vField.getText();
+		setValues();
 		if(mNewVal.length()==0 && vNewVal.length()==0){
 			return;
 		}
 		
-		//String toPass = makeCommand(String s);
+		String toPass = makeCommand(mNewVal, vNewVal);
+		cEnt.passInternalCommands(toPass, false);
 		
+	}
+	
+	
+	private void setValues(){
+		mNewVal = mField.getText();
+		vNewVal = vField.getText();
+		//if(mNewVal.equals("")){
+		//}
 	}
 
 
 
+
+
+
+	private String makeCommand(String mNewVal2, String vNewVal2) {
+		String posCommands = myCommands.getString("MakeUserInstruction");
+		String command;
+        int multCommands = posCommands.indexOf(SPLITTER);
+        if(multCommands >0){
+            command = posCommands.substring(0, multCommands);
+        }else{
+            command = posCommands;
+        }
+        
+		return command + SPACE + "[" + vNewVal +"]" + SPACE + "["+ mNewVal + "]";
+	}
 
 
 
@@ -105,11 +129,11 @@ public class MethodUpdate {
 	}
 	   public void updateMethod(Label l){
 	        this.label = l;
-	        String[] splitUp = label.getText().split(SPACE);
+	        splitUp = label.getText().split(SPACE);
 	        this.name = splitUp[0];
-	        titleM = createTitle(myResources.getString("methTitle") + SPACE + name);
+	        Label titleM = createTitle(myResources.getString("methTitle") + SPACE + name);
 	        vBox.getChildren().add(mField);
-	        titleV = createTitle(myResources.getString("methVarTitle") + SPACE + name); 
+	        Label titleV = createTitle(myResources.getString("methVarTitle") + SPACE + name); 
 	        vBox.getChildren().add(vField);
 	        vBox.getChildren().add(setB);
 	        s.setScene(scene);
