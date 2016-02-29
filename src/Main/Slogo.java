@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 class Slogo {
     private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1200, 718);
 
-    private static final Dimension2D turtleDispDimension = new Dimension2D(600, 450);
+    private static final Dimension2D turtleDispDimension = new Dimension2D(3000, 3000);
 
     private final Controller controller = new TurtleController(turtleDispDimension);
 

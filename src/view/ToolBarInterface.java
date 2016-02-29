@@ -50,6 +50,6 @@ public interface ToolBarInterface {
      */
     List<SimpleStringProperty> getProperties();
     
-    ObjectObservable getParseLang();
+    ObjectObservable<String> getParseLang();
 
 }

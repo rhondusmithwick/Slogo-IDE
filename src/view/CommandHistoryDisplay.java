@@ -18,8 +18,6 @@ import java.util.ResourceBundle;
  */
 
 public class CommandHistoryDisplay implements CommHistory {
-
-    private static final String NEW_LINE = "\n";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DEFAULT_LANGUAGE = "english";
