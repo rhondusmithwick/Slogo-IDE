@@ -22,7 +22,7 @@ public class CommandHistoryDisplay implements CommHistory {
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DISP = "DISP";
-    private final double SCROLLPANE_WIDTH = 417.00;
+    private final double SCROLLPANE_WIDTH = 430.00;
     private final double SCROLLPANE_HEIGHT = 195.0;
     private ScrollPane myScrollPane;
     private Label title;

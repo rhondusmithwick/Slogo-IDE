@@ -49,6 +49,7 @@ public class MapObservable<K, V> extends Observable {
                         .append("\n")
         );
         myString.set(sb.toString());
+        System.out.println("this is the variable string " + myString);
     }
 
     public SimpleStringProperty getStringProperty() {

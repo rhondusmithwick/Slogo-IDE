@@ -5,7 +5,6 @@ import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -20,7 +19,7 @@ public class View implements ViewInt {
 
 
     private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
-    private static final int BOTTOM_PADDING =250;
+    private static final int BOTTOM_PADDING =20;
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
@@ -33,16 +32,17 @@ public class View implements ViewInt {
     private ResourceBundle myResources;
     private BorderPane UI;
     private Group root;
-    private TurtleAreaInterface turtDisp;
-    private ToolBar tBar;
+    private ToolBarInterface tBar;
     private Button executeButton;
+    private TurtleAreaInterface turtDisp;
     private CommHistory commandHistory;
     private CommandEntryInterface commandEntry;
     private ErrorDisplayInterface errorDisplay;
+    private EnvironmentDisplayInterface vDisplay;
+    private ConsoleInterface console;
     private HBox bottom;
     private VBox left, right;
-    private Node commandHistoryBox, entryBox;
-    private EnvironmentDisplayInterface vDisplay;
+
 
     public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> language) {
         this.language = language;
@@ -103,10 +103,13 @@ public class View implements ViewInt {
         errorDisplay.createErrorDisplay();
         bottom.getChildren().add(errorDisplay.getErrorDisplay());
 
+        console = new Console();
+        console.createConsole();
+        bottom.getChildren().add(console.getConsole());
+        
         commandHistory = new CommandHistoryDisplay();
         commandHistory.createCommHistory();
-        commandHistoryBox = commandHistory.getHistoryGraphic();
-        bottom.getChildren().add(commandHistoryBox);
+        bottom.getChildren().add(commandHistory.getHistoryGraphic());
     }
 
 
@@ -122,13 +125,12 @@ public class View implements ViewInt {
     }
 
     private void createRightPane() {
-        right = new VBox();
+        right = new VBox(3);
         Label commandEntTitle = new Label(myResources.getString("entryTitle"));
         right.getChildren().add(commandEntTitle);
         commandEntry = new CommandEntry(input);
         commandEntry.createEntryBox();
-        entryBox = commandEntry.getTextBox();
-        right.getChildren().add(entryBox);
+        right.getChildren().add(commandEntry.getTextBox());
         createExecute();
     }
 

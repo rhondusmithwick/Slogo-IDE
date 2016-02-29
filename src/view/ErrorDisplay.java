@@ -14,7 +14,7 @@ public class ErrorDisplay implements ErrorDisplayInterface {
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DISP = "disp";
-    private static final double SCROLLPANE_WIDTH = 400.00;
+    private static final double SCROLLPANE_WIDTH = 380.00;
     private static final double SCROLLPANE_HEIGHT = 195.0;
     private static final double VBOX_WIDTH = 530.00;
     private ScrollPane errorDisp;
