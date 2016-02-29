@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;

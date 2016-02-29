@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
