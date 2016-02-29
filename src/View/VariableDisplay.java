@@ -55,7 +55,6 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         setTitle();
         String vString = variables.get();
         if(vString!=null){
-            System.out.println("these are the variables " + vString);
             vArray = vString.split("\n");
             populateVBox();
         }

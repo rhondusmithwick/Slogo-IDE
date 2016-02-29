@@ -1,7 +1,6 @@
 package View;
 
 import Observables.ObjectObservable;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 
@@ -67,11 +66,6 @@ public class CommandEntry implements CommandEntryInterface {
     public void getBoxCommands() {
         String text = myEntryBox.getText();
         getCommandsFromString(text);
-    }
-
-    @Override
-    public SimpleStringProperty getInput() {
-        return null;
     }
 
 

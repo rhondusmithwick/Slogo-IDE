@@ -1,6 +1,6 @@
 package View;
 
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.scene.control.TextArea;
 
 /**
@@ -49,12 +49,6 @@ public interface CommandEntryInterface {
      */
     void getBoxCommands();
 
-    /**
-     * returns the simple string property bound to the input property in the back end
-     *
-     * @return SimpleStringProperty containing input
-     */
-    SimpleStringProperty getInput();
 
 
 
