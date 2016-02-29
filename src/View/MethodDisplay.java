@@ -60,7 +60,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     }
     
     private void setTitle () {
-        Label title= new Label(myResources.getString("varTitle"));
+        Label title= new Label(myResources.getString("methodDisplayTitle"));
         title.setAlignment(Pos.TOP_CENTER);
         title.setPrefWidth(SCROLL_WIDTH);
         title.setStyle(CSS_BLACK_BORDER);
