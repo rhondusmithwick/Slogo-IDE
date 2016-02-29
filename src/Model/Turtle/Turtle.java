@@ -26,7 +26,6 @@ public class Turtle {
         root.getChildren().add(turtleProperties.getImageView());
     }
 
-
     public void clearActions() {
         myActions.clear();
     }
