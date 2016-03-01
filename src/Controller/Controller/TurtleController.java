@@ -62,21 +62,20 @@ public class TurtleController implements Controller, Observer {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
-        expressionTree.executeAll();
+        new Thread(expressionTree::executeAll).start();
         variables.modifyIfShould();
-        new Thread(this::runActions).start();
     }
 
-    private void runActions() {
-        Queue<TurtleAction> actions = myTurtle.getActions();
-        if (!actions.isEmpty()) {
-            boolean isVisible = myTurtle.getTurtleProperties().getVisible();
-            runAction(new VisionAction(myTurtle, false));
-            actions.stream().forEach(this::runAction);
-            runAction(new VisionAction(myTurtle, isVisible));
-            myTurtle.clearActions();
-        }
-    }
+//    private void runActions() {
+//        Queue<TurtleAction> actions = myTurtle.getActions();
+//        if (!actions.isEmpty()) {
+//            boolean isVisible = myTurtle.getTurtleProperties().getVisible();
+//            runAction(new VisionAction(myTurtle, false));
+//            actions.stream().forEach(this::runAction);
+//            runAction(new VisionAction(myTurtle, isVisible));
+//            myTurtle.clearActions();
+//        }
+//    }
 
 
     private void runAction(TurtleAction action) {
