@@ -20,7 +20,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
 
     private SimpleStringProperty methods;
-    private MethodUpdate updater;
+    private EnvUpdate updater;
     private String displayLanguage;
     private ResourceBundle myResources;
     private ScrollPane myScrollPane;
@@ -85,7 +85,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
 
     private void updateMethod (Label label) {
         updater = new MethodUpdate(myResources, intCommand, parsingLanguage);
-        updater.updateMethod(label); // different from the method in this class      
+        updater.updateEnv(label); // different from the method in this class      
     }
 
     @Override
