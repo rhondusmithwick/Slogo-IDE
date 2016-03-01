@@ -34,6 +34,7 @@ class Slogo {
 
     void init(Stage primaryStage) {
         Scene scene = new Scene(view.getGroup(), APP_DIMENSIONS.getWidth(), APP_DIMENSIONS.getHeight());
+        view.bindSize(scene);
         primaryStage.setScene(scene);
     }
 
