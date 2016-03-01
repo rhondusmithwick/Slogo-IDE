@@ -1,7 +1,8 @@
 package View;
 
 
-import javafx.scene.Node;
+
+import javafx.scene.layout.HBox;
 
 
 
@@ -21,7 +22,7 @@ public interface ToolBarInterface {
      *
      * @return List of Nodes to be placed on the toolbar
      */
-    Node getToolBarMembers();
+    HBox getToolBarMembers();
 
 
     

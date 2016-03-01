@@ -60,8 +60,7 @@ public class CommandHistoryDisplay implements CommHistory, Observer {
     }
 
     private void createScrollPane () {
-        myScrollPane = new ScrollPane();
-        
+        myScrollPane = new ScrollPane(); 
         myScrollPane.setMinViewportHeight(STARTING_HEIGHT);
         myScrollPane.setPrefViewportHeight(STARTING_HEIGHT);
         myScrollPane.setMaxHeight(STARTING_HEIGHT);

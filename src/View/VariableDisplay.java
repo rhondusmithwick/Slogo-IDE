@@ -35,7 +35,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         this.internalCommand= internalCommand;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
         setScroll();
-        VBox.setVgrow(scroll, Priority.SOMETIMES);
+        
         createCurrVDisp();
         
     }
@@ -45,6 +45,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         scroll.setMinViewportWidth(STARTING_WIDTH);
         scroll.setPrefViewportWidth(STARTING_WIDTH);
         scroll.setMaxWidth(STARTING_WIDTH);
+        VBox.setVgrow(scroll, Priority.SOMETIMES);
     }
     
     @Override

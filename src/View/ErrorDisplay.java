@@ -30,22 +30,25 @@ public class ErrorDisplay implements ErrorDisplayInterface{
         addListner();
         this.language = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
-        setUpDisplay();
+        setScrollPane();
+        setVBox();
+        setTitle();
+        errorDisp.setContent(errorContain);
 
     }
 
-    private void setUpDisplay () {
-        errorDisp = new ScrollPane();
+	private void setVBox() {
+		errorContain = new VBox();
+        errorContain.prefHeightProperty().bind(errorDisp.heightProperty());
+	}
+
+	private void setScrollPane() {
+		errorDisp = new ScrollPane();
         errorDisp.setMinViewportHeight(STARTING_HEIGHT);
         errorDisp.setPrefViewportHeight(STARTING_HEIGHT);
         errorDisp.setMaxHeight(STARTING_HEIGHT);
         HBox.setHgrow(errorDisp, Priority.ALWAYS);
-        errorContain = new VBox();
-        errorContain.prefHeightProperty().bind(errorDisp.heightProperty());
-        setTitle();
-        errorContain.getChildren().add(title);
-        errorDisp.setContent(errorContain);
-    }
+	}
 
 
     private void setTitle() {
@@ -53,6 +56,7 @@ public class ErrorDisplay implements ErrorDisplayInterface{
         title.prefWidthProperty().bind(errorDisp.widthProperty());
         title.setAlignment(Pos.TOP_CENTER);
         title.setStyle(CSS_BORDER_STYLE);
+        errorContain.getChildren().add(title);
     }
 
     private void showError(String s) {

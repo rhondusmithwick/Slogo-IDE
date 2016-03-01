@@ -10,16 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public abstract class EnvUpdate {
 
-    private static final int PADDING = 75;
+    private static final int PADDING = 50;
 
     private static final int WIDTH = 300;
     private static final int HEIGHT = 300;
-    private static final int T_WIDTH = 200;
     private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
     private static final String LANGUAGE_LOCATION = "resources/";
     private ObjectObservable<String> intCommand;
@@ -48,7 +48,8 @@ public abstract class EnvUpdate {
     private void createVBox () {
         vBox = new VBox(PADDING);
         vBox.setStyle(UI_BACKGROUND_COLOR);
-        vBox.setPrefSize(WIDTH, HEIGHT);
+        vBox.prefWidthProperty().bind(scene.widthProperty());
+        vBox.prefHeightProperty().bind(scene.heightProperty());
         vBox.setAlignment(Pos.TOP_CENTER);
         root.getChildren().add(vBox);
 
@@ -63,13 +64,14 @@ public abstract class EnvUpdate {
 
     protected TextField createTextArea() {
         TextField tField = new TextField();
-        tField.setPrefWidth(T_WIDTH);
+        tField.prefWidthProperty().bind(vBox.widthProperty());
+        VBox.setVgrow(tField, Priority.ALWAYS);
         return tField;
     }
     
     protected Label createTitle(String string) {
         Label title = new Label(string);
-        title.setMaxWidth(WIDTH);
+        title.prefWidthProperty().bind(vBox.widthProperty());
         title.setAlignment(Pos.TOP_CENTER);
         return title;
     }

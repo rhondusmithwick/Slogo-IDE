@@ -36,14 +36,17 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
         this.methods=methods;
         this.displayLanguage = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + displayLanguage + DISP);
-        myScrollPane = new ScrollPane();
+        setScrollPane();
+        createCurrVDisp();
+    }
+
+	private void setScrollPane() {
+		myScrollPane = new ScrollPane();
         myScrollPane.setMinViewportWidth(STARTING_WIDTH);
         myScrollPane.setPrefViewportWidth(STARTING_WIDTH);
         myScrollPane.setMaxWidth(STARTING_WIDTH);
         VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
-
-        createCurrVDisp();
-    }
+	}
 
     @Override
     public Node getEnvDisplay() {
@@ -55,7 +58,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
         vBox = new VBox();
         vBox.prefWidthProperty().bind(myScrollPane.widthProperty());
         setTitle();
-        String methodsString = methods.get();
+        String methodsString = methods.get();	
         if(methodsString!=null){
             methodsArray = methodsString.split("\n");
 
