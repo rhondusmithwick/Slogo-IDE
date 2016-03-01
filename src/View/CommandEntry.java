@@ -17,16 +17,21 @@ public class CommandEntry implements CommandEntryInterface, Observer {
 
     private static final String NEW_LINE = "\n";
     private static final String SHOW_IN_BOX = "show in text box";
-    private final ObjectObservable<String> input, intCommands;
+    private final ObjectObservable<String> input, intCommands, commHistory;
     private final double WIDTH = 200.0;
     private final double HEIGHT = 400.0;
     private TextArea myEntryBox;
     private ScrollPane myScrollPane;
 
-    public CommandEntry(ObjectObservable<String> input, ObjectObservable<String> intCommands) {
+    public CommandEntry(ObjectObservable<String> input, ObjectObservable<String> intCommands, ObjectObservable<String> commHistory) {
         this.input = input;
         this.intCommands = intCommands;
+        this.commHistory = commHistory;
         intCommands.addObserver(this);
+        myEntryBox = new TextArea();
+        myEntryBox.setPrefSize(WIDTH, HEIGHT);
+        myScrollPane = new ScrollPane(myEntryBox);
+        myScrollPane.setPrefSize(WIDTH, HEIGHT);
     }
 
     @Override
@@ -38,20 +43,6 @@ public class CommandEntry implements CommandEntryInterface, Observer {
     private void getCommandsFromString(String text) {
         input.set(text);
     }
-
-    @Override
-    public void clearCommands() {
-        myEntryBox.clear();
-    }
-
-    @Override
-    public void createEntryBox() {
-        myEntryBox = new TextArea();
-        myEntryBox.setPrefSize(WIDTH, HEIGHT);
-        myScrollPane = new ScrollPane(myEntryBox);
-        myScrollPane.setPrefSize(WIDTH, HEIGHT);
-    }
-
     
    private void passInternalCommands(String command, boolean showInTextBox) {
         if(showInTextBox){
@@ -68,9 +59,11 @@ public class CommandEntry implements CommandEntryInterface, Observer {
     }
 
    @Override
-    public void getBoxCommands() {
+    public void processCommands() {
         String text = myEntryBox.getText();
+        commHistory.set(text);
         getCommandsFromString(text);
+        myEntryBox.clear();
     }
 
     @Override

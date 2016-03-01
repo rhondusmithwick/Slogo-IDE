@@ -21,28 +21,25 @@ public class TurtleDisplay implements TurtleAreaInterface, Observer {
     private ScrollPane scroll;
     private ObjectObservable<String> bgColor;
 
-    public TurtleDisplay(Group root, ObjectObservable<String> bgColor) {
+    public TurtleDisplay(ObjectObservable<String> bgColor, Dimension2D turtleDispDimension) {
         this.bgColor=bgColor;
         bgColor.addObserver(this);
-        dispArea = root;
+        background = new Rectangle(turtleDispDimension.getWidth(), turtleDispDimension.getHeight());
+        dispArea = new Group();
+        setBackground(DEFAULT_BACKGROUND_COLOR);
+        dispArea.getChildren().add(background);
+        setScrollPane();
+
+    }
+
+
+    private void setScrollPane () {
         scroll = new ScrollPane();
         scroll.setMaxHeight(SCROLL_HEIGHT);
         scroll.setMaxWidth(SCROLL_WIDTH);
         scroll.setVvalue(SCROLL_BAR_INITIAL);
         scroll.setHvalue(SCROLL_BAR_INITIAL);
-
-    }
-
-
-    @Override
-    public void createTurtleArea(Dimension2D turtleDispDimension) {
-        background = new Rectangle(turtleDispDimension.getWidth(), turtleDispDimension.getHeight());
-        dispArea = new Group();
-        setBackground(DEFAULT_BACKGROUND_COLOR);
-        dispArea.getChildren().add(background);
-
         scroll.setContent(dispArea);
-
     }
 
     private void setBackground(String color) {

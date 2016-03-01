@@ -1,6 +1,5 @@
 package View;
 
-import Observables.ObjectObservable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
@@ -11,11 +10,6 @@ import javafx.scene.control.Label;
  * @author Cali
  */
 public interface ErrorDisplayInterface {
-
-    /**
-     * creates the graphical node used to display errors
-     */
-    void createErrorDisplay (ObjectObservable<String> error);
 
 
 

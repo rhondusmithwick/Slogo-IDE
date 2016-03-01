@@ -1,7 +1,6 @@
 package View;
 
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 
 
 /**
@@ -13,19 +12,6 @@ import javafx.scene.control.Label;
  */
 public interface CommHistory {
 
-
-    /**
-     * creates the graphical node to show command history
-     */
-    void createCommHistory();
-
-    /**
-     * Adds a command to the command history and will display it in the command history box, and it should (hopefully) be clickable so that the command
-     * can be run again.
-     *
-     * @param command command to add to history
-     */
-    Label addCommand(String command);
 
     /**
      * returns the graphical node displaying the history

@@ -25,13 +25,17 @@ public class ErrorDisplay implements ErrorDisplayInterface, Observer {
     private VBox errorContain;
     private String language;
     private ObjectObservable<String> error;
-
-    @Override
-    public void createErrorDisplay(ObjectObservable<String> error) {
+    
+    public ErrorDisplay(ObjectObservable<String> error){
         this.error = error;
-        setUpListner();
+        error.addObserver(this);
         this.language = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        setUpDisplay();
+
+    }
+
+    private void setUpDisplay () {
         errorDisp = new ScrollPane();
         errorDisp.setMaxSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
         errorContain = new VBox();
@@ -39,14 +43,8 @@ public class ErrorDisplay implements ErrorDisplayInterface, Observer {
         setTitle();
         errorContain.getChildren().add(title);
         errorDisp.setContent(errorContain);
-
-
     }
 
-    private void setUpListner () {
-        error.addObserver(this);
-        
-    }
 
     private void setTitle() {
         title = new Label(myResources.getString("errorBTitle"));

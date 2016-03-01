@@ -32,10 +32,7 @@ public class Console implements ConsoleInterface, Observer{
     public Console(ObjectObservable<String> consoleInput){
         this.consoleInput=consoleInput;
         consoleInput.addObserver(this);
-    }
-
-    @Override
-    public void createConsole(){
+        
         this.language = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
         scroll = new ScrollPane();
@@ -43,9 +40,8 @@ public class Console implements ConsoleInterface, Observer{
         box = new VBox();
         scroll.setContent(box);
         addTitle();
-
-
     }
+
 
     private void addTitle() {
         title = createLabel(myResources.getString("consTitle"));

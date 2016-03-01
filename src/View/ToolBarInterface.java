@@ -1,9 +1,8 @@
 package View;
 
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.scene.Node;
 
-import java.util.List;
 
 
 /**
@@ -15,10 +14,6 @@ import java.util.List;
  * @author Cali
  */
 public interface ToolBarInterface {
-    /**
-     * creates all necessary buttons and boxes that will be shown on the tool bar and allow the user to style the simulation
-     */
-    void createToolBarMembers();
 
 
     /**
@@ -29,13 +24,6 @@ public interface ToolBarInterface {
     Node getToolBarMembers();
 
 
-
-    /**
-     * returns all properties set by tool bar
-     *
-     * @return list of properties set by tool bar
-     */
-    List<SimpleStringProperty> getProperties();
     
 
 

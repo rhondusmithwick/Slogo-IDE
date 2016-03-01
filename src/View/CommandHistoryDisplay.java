@@ -8,6 +8,8 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
 
@@ -18,7 +20,7 @@ import Observables.ObjectObservable;
  * @author Stephen
  */
 
-public class CommandHistoryDisplay implements CommHistory {
+public class CommandHistoryDisplay implements CommHistory, Observer {
     private static final String SHOW_IN_BOX = "show in text box";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
@@ -33,31 +35,39 @@ public class CommandHistoryDisplay implements CommHistory {
     private VBox myCommHistory;
     private ResourceBundle myResources;
     private String language;
-    private ObjectObservable<String> intCommand;
+    private ObjectObservable<String> intCommand, commHistory;
 
-    public CommandHistoryDisplay(ObjectObservable<String> intCommand) {
+    public CommandHistoryDisplay(ObjectObservable<String> intCommand, ObjectObservable<String> commHistory) {
         this.language = DEFAULT_LANGUAGE;
         this.intCommand = intCommand;
-        commands = new ArrayList<>();
-        commandLabels = new ArrayList<>();
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        this.commHistory=commHistory;
+        commHistory.addObserver(this);
+        this.commands = new ArrayList<>();
+        this.commandLabels = new ArrayList<>();
+        this.myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        createVBox();
+        createScrollPane();
+        createTitle();
     }
 
-    @Override
-    public void createCommHistory() {
+    private void createVBox () {
         myCommHistory = new VBox();
         myCommHistory.setPrefWidth(SCROLLPANE_WIDTH);
+    }
+
+    private void createScrollPane () {
         myScrollPane = new ScrollPane();
         myScrollPane.setPrefSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
         myScrollPane.setContent(myCommHistory);
+    }
+
+    private void createTitle () {
         title = addCommand(myResources.getString("commBTitle"));
         title.setAlignment(Pos.TOP_CENTER);
         title.setOnMouseClicked(null);
     }
 
-
-    @Override
-    public Label addCommand(String command) {
+    private Label addCommand(String command) {
         if (command.isEmpty()) return null;
         commands.add(command);
         Label l = new Label(command);
@@ -79,6 +89,13 @@ public class CommandHistoryDisplay implements CommHistory {
     @Override
     public Node getHistoryGraphic() {
         return myScrollPane;
+    }
+
+    @Override
+    public void update (Observable o, Object arg) {
+        
+        addCommand(commHistory.get());
+        
     }
 
 

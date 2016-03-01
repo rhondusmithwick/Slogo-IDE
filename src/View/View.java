@@ -27,7 +27,11 @@ public class View implements ViewInt {
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
     private final Dimension2D turtleDispDimension;
-    private final ObjectObservable<String> pLang, input, error, consoleInput, backgroundColor, intCommands;
+    private final ObjectObservable<String> pLang, input, error, consoleInput, backgroundColor, intCommands, commHistory;
+    private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
+    private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
+    private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
+    private final SimpleStringProperty methods = new SimpleStringProperty(this, "methods");
     private ResourceBundle myResources;
     private BorderPane UI;
     private Group root;
@@ -46,19 +50,23 @@ public class View implements ViewInt {
     public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
         this.pLang = pLang;
         this.input = input;
-        intCommands = new ObjectObservable<>();
-        error = new ObjectObservable<>();
-        consoleInput = new ObjectObservable<>();
-        backgroundColor = new ObjectObservable<>();
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + DEFAULT_LANGUAGE + DISP);
         this.turtleDispDimension = turtleDispDimension;
+        this.intCommands = new ObjectObservable<>();
+        this.error = new ObjectObservable<>();
+        this.consoleInput = new ObjectObservable<>();
+        this.backgroundColor = new ObjectObservable<>();
+        this.commHistory = new ObjectObservable<>();
+        this.myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + DEFAULT_LANGUAGE + DISP);
+       
+        createAppView();
+    }
+
+
+    private void createAppView () {
         UI = new BorderPane();
         root = new Group();
         createScene();
         root.getChildren().add(UI);
-        
-
-
     }
 
 
@@ -84,60 +92,42 @@ public class View implements ViewInt {
 
     private void createLeftPane() {
         left = new VBox();
-        setVDisplay();
+        vDisplay = new VariableDisplay(pLang, intCommands, variables);
         left.getChildren().add(vDisplay.getEnvDisplay());
-        setMethodsDisplay();
+        methodsDisplay = new MethodDisplay(pLang, intCommands, methods);
         left.getChildren().add(methodsDisplay.getEnvDisplay());
-    }
-
-
-    private void setVDisplay () {
-        vDisplay = new VariableDisplay(pLang, intCommands);
-        vDisplay.createEnvNode();
-
-    }
-    
-    private void setMethodsDisplay() {
-    	methodsDisplay = new MethodDisplay(pLang, intCommands);
-    	methodsDisplay.createEnvNode();
-
     }
 
 
     private void createBottomPane() {
         bottom = new HBox(BOTTOM_PADDING);
 
-        errorDisplay = new ErrorDisplay();
-        errorDisplay.createErrorDisplay(error);
+        errorDisplay = new ErrorDisplay(error);
         bottom.getChildren().add(errorDisplay.getErrorDisplay());
 
         console = new Console(consoleInput);
-        console.createConsole();
         bottom.getChildren().add(console.getConsole());
         
-        commandHistory = new CommandHistoryDisplay(intCommands);
-        commandHistory.createCommHistory();
+        commandHistory = new CommandHistoryDisplay(intCommands, commHistory);
         bottom.getChildren().add(commandHistory.getHistoryGraphic());
     }
 
 
     private void createToolBar() {
-        tBar = new ToolBar(pLang, error, backgroundColor);
-        tBar.createToolBarMembers();
+        tBar = new ToolBar(pLang, error, backgroundColor, image, penColor);
     }
 
 
     private void createTurtleDisplay() {
-        turtDisp = new TurtleDisplay(root, backgroundColor);
-        turtDisp.createTurtleArea(turtleDispDimension);
+        turtDisp = new TurtleDisplay(backgroundColor, turtleDispDimension);
+
     }
 
     private void createRightPane() {
         right = new VBox(3);
         Label commandEntTitle = new Label(myResources.getString("entryTitle"));
         right.getChildren().add(commandEntTitle);
-        commandEntry = new CommandEntry(input, intCommands);
-        commandEntry.createEntryBox();
+        commandEntry = new CommandEntry(input, intCommands, commHistory);
         right.getChildren().add(commandEntry.getTextBox());
         createExecute();
     }
@@ -153,10 +143,9 @@ public class View implements ViewInt {
 
 
     private void processExecute() {
-        commandHistory.addCommand(commandEntry.getTextBox().getText());
-        commandEntry.getBoxCommands();
+        commandEntry.processCommands();
         vDisplay.updateEnvNode();
-        commandEntry.clearCommands();
+
         
     }
     
@@ -173,11 +162,11 @@ public class View implements ViewInt {
 
     @Override
     public List<SimpleStringProperty> getProperties() {
-        List<SimpleStringProperty> tProps = tBar.getProperties();
-        return Arrays.asList(tProps.get(0), tProps.get(1),vDisplay.getEnvProperty());
+        return Arrays.asList(image, penColor,variables, methods);
     }
     
-    @Override public List<ObjectObservable<String>> getObservables(){
+    @Override 
+    public List<ObjectObservable<String>> getObservables(){
         return Arrays.asList(error, consoleInput);
     }
 

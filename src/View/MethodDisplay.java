@@ -19,7 +19,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     private static final String DEFAULT_LANGUAGE = "English";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
 
-    private final SimpleStringProperty methods = new SimpleStringProperty(this, "methods");
+    private SimpleStringProperty methods;
     private MethodUpdate updater;
     private String displayLanguage;
     private ResourceBundle myResources;
@@ -29,11 +29,15 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     private ObjectObservable<String> parsingLanguage, intCommand;
 
 
-    public MethodDisplay(ObjectObservable<String> pLang, ObjectObservable<String> intCommand) {
+    public MethodDisplay(ObjectObservable<String> pLang, ObjectObservable<String> intCommand, SimpleStringProperty methods) {
         this.intCommand=intCommand;
         this.parsingLanguage = pLang;
+        this.methods=methods;
         this.displayLanguage = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + displayLanguage + DISP);
+        myScrollPane = new ScrollPane();
+        myScrollPane.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
+        createCurrVDisp();
     }
 
     @Override
@@ -41,12 +45,6 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
         return myScrollPane;
     }
 
-    @Override
-    public void createEnvNode() {
-        myScrollPane = new ScrollPane();
-        myScrollPane.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
-        createCurrVDisp();
-    }
 
     private void createCurrVDisp () {
         vBox = new VBox();
@@ -93,11 +91,6 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     @Override
     public void updateEnvNode() {
         createCurrVDisp();
-    }
-
-    @Override
-    public SimpleStringProperty getEnvProperty() {
-        return methods;
     }
 
 

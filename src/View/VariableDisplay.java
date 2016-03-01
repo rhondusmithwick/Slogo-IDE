@@ -18,8 +18,6 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private static final String DISP = "disp";
     private static final String DEFAULT_LANGUAGE = "English";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
-
-    private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
     private VariableUpdate updater;
     private String dispLang;
     private ResourceBundle myResources;
@@ -27,27 +25,24 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private VBox vBox;
     private String[] vArray;
     private ObjectObservable<String> pLang, internalCommand;
+    private SimpleStringProperty variables;
     
-    public VariableDisplay(ObjectObservable<String> pLang, ObjectObservable<String> internalCommand){
+    public VariableDisplay(ObjectObservable<String> pLang, ObjectObservable<String> internalCommand, 
+                           SimpleStringProperty variables){
+        this.variables=variables;
         this.pLang=pLang;
         this.dispLang = DEFAULT_LANGUAGE;
         this.internalCommand= internalCommand;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
+        scroll = new ScrollPane();
+        scroll.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
+        createCurrVDisp();
         
     }
     
     @Override
     public Node getEnvDisplay () {
         return scroll;
-    }
-
-    @Override
-    public void createEnvNode () {
-        scroll = new ScrollPane();
-        scroll.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
-        createCurrVDisp();
-        
-
     }
 
     private void createCurrVDisp () {
@@ -99,10 +94,6 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     }
 
-    @Override
-    public SimpleStringProperty getEnvProperty () {
-        return variables;
-    }
     
 
 }

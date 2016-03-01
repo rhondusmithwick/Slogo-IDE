@@ -20,21 +20,12 @@ public interface CommandEntryInterface {
     TextArea getTextBox();
 
 
-    /**
-     * Clears the textbox of any currently entered but not yet run commands
-     */
-    void clearCommands();
-
-    /**
-     * create the graphical nod to allow user to enter commands
-     */
-    void createEntryBox();
 
 
     /**
      * get user input commands from the text box in the gui
      */
-    void getBoxCommands();
+    void processCommands();
 
 
 

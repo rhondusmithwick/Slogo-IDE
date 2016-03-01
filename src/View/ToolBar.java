@@ -15,13 +15,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ToolBar implements ToolBarInterface {
@@ -44,10 +41,8 @@ public class ToolBar implements ToolBarInterface {
     private static final int TB_WIDTH = 1000;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
-
-    private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
     private final ObjectObservable<String> language, error, bgColor;
-    private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
+    private SimpleStringProperty image, penColor;
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
@@ -55,30 +50,31 @@ public class ToolBar implements ToolBarInterface {
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
-    public ToolBar(ObjectObservable<String> language, ObjectObservable<String> error, ObjectObservable<String> bgColor) {
+    public ToolBar(ObjectObservable<String> language, ObjectObservable<String> error, ObjectObservable<String> bgColor, 
+                   SimpleStringProperty image, SimpleStringProperty penColor) {
+        hScreen = new HelpScreen();
+        this.image=image;
+        this.penColor=penColor;
         this.language = language;
         this.error = error;
         this.bgColor = bgColor;
         this.dispLang = DEFAULT_LANGUAGE;
+        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
+        setHBox();
+        createButtons();
+        getLanguages();
+        getColors();
+        createComboBoxes();
+    }
+
+
+
+    private void setHBox () {
         container = new HBox();
         container.setPrefWidth(TB_WIDTH);
         container.setPrefHeight(TB_HEIGHT);
         container.setAlignment(Pos.CENTER);
         container.setSpacing(TB_SPACING);
-        hScreen = new HelpScreen();
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
-    }
-
-    @Override
-    public void createToolBarMembers() {
-        createButtons();
-        getLanguages();
-        try {
-            getColors();
-        } catch (Exception e) {
-            error.set(myResources.getString("colorError"));
-        }
-        createComboBoxes();
     }
 
     @Override
@@ -123,17 +119,23 @@ public class ToolBar implements ToolBarInterface {
     }
 
     @SuppressWarnings("rawtypes")
-    private void getColors() throws Exception {
-        possColors = new ArrayList<>();
+    private void getColors() {
+        try{
+        
+               possColors = new ArrayList<>();
 
-        Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
-        Field[] fields = colorClass.getFields();
-        for (Field field : fields) {
-            Object o = field.get(null);
-            if (o instanceof Color) {
-                possColors.add(field.getName());
-            }
+               Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
+               Field[] fields = colorClass.getFields();
+               for (Field field : fields) {
+                   Object o = field.get(null);
+                   if (o instanceof Color) {
+                       possColors.add(field.getName());
+                   }
+               }
+        }catch (Exception e) {
+            error.set(myResources.getString("colorError"));
         }
+        
     }
 
     private void getLanguages() {
@@ -190,10 +192,6 @@ public class ToolBar implements ToolBarInterface {
         s.hide();
     }
 
-    @Override
-    public List<SimpleStringProperty> getProperties() {
-        return Arrays.asList(image, penColor);
-    }
 
 
 }
