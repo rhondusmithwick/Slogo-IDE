@@ -1,10 +1,9 @@
-package View.CommandEntry;
+package View;
 
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
-import View.CommandEntry.CommandEntryInterface;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

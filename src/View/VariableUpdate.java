@@ -1,4 +1,4 @@
-package View.EnvDisplay;
+package View;
 
 import java.util.Arrays;
 import java.util.ResourceBundle;

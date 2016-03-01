@@ -1,4 +1,4 @@
-package View.EnvDisplay;
+package View;
 
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;

@@ -1,4 +1,4 @@
-package View.EnvDisplay;
+package View;
 
 
 import javafx.scene.Node;

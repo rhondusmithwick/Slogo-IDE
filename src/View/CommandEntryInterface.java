@@ -1,4 +1,4 @@
-package View.CommandEntry;
+package View;
 
 
 import javafx.scene.Node;
