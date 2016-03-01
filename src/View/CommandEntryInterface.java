@@ -1,7 +1,8 @@
 package View;
 
 
-import javafx.scene.control.TextArea;
+import javafx.scene.Node;
+
 
 /**
  * This is an internal API for the view that provides a framework for any class implementing the feature allowing the user to enter text commands. It ensures that any class
@@ -17,7 +18,7 @@ public interface CommandEntryInterface {
      *
      * @return CommandNode that allows user to enter command into it
      */
-    TextArea getTextBox();
+    Node getNode();
 
 
 
