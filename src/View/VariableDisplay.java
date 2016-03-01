@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
@@ -7,33 +7,44 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 
 public class VariableDisplay implements EnvironmentDisplayInterface {
     
-    private static final int SCROLL_HEIGHT = 200;
-    private static final int SCROLL_WIDTH = 400;
+    private static final int STARTING_WIDTH = 400;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
     private static final String DEFAULT_LANGUAGE = "English";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
-
-    private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
     private VariableUpdate updater;
     private String dispLang;
     private ResourceBundle myResources;
     private ScrollPane scroll;
     private VBox vBox;
     private String[] vArray;
-    private ObjectObservable<String> pLang;
-    private CommandEntryInterface cEnt;
+    private ObjectObservable<String> pLang, internalCommand;
+    private SimpleStringProperty variables;
     
-    public VariableDisplay(){
-        
+    public VariableDisplay(ObjectObservable<String> pLang, ObjectObservable<String> internalCommand, 
+                           SimpleStringProperty variables){
+        this.variables=variables;
+        this.pLang=pLang;
         this.dispLang = DEFAULT_LANGUAGE;
+        this.internalCommand= internalCommand;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
+        setScroll();
+        VBox.setVgrow(scroll, Priority.SOMETIMES);
+        createCurrVDisp();
         
+    }
+
+    private void setScroll () {
+        scroll = new ScrollPane();
+        scroll.setMinViewportWidth(STARTING_WIDTH);
+        scroll.setPrefViewportWidth(STARTING_WIDTH);
+        scroll.setMaxWidth(STARTING_WIDTH);
     }
     
     @Override
@@ -41,21 +52,12 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         return scroll;
     }
 
-    @Override
-    public void createEnvNode () {
-        scroll = new ScrollPane();
-        scroll.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
-        createCurrVDisp();
-        
-
-    }
-
     private void createCurrVDisp () {
         vBox = new VBox();
+        vBox.prefWidthProperty().bind(scroll.widthProperty());
         setTitle();
         String vString = variables.get();
         if(vString!=null){
-            System.out.println("these are the variables " + vString);
             vArray = vString.split("\n");
             populateVBox();
         }
@@ -66,7 +68,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private void setTitle () {
         Label title= new Label(myResources.getString("varTitle"));
         title.setAlignment(Pos.TOP_CENTER);
-        title.setPrefWidth(SCROLL_WIDTH);
+        title.prefWidthProperty().bind(scroll.widthProperty());
         title.setStyle(CSS_BLACK_BORDER);
         vBox.getChildren().add(title);
         
@@ -78,7 +80,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
             if(var.length()==0){
             	continue;
             }
-            l.setPrefWidth(SCROLL_WIDTH);
+            l.prefWidthProperty().bind(scroll.widthProperty());
             l.setWrapText(true);
             l.setStyle(CSS_BLACK_BORDER);
             l.setOnMouseClicked(e->updateVariable(l));
@@ -89,7 +91,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     
     private void updateVariable (Label l) {
-        updater = new VariableUpdate(myResources, cEnt, pLang);
+        updater = new VariableUpdate(myResources, internalCommand, pLang);
         updater.updateVariable(l);
         
     }
@@ -100,25 +102,6 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     }
 
-    @Override
-    public SimpleStringProperty getEnvProperty () {
-        return variables;
-    }
     
-    @Override
-    public void setPLang(ObjectObservable<String> str){
-        this.pLang=str;
-    }
-    
-    @Override
-    public void setCommEntry(CommandEntryInterface cEnt){
-        this.cEnt= cEnt;
-    }
-    
-    
-    
-
-
-
 
 }

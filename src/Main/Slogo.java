@@ -2,12 +2,12 @@ package Main;
 
 import Controller.Controller.Controller;
 import Controller.Controller.TurtleController;
+import View.View;
+import View.ViewInt;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import view.View;
-import view.ViewInt;
 
 import java.util.List;
 import java.util.Objects;
@@ -34,6 +34,7 @@ class Slogo {
 
     void init(Stage primaryStage) {
         Scene scene = new Scene(view.getGroup(), APP_DIMENSIONS.getWidth(), APP_DIMENSIONS.getHeight());
+        view.bindSize(scene);
         primaryStage.setScene(scene);
     }
 

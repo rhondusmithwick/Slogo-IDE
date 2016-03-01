@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -11,17 +11,7 @@ import javafx.scene.control.Label;
  */
 public interface ErrorDisplayInterface {
 
-    /**
-     * creates the graphical node used to display errors
-     */
-    void createErrorDisplay();
 
-    /**
-     * Displays an error string to the user
-     *
-     * @param s Error message to be displayed
-     */
-    void showError(String s);
 
     /**
      * returns graphical node used to display errors
@@ -36,6 +26,8 @@ public interface ErrorDisplayInterface {
      * @param l label to be removed
      */
     void clearError(Label l);
+
+    
     
 
 

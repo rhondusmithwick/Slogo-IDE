@@ -1,5 +1,8 @@
-package view;
+package View;
 
+import java.util.Observable;
+import java.util.Observer;
+import Observables.ObjectObservable;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -8,39 +11,36 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 
-public class TurtleDisplay implements TurtleAreaInterface {
+public class TurtleDisplay implements TurtleAreaInterface, Observer {
     private static final double SCROLL_BAR_INITIAL = .5;
 	private static final String DEFAULT_BACKGROUND_COLOR = "white";
-    private static final int SCROLL_WIDTH = 600;
-    private static final int SCROLL_HEIGHT = 450;
     private Rectangle background;
     private Group dispArea;
     private ScrollPane scroll;
+    private ObjectObservable<String> bgColor;
 
-    public TurtleDisplay(Group root) {
-        dispArea = root;
-        scroll = new ScrollPane();
-        scroll.setMaxHeight(SCROLL_HEIGHT);
-        scroll.setMaxWidth(SCROLL_WIDTH);
-        scroll.setVvalue(SCROLL_BAR_INITIAL);
-        scroll.setHvalue(SCROLL_BAR_INITIAL);
-
-    }
-
-
-    @Override
-    public void createTurtleArea(Dimension2D turtleDispDimension) {
+    public TurtleDisplay(ObjectObservable<String> bgColor, Dimension2D turtleDispDimension) {
+        this.bgColor=bgColor;
+        bgColor.addObserver(this);
         background = new Rectangle(turtleDispDimension.getWidth(), turtleDispDimension.getHeight());
         dispArea = new Group();
         setBackground(DEFAULT_BACKGROUND_COLOR);
         dispArea.getChildren().add(background);
-
-        scroll.setContent(dispArea);
+        setScrollPane();
 
     }
 
-    @Override
-    public void setBackground(String color) {
+
+    private void setScrollPane () {
+        scroll = new ScrollPane();
+        scroll.setVvalue(SCROLL_BAR_INITIAL);
+        scroll.setHvalue(SCROLL_BAR_INITIAL);
+        scroll.setContent(dispArea);
+
+       
+    }
+
+    private void setBackground(String color) {
         background.setFill(Color.web(color));
 
     }
@@ -54,6 +54,14 @@ public class TurtleDisplay implements TurtleAreaInterface {
     @Override
     public Group getTurtleArea() {
         return dispArea;
+    }
+
+
+    @Override
+    public void update (Observable o, Object arg1) {
+        String color = bgColor.get();
+        setBackground(color);
+        
     }
 
 
