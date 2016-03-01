@@ -1,5 +1,6 @@
 package Controller.SlogoParser;
 
+import Model.Repeat.Repeat;
 import Observables.MapObservable;
 import Model.TreeNode.ConstantNode;
 import Model.TreeNode.TreeNode;
@@ -38,10 +39,12 @@ public class ExpressionTree {
     }
 
     public void executeAll() {
+        System.out.println(rootList);
         rootList.stream().forEach(TreeNode::getValue);
     }
 
     private List<TreeNode> createRootList() {
+        System.out.println(parsedText);
         List<TreeNode> rootList = new LinkedList<>();
         while (inBounds()) {
             TreeNode root = createRoot();
@@ -98,6 +101,7 @@ public class ExpressionTree {
         }
         addTurtleIfShould(n);
         addVariableIfShould(n);
+        makeRepeat(n);
         return n;
     }
 
@@ -138,5 +142,20 @@ public class ExpressionTree {
         }
     }
 
-
+    private void makeRepeat(TreeNode n) {
+        if (n instanceof Repeat) {
+            TreeNode numTimes = createRoot();
+            n.addChild(numTimes);
+            parsedText.poll();
+            while (true) {
+                if (parsedText.peek().getKey().equals("ListEnd")) {
+                    parsedText.poll();
+                    break;
+                }
+                TreeNode root = createRoot();
+                n.addChild(root);
+            }
+        }
+        System.out.println(n);
+    }
 }
