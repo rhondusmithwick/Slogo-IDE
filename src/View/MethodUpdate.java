@@ -25,7 +25,7 @@ public class MethodUpdate {
     
     private VBox vBox;
     private ResourceBundle myResources, myCommands;
-    private CommandEntryInterface cEnt;
+    private ObjectObservable<String> intCommand;
     private Stage s;
     private Group root;
     private Scene scene;
@@ -37,10 +37,10 @@ public class MethodUpdate {
     
     
     
-    public MethodUpdate(ResourceBundle myResources, CommandEntryInterface cEnt, ObjectObservable<String> pLang){
+    public MethodUpdate(ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
         this.myResources = myResources;
         myCommands = ResourceBundle.getBundle(LANGUAGE_LOCATION + pLang.get());
-        this.cEnt = cEnt;
+        this.intCommand=intCommand;
         s = new Stage();
         root = new Group();
         scene = new Scene(root, WIDTH, HEIGHT);
@@ -79,7 +79,7 @@ public class MethodUpdate {
 		}
 		
 		String toPass = makeCommand(mNewVal, vNewVal);
-		cEnt.passInternalCommands(toPass, false);
+		intCommand.set(toPass);
 		
 	}
 	
@@ -131,9 +131,9 @@ public class MethodUpdate {
 	        this.label = l;
 	        splitUp = label.getText().split(SPACE);
 	        this.name = splitUp[0];
-	        Label titleM = createTitle(myResources.getString("methTitle") + SPACE + name);
+	        createTitle(myResources.getString("methTitle") + SPACE + name);
 	        vBox.getChildren().add(mField);
-	        Label titleV = createTitle(myResources.getString("methVarTitle") + SPACE + name); 
+	        createTitle(myResources.getString("methVarTitle") + SPACE + name); 
 	        vBox.getChildren().add(vField);
 	        vBox.getChildren().add(setB);
 	        s.setScene(scene);

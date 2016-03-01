@@ -1,6 +1,5 @@
 package View;
 
-import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 
@@ -35,8 +34,4 @@ public interface EnvironmentDisplayInterface {
     SimpleStringProperty getEnvProperty();
 
 
-    void setCommEntry (CommandEntryInterface cEnt);
-
-
-	void setPLang(ObjectObservable<String> str);
 }

@@ -16,12 +16,6 @@ public interface TurtleAreaInterface {
      */
     void createTurtleArea(Dimension2D turtleDispDimension);
 
-    /**
-     * Sets the background color of the turtles display area
-     *
-     * @param color Color to set the background to
-     */
-    void setBackground(String color);
 
 
     /**

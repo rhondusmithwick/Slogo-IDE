@@ -1,5 +1,7 @@
 package View;
 
+import java.util.Observable;
+import java.util.Observer;
 import Observables.ObjectObservable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -11,17 +13,20 @@ import javafx.scene.control.TextArea;
  * @author Stephen
  */
 
-public class CommandEntry implements CommandEntryInterface {
+public class CommandEntry implements CommandEntryInterface, Observer {
 
     private static final String NEW_LINE = "\n";
-	private final ObjectObservable<String> input;
+    private static final String SHOW_IN_BOX = "show in text box";
+    private final ObjectObservable<String> input, intCommands;
     private final double WIDTH = 200.0;
     private final double HEIGHT = 400.0;
     private TextArea myEntryBox;
     private ScrollPane myScrollPane;
 
-    public CommandEntry(ObjectObservable<String> input) {
+    public CommandEntry(ObjectObservable<String> input, ObjectObservable<String> intCommands) {
         this.input = input;
+        this.intCommands = intCommands;
+        intCommands.addObserver(this);
     }
 
     @Override
@@ -29,8 +34,8 @@ public class CommandEntry implements CommandEntryInterface {
         return myEntryBox;
     }
 
-    @Override
-    public void getCommandsFromString(String text) {
+
+    private void getCommandsFromString(String text) {
         input.set(text);
     }
 
@@ -47,8 +52,8 @@ public class CommandEntry implements CommandEntryInterface {
         myScrollPane.setPrefSize(WIDTH, HEIGHT);
     }
 
-    @Override
-    public void passInternalCommands(String command, boolean showInTextBox) {
+    
+   private void passInternalCommands(String command, boolean showInTextBox) {
         if(showInTextBox){
             String curr = myEntryBox.getText();
             if(!curr.endsWith(NEW_LINE) && !curr.equals("")){
@@ -62,10 +67,23 @@ public class CommandEntry implements CommandEntryInterface {
         }
     }
 
-    @Override
+   @Override
     public void getBoxCommands() {
         String text = myEntryBox.getText();
         getCommandsFromString(text);
+    }
+
+    @Override
+    public void update (Observable o, Object arg) {
+
+        String command = intCommands.get();
+        boolean show =command.startsWith(SHOW_IN_BOX);
+        if(show){
+            
+            command = command.substring(SHOW_IN_BOX.length());
+        }
+        passInternalCommands(command, show);
+        
     }
 
 

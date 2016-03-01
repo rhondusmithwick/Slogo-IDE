@@ -27,8 +27,7 @@ public class View implements ViewInt {
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
     private final Dimension2D turtleDispDimension;
-    private final ObjectObservable<String> language;
-    private final ObjectObservable<String> input;
+    private final ObjectObservable<String> pLang, input, error, consoleInput, backgroundColor, intCommands;
     private ResourceBundle myResources;
     private BorderPane UI;
     private Group root;
@@ -44,15 +43,20 @@ public class View implements ViewInt {
     private VBox left, right;
 
 
-    public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> language) {
-        this.language = language;
+    public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
+        this.pLang = pLang;
         this.input = input;
+        intCommands = new ObjectObservable<>();
+        error = new ObjectObservable<>();
+        consoleInput = new ObjectObservable<>();
+        backgroundColor = new ObjectObservable<>();
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + DEFAULT_LANGUAGE + DISP);
         this.turtleDispDimension = turtleDispDimension;
         UI = new BorderPane();
         root = new Group();
         createScene();
         root.getChildren().add(UI);
+        
 
 
     }
@@ -66,8 +70,6 @@ public class View implements ViewInt {
         createRightPane();
         createLeftPane();
         addComponents();
-        setToolBar();
-        commandHistory.setCommEntry(commandEntry);
     }
 
 
@@ -90,17 +92,15 @@ public class View implements ViewInt {
 
 
     private void setVDisplay () {
-        vDisplay = new VariableDisplay();
+        vDisplay = new VariableDisplay(pLang, intCommands);
         vDisplay.createEnvNode();
-        vDisplay.setCommEntry(commandEntry);
-        vDisplay.setPLang(tBar.getParseLang());
+
     }
     
     private void setMethodsDisplay() {
-    	methodsDisplay = new MethodDisplay();
+    	methodsDisplay = new MethodDisplay(pLang, intCommands);
     	methodsDisplay.createEnvNode();
-    	methodsDisplay.setCommEntry(commandEntry);
-    	methodsDisplay.setPLang(tBar.getParseLang());
+
     }
 
 
@@ -108,27 +108,27 @@ public class View implements ViewInt {
         bottom = new HBox(BOTTOM_PADDING);
 
         errorDisplay = new ErrorDisplay();
-        errorDisplay.createErrorDisplay();
+        errorDisplay.createErrorDisplay(error);
         bottom.getChildren().add(errorDisplay.getErrorDisplay());
 
-        console = new Console();
+        console = new Console(consoleInput);
         console.createConsole();
         bottom.getChildren().add(console.getConsole());
         
-        commandHistory = new CommandHistoryDisplay();
+        commandHistory = new CommandHistoryDisplay(intCommands);
         commandHistory.createCommHistory();
         bottom.getChildren().add(commandHistory.getHistoryGraphic());
     }
 
 
     private void createToolBar() {
-        tBar = new ToolBar(language);
+        tBar = new ToolBar(pLang, error, backgroundColor);
         tBar.createToolBarMembers();
     }
 
 
     private void createTurtleDisplay() {
-        turtDisp = new TurtleDisplay(root);
+        turtDisp = new TurtleDisplay(root, backgroundColor);
         turtDisp.createTurtleArea(turtleDispDimension);
     }
 
@@ -136,7 +136,7 @@ public class View implements ViewInt {
         right = new VBox(3);
         Label commandEntTitle = new Label(myResources.getString("entryTitle"));
         right.getChildren().add(commandEntTitle);
-        commandEntry = new CommandEntry(input);
+        commandEntry = new CommandEntry(input, intCommands);
         commandEntry.createEntryBox();
         right.getChildren().add(commandEntry.getTextBox());
         createExecute();
@@ -159,13 +159,6 @@ public class View implements ViewInt {
         commandEntry.clearCommands();
         
     }
-
-
-    private void setToolBar() {
-        tBar.setTDisp(turtDisp);
-        tBar.setEDisp(errorDisplay);
-
-    }
     
     @Override
     public Group getGroup() {
@@ -182,6 +175,10 @@ public class View implements ViewInt {
     public List<SimpleStringProperty> getProperties() {
         List<SimpleStringProperty> tProps = tBar.getProperties();
         return Arrays.asList(tProps.get(0), tProps.get(1),vDisplay.getEnvProperty());
+    }
+    
+    @Override public List<ObjectObservable<String>> getObservables(){
+        return Arrays.asList(error, consoleInput);
     }
 
 }

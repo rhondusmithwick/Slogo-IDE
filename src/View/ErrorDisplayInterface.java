@@ -1,5 +1,6 @@
 package View;
 
+import Observables.ObjectObservable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
@@ -14,14 +15,9 @@ public interface ErrorDisplayInterface {
     /**
      * creates the graphical node used to display errors
      */
-    void createErrorDisplay();
+    void createErrorDisplay (ObjectObservable<String> error);
 
-    /**
-     * Displays an error string to the user
-     *
-     * @param s Error message to be displayed
-     */
-    void showError(String s);
+
 
     /**
      * returns graphical node used to display errors
@@ -36,6 +32,8 @@ public interface ErrorDisplayInterface {
      * @param l label to be removed
      */
     void clearError(Label l);
+
+    
     
 
 

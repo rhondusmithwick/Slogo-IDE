@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 
 import java.util.List;
-import Observables.ObjectObservable;
+
 
 /**
  * This is an internal interface intended to allow the views main class to create and access buttons and comboboxes that will be located on the tool bar. This class ensures that any
@@ -28,19 +28,6 @@ public interface ToolBarInterface {
      */
     Node getToolBarMembers();
 
-    /**
-     * sets the turtle display object so that toolbar can change the backgroud
-     *
-     * @param tDisp turtle display component
-     */
-    void setTDisp(TurtleAreaInterface tDisp);
-
-    /**
-     * sets the error display object so that toolbar can show errors if needed
-     *
-     * @param eDisp error display component
-     */
-    void setEDisp(ErrorDisplayInterface eDisp);
 
 
     /**
@@ -50,6 +37,6 @@ public interface ToolBarInterface {
      */
     List<SimpleStringProperty> getProperties();
     
-    ObjectObservable<String> getParseLang();
+
 
 }

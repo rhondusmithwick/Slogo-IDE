@@ -26,12 +26,12 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private ScrollPane scroll;
     private VBox vBox;
     private String[] vArray;
-    private ObjectObservable<String> pLang;
-    private CommandEntryInterface cEnt;
+    private ObjectObservable<String> pLang, internalCommand;
     
-    public VariableDisplay(){
-        
+    public VariableDisplay(ObjectObservable<String> pLang, ObjectObservable<String> internalCommand){
+        this.pLang=pLang;
         this.dispLang = DEFAULT_LANGUAGE;
+        this.internalCommand= internalCommand;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
         
     }
@@ -88,7 +88,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     
     private void updateVariable (Label l) {
-        updater = new VariableUpdate(myResources, cEnt, pLang);
+        updater = new VariableUpdate(myResources, internalCommand, pLang);
         updater.updateVariable(l);
         
     }
@@ -104,20 +104,5 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         return variables;
     }
     
-    @Override
-    public void setPLang(ObjectObservable<String> str){
-        this.pLang=str;
-    }
-    
-    @Override
-    public void setCommEntry(CommandEntryInterface cEnt){
-        this.cEnt= cEnt;
-    }
-    
-    
-    
-
-
-
 
 }

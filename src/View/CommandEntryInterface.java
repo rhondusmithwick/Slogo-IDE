@@ -19,12 +19,6 @@ public interface CommandEntryInterface {
      */
     TextArea getTextBox();
 
-    /**
-     * Gets text from the text box and returns any commands currently entered into the text box
-     *
-     * @return String[] of entered commands to be executed
-     */
-    void getCommandsFromString(String s);
 
     /**
      * Clears the textbox of any currently entered but not yet run commands
@@ -36,13 +30,6 @@ public interface CommandEntryInterface {
      */
     void createEntryBox();
 
-    /**
-     * used to pass commands from one view component to the back end such as changing the pen color
-     * These commands do not come from user typed input
-     *
-     * @param command command to be run
-     */
-    void passInternalCommands (String command, boolean showInTextBox);
 
     /**
      * get user input commands from the text box in the gui

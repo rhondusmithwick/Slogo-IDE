@@ -1,5 +1,8 @@
 package View;
 
+import java.util.Observable;
+import java.util.Observer;
+import Observables.ObjectObservable;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -8,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 
-public class TurtleDisplay implements TurtleAreaInterface {
+public class TurtleDisplay implements TurtleAreaInterface, Observer {
     private static final double SCROLL_BAR_INITIAL = .5;
 	private static final String DEFAULT_BACKGROUND_COLOR = "white";
     private static final int SCROLL_WIDTH = 600;
@@ -16,8 +19,11 @@ public class TurtleDisplay implements TurtleAreaInterface {
     private Rectangle background;
     private Group dispArea;
     private ScrollPane scroll;
+    private ObjectObservable<String> bgColor;
 
-    public TurtleDisplay(Group root) {
+    public TurtleDisplay(Group root, ObjectObservable<String> bgColor) {
+        this.bgColor=bgColor;
+        bgColor.addObserver(this);
         dispArea = root;
         scroll = new ScrollPane();
         scroll.setMaxHeight(SCROLL_HEIGHT);
@@ -39,8 +45,7 @@ public class TurtleDisplay implements TurtleAreaInterface {
 
     }
 
-    @Override
-    public void setBackground(String color) {
+    private void setBackground(String color) {
         background.setFill(Color.web(color));
 
     }
@@ -54,6 +59,14 @@ public class TurtleDisplay implements TurtleAreaInterface {
     @Override
     public Group getTurtleArea() {
         return dispArea;
+    }
+
+
+    @Override
+    public void update (Observable o, Object arg1) {
+        String color = bgColor.get();
+        setBackground(color);
+        
     }
 
 

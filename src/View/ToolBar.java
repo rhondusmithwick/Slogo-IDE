@@ -46,19 +46,19 @@ public class ToolBar implements ToolBarInterface {
     private static final String DISP = "disp";
 
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
-    private final ObjectObservable<String> language;
+    private final ObjectObservable<String> language, error, bgColor;
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
     private String dispLang, bColor, pLanguage, pColor;
-    private TurtleAreaInterface tDisp;
-    private ErrorDisplayInterface eDisp;
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
-    public ToolBar(ObjectObservable<String> language) {
+    public ToolBar(ObjectObservable<String> language, ObjectObservable<String> error, ObjectObservable<String> bgColor) {
         this.language = language;
+        this.error = error;
+        this.bgColor = bgColor;
         this.dispLang = DEFAULT_LANGUAGE;
         container = new HBox();
         container.setPrefWidth(TB_WIDTH);
@@ -76,7 +76,7 @@ public class ToolBar implements ToolBarInterface {
         try {
             getColors();
         } catch (Exception e) {
-            eDisp.showError(myResources.getString("colorError"));
+            error.set(myResources.getString("colorError"));
         }
         createComboBoxes();
     }
@@ -102,7 +102,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void setBackground() {
         bColor = bColorBox.getSelectionModel().getSelectedItem();
-        tDisp.setBackground(bColor.toLowerCase());
+        bgColor.set(bColor.toLowerCase());
     }
 
     private void setLang() {
@@ -172,9 +172,10 @@ public class ToolBar implements ToolBarInterface {
         try {
             String imagepath = file.toURI().toURL().toString();
             image.set(imagepath);
+            error.set(myResources.getString("picError"));
 
         } catch (MalformedURLException e) {
-            eDisp.showError(myResources.getString("picError"));
+            error.set(myResources.getString("picError"));
         }
     }
 
@@ -190,23 +191,8 @@ public class ToolBar implements ToolBarInterface {
     }
 
     @Override
-    public void setTDisp(TurtleAreaInterface tDisp) {
-        this.tDisp = tDisp;
-    }
-
-    @Override
-    public void setEDisp(ErrorDisplayInterface errorDisp) {
-        this.eDisp = errorDisp;
-    }
-
-
-    @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(image, penColor);
-    }
-    
-    public ObjectObservable<String> getParseLang(){
-        return language;
     }
 
 
