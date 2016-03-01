@@ -37,7 +37,6 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         scroll = new ScrollPane();
         scroll.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
         createCurrVDisp();
-        
     }
     
     @Override

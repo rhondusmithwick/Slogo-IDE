@@ -123,15 +123,12 @@ public class View implements ViewInt {
         executeButton.setPrefSize(EXECUTE_BUTTON_WIDTH, EXECUTE_BUTTON_HEIGHT);
         executeButton.setOnAction(e -> processExecute());
         right.getChildren().add(executeButton);
-
 	}
 
 
     private void processExecute() {
         commandEntry.processCommands();
-        vDisplay.updateEnvNode();
-
-        
+        vDisplay.updateEnvNode();    
     }
     
     @Override
