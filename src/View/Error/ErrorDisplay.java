@@ -11,11 +11,12 @@ import javafx.scene.layout.VBox;
 import java.util.ResourceBundle;
 
 import View.Defaults;
+import View.Size;
 
 
 public class ErrorDisplay implements ErrorDisplayInterface{
 
-    private static final int STARTING_HEIGHT = 195;
+
     private ScrollPane errorDisp;
     private Label title;
     private ResourceBundle myResources;
@@ -42,9 +43,9 @@ public class ErrorDisplay implements ErrorDisplayInterface{
 
 	private void setScrollPane() {
 		errorDisp = new ScrollPane();
-        errorDisp.setMinViewportHeight(STARTING_HEIGHT);
-        errorDisp.setPrefViewportHeight(STARTING_HEIGHT);
-        errorDisp.setMaxHeight(STARTING_HEIGHT);
+        errorDisp.setMinViewportHeight(Size.BOTTOM_HEIGHT.getSize());
+        errorDisp.setPrefViewportHeight(Size.BOTTOM_HEIGHT.getSize());
+        errorDisp.setMaxHeight(Size.BOTTOM_HEIGHT.getSize());
         HBox.setHgrow(errorDisp, Priority.ALWAYS);
 	}
 

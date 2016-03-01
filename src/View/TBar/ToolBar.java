@@ -2,6 +2,7 @@ package View.TBar;
 
 import Observables.ObjectObservable;
 import View.Defaults;
+import View.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,14 +29,11 @@ public class ToolBar implements ToolBarInterface {
     private static final String GIF = "GIF";
     private static final String JPG_EXT = "*.jpg";
     private static final String JPG = "JPG";
-    private static final int MINI_HEIGHT = 1;
-    private static final int MINI_WIDTH = 1;
+
     private static final String PNG_EXT = "*.png";
     private static final String PNG = "PNG";
-    private static final char FILE_EXTENSION = '.';
 
   
-    private static final double TB_SPACING = 10.0;
 
     private final ObjectObservable<String> language, bgColor;
     private SimpleStringProperty image, penColor, error;
@@ -68,7 +66,7 @@ public class ToolBar implements ToolBarInterface {
     private void setHBox () {
         container = new HBox();
         container.setAlignment(Pos.CENTER);
-        container.setSpacing(TB_SPACING);
+        container.setSpacing(Size.TB_PADDING.getSize());
     }
 
     @Override
@@ -138,7 +136,7 @@ public class ToolBar implements ToolBarInterface {
         File[] fList = directory.listFiles();
         for (File file : fList) {
             String name = file.getName();
-            parseLangs.add(name.substring(0, name.lastIndexOf(FILE_EXTENSION)));
+            parseLangs.add(name.substring(0, name.lastIndexOf('.')));
         }
     }
 
@@ -179,7 +177,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void setUpFileChooser(FileChooser fChoose, Stage s) {
         Group root = new Group();
-        s.setScene(new Scene(root, MINI_WIDTH, MINI_HEIGHT));
+        s.setScene(new Scene(root, Size.MINI.getSize(), Size.MINI.getSize()));
 
         fChoose.setTitle(myResources.getString("getFile"));
         fChoose.getExtensionFilters().addAll(new ExtensionFilter(PNG, PNG_EXT),
