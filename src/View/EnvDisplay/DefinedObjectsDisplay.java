@@ -1,4 +1,4 @@
-package View;
+package View.EnvDisplay;
 
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
@@ -48,10 +48,6 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 	}
 
 	protected abstract void updateDefinedObject(Label label);
-
-	public void initDisplay() {
-		createCurrVDisp();
-	}
 	
 	@Override
 	public Node getEnvDisplay() {

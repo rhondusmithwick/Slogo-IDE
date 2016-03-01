@@ -1,10 +1,12 @@
-package View;
+package View.Error;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.util.ResourceBundle;
 
@@ -15,9 +17,7 @@ public class ErrorDisplay implements ErrorDisplayInterface{
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DISP = "disp";
-    private static final double SCROLLPANE_WIDTH = 380.00;
-    private static final double SCROLLPANE_HEIGHT = 195.0;
-    private static final double VBOX_WIDTH = 530.00;
+    private static final int STARTING_HEIGHT = 195;
     private ScrollPane errorDisp;
     private Label title;
     private ResourceBundle myResources;
@@ -30,31 +30,38 @@ public class ErrorDisplay implements ErrorDisplayInterface{
         addListner();
         this.language = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
-        setUpDisplay();
-
-    }
-
-    private void setUpDisplay () {
-        errorDisp = new ScrollPane();
-        errorDisp.setMaxSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
-        errorContain = new VBox();
-        errorContain.setPrefWidth(VBOX_WIDTH);
+        setScrollPane();
+        setVBox();
         setTitle();
-        errorContain.getChildren().add(title);
         errorDisp.setContent(errorContain);
+
     }
+
+	private void setVBox() {
+		errorContain = new VBox();
+        errorContain.prefHeightProperty().bind(errorDisp.heightProperty());
+	}
+
+	private void setScrollPane() {
+		errorDisp = new ScrollPane();
+        errorDisp.setMinViewportHeight(STARTING_HEIGHT);
+        errorDisp.setPrefViewportHeight(STARTING_HEIGHT);
+        errorDisp.setMaxHeight(STARTING_HEIGHT);
+        HBox.setHgrow(errorDisp, Priority.ALWAYS);
+	}
 
 
     private void setTitle() {
         title = new Label(myResources.getString("errorBTitle"));
-        title.setPrefWidth(SCROLLPANE_WIDTH);
+        title.prefWidthProperty().bind(errorDisp.widthProperty());
         title.setAlignment(Pos.TOP_CENTER);
         title.setStyle(CSS_BORDER_STYLE);
+        errorContain.getChildren().add(title);
     }
 
     private void showError(String s) {
         Label l = new Label(s);
-        l.setMaxWidth(SCROLLPANE_WIDTH);
+        l.prefWidthProperty().bind(errorDisp.widthProperty());
         l.setStyle(CSS_BORDER_STYLE);
         l.setWrapText(true);
         l.setOnMouseClicked(e -> clearError(l));

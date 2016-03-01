@@ -1,9 +1,11 @@
-package View;
+package View.CommHistory;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -20,14 +22,13 @@ import Observables.ObjectObservable;
  * @author Stephen
  */
 
-public class CommandHistoryDisplay implements CommHistory, Observer {
+public class CommandHistoryDisplay implements CommandHistoryInterface, Observer {
     private static final String SHOW_IN_BOX = "show in text box";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DISP = "DISP";
-    private final double SCROLLPANE_WIDTH = 430.00;
-    private final double SCROLLPANE_HEIGHT = 195.0;
+    private final double STARTING_HEIGHT = 195.0;
     private ScrollPane myScrollPane;
     private Label title;
     private List<Label> commandLabels;
@@ -45,20 +46,26 @@ public class CommandHistoryDisplay implements CommHistory, Observer {
         this.commands = new ArrayList<>();
         this.commandLabels = new ArrayList<>();
         this.myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
-        createVBox();
+        
         createScrollPane();
+        createVBox();
         createTitle();
+        myScrollPane.setContent(myCommHistory);
     }
 
     private void createVBox () {
         myCommHistory = new VBox();
-        myCommHistory.setPrefWidth(SCROLLPANE_WIDTH);
+        myCommHistory.prefWidthProperty().bind(myScrollPane.widthProperty());
+
     }
 
     private void createScrollPane () {
-        myScrollPane = new ScrollPane();
-        myScrollPane.setPrefSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
-        myScrollPane.setContent(myCommHistory);
+        myScrollPane = new ScrollPane(); 
+        myScrollPane.setMinViewportHeight(STARTING_HEIGHT);
+        myScrollPane.setPrefViewportHeight(STARTING_HEIGHT);
+        myScrollPane.setMaxHeight(STARTING_HEIGHT);
+        HBox.setHgrow(myScrollPane, Priority.ALWAYS);
+       
     }
 
     private void createTitle () {
@@ -71,7 +78,7 @@ public class CommandHistoryDisplay implements CommHistory, Observer {
         if (command.isEmpty()) return null;
         commands.add(command);
         Label l = new Label(command);
-        l.setPrefWidth(SCROLLPANE_WIDTH);
+        l.prefWidthProperty().bind(myScrollPane.widthProperty());
         l.setStyle(CSS_BLACK_BORDER);
         l.setWrapText(true);
         l.setOnMouseClicked(e -> labelClicked(l));

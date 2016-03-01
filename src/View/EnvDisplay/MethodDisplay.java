@@ -1,4 +1,4 @@
-package View;
+package View.EnvDisplay;
 
 import java.util.ResourceBundle;
 
@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class MethodDisplay extends DefinedObjectsDisplay {
@@ -28,13 +29,12 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 		
 		displayTitle = myResources.getString("methodDisplayTitle");
 		setDisplayTitle(displayTitle);
-		initDisplay();
+		updateEnvNode();
 	}
 
 	@Override
 	protected void updateDefinedObject(Label label) {
 		updater = new MethodUpdate(myResources, intCommand, parsingLanguage);
-		updater.updateMethod(label); // different from the method in this class
+		updater.updateEnv(label);
 	}
-
 }

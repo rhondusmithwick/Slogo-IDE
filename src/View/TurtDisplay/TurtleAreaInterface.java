@@ -1,4 +1,4 @@
-package View;
+package View.TurtDisplay;
 /**
  * This is an internal API for the view that sets a contract for the Turtles display area. It ensures that any class that creates and manages the turtle display area,
  * must have a method to set background color and a method to return the node upon which the turtle is drawing.
@@ -6,6 +6,7 @@ package View;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
+
 
 public interface TurtleAreaInterface {
 
