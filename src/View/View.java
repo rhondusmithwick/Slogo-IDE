@@ -22,11 +22,13 @@ public class View implements ViewInt {
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
     private final Dimension2D turtleDispDimension;
-    private final ObjectObservable<String> pLang, input, error, consoleInput, backgroundColor, intCommands, commHistory;
+    private final ObjectObservable<String> pLang, input, backgroundColor, intCommands, commHistory;
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
     private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
     private final SimpleStringProperty methods = new SimpleStringProperty(this, "methods");
+    private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
+    private final SimpleStringProperty consoleIn = new SimpleStringProperty(this, "consoleIn");
     private BorderPane UI;
     private Group root;
     private ToolBarInterface tBar;
@@ -46,8 +48,6 @@ public class View implements ViewInt {
         this.input = input;
         this.turtleDispDimension = turtleDispDimension;
         this.intCommands = new ObjectObservable<>();
-        this.error = new ObjectObservable<>();
-        this.consoleInput = new ObjectObservable<>();
         this.backgroundColor = new ObjectObservable<>();
         this.commHistory = new ObjectObservable<>();
         
@@ -97,7 +97,7 @@ public class View implements ViewInt {
         bottom = new HBox(BOTTOM_PADDING);
         errorDisplay = new ErrorDisplay(error);
         bottom.getChildren().add(errorDisplay.getErrorDisplay());
-        console = new Console(consoleInput);
+        console = new Console(consoleIn);
         bottom.getChildren().add(console.getConsole());
         commandHistory = new CommandHistoryDisplay(intCommands, commHistory);
         bottom.getChildren().add(commandHistory.getHistoryGraphic());
@@ -151,12 +151,8 @@ public class View implements ViewInt {
 
     @Override
     public List<SimpleStringProperty> getProperties() {
-        return Arrays.asList(image, penColor,variables, methods);
+        return Arrays.asList(image, penColor,variables, methods, error, consoleIn);
     }
     
-    @Override 
-    public List<ObjectObservable<String>> getObservables(){
-        return Arrays.asList(error, consoleInput);
-    }
 
 }

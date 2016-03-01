@@ -1,16 +1,15 @@
 package View;
 
-import java.util.Observable;
-import java.util.Observer;
+
 import java.util.ResourceBundle;
-import Observables.ObjectObservable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
-public class Console implements ConsoleInterface, Observer{
+public class Console implements ConsoleInterface{
 
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DEFAULT_LANGUAGE = "english";
@@ -26,12 +25,12 @@ public class Console implements ConsoleInterface, Observer{
     private Label contents;
     private Label title;
     private VBox box;
-    private ObjectObservable<String> consoleInput;
+    private SimpleStringProperty consoleInput;
 
 
-    public Console(ObjectObservable<String> consoleInput){
+    public Console(SimpleStringProperty consoleInput){
         this.consoleInput=consoleInput;
-        consoleInput.addObserver(this);
+        addListner();
         
         this.language = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
@@ -40,6 +39,13 @@ public class Console implements ConsoleInterface, Observer{
         box = new VBox();
         scroll.setContent(box);
         addTitle();
+    }
+
+
+    private void addListner () {
+        consoleInput.addListener((ov, oldVal, newVal) ->
+                                    addContents(newVal));
+        
     }
 
 
@@ -93,10 +99,5 @@ public class Console implements ConsoleInterface, Observer{
         return scroll;
     }
 
-    @Override
-    public void update (Observable o, Object arg) {
-        addContents(consoleInput.get());
-        
-    }
 
 }

@@ -1,16 +1,15 @@
 package View;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
-import Observables.ObjectObservable;
 
-public class ErrorDisplay implements ErrorDisplayInterface, Observer {
+
+public class ErrorDisplay implements ErrorDisplayInterface{
 
     private static final String CSS_BORDER_STYLE = "-fx-border-color: black;";
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
@@ -24,11 +23,11 @@ public class ErrorDisplay implements ErrorDisplayInterface, Observer {
     private ResourceBundle myResources;
     private VBox errorContain;
     private String language;
-    private ObjectObservable<String> error;
+    private SimpleStringProperty error;
     
-    public ErrorDisplay(ObjectObservable<String> error){
+    public ErrorDisplay(SimpleStringProperty error){
         this.error = error;
-        error.addObserver(this);
+        addListner();
         this.language = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
         setUpDisplay();
@@ -74,11 +73,10 @@ public class ErrorDisplay implements ErrorDisplayInterface, Observer {
     public Node getErrorDisplay() {
         return errorDisp;
     }
-
-    @Override
-    public void update (Observable o, Object arg1) {
-        showError(error.get());
-        
+    
+    private void addListner(){
+        error.addListener((ov, oldVal, newVal) -> 
+                            showError(newVal));
     }
 
 }

@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 
 import java.util.List;
-import Observables.ObjectObservable;
 
 /**
  * This is the external Interface for the View. It is the external API for displaying the results of SLOGO commands, as well as taking in the input SLOGO commands, and displaying
@@ -37,6 +36,5 @@ public interface ViewInt {
      */
     Group getInnerGroup();
 
-    List<ObjectObservable<String>> getObservables ();
 
 }

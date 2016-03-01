@@ -41,8 +41,8 @@ public class ToolBar implements ToolBarInterface {
     private static final int TB_WIDTH = 1000;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
-    private final ObjectObservable<String> language, error, bgColor;
-    private SimpleStringProperty image, penColor;
+    private final ObjectObservable<String> language, bgColor;
+    private SimpleStringProperty image, penColor, error;
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
@@ -50,7 +50,7 @@ public class ToolBar implements ToolBarInterface {
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
-    public ToolBar(ObjectObservable<String> language, ObjectObservable<String> error, ObjectObservable<String> bgColor, 
+    public ToolBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> bgColor, 
                    SimpleStringProperty image, SimpleStringProperty penColor) {
         hScreen = new HelpScreen();
         this.image=image;
@@ -172,6 +172,7 @@ public class ToolBar implements ToolBarInterface {
         try {
             String imagepath = file.toURI().toURL().toString();
             image.set(imagepath);
+
 
         } catch (MalformedURLException e) {
             error.set(myResources.getString("picError"));
