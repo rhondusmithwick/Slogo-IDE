@@ -8,12 +8,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class MethodDisplay implements EnvironmentDisplayInterface {
 
-    private static final int SCROLL_HEIGHT = 200;
-    private static final int SCROLL_WIDTH = 400;
+
+    private static final int STARTING_WIDTH = 400;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
     private static final String DEFAULT_LANGUAGE = "English";
@@ -35,10 +36,17 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
         this.methods=methods;
         this.displayLanguage = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + displayLanguage + DISP);
-        myScrollPane = new ScrollPane();
-        myScrollPane.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
+        setScrollPane();
         createCurrVDisp();
     }
+
+	private void setScrollPane() {
+		myScrollPane = new ScrollPane();
+        myScrollPane.setMinViewportWidth(STARTING_WIDTH);
+        myScrollPane.setPrefViewportWidth(STARTING_WIDTH);
+        myScrollPane.setMaxWidth(STARTING_WIDTH);
+        VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
+	}
 
     @Override
     public Node getEnvDisplay() {
@@ -48,13 +56,15 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
 
     private void createCurrVDisp () {
         vBox = new VBox();
+        vBox.prefWidthProperty().bind(myScrollPane.widthProperty());
         setTitle();
-        String methodsString = methods.get();
+        String methodsString = methods.get();	
         if(methodsString!=null){
             methodsArray = methodsString.split("\n");
 
             populateVBox();
         }
+
         myScrollPane.setContent(vBox);
 
     }
@@ -62,7 +72,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
     private void setTitle () {
         Label title= new Label(myResources.getString("methodDisplayTitle"));
         title.setAlignment(Pos.TOP_CENTER);
-        title.setPrefWidth(SCROLL_WIDTH);
+        title.prefWidthProperty().bind(myScrollPane.widthProperty());
         title.setStyle(CSS_BLACK_BORDER);
         vBox.getChildren().add(title);
     }
@@ -73,7 +83,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
             if(var.length()==0){
                 continue;
             }
-            l.setPrefWidth(SCROLL_WIDTH);
+            l.prefWidthProperty().bind(myScrollPane.widthProperty());
             l.setWrapText(true);
             l.setStyle(CSS_BLACK_BORDER);
             l.setOnMouseClicked(e->updateMethod(l));

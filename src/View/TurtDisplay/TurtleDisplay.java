@@ -14,8 +14,6 @@ import javafx.scene.shape.Rectangle;
 public class TurtleDisplay implements TurtleAreaInterface, Observer {
     private static final double SCROLL_BAR_INITIAL = .5;
 	private static final String DEFAULT_BACKGROUND_COLOR = "white";
-    private static final int SCROLL_WIDTH = 600;
-    private static final int SCROLL_HEIGHT = 450;
     private Rectangle background;
     private Group dispArea;
     private ScrollPane scroll;
@@ -35,11 +33,11 @@ public class TurtleDisplay implements TurtleAreaInterface, Observer {
 
     private void setScrollPane () {
         scroll = new ScrollPane();
-        scroll.setMaxHeight(SCROLL_HEIGHT);
-        scroll.setMaxWidth(SCROLL_WIDTH);
         scroll.setVvalue(SCROLL_BAR_INITIAL);
         scroll.setHvalue(SCROLL_BAR_INITIAL);
         scroll.setContent(dispArea);
+
+       
     }
 
     private void setBackground(String color) {

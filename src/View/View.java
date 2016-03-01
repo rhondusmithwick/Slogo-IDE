@@ -18,21 +18,28 @@ import View.TurtDisplay.TurtleAreaInterface;
 import View.TurtDisplay.TurtleDisplay;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class View implements ViewInt {
 
+    private static final Insets RIGHT_INSETS = new Insets(0, 10,5,5);
+    private static final Insets TURT_INSETS = new Insets(0,5,5, 5);
+    private static final Insets TBAR_INSETS = new Insets(10,0,10,10);
+    private static final int PADDING = 10;
+    private static final Insets BOTTOM_INSETS = new Insets(5,10,10,10);
+    private static final Insets LEFT_INSETS = new Insets(0,5,5,10);
     private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
-    private static final int BOTTOM_PADDING =20;
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
-    private final double EXECUTE_BUTTON_WIDTH = 200.0;
     private final Dimension2D turtleDispDimension;
     private final ObjectObservable<String> pLang, input, backgroundColor, intCommands, commHistory;
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
@@ -74,6 +81,11 @@ public class View implements ViewInt {
         root.getChildren().add(UI);
     }
 
+    @Override
+    public void bindSize (Scene scene) {
+        UI.prefHeightProperty().bind(scene.heightProperty());
+        UI.prefWidthProperty().bind(scene.widthProperty());
+    }
 
     private void createScene() {
         UI.setStyle(UI_BACKGROUND_COLOR);
@@ -96,37 +108,50 @@ public class View implements ViewInt {
 
 
     private void createLeftPane() {
-        left = new VBox();
+        left = new VBox(PADDING);
+        BorderPane.setMargin(left, LEFT_INSETS);
         vDisplay = new VariableDisplay(pLang, intCommands, variables);
         left.getChildren().add(vDisplay.getEnvDisplay());
         methodsDisplay = new MethodDisplay(pLang, intCommands, methods);
         left.getChildren().add(methodsDisplay.getEnvDisplay());
+        
     }
 
 
     private void createBottomPane() {
-        bottom = new HBox(BOTTOM_PADDING);
+        bottom = new HBox(PADDING);
+        BorderPane.setMargin(bottom, BOTTOM_INSETS);
         errorDisplay = new ErrorDisplay(error);
         bottom.getChildren().add(errorDisplay.getErrorDisplay());
+        
         console = new Console(consoleIn);
         bottom.getChildren().add(console.getConsole());
+        
         commandHistory = new CommandHistoryDisplay(intCommands, commHistory);
         bottom.getChildren().add(commandHistory.getHistoryGraphic());
+        
     }
 
 
     private void createToolBar() {
         tBar = new ToolBar(pLang, error, backgroundColor, image, penColor);
+        BorderPane.setMargin(tBar.getToolBarMembers(), TBAR_INSETS);
+        tBar.getToolBarMembers().prefWidthProperty().bind(UI.widthProperty());
+        
     }
 
 
     private void createTurtleDisplay() {
+    	
         turtDisp = new TurtleDisplay(backgroundColor, turtleDispDimension);
+        BorderPane.setMargin(turtDisp.getTurtlePane(), TURT_INSETS);
+        
 
     }
 
     private void createRightPane() {
         right = new VBox();
+        BorderPane.setMargin(right, RIGHT_INSETS);
         commandEntry = new CommandEntry(input, intCommands, commHistory);
         right.getChildren().add(commandEntry.getNode());
         createExecute();
@@ -135,8 +160,9 @@ public class View implements ViewInt {
 
     private void createExecute() {
         executeButton = new Button(EXECUTE_BUTTON_LABEL);
-        executeButton.setPrefSize(EXECUTE_BUTTON_WIDTH, EXECUTE_BUTTON_HEIGHT);
         executeButton.setOnAction(e -> processExecute());
+        executeButton.prefWidthProperty().bind(right.widthProperty());
+        executeButton.setPrefHeight(EXECUTE_BUTTON_HEIGHT);
         right.getChildren().add(executeButton);
 
 	}
@@ -164,6 +190,9 @@ public class View implements ViewInt {
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(image, penColor,variables, methods, error, consoleIn);
     }
+
+
+
     
 
 }
