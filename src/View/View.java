@@ -31,7 +31,6 @@ import java.util.List;
 public class View implements ViewInt {
 
     private static final int PADDING = 10;
-    private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     
@@ -63,8 +62,7 @@ public class View implements ViewInt {
         this.intCommands = new ObjectObservable<>();
         this.backgroundColor = new ObjectObservable<>();
         this.commHistory = new ObjectObservable<>();
-        
-       
+    
         createAppView();
     }
 
@@ -83,7 +81,7 @@ public class View implements ViewInt {
     }
 
     private void createScene() {
-        UI.setStyle(UI_BACKGROUND_COLOR);
+        UI.setStyle(Defaults.BACKGROUND_COLOR.getDefault());
         createTurtleDisplay();
         createToolBar();
         createBottomPane();

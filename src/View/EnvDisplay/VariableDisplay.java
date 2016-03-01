@@ -33,7 +33,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         this.pLang=pLang;
         this.dispLang = DEFAULT_LANGUAGE;
         this.internalCommand= internalCommand;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
+        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang);
         setScroll();
         
         createCurrVDisp();

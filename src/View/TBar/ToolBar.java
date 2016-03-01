@@ -1,6 +1,7 @@
 package View.TBar;
 
 import Observables.ObjectObservable;
+import View.Defaults;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,13 +33,10 @@ public class ToolBar implements ToolBarInterface {
     private static final String PNG_EXT = "*.png";
     private static final String PNG = "PNG";
     private static final char FILE_EXTENSION = '.';
-    private static final String LANGUAGE_LOCATION = "resources/languages";
-    private static final String JAVAFX_PAINT_CLASS = "javafx.scene.paint.Color";
-    private static final String LANGUAGE_PATH = "languages/";
-    private static final String DEFAULT_LANGUAGE = "English";
+
+  
     private static final double TB_SPACING = 10.0;
-    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
-    private static final String DISP = "disp";
+
     private final ObjectObservable<String> language, bgColor;
     private SimpleStringProperty image, penColor, error;
     private HBox container;
@@ -56,8 +54,8 @@ public class ToolBar implements ToolBarInterface {
         this.language = language;
         this.error = error;
         this.bgColor = bgColor;
-        this.dispLang = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
+        this.dispLang = Defaults.DISPLAY_LANG.getDefault();
+        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + dispLang);
         setHBox();
         createButtons();
         getLanguages();
@@ -98,7 +96,7 @@ public class ToolBar implements ToolBarInterface {
     }
 
     private void setLang() {
-        pLanguage = LANGUAGE_PATH + langBox.getSelectionModel().getSelectedItem();
+        pLanguage = Defaults.PARSELANG_LOC.getDefault() + langBox.getSelectionModel().getSelectedItem();
         language.set(pLanguage);
     }
 
@@ -119,7 +117,7 @@ public class ToolBar implements ToolBarInterface {
     private void getColors() {
         try{
             possColors = new ArrayList<>();
-            Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
+            Class colorClass = Class.forName(Defaults.FX_PAINT_CLASS.getDefault());
             Field[] fields = colorClass.getFields();
             for (Field field : fields) {
                 Object o = field.get(null);
@@ -136,7 +134,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void getLanguages() {
         parseLangs = new ArrayList<>();
-        File directory = new File(LANGUAGE_LOCATION);
+        File directory = new File(Defaults.PARSELANG_LOC.getDefault());
         File[] fList = directory.listFiles();
         for (File file : fList) {
             String name = file.getName();

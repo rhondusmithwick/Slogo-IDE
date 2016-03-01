@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
+import View.Defaults;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -23,12 +24,9 @@ public class CommandEntry implements CommandEntryInterface, Observer {
 
     private static final int SCROLL_TBOX_DIFF = 2;
 	private static final int TITLE_SPACE = 25;
-    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
-    private static final String DISP = "disp";
-    private static final String DEFAULT_LANGUAGE = "English";
+    private static final int STARTING_WIDTH = 200;
     private static final String NEW_LINE = "\n";
     private static final String SHOW_IN_BOX = "show in text box";
-    private static final int STARTING_WIDTH = 200;
     private final ObjectObservable<String> input, intCommands, commHistory;
 
 
@@ -40,8 +38,8 @@ public class CommandEntry implements CommandEntryInterface, Observer {
     private ResourceBundle myResources;
 
     public CommandEntry(ObjectObservable<String> input, ObjectObservable<String> intCommands, ObjectObservable<String> commHistory) {
-        this.dispLang = DEFAULT_LANGUAGE;
-        this.myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
+        this.dispLang = Defaults.DISPLAY_LANG.getDefault();
+        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + dispLang);
         this.input = input;
         this.commHistory = commHistory;
         this.intCommands = intCommands;

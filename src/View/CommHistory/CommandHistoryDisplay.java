@@ -14,6 +14,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
+import View.Defaults;
 
 /**
  * This class implements the CommHistory interface and allows any previously executed commands
@@ -23,11 +24,6 @@ import Observables.ObjectObservable;
  */
 
 public class CommandHistoryDisplay implements CommandHistoryInterface, Observer {
-    private static final String SHOW_IN_BOX = "show in text box";
-    private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
-    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
-    private static final String DEFAULT_LANGUAGE = "english";
-    private static final String DISP = "DISP";
     private final double STARTING_HEIGHT = 195.0;
     private ScrollPane myScrollPane;
     private Label title;
@@ -39,13 +35,13 @@ public class CommandHistoryDisplay implements CommandHistoryInterface, Observer 
     private ObjectObservable<String> intCommand, commHistory;
 
     public CommandHistoryDisplay(ObjectObservable<String> intCommand, ObjectObservable<String> commHistory) {
-        this.language = DEFAULT_LANGUAGE;
+        this.language = Defaults.DISPLAY_LANG.getDefault();
         this.intCommand = intCommand;
         this.commHistory=commHistory;
         commHistory.addObserver(this);
         this.commands = new ArrayList<>();
         this.commandLabels = new ArrayList<>();
-        this.myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + language);
         
         createScrollPane();
         createVBox();
@@ -79,7 +75,7 @@ public class CommandHistoryDisplay implements CommandHistoryInterface, Observer 
         commands.add(command);
         Label l = new Label(command);
         l.prefWidthProperty().bind(myScrollPane.widthProperty());
-        l.setStyle(CSS_BLACK_BORDER);
+        l.setStyle(Defaults.BORDER_COLOR.getDefault() );
         l.setWrapText(true);
         l.setOnMouseClicked(e -> labelClicked(l));
         commandLabels.add(l);
@@ -88,7 +84,7 @@ public class CommandHistoryDisplay implements CommandHistoryInterface, Observer 
     }
 
     private void labelClicked(Label l) {
-        String command = SHOW_IN_BOX+l.getText();
+        String command = Defaults.COMMAND_TO_TEXT_BOX.getDefault()+l.getText();
         intCommand.set(command);
         
     }

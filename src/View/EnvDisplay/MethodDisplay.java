@@ -35,7 +35,7 @@ public class MethodDisplay implements EnvironmentDisplayInterface {
         this.parsingLanguage = pLang;
         this.methods=methods;
         this.displayLanguage = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + displayLanguage + DISP);
+        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + displayLanguage);
         setScrollPane();
         createCurrVDisp();
     }
