@@ -1,4 +1,4 @@
-package View;
+package View.CommEntry;
 
 
 import javafx.scene.Node;

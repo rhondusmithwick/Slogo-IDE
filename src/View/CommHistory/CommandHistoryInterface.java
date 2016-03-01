@@ -1,4 +1,4 @@
-package View;
+package View.CommHistory;
 
 import javafx.scene.Node;
 
@@ -10,7 +10,7 @@ import javafx.scene.Node;
  *
  * @author Cali
  */
-public interface CommHistory {
+public interface CommandHistoryInterface {
 
 
     /**

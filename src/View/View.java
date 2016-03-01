@@ -1,6 +1,21 @@
 package View;
 
 import Observables.ObjectObservable;
+import View.CommEntry.CommandEntry;
+import View.CommEntry.CommandEntryInterface;
+import View.CommHistory.CommandHistoryDisplay;
+import View.CommHistory.CommandHistoryInterface;
+import View.Cons.Console;
+import View.Cons.ConsoleInterface;
+import View.EnvDisplay.EnvironmentDisplayInterface;
+import View.EnvDisplay.MethodDisplay;
+import View.EnvDisplay.VariableDisplay;
+import View.Error.ErrorDisplay;
+import View.Error.ErrorDisplayInterface;
+import View.TBar.ToolBar;
+import View.TBar.ToolBarInterface;
+import View.TurtDisplay.TurtleAreaInterface;
+import View.TurtDisplay.TurtleDisplay;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
@@ -31,7 +46,7 @@ public class View implements ViewInt {
     private ToolBarInterface tBar;
     private Button executeButton;
     private TurtleAreaInterface turtDisp;
-    private CommHistory commandHistory;
+    private CommandHistoryInterface commandHistory;
     private CommandEntryInterface commandEntry;
     private ErrorDisplayInterface errorDisplay;
     private EnvironmentDisplayInterface vDisplay, methodsDisplay;

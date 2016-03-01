@@ -1,4 +1,4 @@
-package View;
+package View.Error;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
