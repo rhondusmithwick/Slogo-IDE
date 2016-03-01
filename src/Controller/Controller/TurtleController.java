@@ -10,6 +10,7 @@ import Model.Turtle.Turtle;
 import Observables.MapObservable;
 import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.concurrent.Task;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 
@@ -62,7 +63,14 @@ public class TurtleController implements Controller, Observer {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
-        new Thread(expressionTree::executeAll).start();
+        Task task = new Task<>() {
+            @Override
+            public Void call() {
+                expressionTree.executeAll();
+                return null;
+            }
+        };
+        new Thread(task).start();
         variables.modifyIfShould();
     }
 

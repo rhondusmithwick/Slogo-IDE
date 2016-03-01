@@ -30,8 +30,8 @@ abstract class Movement extends TurtleCommandNode {
         Turtle myTurtle = getTurtle();
         double distance = getChildren().get(0).getValue();
         Line penLine = new Line();
-        Platform.runLater(() -> myTurtle.getGroup().getChildren().add(penLine));
-
+        myTurtle.getGroup().getChildren().add(penLine);
+//        Platform.runLater(() -> myTurtle.getGroup().getChildren().add(penLine));
         pointToMoveTo = getPointToMoveTo(distance, direction);
         pointToMoveTo = getPointToMoveTo(distance, direction);
         modifyPenLine();
