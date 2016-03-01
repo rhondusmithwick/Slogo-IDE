@@ -29,11 +29,15 @@ public class ExpressionTree {
     private final List<TreeNode> rootList;
 
     private final MapObservable<String, TreeNode> variables;
+    private final MapObservable<String, TreeNode> definedCommands;
+
     private final Turtle myTurtle;
 
-    public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, Queue<Entry<String, String>> parsedText) {
+    public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, MapObservable<String, TreeNode> definedCommands,
+                          Queue<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
         this.variables = variables;
+        this.definedCommands = definedCommands;
         this.parsedText = parsedText;
         rootList = createRootList();
     }
@@ -141,11 +145,20 @@ public class ExpressionTree {
             createSubTree(n);
         }
     }
-
+  
     private void makeRepeat(TreeNode n) {
         if (n instanceof Repeat) {
             TreeNode numTimes = createRoot();
             n.addChild(numTimes);
+            List<TreeNode> nRoots = getComamndsList();
+            nRoots.stream().forEach(n::addChild);
+        }
+        System.out.println(n);
+    }
+
+    private List<TreeNode> getComamndsList() {
+        List<TreeNode> myRoots = new LinkedList<>();
+        if (parsedText.peek().getKey().equals("ListStart")) {
             parsedText.poll();
             while (true) {
                 if (parsedText.peek().getKey().equals("ListEnd")) {
@@ -153,9 +166,9 @@ public class ExpressionTree {
                     break;
                 }
                 TreeNode root = createRoot();
-                n.addChild(root);
+                myRoots.add(root);
             }
         }
-        System.out.println(n);
+        return myRoots;
     }
 }

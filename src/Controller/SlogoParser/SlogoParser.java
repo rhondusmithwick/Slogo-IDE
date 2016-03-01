@@ -15,7 +15,6 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-
 public class SlogoParser {
 
     private final Map<String, Pattern> mySymbols;
