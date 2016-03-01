@@ -2,6 +2,7 @@ package View.EnvDisplay;
 
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
+import View.Defaults;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -21,10 +22,6 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 
 	private static final int SCROLL_HEIGHT = 200;
 	private static final int SCROLL_WIDTH = 400;
-	private static final String DEFAULT_LOCATION = "resources/guiStrings/";
-	private static final String DISP = "disp";
-	private static final String DEFAULT_LANGUAGE = "English";
-	private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
 
 	private SimpleStringProperty definedObjects;
 	private String displayLanguage;
@@ -41,8 +38,8 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 		this.intCommand = intCommand;
 		this.parsingLanguage = pLang;
 		this.definedObjects = definedObjects;
-		this.displayLanguage = DEFAULT_LANGUAGE;
-		myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + displayLanguage + DISP);
+		this.displayLanguage = Defaults.DISPLAY_LANG.getDefault();
+		myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + displayLanguage);
 		myScrollPane = new ScrollPane();
 		myScrollPane.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
 	}
@@ -74,7 +71,7 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 		Label title = new Label(displayTitle); 
 		title.setAlignment(Pos.TOP_CENTER);
 		title.setPrefWidth(SCROLL_WIDTH);
-		title.setStyle(CSS_BLACK_BORDER);
+		title.setStyle(Defaults.BORDER_COLOR.getDefault());
 		vBox.getChildren().add(title);
 	}
 
@@ -84,7 +81,7 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 			if (definedObject.length() == 0)
 				continue;
 			label.setPrefWidth(SCROLL_WIDTH);
-			label.setStyle(CSS_BLACK_BORDER);
+			label.setStyle(Defaults.BORDER_COLOR.getDefault());
 			label.setWrapText(true);
 			label.setOnMouseClicked(e -> updateDefinedObject(label));
 			vBox.getChildren().add(label);

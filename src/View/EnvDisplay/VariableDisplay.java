@@ -2,6 +2,7 @@ package View.EnvDisplay;
 
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
+import View.Defaults;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -14,10 +15,7 @@ import javafx.scene.layout.VBox;
 public class VariableDisplay implements EnvironmentDisplayInterface {
     
     private static final int STARTING_WIDTH = 400;
-    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
-    private static final String DISP = "disp";
-    private static final String DEFAULT_LANGUAGE = "English";
-    private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
+
     private EnvUpdate updater;
     private String dispLang;
     private ResourceBundle myResources;
@@ -31,9 +29,9 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
                            SimpleStringProperty variables){
         this.variables=variables;
         this.pLang=pLang;
-        this.dispLang = DEFAULT_LANGUAGE;
+        this.dispLang = Defaults.DISPLAY_LANG.getDefault();
         this.internalCommand= internalCommand;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang);
+        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC + dispLang);
         setScroll();
         
         createCurrVDisp();
@@ -69,7 +67,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         Label title= new Label(myResources.getString("varTitle"));
         title.setAlignment(Pos.TOP_CENTER);
         title.prefWidthProperty().bind(scroll.widthProperty());
-        title.setStyle(CSS_BLACK_BORDER);
+        title.setStyle(Defaults.BORDER_COLOR.getDefault());
         vBox.getChildren().add(title);
         
     }
@@ -82,7 +80,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
             }
             l.prefWidthProperty().bind(scroll.widthProperty());
             l.setWrapText(true);
-            l.setStyle(CSS_BLACK_BORDER);
+            l.setStyle(Defaults.BORDER_COLOR.getDefault());
             l.setOnMouseClicked(e->updateVariable(l));
             vBox.getChildren().add(l);
         }
