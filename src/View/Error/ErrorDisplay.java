@@ -10,13 +10,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.util.ResourceBundle;
 
+import View.Defaults;
+
 
 public class ErrorDisplay implements ErrorDisplayInterface{
 
-    private static final String CSS_BORDER_STYLE = "-fx-border-color: black;";
-    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
-    private static final String DEFAULT_LANGUAGE = "english";
-    private static final String DISP = "disp";
     private static final int STARTING_HEIGHT = 195;
     private ScrollPane errorDisp;
     private Label title;
@@ -28,8 +26,8 @@ public class ErrorDisplay implements ErrorDisplayInterface{
     public ErrorDisplay(SimpleStringProperty error){
         this.error = error;
         addListner();
-        this.language = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        this.language = Defaults.DISPLAY_LANG.getDefault();
+        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + language);
         setScrollPane();
         setVBox();
         setTitle();
@@ -55,14 +53,14 @@ public class ErrorDisplay implements ErrorDisplayInterface{
         title = new Label(myResources.getString("errorBTitle"));
         title.prefWidthProperty().bind(errorDisp.widthProperty());
         title.setAlignment(Pos.TOP_CENTER);
-        title.setStyle(CSS_BORDER_STYLE);
+        title.setStyle(Defaults.BORDER_COLOR.getDefault());
         errorContain.getChildren().add(title);
     }
 
     private void showError(String s) {
         Label l = new Label(s);
         l.prefWidthProperty().bind(errorDisp.widthProperty());
-        l.setStyle(CSS_BORDER_STYLE);
+        l.setStyle(Defaults.BORDER_COLOR.getDefault());
         l.setWrapText(true);
         l.setOnMouseClicked(e -> clearError(l));
         errorContain.getChildren().add(l);

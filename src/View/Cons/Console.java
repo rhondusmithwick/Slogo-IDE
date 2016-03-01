@@ -2,6 +2,8 @@ package View.Cons;
 
 
 import java.util.ResourceBundle;
+
+import View.Defaults;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -12,13 +14,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class Console implements ConsoleInterface{
-
-    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
-    private static final String DEFAULT_LANGUAGE = "english";
-    private static final String CSS_BORDER_STYLE = "-fx-border-color: black;";
+	
     private static final String NEW_LINE = "\n";
-    private static final String DISP = "disp";
-
     private static final int STARTING_HEIGHT = 195;
 
     private String language;
@@ -34,8 +31,8 @@ public class Console implements ConsoleInterface{
         this.consoleInput=consoleInput;
         addListner();
         
-        this.language = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        this.language = Defaults.DISPLAY_LANG.getDefault();
+        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + language);
         setScroll();
         
         box = new VBox();
@@ -69,7 +66,7 @@ public class Console implements ConsoleInterface{
     private Label createLabel(String text){
         Label label = new Label(text);
         label.setAlignment(Pos.TOP_CENTER);
-        label.setStyle(CSS_BORDER_STYLE);
+        label.setStyle(Defaults.BORDER_COLOR.getDefault());
         label.prefWidthProperty().bind(scroll.widthProperty());
         label.setWrapText(true);
         return label;
