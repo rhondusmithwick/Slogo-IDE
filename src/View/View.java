@@ -16,8 +16,6 @@ import java.util.List;
 
 public class View implements ViewInt {
 
-
-
     private static final Insets RIGHT_INSETS = new Insets(0, 10,5,5);
     private static final Insets TURT_INSETS = new Insets(0,5,5, 5);
     private static final Insets TBAR_INSETS = new Insets(0,0,0,0);
