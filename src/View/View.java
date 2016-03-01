@@ -1,6 +1,11 @@
 package View;
 
 import Observables.ObjectObservable;
+import View.CommandEntry.CommandEntry;
+import View.CommandEntry.CommandEntryInterface;
+import View.EnvDisplay.EnvironmentDisplayInterface;
+import View.EnvDisplay.MethodDisplay;
+import View.EnvDisplay.VariableDisplay;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
