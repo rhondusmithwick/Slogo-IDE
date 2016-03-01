@@ -36,6 +36,8 @@ public class TurtleController implements Controller, Observer {
     private final Turtle myTurtle;
     private final ObjectObservable<String> language = new ObjectObservable<>();
     private final ObjectObservable<String> input = new ObjectObservable<>();
+    
+    private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
 
     private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
 
@@ -50,7 +52,6 @@ public class TurtleController implements Controller, Observer {
         group.getChildren().add(myTurtle.getGroup());
     }
 
-
     public ObjectObservable<String> getLanguage() {
         return language;
     }
@@ -63,10 +64,18 @@ public class TurtleController implements Controller, Observer {
     public void takeInput(String input) {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
-        ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, parsedText);
-        expressionTree.executeAll();
-        variables.modifyIfShould();
-        new Thread(this::runActions).start();
+        if (parsedText == null) {
+        	error.set("Command not recognized");
+        } else {
+        	try {
+        		ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, parsedText);        		
+        		expressionTree.executeAll();
+        		variables.modifyIfShould();
+        		new Thread(this::runActions).start();
+        	} catch (Exception es) {
+        		error.set("Exception in command argument");
+        	}
+        }
     }
 
     private void runActions() {
@@ -79,7 +88,6 @@ public class TurtleController implements Controller, Observer {
             myTurtle.clearActions();
         }
     }
-
 
     private void runAction(TurtleAction action) {
         new Thread(action).start();
@@ -115,10 +123,9 @@ public class TurtleController implements Controller, Observer {
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
+        		error,
                 myTurtle.getTurtleProperties().imageProperty(),
                 myTurtle.getTurtleProperties().penColorProperty(),
                 variables.getStringProperty());
     }
-
-
 }
