@@ -65,10 +65,14 @@ public class TurtleController implements Controller, Observer {
         if (parsedText == null) {
         	error.set("Command not recognized");
         } else {
-        	ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
-        	expressionTree.executeAll();
-        	variables.modifyIfShould();
-        	new Thread(this::runActions).start();
+        	try {
+        		ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
+        		expressionTree.executeAll();
+        		variables.modifyIfShould();
+        		new Thread(this::runActions).start();
+        	} catch (Exception es) {
+        		error.set("Exception in command argument");
+        	}
         }
     }
 
@@ -82,7 +86,6 @@ public class TurtleController implements Controller, Observer {
             myTurtle.clearActions();
         }
     }
-
 
     private void runAction(TurtleAction action) {
         new Thread(action).start();
