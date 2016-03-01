@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,13 +15,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ToolBar implements ToolBarInterface {
@@ -44,41 +41,40 @@ public class ToolBar implements ToolBarInterface {
     private static final int TB_WIDTH = 1000;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
-
-    private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
-    private final ObjectObservable<String> language;
-    private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
+    private final ObjectObservable<String> language, bgColor;
+    private SimpleStringProperty image, penColor, error;
     private HBox container;
     private HelpScreen hScreen;
     private ResourceBundle myResources;
     private String dispLang, bColor, pLanguage, pColor;
-    private TurtleAreaInterface tDisp;
-    private ErrorDisplayInterface eDisp;
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
 
-    public ToolBar(ObjectObservable<String> language) {
+    public ToolBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> bgColor, 
+                   SimpleStringProperty image, SimpleStringProperty penColor) {
+        hScreen = new HelpScreen();
+        this.image=image;
+        this.penColor=penColor;
         this.language = language;
+        this.error = error;
+        this.bgColor = bgColor;
         this.dispLang = DEFAULT_LANGUAGE;
+        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
+        setHBox();
+        createButtons();
+        getLanguages();
+        getColors();
+        createComboBoxes();
+    }
+
+
+
+    private void setHBox () {
         container = new HBox();
         container.setPrefWidth(TB_WIDTH);
         container.setPrefHeight(TB_HEIGHT);
         container.setAlignment(Pos.CENTER);
         container.setSpacing(TB_SPACING);
-        hScreen = new HelpScreen();
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
-    }
-
-    @Override
-    public void createToolBarMembers() {
-        createButtons();
-        getLanguages();
-        try {
-            getColors();
-        } catch (Exception e) {
-            eDisp.showError(myResources.getString("colorError"));
-        }
-        createComboBoxes();
     }
 
     @Override
@@ -102,7 +98,7 @@ public class ToolBar implements ToolBarInterface {
 
     private void setBackground() {
         bColor = bColorBox.getSelectionModel().getSelectedItem();
-        tDisp.setBackground(bColor.toLowerCase());
+        bgColor.set(bColor.toLowerCase());
     }
 
     private void setLang() {
@@ -123,17 +119,21 @@ public class ToolBar implements ToolBarInterface {
     }
 
     @SuppressWarnings("rawtypes")
-    private void getColors() throws Exception {
-        possColors = new ArrayList<>();
-
-        Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
-        Field[] fields = colorClass.getFields();
-        for (Field field : fields) {
-            Object o = field.get(null);
-            if (o instanceof Color) {
-                possColors.add(field.getName());
+    private void getColors() {
+        try{
+            possColors = new ArrayList<>();
+            Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
+            Field[] fields = colorClass.getFields();
+            for (Field field : fields) {
+                Object o = field.get(null);
+                if (o instanceof Color) {
+                    possColors.add(field.getName());
+                }
             }
+        }catch (Exception e) {
+            error.set(myResources.getString("colorError"));
         }
+
     }
 
     private void getLanguages() {
@@ -173,8 +173,9 @@ public class ToolBar implements ToolBarInterface {
             String imagepath = file.toURI().toURL().toString();
             image.set(imagepath);
 
+
         } catch (MalformedURLException e) {
-            eDisp.showError(myResources.getString("picError"));
+            error.set(myResources.getString("picError"));
         }
     }
 
@@ -184,30 +185,11 @@ public class ToolBar implements ToolBarInterface {
 
         fChoose.setTitle(myResources.getString("getFile"));
         fChoose.getExtensionFilters().addAll(new ExtensionFilter(PNG, PNG_EXT),
-                new ExtensionFilter(JPG, JPG_EXT), new ExtensionFilter(GIF, GIF_EXT));
+                                             new ExtensionFilter(JPG, JPG_EXT), new ExtensionFilter(GIF, GIF_EXT));
         s.show();
         s.hide();
     }
 
-    @Override
-    public void setTDisp(TurtleAreaInterface tDisp) {
-        this.tDisp = tDisp;
-    }
-
-    @Override
-    public void setEDisp(ErrorDisplayInterface errorDisp) {
-        this.eDisp = errorDisp;
-    }
-
-
-    @Override
-    public List<SimpleStringProperty> getProperties() {
-        return Arrays.asList(image, penColor);
-    }
-    
-    public ObjectObservable getParseLang(){
-        return language;
-    }
 
 
 }

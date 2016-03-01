@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -8,7 +8,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
+import Observables.ObjectObservable;
 
 /**
  * This class implements the CommHistory interface and allows any previously executed commands
@@ -17,14 +20,13 @@ import java.util.ResourceBundle;
  * @author Stephen
  */
 
-public class CommandHistoryDisplay implements CommHistory {
-
-    private static final String NEW_LINE = "\n";
+public class CommandHistoryDisplay implements CommHistory, Observer {
+    private static final String SHOW_IN_BOX = "show in text box";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DEFAULT_LANGUAGE = "english";
     private static final String DISP = "DISP";
-    private final double SCROLLPANE_WIDTH = 417.00;
+    private final double SCROLLPANE_WIDTH = 430.00;
     private final double SCROLLPANE_HEIGHT = 195.0;
     private ScrollPane myScrollPane;
     private Label title;
@@ -33,37 +35,42 @@ public class CommandHistoryDisplay implements CommHistory {
     private VBox myCommHistory;
     private ResourceBundle myResources;
     private String language;
-    private CommandEntryInterface commEntry;
+    private ObjectObservable<String> intCommand, commHistory;
 
-    public CommandHistoryDisplay() {
+    public CommandHistoryDisplay(ObjectObservable<String> intCommand, ObjectObservable<String> commHistory) {
         this.language = DEFAULT_LANGUAGE;
-        commands = new ArrayList<>();
-        commandLabels = new ArrayList<>();
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        this.intCommand = intCommand;
+        this.commHistory=commHistory;
+        commHistory.addObserver(this);
+        this.commands = new ArrayList<>();
+        this.commandLabels = new ArrayList<>();
+        this.myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        createVBox();
+        createScrollPane();
+        createTitle();
     }
 
-    @Override
-    public void createCommHistory() {
+    private void createVBox () {
         myCommHistory = new VBox();
         myCommHistory.setPrefWidth(SCROLLPANE_WIDTH);
+    }
+
+    private void createScrollPane () {
         myScrollPane = new ScrollPane();
         myScrollPane.setPrefSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
         myScrollPane.setContent(myCommHistory);
+    }
+
+    private void createTitle () {
         title = addCommand(myResources.getString("commBTitle"));
         title.setAlignment(Pos.TOP_CENTER);
         title.setOnMouseClicked(null);
     }
 
-    @Override
-    public void setCommEntry(CommandEntryInterface commEntry) {
-        this.commEntry = commEntry;
-    }
-
-    @Override
-    public Label addCommand(String command) {
+    private Label addCommand(String command) {
         if (command.isEmpty()) return null;
         commands.add(command);
-        Label l = new Label(command + NEW_LINE);
+        Label l = new Label(command);
         l.setPrefWidth(SCROLLPANE_WIDTH);
         l.setStyle(CSS_BLACK_BORDER);
         l.setWrapText(true);
@@ -74,7 +81,8 @@ public class CommandHistoryDisplay implements CommHistory {
     }
 
     private void labelClicked(Label l) {
-        commEntry.passInternalCommands(l.getText(), true);
+        String command = SHOW_IN_BOX+l.getText();
+        intCommand.set(command);
         
     }
 
@@ -84,8 +92,11 @@ public class CommandHistoryDisplay implements CommHistory {
     }
 
     @Override
-    public List<String> getCommands() {
-        return commands;
+    public void update (Observable o, Object arg) {
+        
+        addCommand(commHistory.get());
+        
     }
+
 
 }

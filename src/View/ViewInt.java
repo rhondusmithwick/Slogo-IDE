@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
@@ -35,5 +35,6 @@ public interface ViewInt {
      * @return group that defines turtles area
      */
     Group getInnerGroup();
+
 
 }

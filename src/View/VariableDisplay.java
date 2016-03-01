@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
@@ -18,21 +18,25 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private static final String DISP = "disp";
     private static final String DEFAULT_LANGUAGE = "English";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
-
-    private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
     private VariableUpdate updater;
     private String dispLang;
     private ResourceBundle myResources;
     private ScrollPane scroll;
     private VBox vBox;
     private String[] vArray;
-    private ObjectObservable pLang;
-    private CommandEntryInterface cEnt;
+    private ObjectObservable<String> pLang, internalCommand;
+    private SimpleStringProperty variables;
     
-    public VariableDisplay(){
-        
+    public VariableDisplay(ObjectObservable<String> pLang, ObjectObservable<String> internalCommand, 
+                           SimpleStringProperty variables){
+        this.variables=variables;
+        this.pLang=pLang;
         this.dispLang = DEFAULT_LANGUAGE;
+        this.internalCommand= internalCommand;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
+        scroll = new ScrollPane();
+        scroll.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
+        createCurrVDisp();
         
     }
     
@@ -41,21 +45,11 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         return scroll;
     }
 
-    @Override
-    public void createEnvNode () {
-        scroll = new ScrollPane();
-        scroll.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
-        createCurrVDisp();
-        
-
-    }
-
     private void createCurrVDisp () {
         vBox = new VBox();
         setTitle();
         String vString = variables.get();
         if(vString!=null){
-            
             vArray = vString.split("\n");
             populateVBox();
         }
@@ -75,6 +69,9 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private void populateVBox () {
         for(String var:vArray){
             Label l = new Label(var);
+            if(var.length()==0){
+            	continue;
+            }
             l.setPrefWidth(SCROLL_WIDTH);
             l.setWrapText(true);
             l.setStyle(CSS_BLACK_BORDER);
@@ -86,7 +83,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     
     private void updateVariable (Label l) {
-        updater = new VariableUpdate(myResources, cEnt, pLang);
+        updater = new VariableUpdate(myResources, internalCommand, pLang);
         updater.updateVariable(l);
         
     }
@@ -97,25 +94,6 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     }
 
-    @Override
-    public SimpleStringProperty getEnvProperty () {
-        return variables;
-    }
     
-    @Override
-    public void setPLang(ObjectObservable str){
-        this.pLang=str;
-    }
-    
-    @Override
-    public void setCommEntry(CommandEntryInterface cEnt){
-        this.cEnt= cEnt;
-    }
-    
-    
-    
-
-
-
 
 }

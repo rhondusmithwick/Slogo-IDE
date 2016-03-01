@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
@@ -24,7 +24,7 @@ public class VariableUpdate {
     
     private VBox vBox;
     private ResourceBundle myResources, myCommands;
-    private CommandEntryInterface cEnt;
+    private ObjectObservable<String> intCommand;
     private Stage s;
     private Group root;
     private Scene scene;
@@ -33,10 +33,10 @@ public class VariableUpdate {
     private Button setB;
     private Label label;
 
-    public VariableUpdate (ResourceBundle myResources, CommandEntryInterface cEnt, ObjectObservable pLang) {
+    public VariableUpdate (ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang) {
         this.myResources = myResources;
         myCommands = ResourceBundle.getBundle(LANGUAGE_LOCATION + pLang.get());
-        this.cEnt = cEnt;
+        this.intCommand=intCommand;
         s = new Stage();
         root = new Group();
         scene = new Scene(root, WIDTH, HEIGHT);
@@ -56,7 +56,7 @@ public class VariableUpdate {
     }
 
     private void createSetButton () {
-        setB = new Button(myResources.getString("varButton"));
+        setB = new Button(myResources.getString("upButton"));
         setB.setAlignment(Pos.TOP_CENTER);
         setB.setOnAction(e->setNewValue());
         
@@ -68,14 +68,17 @@ public class VariableUpdate {
             return;
         }
         String toPass = createMakeCommand(newVal);
-        cEnt.passInternalCommands(toPass, false);
-        label.setText(variable + SPACE + newVal);
+        intCommand.set(toPass);
         s.close();
+        label.setText(null);
+        label.setText(variable + SPACE + newVal);
+        
+        
         
         
     }
 
-    private String createMakeCommand (String newVal) {
+    public String createMakeCommand (String newVal) {
         String posCommands = myCommands.getString("MakeVariable");
         String command;
         int multCommands = posCommands.indexOf(SPLITTER);

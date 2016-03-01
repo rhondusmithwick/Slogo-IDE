@@ -1,7 +1,6 @@
-package view;
+package View;
 
-import Observables.ObjectObservable;
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.scene.Node;
 
 /**
@@ -21,21 +20,12 @@ public interface EnvironmentDisplayInterface {
 
 
     /**
-     * creates the graphical node to show the user set methods or variables
-     */
-    void createEnvNode();
-
-
-    /**
      * Updates the graphical node showing user set methods or variables to reflect the current
      * state of these variables in the backend.
      */
     void updateEnvNode();
     
-    SimpleStringProperty getEnvProperty();
-
-    void setPLang(ObjectObservable str);
 
 
-    void setCommEntry (CommandEntryInterface cEnt);
+
 }

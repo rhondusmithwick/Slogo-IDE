@@ -43,11 +43,9 @@ public class MapObservable<K, V> extends Observable {
     private void modifyString() {
         StringBuilder sb = new StringBuilder();
         map.entrySet().parallelStream().forEach(e ->
-                sb.append(e.getKey())
-                        .append(" ")
-                        .append(e.getValue())
-                        .append("\n")
+                sb.append(e.getKey() + " " + e.getValue() + "\n")
         );
+        
         myString.set(sb.toString());
     }
 

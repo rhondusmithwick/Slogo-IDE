@@ -2,12 +2,12 @@ package Main;
 
 import Controller.Controller.Controller;
 import Controller.Controller.TurtleController;
+import View.View;
+import View.ViewInt;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import view.View;
-import view.ViewInt;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,9 +19,9 @@ import java.util.function.Predicate;
  * @author Rhondu Smithwick
  */
 class Slogo {
-    private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1200, 700);
+    private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1200, 718);
 
-    private static final Dimension2D turtleDispDimension = new Dimension2D(600, 450);
+    private static final Dimension2D turtleDispDimension = new Dimension2D(3000, 3000);
 
     private final Controller controller = new TurtleController(turtleDispDimension);
 
