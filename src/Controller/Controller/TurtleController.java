@@ -39,6 +39,8 @@ public class TurtleController implements Controller, Observer {
 
     private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
 
+    private final MapObservable<String, TreeNode> definedCommands = new MapObservable<>("definedComamnds");
+
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
         language.addObserver(this);
@@ -61,7 +63,7 @@ public class TurtleController implements Controller, Observer {
     public void takeInput(String input) {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
-        ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
+        ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, parsedText);
         expressionTree.executeAll();
         variables.modifyIfShould();
         new Thread(this::runActions).start();

@@ -1,5 +1,6 @@
 package Controller.SlogoParser;
 
+import Model.Repeat.Repeat;
 import Observables.MapObservable;
 import Model.TreeNode.ConstantNode;
 import Model.TreeNode.TreeNode;
@@ -28,20 +29,26 @@ public class ExpressionTree {
     private final List<TreeNode> rootList;
 
     private final MapObservable<String, TreeNode> variables;
+    private final MapObservable<String, TreeNode> definedCommands;
+
     private final Turtle myTurtle;
 
-    public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, Queue<Entry<String, String>> parsedText) {
+    public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, MapObservable<String, TreeNode> definedCommands,
+                          Queue<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
         this.variables = variables;
+        this.definedCommands = definedCommands;
         this.parsedText = parsedText;
         rootList = createRootList();
     }
 
     public void executeAll() {
+        System.out.println(rootList);
         rootList.stream().forEach(TreeNode::getValue);
     }
 
     private List<TreeNode> createRootList() {
+        System.out.println(parsedText);
         List<TreeNode> rootList = new LinkedList<>();
         while (inBounds()) {
             TreeNode root = createRoot();
@@ -98,6 +105,7 @@ public class ExpressionTree {
         }
         addTurtleIfShould(n);
         addVariableIfShould(n);
+        makeRepeat(n);
         return n;
     }
 
@@ -138,5 +146,29 @@ public class ExpressionTree {
         }
     }
 
+    private void makeRepeat(TreeNode n) {
+        if (n instanceof Repeat) {
+            TreeNode numTimes = createRoot();
+            n.addChild(numTimes);
+            List<TreeNode> nRoots = getComamndsList();
+            nRoots.stream().forEach(n::addChild);
+        }
+        System.out.println(n);
+    }
 
+    private List<TreeNode> getComamndsList() {
+        List<TreeNode> myRoots = new LinkedList<>();
+        if (parsedText.peek().getKey().equals("ListStart")) {
+            parsedText.poll();
+            while (true) {
+                if (parsedText.peek().getKey().equals("ListEnd")) {
+                    parsedText.poll();
+                    break;
+                }
+                TreeNode root = createRoot();
+                myRoots.add(root);
+            }
+        }
+        return myRoots;
+    }
 }
