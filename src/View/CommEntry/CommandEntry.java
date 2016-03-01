@@ -5,6 +5,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
 import View.Defaults;
+import View.Size;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -22,11 +23,6 @@ import javafx.scene.layout.VBox;
 
 public class CommandEntry implements CommandEntryInterface, Observer {
 
-    private static final int SCROLL_TBOX_DIFF = 2;
-	private static final int TITLE_SPACE = 25;
-    private static final int STARTING_WIDTH = 200;
-    private static final String NEW_LINE = "\n";
-    private static final String SHOW_IN_BOX = "show in text box";
     private final ObjectObservable<String> input, intCommands, commHistory;
 
 
@@ -55,16 +51,16 @@ public class CommandEntry implements CommandEntryInterface, Observer {
 
     private void setScrollPane () {
         myScrollPane = new ScrollPane();
-        myScrollPane.setMinViewportWidth(STARTING_WIDTH);
-        myScrollPane.setPrefViewportWidth(STARTING_WIDTH);
-        myScrollPane.setMaxWidth(STARTING_WIDTH);
+        myScrollPane.setMinViewportWidth(Size.RIGHT_WIDTH.getSize());
+        myScrollPane.setPrefViewportWidth(Size.RIGHT_WIDTH.getSize());
+        myScrollPane.setMaxWidth(Size.RIGHT_WIDTH.getSize());
         VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
     }
 
     private void createTextBox () {
         myEntryBox = new TextArea();
-        myEntryBox.prefHeightProperty().bind(myScrollPane.heightProperty().subtract(TITLE_SPACE));
-        myEntryBox.prefWidthProperty().bind(myScrollPane.widthProperty().subtract(SCROLL_TBOX_DIFF));
+        myEntryBox.prefHeightProperty().bind(myScrollPane.heightProperty().subtract(Size.COMMAND_TITLE.getSize()));
+        myEntryBox.prefWidthProperty().bind(myScrollPane.widthProperty().subtract(Size.COMM_ENTRY_SPACE.getSize()));
         container.getChildren().add(myEntryBox);
     }
 
@@ -88,8 +84,8 @@ public class CommandEntry implements CommandEntryInterface, Observer {
    private void passInternalCommands(String command, boolean showInTextBox) {
         if(showInTextBox){
             String curr = myEntryBox.getText();
-            if(!curr.endsWith(NEW_LINE) && !curr.equals("")){
-            	curr = curr + NEW_LINE + command;
+            if(!curr.endsWith("\n") && !curr.equals("")){
+            	curr = curr + "\n" + command;
             }else{
             	curr = curr + command;
             }
@@ -111,10 +107,10 @@ public class CommandEntry implements CommandEntryInterface, Observer {
     public void update (Observable o, Object arg) {
 
         String command = intCommands.get();
-        boolean show =command.startsWith(SHOW_IN_BOX);
+        boolean show =command.startsWith(Defaults.COMMAND_TO_TEXT_BOX.getDefault());
         if(show){
             
-            command = command.substring(SHOW_IN_BOX.length());
+            command = command.substring(Defaults.COMMAND_TO_TEXT_BOX.getDefault().length());
         }
         passInternalCommands(command, show);
         

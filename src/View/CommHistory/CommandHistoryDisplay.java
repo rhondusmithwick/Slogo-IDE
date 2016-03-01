@@ -15,6 +15,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
 import View.Defaults;
+import View.Size;
 
 /**
  * This class implements the CommHistory interface and allows any previously executed commands
@@ -24,7 +25,6 @@ import View.Defaults;
  */
 
 public class CommandHistoryDisplay implements CommandHistoryInterface, Observer {
-    private final double STARTING_HEIGHT = 195.0;
     private ScrollPane myScrollPane;
     private Label title;
     private List<Label> commandLabels;
@@ -57,9 +57,9 @@ public class CommandHistoryDisplay implements CommandHistoryInterface, Observer 
 
     private void createScrollPane () {
         myScrollPane = new ScrollPane(); 
-        myScrollPane.setMinViewportHeight(STARTING_HEIGHT);
-        myScrollPane.setPrefViewportHeight(STARTING_HEIGHT);
-        myScrollPane.setMaxHeight(STARTING_HEIGHT);
+        myScrollPane.setMinViewportHeight(Size.BOTTOM_HEIGHT.getSize());
+        myScrollPane.setPrefViewportHeight(Size.BOTTOM_HEIGHT.getSize());
+        myScrollPane.setMaxHeight(Size.BOTTOM_HEIGHT.getSize());
         HBox.setHgrow(myScrollPane, Priority.ALWAYS);
        
     }

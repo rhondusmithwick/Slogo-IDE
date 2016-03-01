@@ -4,6 +4,7 @@ package View.Cons;
 import java.util.ResourceBundle;
 
 import View.Defaults;
+import View.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -14,9 +15,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class Console implements ConsoleInterface{
-	
-    private static final String NEW_LINE = "\n";
-    private static final int STARTING_HEIGHT = 195;
+
 
     private String language;
     private ResourceBundle myResources;
@@ -44,9 +43,9 @@ public class Console implements ConsoleInterface{
 
     private void setScroll () {
         scroll = new ScrollPane();
-        scroll.setMinViewportHeight(STARTING_HEIGHT);
-        scroll.setPrefViewportHeight(STARTING_HEIGHT);
-        scroll.setMaxHeight(STARTING_HEIGHT);
+        scroll.setMinViewportHeight(Size.BOTTOM_HEIGHT.getSize());
+        scroll.setPrefViewportHeight(Size.BOTTOM_HEIGHT.getSize());
+        scroll.setMaxHeight(Size.BOTTOM_HEIGHT.getSize());
         HBox.setHgrow(scroll, Priority.ALWAYS);
     }
 
@@ -89,10 +88,10 @@ public class Console implements ConsoleInterface{
 
     private void createNew(String s) {
         String end;
-        if(s.endsWith(NEW_LINE)){
+        if(s.endsWith("\n")){
             end = "";
         }else{
-            end = NEW_LINE;
+            end = "\n";
         }
         contents = createLabel(s+end);
         contents.setOnMouseClicked(e->clearConsole());

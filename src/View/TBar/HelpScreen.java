@@ -8,11 +8,12 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
+import View.Size;
+
 public class HelpScreen {
 
 
-    private static final int HTML_HEIGHT = 600;
-    private static final int HTML_WIDTH = 800;
+
     private Scene myScene;
 
     public HelpScreen() {
@@ -24,8 +25,7 @@ public class HelpScreen {
         Group root;
         root = new Group();
         Stage stage = new Stage();
-        stage.setTitle("SLOGO Help");
-        myScene = new Scene(root, HTML_WIDTH, HTML_HEIGHT);
+        myScene = new Scene(root, Size.HTML_WIDTH.getSize(), Size.HTML_HEIGHT.getSize());
         stage.setScene(myScene);
         createHTMLViewer(root, htmlFile);
         stage.show();

@@ -27,13 +27,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class View implements ViewInt {
-
-    private static final int PADDING = 10;
-    private final String EXECUTE_BUTTON_LABEL = "Execute";
-    private final double EXECUTE_BUTTON_HEIGHT = 20.0;
-    
+	
     private final Dimension2D turtleDispDimension;
     private final ObjectObservable<String> pLang, input, backgroundColor, intCommands, commHistory;
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
@@ -43,6 +40,7 @@ public class View implements ViewInt {
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
     private final SimpleStringProperty consoleIn = new SimpleStringProperty(this, "consoleIn");
     private BorderPane UI;
+    private ResourceBundle myResources;
     private Group root;
     private ToolBarInterface tBar;
     private Button executeButton;
@@ -54,14 +52,17 @@ public class View implements ViewInt {
     private ConsoleInterface console;
     private HBox bottom;
     private VBox left, right;
+    private String dispLang;
 
     public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
         this.pLang = pLang;
         this.input = input;
+        this.dispLang = Defaults.DISPLAY_LANG.getDefault();
         this.turtleDispDimension = turtleDispDimension;
         this.intCommands = new ObjectObservable<>();
         this.backgroundColor = new ObjectObservable<>();
         this.commHistory = new ObjectObservable<>();
+        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + dispLang);
     
         createAppView();
     }
@@ -101,7 +102,7 @@ public class View implements ViewInt {
 
 
     private void createLeftPane() {
-        left = new VBox(PADDING);
+        left = new VBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(left, ViewInsets.LEFT.getInset());
         vDisplay = new VariableDisplay(pLang, intCommands, variables);
         left.getChildren().add(vDisplay.getEnvDisplay());
@@ -112,7 +113,7 @@ public class View implements ViewInt {
 
 
     private void createBottomPane() {
-        bottom = new HBox(PADDING);
+        bottom = new HBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
         errorDisplay = new ErrorDisplay(error);
         bottom.getChildren().add(errorDisplay.getErrorDisplay());
@@ -152,10 +153,10 @@ public class View implements ViewInt {
 
 
     private void createExecute() {
-        executeButton = new Button(EXECUTE_BUTTON_LABEL);
+        executeButton = new Button(myResources.getString("execute"));
         executeButton.setOnAction(e -> processExecute());
         executeButton.prefWidthProperty().bind(right.widthProperty());
-        executeButton.setPrefHeight(EXECUTE_BUTTON_HEIGHT);
+        executeButton.setPrefHeight(Size.EX_BUTTON.getSize());
         right.getChildren().add(executeButton);
 	}
 
