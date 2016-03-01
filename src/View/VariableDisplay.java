@@ -7,13 +7,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 
 public class VariableDisplay implements EnvironmentDisplayInterface {
     
-    private static final int SCROLL_HEIGHT = 200;
-    private static final int SCROLL_WIDTH = 400;
+    private static final int STARTING_WIDTH = 400;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
     private static final String DEFAULT_LANGUAGE = "English";
@@ -34,10 +34,17 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         this.dispLang = DEFAULT_LANGUAGE;
         this.internalCommand= internalCommand;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
-        scroll = new ScrollPane();
-        scroll.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
+        setScroll();
+        VBox.setVgrow(scroll, Priority.SOMETIMES);
         createCurrVDisp();
         
+    }
+
+    private void setScroll () {
+        scroll = new ScrollPane();
+        scroll.setMinViewportWidth(STARTING_WIDTH);
+        scroll.setPrefViewportWidth(STARTING_WIDTH);
+        scroll.setMaxWidth(STARTING_WIDTH);
     }
     
     @Override
@@ -47,6 +54,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
 
     private void createCurrVDisp () {
         vBox = new VBox();
+        vBox.prefWidthProperty().bind(scroll.widthProperty());
         setTitle();
         String vString = variables.get();
         if(vString!=null){
@@ -60,7 +68,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private void setTitle () {
         Label title= new Label(myResources.getString("varTitle"));
         title.setAlignment(Pos.TOP_CENTER);
-        title.setPrefWidth(SCROLL_WIDTH);
+        title.prefWidthProperty().bind(scroll.widthProperty());
         title.setStyle(CSS_BLACK_BORDER);
         vBox.getChildren().add(title);
         
@@ -72,7 +80,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
             if(var.length()==0){
             	continue;
             }
-            l.setPrefWidth(SCROLL_WIDTH);
+            l.prefWidthProperty().bind(scroll.widthProperty());
             l.setWrapText(true);
             l.setStyle(CSS_BLACK_BORDER);
             l.setOnMouseClicked(e->updateVariable(l));

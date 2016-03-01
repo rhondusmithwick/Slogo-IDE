@@ -5,9 +5,11 @@ import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,6 @@ public class View implements ViewInt {
 
 
     private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
-    private static final int BOTTOM_PADDING =20;
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
     private final double EXECUTE_BUTTON_WIDTH = 200.0;
@@ -63,6 +64,11 @@ public class View implements ViewInt {
         root.getChildren().add(UI);
     }
 
+    @Override
+    public void bindSize (Scene scene) {
+        UI.prefHeightProperty().bind(scene.heightProperty());
+        UI.prefWidthProperty().bind(scene.widthProperty());
+    }
 
     private void createScene() {
         UI.setStyle(UI_BACKGROUND_COLOR);
@@ -90,11 +96,12 @@ public class View implements ViewInt {
         left.getChildren().add(vDisplay.getEnvDisplay());
         methodsDisplay = new MethodDisplay(pLang, intCommands, methods);
         left.getChildren().add(methodsDisplay.getEnvDisplay());
+
     }
 
 
     private void createBottomPane() {
-        bottom = new HBox(BOTTOM_PADDING);
+        bottom = new HBox();
         errorDisplay = new ErrorDisplay(error);
         bottom.getChildren().add(errorDisplay.getErrorDisplay());
         console = new Console(consoleIn);
@@ -106,11 +113,13 @@ public class View implements ViewInt {
 
     private void createToolBar() {
         tBar = new ToolBar(pLang, error, backgroundColor, image, penColor);
+        
     }
 
 
     private void createTurtleDisplay() {
         turtDisp = new TurtleDisplay(backgroundColor, turtleDispDimension);
+        
 
     }
 
@@ -126,6 +135,7 @@ public class View implements ViewInt {
         executeButton = new Button(EXECUTE_BUTTON_LABEL);
         executeButton.setPrefSize(EXECUTE_BUTTON_WIDTH, EXECUTE_BUTTON_HEIGHT);
         executeButton.setOnAction(e -> processExecute());
+        executeButton.prefWidthProperty().bind(right.widthProperty());
         right.getChildren().add(executeButton);
 
 	}
@@ -153,6 +163,9 @@ public class View implements ViewInt {
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(image, penColor,variables, methods, error, consoleIn);
     }
+
+
+
     
 
 }

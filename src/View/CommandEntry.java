@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -20,15 +21,18 @@ import javafx.scene.layout.VBox;
 
 public class CommandEntry implements CommandEntryInterface, Observer {
 
+    private static final int TITLE_SPACE = 25;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
     private static final String DEFAULT_LANGUAGE = "English";
     private static final String NEW_LINE = "\n";
     private static final String SHOW_IN_BOX = "show in text box";
+    private static final int STARTING_WIDTH = 200;
+    private static final int STARTING_T_HEIGHT = 350;
+    private static final int STARTING_T_WIDTH = 212;
     private final ObjectObservable<String> input, intCommands, commHistory;
-    private final double WIDTH = 200.0;
-    private final double HEIGHT = 400.0;
-    private final int T_HEIGHT = 350;
+
+
     private TextArea myEntryBox;
     private ScrollPane myScrollPane;
     private VBox container;
@@ -43,16 +47,26 @@ public class CommandEntry implements CommandEntryInterface, Observer {
         this.intCommands = intCommands;
         this.commHistory = commHistory;
         intCommands.addObserver(this);
+        setScrollPane();
         container = new VBox();
         createTitle();
         createTextBox();
-        myScrollPane = new ScrollPane(container);
-        myScrollPane.setPrefSize(WIDTH, HEIGHT);
+        myScrollPane.setContent(container);
+        VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
+        
+    }
+
+    private void setScrollPane () {
+        myScrollPane = new ScrollPane();
+        myScrollPane.setMinViewportWidth(STARTING_WIDTH);
+        myScrollPane.setPrefViewportWidth(STARTING_WIDTH);
+        myScrollPane.setMaxWidth(STARTING_WIDTH);
     }
 
     private void createTextBox () {
         myEntryBox = new TextArea();
-        myEntryBox.setPrefSize(WIDTH, T_HEIGHT);
+        myEntryBox.setPrefSize(STARTING_T_WIDTH, STARTING_T_HEIGHT);
+        myEntryBox.prefHeightProperty().bind(myScrollPane.heightProperty().subtract(TITLE_SPACE));
         container.getChildren().add(myEntryBox);
     }
 
@@ -60,6 +74,7 @@ public class CommandEntry implements CommandEntryInterface, Observer {
         title = new Label(myResources.getString("entryTitle"));
         container.getChildren().add(title);
         container.setAlignment(Pos.TOP_CENTER);
+
     }
 
     @Override

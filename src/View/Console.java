@@ -7,6 +7,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class Console implements ConsoleInterface{
@@ -16,8 +18,8 @@ public class Console implements ConsoleInterface{
     private static final String CSS_BORDER_STYLE = "-fx-border-color: black;";
     private static final String NEW_LINE = "\n";
     private static final String DISP = "disp";
-    private static final int SCROLL_WIDTH = 350;
-    private static final int SCROLL_HEIGHT = 195;
+
+    private static final int STARTING_HEIGHT = 195;
 
     private String language;
     private ResourceBundle myResources;
@@ -34,11 +36,21 @@ public class Console implements ConsoleInterface{
         
         this.language = DEFAULT_LANGUAGE;
         myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
-        scroll = new ScrollPane();
-        scroll.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
+        setScroll();
+        
         box = new VBox();
+        box.prefWidthProperty().bind(scroll.widthProperty());
         scroll.setContent(box);
         addTitle();
+    }
+
+
+    private void setScroll () {
+        scroll = new ScrollPane();
+        scroll.setMinViewportHeight(STARTING_HEIGHT);
+        scroll.setPrefViewportHeight(STARTING_HEIGHT);
+        scroll.setMaxHeight(STARTING_HEIGHT);
+        HBox.setHgrow(scroll, Priority.ALWAYS);
     }
 
 
@@ -58,7 +70,7 @@ public class Console implements ConsoleInterface{
         Label label = new Label(text);
         label.setAlignment(Pos.TOP_CENTER);
         label.setStyle(CSS_BORDER_STYLE);
-        label.setPrefWidth(SCROLL_WIDTH);
+        label.prefWidthProperty().bind(scroll.widthProperty());
         label.setWrapText(true);
         return label;
     }

@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -113,6 +114,7 @@ public class ToolBar implements ToolBarInterface {
             comBox.getItems().add(choice);
         }
         comBox.setOnAction(handler);
+        HBox.setHgrow(comBox, Priority.ALWAYS);
         container.getChildren().add(comBox);
         return comBox;
 
@@ -151,6 +153,7 @@ public class ToolBar implements ToolBarInterface {
         newButt.setText(label);
         container.getChildren().add(newButt);
         newButt.setOnAction(handler);
+        HBox.setHgrow(newButt, Priority.ALWAYS);
     }
 
 
