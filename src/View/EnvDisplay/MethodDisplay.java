@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 
 public class MethodDisplay extends DefinedObjectsDisplay {
 
-	private MethodUpdate updater;
+	private EnvUpdate updater;
 	private String displayTitle;
 	private ResourceBundle myResources;
 	private ObjectObservable<String> intCommand;
