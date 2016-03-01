@@ -65,6 +65,7 @@ public class TurtleController implements Controller, Observer {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         if (parsedText == null) {
+        	error.set("");
         	error.set("Command not recognized: " + input);
         } else {
         	try {
@@ -73,6 +74,7 @@ public class TurtleController implements Controller, Observer {
         		variables.modifyIfShould();
         		new Thread(this::runActions).start();
         	} catch (Exception es) {
+        		error.set("");
         		error.set("Exception in command argument: " + input);
         	}
         }

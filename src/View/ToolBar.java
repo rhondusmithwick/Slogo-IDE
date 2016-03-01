@@ -131,6 +131,7 @@ public class ToolBar implements ToolBarInterface {
                 }
             }
         }catch (Exception e) {
+        	error.set("");
             error.set(myResources.getString("colorError"));
         }
 
@@ -175,6 +176,7 @@ public class ToolBar implements ToolBarInterface {
 
 
         } catch (MalformedURLException e) {
+        	error.set("");
             error.set(myResources.getString("picError"));
         }
     }
