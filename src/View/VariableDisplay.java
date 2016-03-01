@@ -18,7 +18,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     private static final String DISP = "disp";
     private static final String DEFAULT_LANGUAGE = "English";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
-    private VariableUpdate updater;
+    private EnvUpdate updater;
     private String dispLang;
     private ResourceBundle myResources;
     private ScrollPane scroll;
@@ -92,7 +92,7 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
     
     private void updateVariable (Label l) {
         updater = new VariableUpdate(myResources, internalCommand, pLang);
-        updater.updateVariable(l);
+        updater.updateEnv(l);
         
     }
 

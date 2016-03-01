@@ -79,7 +79,15 @@ public class ErrorDisplay implements ErrorDisplayInterface{
     
     private void addListner(){
         error.addListener((ov, oldVal, newVal) -> 
-                            showError(newVal));
+                            handleError(newVal));
+
+    }
+    
+    private void handleError(String newError){
+    	if(newError.equals("")){
+    		return;
+    	}
+    	showError(newError);
     }
 
 }
