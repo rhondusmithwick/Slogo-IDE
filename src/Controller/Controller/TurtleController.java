@@ -36,6 +36,8 @@ public class TurtleController implements Controller, Observer {
     private final Turtle myTurtle;
     private final ObjectObservable<String> language = new ObjectObservable<>();
     private final ObjectObservable<String> input = new ObjectObservable<>();
+    
+    private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
 
     private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
 
@@ -47,7 +49,6 @@ public class TurtleController implements Controller, Observer {
         variables.addObserver(this);
         group.getChildren().add(myTurtle.getGroup());
     }
-
 
     public ObjectObservable<String> getLanguage() {
         return language;
@@ -61,10 +62,14 @@ public class TurtleController implements Controller, Observer {
     public void takeInput(String input) {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
-        ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
-        expressionTree.executeAll();
-        variables.modifyIfShould();
-        new Thread(this::runActions).start();
+        if (parsedText == null) {
+        	error.set("Command not recognized");
+        } else {
+        	ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, parsedText);
+        	expressionTree.executeAll();
+        	variables.modifyIfShould();
+        	new Thread(this::runActions).start();
+        }
     }
 
     private void runActions() {
@@ -113,10 +118,9 @@ public class TurtleController implements Controller, Observer {
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
+        		error,
                 myTurtle.getTurtleProperties().imageProperty(),
                 myTurtle.getTurtleProperties().penColorProperty(),
                 variables.getStringProperty());
     }
-
-
 }
