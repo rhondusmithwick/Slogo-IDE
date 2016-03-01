@@ -30,6 +30,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 
 	@Override
 	protected void updateDefinedObject(Label label) {
+		// Consider giving MethodUpdate empty constructor and set abstract's EnvUpdate to it; Then call init();
 		updater = new MethodUpdate(myResources, intCommand, parsingLanguage);
 		updater.updateEnv(label);
 	}
