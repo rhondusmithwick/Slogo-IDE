@@ -4,13 +4,14 @@ package View;
 import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,6 +19,12 @@ import java.util.List;
 public class View implements ViewInt {
 
 
+    private static final Insets RIGHT_INSETS = new Insets(0, 10,5,5);
+    private static final Insets TURT_INSETS = new Insets(0,5,5, 5);
+    private static final Insets TBAR_INSETS = new Insets(0,0,0,0);
+    private static final int PADDING = 10;
+    private static final Insets BOTTOM_INSETS = new Insets(5,10,10,10);
+    private static final Insets LEFT_INSETS = new Insets(0,5,5,10);
     private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
     private final String EXECUTE_BUTTON_LABEL = "Execute";
     private final double EXECUTE_BUTTON_HEIGHT = 20.0;
@@ -91,40 +98,43 @@ public class View implements ViewInt {
 
 
     private void createLeftPane() {
-        left = new VBox();
+        left = new VBox(PADDING);
         vDisplay = new VariableDisplay(pLang, intCommands, variables);
         left.getChildren().add(vDisplay.getEnvDisplay());
         methodsDisplay = new MethodDisplay(pLang, intCommands, methods);
         left.getChildren().add(methodsDisplay.getEnvDisplay());
-
+        BorderPane.setMargin(left, LEFT_INSETS);
     }
 
 
     private void createBottomPane() {
-        bottom = new HBox();
+        bottom = new HBox(PADDING);
         errorDisplay = new ErrorDisplay(error);
         bottom.getChildren().add(errorDisplay.getErrorDisplay());
         console = new Console(consoleIn);
         bottom.getChildren().add(console.getConsole());
         commandHistory = new CommandHistoryDisplay(intCommands, commHistory);
         bottom.getChildren().add(commandHistory.getHistoryGraphic());
+        BorderPane.setMargin(bottom, BOTTOM_INSETS);
     }
 
 
     private void createToolBar() {
         tBar = new ToolBar(pLang, error, backgroundColor, image, penColor);
+        BorderPane.setMargin(tBar.getToolBarMembers(), TBAR_INSETS);
         
     }
 
 
     private void createTurtleDisplay() {
         turtDisp = new TurtleDisplay(backgroundColor, turtleDispDimension);
-        
+        BorderPane.setMargin(turtDisp.getTurtlePane(), TURT_INSETS);
 
     }
 
     private void createRightPane() {
         right = new VBox();
+        BorderPane.setMargin(right, RIGHT_INSETS);
         commandEntry = new CommandEntry(input, intCommands, commHistory);
         right.getChildren().add(commandEntry.getNode());
         createExecute();
