@@ -17,6 +17,8 @@ import javafx.scene.image.ImageView;
  */
 public final class TurtleProperties {
 
+    private static final int IMAGE_DIM = 30;
+
     private static final String DEFAULT_TURTLE_IMAGE = "images/blackarrow.png";
 
     private final ImageView imageView = new ImageView();
@@ -50,7 +52,9 @@ public final class TurtleProperties {
         image.addListener((ov, oldVal, newVal) -> {
             Image theImage = createImage(newVal);
             imageView.setImage(theImage);
-            imageDimensions.set(new Dimension2D(theImage.getWidth(), theImage.getHeight()));
+            imageView.setFitHeight(IMAGE_DIM);
+            imageView.setFitWidth(IMAGE_DIM);
+            imageDimensions.set(new Dimension2D(IMAGE_DIM, IMAGE_DIM));
         });
     }
 

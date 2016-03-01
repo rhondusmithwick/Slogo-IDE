@@ -121,21 +121,19 @@ public class ToolBar implements ToolBarInterface {
     @SuppressWarnings("rawtypes")
     private void getColors() {
         try{
-        
-               possColors = new ArrayList<>();
-
-               Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
-               Field[] fields = colorClass.getFields();
-               for (Field field : fields) {
-                   Object o = field.get(null);
-                   if (o instanceof Color) {
-                       possColors.add(field.getName());
-                   }
-               }
+            possColors = new ArrayList<>();
+            Class colorClass = Class.forName(JAVAFX_PAINT_CLASS);
+            Field[] fields = colorClass.getFields();
+            for (Field field : fields) {
+                Object o = field.get(null);
+                if (o instanceof Color) {
+                    possColors.add(field.getName());
+                }
+            }
         }catch (Exception e) {
             error.set(myResources.getString("colorError"));
         }
-        
+
     }
 
     private void getLanguages() {
@@ -174,7 +172,6 @@ public class ToolBar implements ToolBarInterface {
         try {
             String imagepath = file.toURI().toURL().toString();
             image.set(imagepath);
-            error.set(myResources.getString("picError"));
 
         } catch (MalformedURLException e) {
             error.set(myResources.getString("picError"));
@@ -187,7 +184,7 @@ public class ToolBar implements ToolBarInterface {
 
         fChoose.setTitle(myResources.getString("getFile"));
         fChoose.getExtensionFilters().addAll(new ExtensionFilter(PNG, PNG_EXT),
-                new ExtensionFilter(JPG, JPG_EXT), new ExtensionFilter(GIF, GIF_EXT));
+                                             new ExtensionFilter(JPG, JPG_EXT), new ExtensionFilter(GIF, GIF_EXT));
         s.show();
         s.hide();
     }
