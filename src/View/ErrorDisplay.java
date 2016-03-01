@@ -76,7 +76,8 @@ public class ErrorDisplay implements ErrorDisplayInterface{
     
     private void addListner(){
         error.addListener((ov, oldVal, newVal) -> 
-                            showError(newVal));
+                            showError(newVal)
+                            );
     }
 
 }
