@@ -1,4 +1,4 @@
-package View;
+package View.TBar;
 
 import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;

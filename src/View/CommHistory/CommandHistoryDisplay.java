@@ -1,4 +1,4 @@
-package View;
+package View.CommHistory;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,7 +22,7 @@ import Observables.ObjectObservable;
  * @author Stephen
  */
 
-public class CommandHistoryDisplay implements CommHistory, Observer {
+public class CommandHistoryDisplay implements CommandHistoryInterface, Observer {
     private static final String SHOW_IN_BOX = "show in text box";
     private static final String CSS_BLACK_BORDER = "-fx-border-color: black;";
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
