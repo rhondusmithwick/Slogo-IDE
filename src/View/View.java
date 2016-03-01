@@ -1,6 +1,5 @@
 package View;
 
-
 import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
@@ -15,9 +14,7 @@ import javafx.scene.layout.VBox;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class View implements ViewInt {
-
 
     private static final Insets RIGHT_INSETS = new Insets(0, 10,5,5);
     private static final Insets TURT_INSETS = new Insets(0,5,5, 5);
@@ -49,7 +46,6 @@ public class View implements ViewInt {
     private ConsoleInterface console;
     private HBox bottom;
     private VBox left, right;
-
 
     public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
         this.pLang = pLang;
