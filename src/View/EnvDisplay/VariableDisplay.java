@@ -37,7 +37,6 @@ public class VariableDisplay implements EnvironmentDisplayInterface {
         setScroll();
         
         createCurrVDisp();
-        
     }
 
     private void setScroll () {

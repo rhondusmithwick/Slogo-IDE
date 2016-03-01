@@ -159,15 +159,12 @@ public class View implements ViewInt {
         executeButton.prefWidthProperty().bind(right.widthProperty());
         executeButton.setPrefHeight(EXECUTE_BUTTON_HEIGHT);
         right.getChildren().add(executeButton);
-
 	}
 
 
     private void processExecute() {
         commandEntry.processCommands();
-        vDisplay.updateEnvNode();
-
-        
+        vDisplay.updateEnvNode();    
     }
     
     @Override
