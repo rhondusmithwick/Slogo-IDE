@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -18,7 +19,6 @@ public class VariableUpdate {
     private static final String SPACE = " ";
     private static final int WIDTH = 300;
     private static final int HEIGHT = 300;
-    private static final int T_WIDTH = 200;
     private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
     private static final String LANGUAGE_LOCATION = "resources/";
     
@@ -46,7 +46,8 @@ public class VariableUpdate {
     private void createUpdater () {
         vBox = new VBox(PADDING);
         vBox.setStyle(UI_BACKGROUND_COLOR);
-        vBox.setPrefSize(WIDTH, HEIGHT);
+        vBox.prefHeightProperty().bind(scene.heightProperty());
+        vBox.prefWidthProperty().bind(scene.widthProperty());
         vBox.setAlignment(Pos.TOP_CENTER);
         root.getChildren().add(vBox);
         
@@ -93,13 +94,15 @@ public class VariableUpdate {
 
     private void createTextArea () {
         tField = new TextField();
-        tField.setPrefWidth(T_WIDTH);
+        tField.prefWidthProperty().bind(vBox.widthProperty());
+        VBox.setVgrow(tField, Priority.ALWAYS);
+        
         
     }
 
     private void createTitle () {
         Label title = new Label(myResources.getString("varUpdate") + this.variable);
-        title.setMaxWidth(WIDTH);
+        title.prefWidthProperty().bind(vBox.widthProperty());
         title.setAlignment(Pos.TOP_CENTER);
         vBox.getChildren().add(title);
         

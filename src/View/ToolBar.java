@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -38,8 +37,6 @@ public class ToolBar implements ToolBarInterface {
     private static final String LANGUAGE_PATH = "languages/";
     private static final String DEFAULT_LANGUAGE = "English";
     private static final double TB_SPACING = 10.0;
-    private static final int TB_HEIGHT = 75;
-    private static final int TB_WIDTH = 1000;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
     private final ObjectObservable<String> language, bgColor;
@@ -72,14 +69,12 @@ public class ToolBar implements ToolBarInterface {
 
     private void setHBox () {
         container = new HBox();
-        container.setPrefWidth(TB_WIDTH);
-        container.setPrefHeight(TB_HEIGHT);
         container.setAlignment(Pos.CENTER);
         container.setSpacing(TB_SPACING);
     }
 
     @Override
-    public Node getToolBarMembers() {
+    public HBox getToolBarMembers() {
 
         return container;
     }
@@ -190,7 +185,8 @@ public class ToolBar implements ToolBarInterface {
 
         fChoose.setTitle(myResources.getString("getFile"));
         fChoose.getExtensionFilters().addAll(new ExtensionFilter(PNG, PNG_EXT),
-                                             new ExtensionFilter(JPG, JPG_EXT), new ExtensionFilter(GIF, GIF_EXT));
+                                             new ExtensionFilter(JPG, JPG_EXT), 
+                                             new ExtensionFilter(GIF, GIF_EXT));
         s.show();
         s.hide();
     }

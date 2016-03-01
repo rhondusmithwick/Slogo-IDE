@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -19,7 +20,6 @@ public class MethodUpdate {
     private static final String SPACE = " ";
     private static final int WIDTH = 300;
     private static final int HEIGHT = 300;
-    private static final int T_WIDTH = 200;
     private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
     private static final String LANGUAGE_LOCATION = "resources/";
     
@@ -50,15 +50,22 @@ public class MethodUpdate {
 
 
 	private void createUpdater() {
-		vBox = new VBox(PADDING);
-        vBox.setStyle(UI_BACKGROUND_COLOR);
-        vBox.setPrefSize(WIDTH, HEIGHT);
-        vBox.setAlignment(Pos.TOP_CENTER);
-        root.getChildren().add(vBox);
+		createVBox();
         vField = createTextArea();
         mField = createTextArea();
         createSetButton();
 		
+	}
+
+
+
+	private void createVBox() {
+		vBox = new VBox(PADDING);
+        vBox.setStyle(UI_BACKGROUND_COLOR);
+        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.prefWidthProperty().bind(scene.widthProperty());
+        vBox.prefHeightProperty().bind(scene.heightProperty());
+        root.getChildren().add(vBox);
 	}
 
 
@@ -114,7 +121,8 @@ public class MethodUpdate {
 	private TextField createTextArea() {
 		
 		TextField tField = new TextField();
-        tField.setPrefWidth(T_WIDTH);
+        tField.prefWidthProperty().bind(vBox.widthProperty());
+        VBox.setVgrow(tField, Priority.ALWAYS);
         return tField;
 	}
 
@@ -122,7 +130,7 @@ public class MethodUpdate {
 
 	private Label createTitle(String string) {
         Label title = new Label(string);
-        title.setMaxWidth(WIDTH);
+        title.prefWidthProperty().bind(vBox.widthProperty());
         title.setAlignment(Pos.TOP_CENTER);
         vBox.getChildren().add(title);
         return title;

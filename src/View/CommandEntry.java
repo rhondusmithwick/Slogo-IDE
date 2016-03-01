@@ -21,15 +21,14 @@ import javafx.scene.layout.VBox;
 
 public class CommandEntry implements CommandEntryInterface, Observer {
 
-    private static final int TITLE_SPACE = 25;
+    private static final int SCROLL_TBOX_DIFF = 2;
+	private static final int TITLE_SPACE = 25;
     private static final String DEFAULT_LOCATION = "resources/guiStrings/";
     private static final String DISP = "disp";
     private static final String DEFAULT_LANGUAGE = "English";
     private static final String NEW_LINE = "\n";
     private static final String SHOW_IN_BOX = "show in text box";
     private static final int STARTING_WIDTH = 200;
-    private static final int STARTING_T_HEIGHT = 350;
-    private static final int STARTING_T_WIDTH = 212;
     private final ObjectObservable<String> input, intCommands, commHistory;
 
 
@@ -42,17 +41,17 @@ public class CommandEntry implements CommandEntryInterface, Observer {
 
     public CommandEntry(ObjectObservable<String> input, ObjectObservable<String> intCommands, ObjectObservable<String> commHistory) {
         this.dispLang = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
+        this.myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + dispLang + DISP);
         this.input = input;
-        this.intCommands = intCommands;
         this.commHistory = commHistory;
+        this.intCommands = intCommands;
         intCommands.addObserver(this);
         setScrollPane();
         container = new VBox();
         createTitle();
         createTextBox();
         myScrollPane.setContent(container);
-        VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
+        
         
     }
 
@@ -61,12 +60,13 @@ public class CommandEntry implements CommandEntryInterface, Observer {
         myScrollPane.setMinViewportWidth(STARTING_WIDTH);
         myScrollPane.setPrefViewportWidth(STARTING_WIDTH);
         myScrollPane.setMaxWidth(STARTING_WIDTH);
+        VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
     }
 
     private void createTextBox () {
         myEntryBox = new TextArea();
-        myEntryBox.setPrefSize(STARTING_T_WIDTH, STARTING_T_HEIGHT);
         myEntryBox.prefHeightProperty().bind(myScrollPane.heightProperty().subtract(TITLE_SPACE));
+        myEntryBox.prefWidthProperty().bind(myScrollPane.widthProperty().subtract(SCROLL_TBOX_DIFF));
         container.getChildren().add(myEntryBox);
     }
 
