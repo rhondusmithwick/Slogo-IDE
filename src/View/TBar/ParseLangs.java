@@ -14,7 +14,7 @@ public class ParseLangs {
     }
 
     private void getAllFromDirectory () {
-
+        
         langs = new ArrayList<>();
         File directory = new File(Defaults.PARSELANG_LOC.getDefault());
         File[] fList = directory.listFiles();

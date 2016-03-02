@@ -2,6 +2,7 @@ package View.TBar;
 
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import Maps.ColorMap;
 import Observables.MapObservable;
 import View.Defaults;
 import View.Size;
