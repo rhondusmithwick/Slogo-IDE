@@ -4,7 +4,9 @@ import javafx.beans.property.SimpleStringProperty;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Observable;
+import java.util.Set;
 
 /**
  * Created by rhondusmithwick on 2/28/16.
@@ -43,6 +45,12 @@ public class MapObservable<K, V> extends Observable {
     public Collection<V> getValues(){
         return map.values();
     }
+    
+    public Set<Entry<K, V>> getEntrySet(){
+        return map.entrySet();
+    }
+    
+    
 
     private void modifyString() {
         StringBuilder sb = new StringBuilder();

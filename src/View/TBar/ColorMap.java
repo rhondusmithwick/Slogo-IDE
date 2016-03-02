@@ -49,7 +49,7 @@ public class ColorMap {
         return colors;
     }
     
-    public void add(int r, int g , int b, int index){
+    public void setColorAtIndex(int r, int g , int b, int index){
         String value = "rgb(" + Integer.toString(r) + "," + Integer.toString(b)+ ","+Integer.toString(b)+")";
         colors.put(index, value);
         colors.notifyObservers();

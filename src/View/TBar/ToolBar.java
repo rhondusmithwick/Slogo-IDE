@@ -28,10 +28,12 @@ public class ToolBar implements Observer{
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
     private ColorMap colors;
+    private PaletteDisp pDisp;
 
     public ToolBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> bgColor, 
                    SimpleStringProperty image, SimpleStringProperty penColor) {
         hScreen = HelpScreen.getInstance();
+        pDisp = new PaletteDisp();
         this.image=image;
         this.penColor=penColor;
         this.language = language;
@@ -124,6 +126,17 @@ public class ToolBar implements Observer{
     private void createButtons() {
         makeButton(myResources.getString("help"), e -> hScreen.showHelpScreen(myResources.getString("helpFile")));
         makeButton(myResources.getString("image"), e -> chooseTurtIm());
+        makeButton(myResources.getString("paletteDisp"), e->showPalette());
+    }
+
+    private void showPalette ()  {
+        try {
+            pDisp.createDisp();
+        }
+        catch (Exception e) {
+            error.set("");
+            error.set(myResources.getString("palError"));
+        }
     }
 
     private void chooseTurtIm () {
