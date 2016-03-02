@@ -76,6 +76,7 @@ public class View implements ViewInt {
     }
 
     private void createScene() {
+        setError();  
         UI.setStyle(Defaults.BACKGROUND_COLOR.getDefault());
         createTurtleDisplay();
         createToolBar();
@@ -84,6 +85,12 @@ public class View implements ViewInt {
         createLeftPane();
         addComponents();
     }
+
+
+	private void setError() {
+		errorDisplay = new ErrorDisplay(error);
+		errorDisplay.set();
+	}
 
 
     private void addComponents() {
@@ -109,9 +116,7 @@ public class View implements ViewInt {
     private void createBottomPane() {
         bottom = new HBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
-        errorDisplay = new ErrorDisplay(error);
-        bottom.getChildren().add(errorDisplay.getErrorDisplay());
-        
+      
         console = new Console(consoleIn);
         bottom.getChildren().add(console.getConsole());
         
