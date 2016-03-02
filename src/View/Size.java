@@ -11,7 +11,8 @@ public enum Size {
 	HTML_WIDTH(800),
 	TB_PADDING(10),
 	COMM_ENTRY_SPACE(2),
-	MINI(1);
+	MINI(1),
+	LEFT_WIDTH(400);
 	
 	private int size;
 	Size(int size){

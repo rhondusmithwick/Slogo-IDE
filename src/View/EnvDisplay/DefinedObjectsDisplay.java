@@ -2,11 +2,13 @@ package View.EnvDisplay;
 
 import java.util.ResourceBundle;
 import View.Defaults;
+import View.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -19,75 +21,80 @@ import javafx.scene.layout.VBox;
 
 public abstract class DefinedObjectsDisplay {
 
-	private static final int SCROLL_HEIGHT = 200;
-	private static final int SCROLL_WIDTH = 400;
+    private SimpleStringProperty definedObjects;
+    private String displayLanguage;
+    private ResourceBundle myResources;
+    private ScrollPane myScrollPane;
+    private VBox vBox;
+    private String[] definedObjectsArray;
 
-	private SimpleStringProperty definedObjects;
-	private String displayLanguage;
-	private ResourceBundle myResources;
-	private ScrollPane myScrollPane;
-	private VBox vBox;
-	private String[] definedObjectsArray;
-	
-	private String displayTitle;
+    private String displayTitle;
 
-	public DefinedObjectsDisplay(SimpleStringProperty definedObjects) {
-		this.definedObjects = definedObjects;
-		this.displayLanguage = Defaults.DISPLAY_LANG.getDefault();
-		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + displayLanguage);
-		myScrollPane = new ScrollPane();
-		myScrollPane.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
-	}
+    public DefinedObjectsDisplay(SimpleStringProperty definedObjects) {
+        this.definedObjects = definedObjects;
+        this.displayLanguage = Defaults.DISPLAY_LANG.getDefault();
+        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + displayLanguage);
+        setScrollPane();
+    }
 
-	protected abstract void updateDefinedObject(Label label);
+    private void setScrollPane () {
+        myScrollPane = new ScrollPane();
+        myScrollPane.setMinViewportWidth(Size.LEFT_WIDTH.getSize());
+        myScrollPane.setPrefViewportWidth(Size.LEFT_WIDTH.getSize());
+        myScrollPane.setMaxWidth(Size.LEFT_WIDTH.getSize());
+        VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
+    }
 
-	public Node getEnvDisplay() {
-		return myScrollPane;
-	}
+    protected abstract void updateDefinedObject(Label label);
+
+    public Node getEnvDisplay() {
+        return myScrollPane;
+    }
 
 
-	public void updateEnvNode() {
-		createCurrVDisp();
-	}
+    public void updateEnvNode() {
+        createCurrVDisp();
+    }
 
-	private void createCurrVDisp() {
-		vBox = new VBox();
-		setTitle();
-		String definedObjectsString = definedObjects.get();
-		if (definedObjectsString != null) {
-			definedObjectsArray = definedObjectsString.split("\n");
-			populateVBox();
-		}
-		myScrollPane.setContent(vBox);
-	}
+    private void createCurrVDisp() {
+        vBox = new VBox();
+        vBox.prefWidthProperty().bind(myScrollPane.widthProperty());
+        setTitle();
+        String definedObjectsString = definedObjects.get();
+        if (definedObjectsString != null) {
+            definedObjectsArray = definedObjectsString.split("\n");
+            populateVBox();
+        }
+        myScrollPane.setContent(vBox);
+    }
 
-	private void setTitle() {
-		Label title = new Label(displayTitle); 
-		title.setAlignment(Pos.TOP_CENTER);
-		title.setPrefWidth(SCROLL_WIDTH);
-		title.setStyle(Defaults.BORDER_COLOR.getDefault());
-		vBox.getChildren().add(title);
-	}
+    private void setTitle() {
+        Label title = new Label(displayTitle); 
+        title.setAlignment(Pos.TOP_CENTER);
+        title.prefWidthProperty().bind(myScrollPane.widthProperty());
+        title.setStyle(Defaults.BORDER_COLOR.getDefault());
+        vBox.getChildren().add(title);
+    }
 
-	private void populateVBox() {
-		for (String definedObject : definedObjectsArray) {
-			Label label = new Label(definedObject);
-			if (definedObject.length() == 0)
-				continue;
-			label.setPrefWidth(SCROLL_WIDTH);
-			label.setStyle(Defaults.BORDER_COLOR.getDefault());
-			label.setWrapText(true);
-			label.setOnMouseClicked(e -> updateDefinedObject(label));
-			vBox.getChildren().add(label);
-		}
-	}
-	
-	public ResourceBundle getResources() {
-		return myResources;
-	}
-	
-	public void setDisplayTitle(String displayTitle) {
-		this.displayTitle = displayTitle;
-	}
+    private void populateVBox() {
+        for (String definedObject : definedObjectsArray) {
+            Label label = new Label(definedObject);
+            if (definedObject.length() == 0)
+                continue;
+            label.prefWidthProperty().bind(myScrollPane.widthProperty());
+            label.setStyle(Defaults.BORDER_COLOR.getDefault());
+            label.setWrapText(true);
+            label.setOnMouseClicked(e -> updateDefinedObject(label));
+            vBox.getChildren().add(label);
+        }
+    }
+
+    public ResourceBundle getResources() {
+        return myResources;
+    }
+
+    public void setDisplayTitle(String displayTitle) {
+        this.displayTitle = displayTitle;
+    }
 
 }
