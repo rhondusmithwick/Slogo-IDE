@@ -2,6 +2,7 @@ package View.TBar;
 
 import Observables.ObjectObservable;
 import View.Defaults;
+import View.FileExtensions;
 import View.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -15,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import java.io.File;
 import java.lang.reflect.Field;
@@ -24,16 +24,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ToolBar{
-
-    private static final String GIF_EXT = "*.gif";
-    private static final String GIF = "GIF";
-    private static final String JPG_EXT = "*.jpg";
-    private static final String JPG = "JPG";
-
-    private static final String PNG_EXT = "*.png";
-    private static final String PNG = "PNG";
-
-  
 
     private final ObjectObservable<String> language, bgColor;
     private SimpleStringProperty image, penColor, error;
@@ -179,9 +169,9 @@ public class ToolBar{
         s.setScene(new Scene(root, Size.MINI.getSize(), Size.MINI.getSize()));
 
         fChoose.setTitle(myResources.getString("getFile"));
-        fChoose.getExtensionFilters().addAll(new ExtensionFilter(PNG, PNG_EXT),
-                                             new ExtensionFilter(JPG, JPG_EXT), 
-                                             new ExtensionFilter(GIF, GIF_EXT));
+        fChoose.getExtensionFilters().addAll(FileExtensions.JPG.getFilter(), 
+                                             FileExtensions.PNG.getFilter(),
+                                             FileExtensions.GIF.getFilter());
         s.show();
         s.hide();
     }
