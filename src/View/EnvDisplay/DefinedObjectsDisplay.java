@@ -1,5 +1,6 @@
 package View.EnvDisplay;
 
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import View.Defaults;
 import javafx.beans.property.SimpleStringProperty;
@@ -77,16 +78,18 @@ public abstract class DefinedObjectsDisplay {
     }
 
     private void populateVBox() {
-        for (String definedObject : definedObjectsArray) {
-            Label label = new Label(definedObject);
-            if (definedObject.length() == 0)
-                continue;
-            label.prefWidthProperty().bind(myScrollPane.widthProperty());
-            label.setStyle(Defaults.BORDER_COLOR.getDefault());
-            label.setWrapText(true);
-            label.setOnMouseClicked(e -> updateDefinedObject(label));
-            vBox.getChildren().add(label);
-        }
+        Arrays.asList(definedObjectsArray).forEach(e->setLabel(e));
+    }
+
+    private void setLabel (String definedObject) {
+        Label label = new Label(definedObject);
+        if (definedObject.length() == 0)
+            return;
+        label.prefWidthProperty().bind(myScrollPane.widthProperty());
+        label.setStyle(Defaults.BORDER_COLOR.getDefault());
+        label.setWrapText(true);
+        label.setOnMouseClicked(e -> updateDefinedObject(label));
+        vBox.getChildren().add(label);
     }
 
     public ResourceBundle getResources() {

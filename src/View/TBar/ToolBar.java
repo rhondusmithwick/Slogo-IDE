@@ -62,7 +62,6 @@ public class ToolBar implements Observer{
     }
 
     public HBox getToolBarMembers() {
-
         return container;
     }
 
@@ -94,9 +93,7 @@ public class ToolBar implements Observer{
     private ComboBox<String> createBox(String label, ArrayList<String> choices, EventHandler<ActionEvent> handler) {
         ComboBox<String> comBox = new ComboBox<>();
         comBox.setPromptText(myResources.getString(label));
-        for (String choice : choices) {
-            comBox.getItems().add(choice);
-        }
+        choices.forEach(e->comBox.getItems().add(e));
         comBox.setOnAction(handler);
         HBox.setHgrow(comBox, Priority.ALWAYS);
         container.getChildren().add(comBox);
