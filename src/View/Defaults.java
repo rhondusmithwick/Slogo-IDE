@@ -7,7 +7,7 @@ public enum Defaults {
 	COMMAND_TO_TEXT_BOX("show in text box"),
 	BORDER_COLOR("-fx-border-color: black;"),
 	RESOURCE_LOCATION("resources/"),
-	PARSELANG_LOC("resources/languages"),
+	PARSELANG_LOC("resources/languages/"),
 	FX_PAINT_CLASS("javafx.scene.paint.Color"),
 	TURT_BACKGROUND("white");
 	

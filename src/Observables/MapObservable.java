@@ -1,7 +1,7 @@
 package Observables;
 
 import javafx.beans.property.SimpleStringProperty;
-
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -38,6 +38,10 @@ public class MapObservable<K, V> extends Observable {
             modifyString();
             clearChanged();
         }
+    }
+    
+    public Collection<V> getValues(){
+        return map.values();
     }
 
     private void modifyString() {

@@ -2,28 +2,22 @@ package View.TBar;
 
 import Observables.ObjectObservable;
 import View.Defaults;
-import View.FileExtensions;
 import View.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import java.io.File;
-import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
-public class ToolBar{
+public class ToolBar implements Observer{
 
     private final ObjectObservable<String> language, bgColor;
     private SimpleStringProperty image, penColor, error;
@@ -33,25 +27,24 @@ public class ToolBar{
     private String dispLang, bColor, pLanguage, pColor;
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
+    private ColorMap colors;
 
     public ToolBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> bgColor, 
                    SimpleStringProperty image, SimpleStringProperty penColor) {
-        hScreen = new HelpScreen();
+        hScreen = HelpScreen.getInstance();
         this.image=image;
         this.penColor=penColor;
         this.language = language;
         this.error = error;
         this.bgColor = bgColor;
         this.dispLang = Defaults.DISPLAY_LANG.getDefault();
+        getColors();
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + dispLang);
         setHBox();
         createButtons();
         getLanguages();
-        getColors();
         createComboBoxes();
     }
-
-
 
     private void setHBox () {
         container = new HBox();
@@ -65,6 +58,7 @@ public class ToolBar{
     }
 
     private void createComboBoxes() {
+        this.possColors = new ArrayList<String>(colors.getIndexMap().getValues());  
         langBox = createBox("selLang", parseLangs, e -> setLang());
         bColorBox = createBox("bColor", possColors, e -> setBackground());
         pColorBox = createBox("pColor", possColors, e -> setPColor());
@@ -80,6 +74,7 @@ public class ToolBar{
     private void setBackground() {
         bColor = bColorBox.getSelectionModel().getSelectedItem();
         bgColor.set(bColor.toLowerCase());
+        
     }
 
     private void setLang() {
@@ -100,35 +95,23 @@ public class ToolBar{
 
     }
 
-    @SuppressWarnings("rawtypes")
-    private void getColors() {
-        try{
-            possColors = new ArrayList<>();
-            Class colorClass = Class.forName(Defaults.FX_PAINT_CLASS.getDefault());
-            Field[] fields = colorClass.getFields();
-            for (Field field : fields) {
-                Object o = field.get(null);
-                if (o instanceof Color) {
-                    possColors.add(field.getName());
-                }
-            }
-        }catch (Exception e) {
-        	error.set("");
+   
+    private void getColors () {
+        try {
+            this.colors = ColorMap.getInstance();
+        }
+        catch (Exception e) {
+            error.set("");
             error.set(myResources.getString("colorError"));
         }
-
+        colors.getIndexMap().addObserver(this);
     }
-
-    private void getLanguages() {
-        parseLangs = new ArrayList<>();
-        File directory = new File(Defaults.PARSELANG_LOC.getDefault());
-        File[] fList = directory.listFiles();
-        for (File file : fList) {
-            String name = file.getName();
-            parseLangs.add(name.substring(0, name.lastIndexOf('.')));
-        }
+    
+    private void getLanguages () {
+        this.parseLangs = (ArrayList<String>) ParseLangs.getInstance().getLangs();
+        
     }
-
+    
     private void makeButton(String label, EventHandler<ActionEvent> handler) {
         Button newButt = new Button();
         newButt.setText(label);
@@ -143,37 +126,28 @@ public class ToolBar{
         makeButton(myResources.getString("image"), e -> chooseTurtIm());
     }
 
-
-    private void chooseTurtIm() {
-        FileChooser fChoose = new FileChooser();
-        Stage s = new Stage();
-        setUpFileChooser(fChoose, s);
-        File file = fChoose.showOpenDialog(s);
-        s.close();
-        if (file == null) {
-            return;
-        }
+    private void chooseTurtIm () {
         try {
-            String imagepath = file.toURI().toURL().toString();
-            image.set(imagepath);
-
-
-        } catch (MalformedURLException e) {
-        	error.set("");
+            String newImage = ImageChooser.getInstance().chooseTurtIm(myResources.getString("getFile"));
+            if(newImage!=null){
+                image.set(newImage);
+            }
+        }
+        catch (MalformedURLException e) {
+            error.set("");
             error.set(myResources.getString("picError"));
         }
     }
 
-    private void setUpFileChooser(FileChooser fChoose, Stage s) {
-        Group root = new Group();
-        s.setScene(new Scene(root, Size.MINI.getSize(), Size.MINI.getSize()));
+    @Override
+    public void update (Observable o, Object arg) {
+        updateColorBoxes();
 
-        fChoose.setTitle(myResources.getString("getFile"));
-        fChoose.getExtensionFilters().addAll(FileExtensions.JPG.getFilter(), 
-                                             FileExtensions.PNG.getFilter(),
-                                             FileExtensions.GIF.getFilter());
-        s.show();
-        s.hide();
+    }
+
+    private void updateColorBoxes () {
+        container.getChildren().removeAll(bColorBox, pColorBox, langBox);
+        createComboBoxes();
     }
 
 
