@@ -11,7 +11,7 @@ public enum Defaults {
 	PARSELANG_LOC("resources/languages/"),
 	FX_PAINT_CLASS("javafx.scene.paint.Color"),
 	TURT_BACKGROUND("white"),
-	IMAGE_LOC("images/");
+	IMAGE_LOC("resources/images/");
 	
 	
 	

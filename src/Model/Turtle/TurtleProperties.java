@@ -19,7 +19,7 @@ public final class TurtleProperties {
 
     private static final int IMAGE_DIM = 30;
 
-    private static final String DEFAULT_TURTLE_IMAGE = "images/blackarrow.png";
+    private static final String DEFAULT_TURTLE_IMAGE = "resources/images/blackarrow.png";
 
     private final ImageView imageView = new ImageView();
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");

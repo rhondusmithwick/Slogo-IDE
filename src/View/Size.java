@@ -14,7 +14,7 @@ public enum Size {
 	MINI(1),
 	PALETTE(400),
 	PALETTE_PADDING(20), 
-	PALETTE_RECT(40),
+	PALETTE_DIM(40),
 	PALETTE_ENT_PADDING(50);
 	
 	private int size;

@@ -29,20 +29,26 @@ public class ToolBar implements Observer{
     private ArrayList<String> parseLangs, possColors;
     private ComboBox<String> langBox, bColorBox, pColorBox;
     private ColorMap colors;
-    private PaletteDisp pDisp;
+    private PaletteDisp cDisp, iDisp;
 
     public ToolBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> bgColor, 
                    SimpleStringProperty image, SimpleStringProperty penColor) {
-        hScreen = HelpScreen.getInstance();
-        pDisp = new PaletteDisp();
+        this.error = error;
         this.image=image;
         this.penColor=penColor;
         this.language = language;
-        this.error = error;
         this.bgColor = bgColor;
         this.dispLang = Defaults.DISPLAY_LANG.getDefault();
-        getColors();
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + dispLang);
+        cDisp = new ColorDisplay("colorTitle");
+        iDisp = new ImageDisplay("imageTitle");
+        hScreen = HelpScreen.getInstance();
+       
+        setToolBar();
+    }
+
+    private void setToolBar () {
+        getColors();
         setHBox();
         createButtons();
         getLanguages();
@@ -127,16 +133,29 @@ public class ToolBar implements Observer{
     private void createButtons() {
         makeButton(myResources.getString("help"), e -> hScreen.showHelpScreen(myResources.getString("helpFile")));
         makeButton(myResources.getString("image"), e -> chooseTurtIm());
-        makeButton(myResources.getString("paletteDisp"), e->showPalette());
+        makeButton(myResources.getString("colorDisp"), e->showColorPalette());
+        makeButton(myResources.getString("imageDisp"), e->showImagePalette());
     }
 
-    private void showPalette ()  {
+    private void showImagePalette () {
         try {
-            pDisp.createDisp();
+            iDisp.createDisp();
         }
         catch (Exception e) {
+            e.printStackTrace();
             error.set("");
-            error.set(myResources.getString("palError"));
+            error.set("imagePalError");
+        }
+    }
+
+    private void showColorPalette ()  {
+        try {
+            cDisp.createDisp();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            error.set("");
+            error.set(myResources.getString("colorPalError"));
         }
     }
 
