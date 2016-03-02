@@ -44,7 +44,6 @@ public class ImageMap extends IndexMap{
         File[] fList = directory.listFiles();
         for (File file : fList) {
             String name = file.getName();
-            System.out.println(name);
             images.put(count, Defaults.IMAGE_LOC.getDefault()+name);
             count++;
         }
