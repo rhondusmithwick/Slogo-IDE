@@ -47,6 +47,7 @@ public class PaletteDisp {
 
     private void setScrollPane () {
         scroll = new ScrollPane();
+        
         scroll.prefHeightProperty().bind(scene.heightProperty());
         scroll.prefWidthProperty().bind(scene.widthProperty());
         root.getChildren().add(scroll);
@@ -55,6 +56,7 @@ public class PaletteDisp {
     
     private void setVBox(){
         vbox = new VBox(Size.PALETTE_PADDING.getSize());
+        vbox.setStyle(Defaults.BACKGROUND_WHITE.getDefault());
         vbox.prefHeightProperty().bind(scroll.heightProperty());
         vbox.prefWidthProperty().bind(scroll.widthProperty());
     }
