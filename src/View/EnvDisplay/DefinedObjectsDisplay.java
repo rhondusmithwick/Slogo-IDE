@@ -36,7 +36,15 @@ public abstract class DefinedObjectsDisplay {
         this.displayLanguage = ENGLISH;
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + displayLanguage);
         setScrollPane();
+        setListners();
     }
+
+    private void setListners () {
+        definedObjects.addListener((ov, oldVal, newVal) -> createCurrEnvDisp());
+        
+    }
+    
+
 
     private void setScrollPane () {
         myScrollPane = new ScrollPane();
@@ -52,12 +60,7 @@ public abstract class DefinedObjectsDisplay {
         return myScrollPane;
     }
 
-
-    public void updateEnvNode() {
-        createCurrVDisp();
-    }
-
-    private void createCurrVDisp() {
+    protected void createCurrEnvDisp() {
         vBox = new VBox();
         vBox.prefWidthProperty().bind(myScrollPane.widthProperty());
         setTitle();

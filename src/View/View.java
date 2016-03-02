@@ -161,8 +161,7 @@ public class View implements ViewInt {
 
 
     private void processExecute() {
-        commandEntry.processCommands();
-        vDisplay.updateEnvNode();    
+        commandEntry.processCommands(); 
     }
     
     @Override
