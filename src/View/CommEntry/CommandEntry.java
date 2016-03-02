@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
  * @author Stephen
  */
 
-public class CommandEntry implements CommandEntryInterface, Observer {
+public class CommandEntry implements Observer {
 
     private final ObjectObservable<String> input, intCommands, commHistory;
 
@@ -71,7 +71,7 @@ public class CommandEntry implements CommandEntryInterface, Observer {
 
     }
 
-    @Override
+
     public Node getNode() {
         return myScrollPane;
     }
@@ -95,7 +95,7 @@ public class CommandEntry implements CommandEntryInterface, Observer {
         }
     }
 
-   @Override
+
     public void processCommands() {
         String text = myEntryBox.getText();
         commHistory.set(text);

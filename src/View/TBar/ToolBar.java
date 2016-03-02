@@ -23,7 +23,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ToolBar implements ToolBarInterface {
+public class ToolBar{
 
     private static final String GIF_EXT = "*.gif";
     private static final String GIF = "GIF";
@@ -69,7 +69,6 @@ public class ToolBar implements ToolBarInterface {
         container.setSpacing(Size.TB_PADDING.getSize());
     }
 
-    @Override
     public HBox getToolBarMembers() {
 
         return container;

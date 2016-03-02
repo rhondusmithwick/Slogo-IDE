@@ -1,7 +1,6 @@
 package View.EnvDisplay;
 
 import java.util.ResourceBundle;
-import Observables.ObjectObservable;
 import View.Defaults;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
@@ -18,7 +17,7 @@ import javafx.scene.layout.VBox;
  * @author Stephen
  */
 
-public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterface {
+public abstract class DefinedObjectsDisplay {
 
 	private static final int SCROLL_HEIGHT = 200;
 	private static final int SCROLL_WIDTH = 400;
@@ -41,13 +40,12 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 	}
 
 	protected abstract void updateDefinedObject(Label label);
-	
-	@Override
+
 	public Node getEnvDisplay() {
 		return myScrollPane;
 	}
 
-	@Override
+
 	public void updateEnvNode() {
 		createCurrVDisp();
 	}

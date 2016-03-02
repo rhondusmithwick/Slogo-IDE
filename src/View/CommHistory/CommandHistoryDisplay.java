@@ -24,7 +24,7 @@ import View.Size;
  * @author Stephen
  */
 
-public class CommandHistoryDisplay implements CommandHistoryInterface, Observer {
+public class CommandHistoryDisplay implements Observer {
     private ScrollPane myScrollPane;
     private Label title;
     private List<Label> commandLabels;
@@ -89,7 +89,6 @@ public class CommandHistoryDisplay implements CommandHistoryInterface, Observer 
         
     }
 
-    @Override
     public Node getHistoryGraphic() {
         return myScrollPane;
     }

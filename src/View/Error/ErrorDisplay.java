@@ -14,7 +14,7 @@ import View.Defaults;
 import View.Size;
 
 
-public class ErrorDisplay implements ErrorDisplayInterface{
+public class ErrorDisplay{
 
 
     private ScrollPane errorDisp;
@@ -69,13 +69,13 @@ public class ErrorDisplay implements ErrorDisplayInterface{
     }
 
 
-    @Override
+
     public void clearError(Label l) {
         errorContain.getChildren().remove(l);
 
     }
 
-    @Override
+
     public Node getErrorDisplay() {
         return errorDisp;
     }
