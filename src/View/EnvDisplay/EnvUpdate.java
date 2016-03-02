@@ -20,7 +20,7 @@ public abstract class EnvUpdate {
     private static final int PADDING = 50;
 
     private static final int WIDTH = 300;
-    private static final int HEIGHT = 300;
+    private static final int HEIGHT = 600;
     private ObjectObservable<String> intCommand;
     private VBox vBox;
     private ResourceBundle myResources, myCommands;
@@ -68,8 +68,10 @@ public abstract class EnvUpdate {
         return tField;
     }
     
-    protected Label createTitle(String string) {
-        Label title = new Label(string);
+
+
+	protected Label createTitle(String titleName, String other) {
+        Label title = new Label(myResources.getString(titleName)+other);
         title.prefWidthProperty().bind(vBox.widthProperty());
         title.setAlignment(Pos.TOP_CENTER);
         return title;

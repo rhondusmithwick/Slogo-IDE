@@ -11,14 +11,12 @@ public class VariableUpdate extends EnvUpdate {
     private static final char SPLITTER = '|';
     private static final String SPACE = " ";
 
-    private ResourceBundle myResources;
     private String variable, newVal;
     private TextField tField;
     private Label title, label;
 
     public VariableUpdate (ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang) {
         super(myResources, intCommand, pLang);
-        this.myResources=myResources;
         
     }
     
@@ -62,7 +60,7 @@ public class VariableUpdate extends EnvUpdate {
         this.label = l;
         String[] splitUp = l.getText().split(SPACE);
         this.variable = splitUp[0];;
-        title = createTitle(myResources.getString("varUpdate") + this.variable);
+        title = createTitle("varUpdate" , this.variable);
         addToScene(Arrays.asList(title,tField));
         showScene();
         

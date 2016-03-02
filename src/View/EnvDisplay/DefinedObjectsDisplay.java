@@ -62,7 +62,7 @@ public abstract class DefinedObjectsDisplay {
         setTitle();
         String definedObjectsString = definedObjects.get();
         if (definedObjectsString != null) {
-            definedObjectsArray = definedObjectsString.split("\n");
+            definedObjectsArray = definedObjectsString.split(",");
             populateVBox();
         }
         myScrollPane.setContent(vBox);
