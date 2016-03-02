@@ -29,17 +29,13 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 	private ScrollPane myScrollPane;
 	private VBox vBox;
 	private String[] definedObjectsArray;
-	private ObjectObservable<String> parsingLanguage, intCommand;
 	
 	private String displayTitle;
 
-	public DefinedObjectsDisplay(ObjectObservable<String> pLang, ObjectObservable<String> intCommand,
-			SimpleStringProperty definedObjects) {
-		this.intCommand = intCommand;
-		this.parsingLanguage = pLang;
+	public DefinedObjectsDisplay(SimpleStringProperty definedObjects) {
 		this.definedObjects = definedObjects;
 		this.displayLanguage = Defaults.DISPLAY_LANG.getDefault();
-		myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + displayLanguage);
+		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + displayLanguage);
 		myScrollPane = new ScrollPane();
 		myScrollPane.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
 	}
@@ -86,10 +82,6 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 			label.setOnMouseClicked(e -> updateDefinedObject(label));
 			vBox.getChildren().add(label);
 		}
-	}
-	
-	public ObjectObservable<String> getParsingLanguage() {
-		return parsingLanguage;
 	}
 	
 	public ResourceBundle getResources() {

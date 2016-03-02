@@ -15,12 +15,13 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 	private ObjectObservable<String> parsingLanguage;
 
 	public VariableDisplay(ObjectObservable<String> pLang, ObjectObservable<String> intCommand,
-			SimpleStringProperty methods) {
-		super(pLang, intCommand, methods);
+			SimpleStringProperty variables) {
+		super(variables);
+		
 		// this is not ideal - need to resolve
 		this.intCommand = intCommand;
 		myResources = getResources();
-		parsingLanguage = getParsingLanguage();
+		parsingLanguage = pLang;
 		
 		displayTitle = myResources.getString("varTitle");
 		setDisplayTitle(displayTitle);
