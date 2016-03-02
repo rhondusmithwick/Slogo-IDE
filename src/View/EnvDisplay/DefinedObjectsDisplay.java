@@ -2,7 +2,6 @@ package View.EnvDisplay;
 
 import java.util.ResourceBundle;
 import View.Defaults;
-import View.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -20,7 +19,8 @@ import javafx.scene.layout.VBox;
  */
 
 public abstract class DefinedObjectsDisplay {
-
+    private static final String ENGLISH = "English";
+    private static final int size = 400;
     private SimpleStringProperty definedObjects;
     private String displayLanguage;
     private ResourceBundle myResources;
@@ -32,16 +32,16 @@ public abstract class DefinedObjectsDisplay {
 
     public DefinedObjectsDisplay(SimpleStringProperty definedObjects) {
         this.definedObjects = definedObjects;
-        this.displayLanguage = Defaults.DISPLAY_LANG.getDefault();
+        this.displayLanguage = ENGLISH;
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + displayLanguage);
         setScrollPane();
     }
 
     private void setScrollPane () {
         myScrollPane = new ScrollPane();
-        myScrollPane.setMinViewportWidth(Size.LEFT_WIDTH.getSize());
-        myScrollPane.setPrefViewportWidth(Size.LEFT_WIDTH.getSize());
-        myScrollPane.setMaxWidth(Size.LEFT_WIDTH.getSize());
+        myScrollPane.setMinViewportWidth(size);
+        myScrollPane.setPrefViewportWidth(size);
+        myScrollPane.setMaxWidth(size);
         VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
     }
 
