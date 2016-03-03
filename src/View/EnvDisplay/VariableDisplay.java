@@ -1,6 +1,5 @@
 package View.EnvDisplay;
 
-
 import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
