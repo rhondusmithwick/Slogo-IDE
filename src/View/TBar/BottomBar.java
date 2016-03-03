@@ -3,6 +3,7 @@ package View.TBar;
 import java.util.Observable;
 import Observables.ObjectObservable;
 import View.Defaults;
+import View.utilities.ComboFactory;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 
@@ -27,7 +28,7 @@ public class BottomBar extends SubBar {
 
 	@Override
 	protected void createComboBoxes() {
-		langBox = createBox("selLang", getLanguages(), e -> setLang());
+		langBox = createComboBox("selLang", getLanguages(), e -> setLang() );
 		
 	}
 
@@ -51,8 +52,7 @@ public class BottomBar extends SubBar {
 
 
 	private void saveWorkSpace() {
-		WorkSpaceSaver wSaver = new WorkSpaceSaver(createBox("pColor", getColors(), null), createBox("bColor", getColors(), null),
-														createBox("selLang", getLanguages(), null));
+		WorkSpaceSaver wSaver = new WorkSpaceSaver(getColors(), getLanguages());
 		wSaver.showSaver();
 	}
 

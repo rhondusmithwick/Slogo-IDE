@@ -8,6 +8,7 @@ import Maps.ColorMap;
 import Observables.ObjectObservable;
 import View.Defaults;
 import View.Size;
+import View.utilities.ComboFactory;
 import View.utilities.FileGetter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -39,17 +40,6 @@ public abstract class SubBar implements Observer {
         createComboBoxes();
     }
 
-
-    protected ComboBox<String> createBox(String label, List<String> choices, EventHandler<ActionEvent> handler) {
-        ComboBox<String> comBox = new ComboBox<>();
-        comBox.setPromptText(myResources.getString(label));
-        choices.forEach(e -> comBox.getItems().add(e));
-        comBox.setOnAction(handler);
-        HBox.setHgrow(comBox, Priority.ALWAYS);
-        container.getChildren().add(comBox);
-        return comBox;
-
-    }
 
     protected void setParsingLanguage(String pLang){
 
@@ -85,6 +75,14 @@ public abstract class SubBar implements Observer {
         } else {
             return retrievedString;
         }
+    }
+    
+    protected ComboBox<String> createComboBox(String key, List<String> choices, EventHandler<ActionEvent> handler){
+    	ComboBox<String> cBox = ComboFactory.createBox(myResources.getString(key), choices, handler);
+    	HBox.setHgrow(cBox, Priority.ALWAYS);
+    	container.getChildren().add(cBox);
+    	return cBox;
+    	
     }
 
     private void getColorMap() {

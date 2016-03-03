@@ -33,8 +33,8 @@ public class TopBar extends SubBar {
 
     @Override
     protected void createComboBoxes() {
-        bColorBox = createBox("bColor", getColors(), e -> setBackground());
-        pColorBox = createBox("pColor", getColors(), e -> setPColor());
+        bColorBox = createComboBox("bColor", getColors(), e -> setBackground());
+        pColorBox = createComboBox("pColor", getColors(), e -> setPColor());
 
     }
 
