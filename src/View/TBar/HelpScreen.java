@@ -8,31 +8,37 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
+import View.Size;
+
 public class HelpScreen {
 
 
-    private static final int HTML_HEIGHT = 600;
-    private static final int HTML_WIDTH = 800;
-    private Scene myScene;
+    private static HelpScreen instance;
 
-    public HelpScreen() {
+
+    private HelpScreen() {
 
     }
-
+    
+    public static synchronized HelpScreen getInstance() 
+    {
+            if (instance == null)
+                    instance = new HelpScreen();
+            return instance;
+    }
 
     public void showHelpScreen(String htmlFile) {
         Group root;
         root = new Group();
         Stage stage = new Stage();
-        stage.setTitle("SLOGO Help");
-        myScene = new Scene(root, HTML_WIDTH, HTML_HEIGHT);
+        Scene myScene = new Scene(root, Size.HTML_WIDTH.getSize(), Size.HTML_HEIGHT.getSize());
         stage.setScene(myScene);
-        createHTMLViewer(root, htmlFile);
+        createHTMLViewer(root, htmlFile, myScene);
         stage.show();
     }
 
 
-    private void createHTMLViewer(Group root, String htmlFile) {
+    private void createHTMLViewer(Group root, String htmlFile, Scene myScene) {
         ClassLoader classLoader = getClass().getClassLoader();
         WebView webView = new WebView();
         webView.prefHeightProperty().bind(myScene.heightProperty());

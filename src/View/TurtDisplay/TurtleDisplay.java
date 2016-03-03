@@ -3,6 +3,7 @@ package View.TurtDisplay;
 import java.util.Observable;
 import java.util.Observer;
 import Observables.ObjectObservable;
+import View.Defaults;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -11,9 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 
-public class TurtleDisplay implements TurtleAreaInterface, Observer {
+public class TurtleDisplay implements Observer {
     private static final double SCROLL_BAR_INITIAL = .5;
-	private static final String DEFAULT_BACKGROUND_COLOR = "white";
     private Rectangle background;
     private Group dispArea;
     private ScrollPane scroll;
@@ -24,7 +24,7 @@ public class TurtleDisplay implements TurtleAreaInterface, Observer {
         bgColor.addObserver(this);
         background = new Rectangle(turtleDispDimension.getWidth(), turtleDispDimension.getHeight());
         dispArea = new Group();
-        setBackground(DEFAULT_BACKGROUND_COLOR);
+        setBackground(Defaults.TURT_BACKGROUND.getDefault());
         dispArea.getChildren().add(background);
         setScrollPane();
 
@@ -45,13 +45,12 @@ public class TurtleDisplay implements TurtleAreaInterface, Observer {
 
     }
 
-    @Override
+
     public Node getTurtlePane() {
         return scroll;
     }
 
 
-    @Override
     public Group getTurtleArea() {
         return dispArea;
     }

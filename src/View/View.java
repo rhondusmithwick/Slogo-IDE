@@ -2,23 +2,16 @@ package View;
 
 import Observables.ObjectObservable;
 import View.CommEntry.CommandEntry;
-import View.CommEntry.CommandEntryInterface;
 import View.CommHistory.CommandHistoryDisplay;
-import View.CommHistory.CommandHistoryInterface;
 import View.Cons.Console;
-import View.Cons.ConsoleInterface;
-import View.EnvDisplay.EnvironmentDisplayInterface;
+import View.EnvDisplay.DefinedObjectsDisplay;
 import View.EnvDisplay.MethodDisplay;
 import View.EnvDisplay.VariableDisplay;
 import View.Error.ErrorDisplay;
-import View.Error.ErrorDisplayInterface;
 import View.TBar.ToolBar;
-import View.TBar.ToolBarInterface;
-import View.TurtDisplay.TurtleAreaInterface;
 import View.TurtDisplay.TurtleDisplay;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,18 +21,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class View implements ViewInt {
-
-    private static final Insets RIGHT_INSETS = new Insets(0, 10,5,5);
-    private static final Insets TURT_INSETS = new Insets(0,5,5, 5);
-    private static final Insets TBAR_INSETS = new Insets(10,0,10,10);
-    private static final int PADDING = 10;
-    private static final Insets BOTTOM_INSETS = new Insets(5,10,10,10);
-    private static final Insets LEFT_INSETS = new Insets(0,5,5,10);
-    private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
-    private final String EXECUTE_BUTTON_LABEL = "Execute";
-    private final double EXECUTE_BUTTON_HEIGHT = 20.0;
+	
     private final Dimension2D turtleDispDimension;
     private final ObjectObservable<String> pLang, input, backgroundColor, intCommands, commHistory;
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
@@ -49,27 +34,30 @@ public class View implements ViewInt {
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
     private final SimpleStringProperty consoleIn = new SimpleStringProperty(this, "consoleIn");
     private BorderPane UI;
+    private ResourceBundle myResources;
     private Group root;
-    private ToolBarInterface tBar;
+    private ToolBar tBar;
     private Button executeButton;
-    private TurtleAreaInterface turtDisp;
-    private CommandHistoryInterface commandHistory;
-    private CommandEntryInterface commandEntry;
-    private ErrorDisplayInterface errorDisplay;
-    private EnvironmentDisplayInterface vDisplay, methodsDisplay;
-    private ConsoleInterface console;
+    private TurtleDisplay turtDisp;
+    private CommandHistoryDisplay commandHistory;
+    private CommandEntry commandEntry;
+    private ErrorDisplay errorDisplay;
+    private DefinedObjectsDisplay vDisplay, methodsDisplay;
+    private Console console;
     private HBox bottom;
     private VBox left, right;
+    private String dispLang;
 
     public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
         this.pLang = pLang;
         this.input = input;
+        this.dispLang = Defaults.DISPLAY_LANG.getDefault();
         this.turtleDispDimension = turtleDispDimension;
         this.intCommands = new ObjectObservable<>();
         this.backgroundColor = new ObjectObservable<>();
         this.commHistory = new ObjectObservable<>();
-        
-       
+        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + dispLang);
+    
         createAppView();
     }
 
@@ -88,7 +76,8 @@ public class View implements ViewInt {
     }
 
     private void createScene() {
-        UI.setStyle(UI_BACKGROUND_COLOR);
+        setError();  
+        UI.setStyle(Defaults.BACKGROUND_COLOR.getDefault());
         createTurtleDisplay();
         createToolBar();
         createBottomPane();
@@ -96,6 +85,12 @@ public class View implements ViewInt {
         createLeftPane();
         addComponents();
     }
+
+
+	private void setError() {
+		errorDisplay = new ErrorDisplay(error);
+		errorDisplay.set();
+	}
 
 
     private void addComponents() {
@@ -108,22 +103,20 @@ public class View implements ViewInt {
 
 
     private void createLeftPane() {
-        left = new VBox(PADDING);
-        BorderPane.setMargin(left, LEFT_INSETS);
-        vDisplay = new VariableDisplay(pLang, intCommands, variables);
+        left = new VBox(Size.VIEW_PADDING.getSize());
+        BorderPane.setMargin(left, ViewInsets.LEFT.getInset());
+        vDisplay = new VariableDisplay(pLang, intCommands, variables, error);
         left.getChildren().add(vDisplay.getEnvDisplay());
-        methodsDisplay = new MethodDisplay(pLang, intCommands, methods);
+        methodsDisplay = new MethodDisplay(pLang, intCommands, methods, error);
         left.getChildren().add(methodsDisplay.getEnvDisplay());
         
     }
 
 
     private void createBottomPane() {
-        bottom = new HBox(PADDING);
-        BorderPane.setMargin(bottom, BOTTOM_INSETS);
-        errorDisplay = new ErrorDisplay(error);
-        bottom.getChildren().add(errorDisplay.getErrorDisplay());
-        
+        bottom = new HBox(Size.VIEW_PADDING.getSize());
+        BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
+      
         console = new Console(consoleIn);
         bottom.getChildren().add(console.getConsole());
         
@@ -134,8 +127,8 @@ public class View implements ViewInt {
 
 
     private void createToolBar() {
-        tBar = new ToolBar(pLang, error, backgroundColor, image, penColor);
-        BorderPane.setMargin(tBar.getToolBarMembers(), TBAR_INSETS);
+        tBar = new ToolBar(pLang, error, backgroundColor, image, penColor, intCommands);
+        BorderPane.setMargin(tBar.getToolBarMembers(), ViewInsets.TOP.getInset());
         tBar.getToolBarMembers().prefWidthProperty().bind(UI.widthProperty());
         
     }
@@ -144,14 +137,14 @@ public class View implements ViewInt {
     private void createTurtleDisplay() {
     	
         turtDisp = new TurtleDisplay(backgroundColor, turtleDispDimension);
-        BorderPane.setMargin(turtDisp.getTurtlePane(), TURT_INSETS);
+        BorderPane.setMargin(turtDisp.getTurtlePane(), ViewInsets.TURTLE.getInset());
         
 
     }
 
     private void createRightPane() {
         right = new VBox();
-        BorderPane.setMargin(right, RIGHT_INSETS);
+        BorderPane.setMargin(right, ViewInsets.RIGHT.getInset());
         commandEntry = new CommandEntry(input, intCommands, commHistory);
         right.getChildren().add(commandEntry.getNode());
         createExecute();
@@ -159,20 +152,16 @@ public class View implements ViewInt {
 
 
     private void createExecute() {
-        executeButton = new Button(EXECUTE_BUTTON_LABEL);
+        executeButton = new Button(myResources.getString("execute"));
         executeButton.setOnAction(e -> processExecute());
         executeButton.prefWidthProperty().bind(right.widthProperty());
-        executeButton.setPrefHeight(EXECUTE_BUTTON_HEIGHT);
+        executeButton.setPrefHeight(Size.EX_BUTTON.getSize());
         right.getChildren().add(executeButton);
-
 	}
 
 
     private void processExecute() {
-        commandEntry.processCommands();
-        vDisplay.updateEnvNode();
-
-        
+        commandEntry.processCommands(); 
     }
     
     @Override
