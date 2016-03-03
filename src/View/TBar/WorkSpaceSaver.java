@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import View.Defaults;
 import View.Size;
+import View.utilities.ComboFactory;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -21,6 +23,7 @@ public class WorkSpaceSaver {
 	private VBox v;
 	private Scene myScene;
 	private ArrayList<String> colors, langs;
+	private ComboBox<String> bColor,pColor, pLangs;
 
 	public WorkSpaceSaver(List<String> colors, List<String> langs ){
 		this.langs = (ArrayList<String>) langs;
@@ -64,11 +67,13 @@ public class WorkSpaceSaver {
 
 
 	private void createComboBoxes() {
-		// TODO Auto-generated method stub
+		bColor = ComboFactory.createBox(myResources.getString("bColor"), colors, null);
+		pColor = ComboFactory.createBox(myResources.getString("pColor"), colors, null);
+		pLangs = ComboFactory.createBox(myResources.getString("selLang"), langs, null);
 		
 	}
 	private void getPreferences() {
-		v.getChildren().addAll();
+		v.getChildren().addAll(bColor, pColor, pLangs);
 	}
 
 }
