@@ -1,11 +1,11 @@
 package View.EnvDisplay;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import Observables.ObjectObservable;
 import View.Defaults;
+import View.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,12 +22,7 @@ import javafx.scene.layout.VBox;
  * @author Stephen
  */
 
-public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterface {
-
-	private static final int SCROLL_HEIGHT = 200;
-	private static final int SCROLL_WIDTH = 400;
-	private static final String ENGLISH = "English";
-    private static final int size = 400;
+public abstract class DefinedObjectsDisplay {
 
 	private SimpleStringProperty definedObjects, error;
 	private String displayLanguage;
@@ -48,19 +43,20 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 		this.definedObjects = definedObjects;
 		this.displayLanguage = Defaults.DISPLAY_LANG.getDefault();
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + displayLanguage);
+		setScrollPane();
+		setListners();
 	}
 
-	protected abstract void updateDefinedObject(Label label) throws Exception;
+	protected abstract void updateDefinedObject(Label label);
 
 	private void setScrollPane () {
         myScrollPane = new ScrollPane();
-        myScrollPane.setMinViewportWidth(size);
-        myScrollPane.setPrefViewportWidth(size);
-        myScrollPane.setMaxWidth(size);
+        myScrollPane.setMinViewportWidth(Size.ENV_DISPLAY_WIDTH.getSize());
+        myScrollPane.setPrefViewportWidth(Size.ENV_DISPLAY_WIDTH.getSize());
+        myScrollPane.setMaxWidth(Size.ENV_DISPLAY_WIDTH.getSize());
         VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
     }
 	
-	@Override
 	public Node getEnvDisplay() {
 		return myScrollPane;
 	}
@@ -72,11 +68,20 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
         
     }
 
-	protected EnvUpdate getUpdater(String className) throws Exception {
-		Class<?> classTemp = Class.forName(className);
-		Constructor<?> constructor = classTemp.getConstructor(ResourceBundle.class, ObjectObservable.class, ObjectObservable.class);
-		Object obj = constructor.newInstance(myResources, intCommand, parsingLanguage);
-		return (EnvUpdate) obj;
+	protected EnvUpdate getUpdater(String className) {
+		 
+		try {
+			Class<?> classTemp = Class.forName(className);
+			Constructor<?> constructor = classTemp.getConstructor(ResourceBundle.class, ObjectObservable.class, ObjectObservable.class);
+			Object obj = constructor.newInstance(myResources, intCommand, parsingLanguage);
+			return (EnvUpdate) obj;
+		} catch (Exception e) {
+			e.printStackTrace();
+			error.set("");
+			error.set(myResources.getString("createUpError"));
+		}
+		
+		return null;
 	}
 
 	protected void createCurrEnvDisp() {
@@ -98,11 +103,15 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 		vBox.getChildren().add(title);
 	}
 
-	private void populateVBox() throws Exception {
-        Arrays.asList(definedObjectsArray).forEach(e->setLabel(e));
+	private void populateVBox()  {
+		for(String defObject: definedObjectsArray){
+			setLabel(defObject);
+		}
+					
+
 	}
 	
-	private void setLabel(String definedObject){
+	private void setLabel(String definedObject) {
 
 			Label label = new Label(definedObject);
 			if (definedObject.length() == 0){
@@ -111,17 +120,22 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 			label.prefWidthProperty().bind(myScrollPane.widthProperty());
 			label.setStyle(Defaults.BORDER_COLOR.getDefault());
 			label.setWrapText(true);
-			label.setOnMouseClicked(e -> updateDefinedObject(label));
+			label.setOnMouseClicked(e -> handleUpdate(label));
 				
 			vBox.getChildren().add(label);
 		
 	}
 
-	public ResourceBundle getResources() {
-		return myResources;
+	private void handleUpdate(Label label) {
+		try {
+			updateDefinedObject(label);
+		} catch (Exception e) {
+			error.set("");
+			error.set(myResources.getString("envUpdate"));
+		}
 	}
 
 	public void setDisplayTitle(String displayTitle) {
-		this.displayTitle = displayTitle;
+		this.displayTitle = myResources.getString(displayTitle);
 	}
 }

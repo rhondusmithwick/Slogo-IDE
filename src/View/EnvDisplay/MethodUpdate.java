@@ -22,7 +22,7 @@ public class MethodUpdate extends EnvUpdate {
     public MethodUpdate(ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
         super(myResources,intCommand, pLang);
 
-        
+       
     }
 
     @Override
@@ -74,7 +74,6 @@ public class MethodUpdate extends EnvUpdate {
         }
         newDisp = this.name + SPACE+
        		 vNewVal + SPACE + "["+ mNewVal + "]";
-
         return command + SPACE +newDisp;
     }
 
@@ -95,7 +94,6 @@ public class MethodUpdate extends EnvUpdate {
         vTitle = createTitle("methVarTitle",  SPACE + name); 
         addToScene(Arrays.asList(mTitle,mField,vTitle,vField));
         showScene();
-
     }
 
 	private void getName(String content) {
