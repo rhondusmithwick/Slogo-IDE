@@ -8,6 +8,7 @@ import Maps.ColorMap;
 import Observables.ObjectObservable;
 import View.Defaults;
 import View.Size;
+import View.utilities.FileGetter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -98,7 +99,7 @@ public abstract class SubBar implements Observer {
     }
 
     protected List<String> getLanguages() {
-        return (ArrayList<String>) ParseLangs.getInstance().getLangs();
+        return FileGetter.getAllFromDirectory(Defaults.PARSELANG_LOC.getDefault());
     }
 
     protected List<String> getColors(){

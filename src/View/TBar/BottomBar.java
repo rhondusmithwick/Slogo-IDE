@@ -43,7 +43,16 @@ public class BottomBar extends SubBar {
 	protected void createButtons() {
 		makeButton("penUp", e -> setPen("PenUp"));
 		makeButton("penDown", e -> setPen("PenDown"));
+		makeButton("workSaver", e->saveWorkSpace());
 		
+	}
+
+
+
+	private void saveWorkSpace() {
+		WorkSpaceSaver wSaver = new WorkSpaceSaver(createBox("pColor", getColors(), null), createBox("bColor", getColors(), null),
+														createBox("selLang", getLanguages(), null));
+		wSaver.showSaver();
 	}
 
 
