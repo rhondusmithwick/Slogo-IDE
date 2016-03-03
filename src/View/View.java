@@ -127,7 +127,7 @@ public class View implements ViewInt {
 
 
     private void createToolBar() {
-        tBar = new ToolBar(pLang, error, backgroundColor, image, penColor);
+        tBar = new ToolBar(pLang, error, backgroundColor, image, penColor, intCommands);
         BorderPane.setMargin(tBar.getToolBarMembers(), ViewInsets.TOP.getInset());
         tBar.getToolBarMembers().prefWidthProperty().bind(UI.widthProperty());
         
