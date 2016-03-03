@@ -88,6 +88,7 @@ public class ToolBar implements Observer{
     private void setLang() {
         pLanguage = Defaults.PARSELANG_LOC.getDefault() + langBox.getSelectionModel().getSelectedItem();
         language.set(pLanguage);
+        colors.setAtIndex(78, "300 90 87");
     }
 
     private ComboBox<String> createBox(String label, ArrayList<String> choices, EventHandler<ActionEvent> handler) {

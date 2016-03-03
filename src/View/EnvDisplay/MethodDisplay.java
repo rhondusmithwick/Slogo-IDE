@@ -23,6 +23,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 		this.parsingLanguage = parsingLanguage;
 		myResources = getResources();
 
+
 		displayTitle = myResources.getString("methodDisplayTitle");
 		setDisplayTitle(displayTitle);
 		createCurrEnvDisp();

@@ -11,7 +11,9 @@ import javafx.scene.control.TextField;
 public class MethodUpdate extends EnvUpdate {
     
 
-    private static final char SPLITTER = '|';
+    private static final char FRONT_BRACK = '[';
+	private static final char BACK_BRACKET = ']';
+	private static final char SPLITTER = '|';
     private static final String SPACE = " ";
     private String name, mNewVal, vNewVal, variables, methods, newDisp;
     private TextField vField, mField;
@@ -73,7 +75,7 @@ public class MethodUpdate extends EnvUpdate {
             command = posCommands;
         }
         newDisp = this.name + SPACE+
-       		 vNewVal + SPACE + "["+ mNewVal + "]";
+       		 vNewVal + SPACE + FRONT_BRACK+ mNewVal + BACK_BRACKET;
 
         return command + SPACE +newDisp;
     }
@@ -105,16 +107,16 @@ public class MethodUpdate extends EnvUpdate {
 	}
 	
 	private void getVariables(String content){
-		int firstBrack = content.indexOf('[');
-		int backBrack = content.indexOf(']');
+		int firstBrack = content.indexOf(FRONT_BRACK);
+		int backBrack = content.indexOf(BACK_BRACKET);
 		this.variables = content.substring(firstBrack, backBrack+1);
 		vField.setText(this.variables);
 
 	}
 	
 	private void getMethods(String content){
-		int backBrack = content.indexOf(']');
-		int secFrontBrack = (content.substring(backBrack)).indexOf('[');
+		int backBrack = content.indexOf(BACK_BRACKET);
+		int secFrontBrack = (content.substring(backBrack)).indexOf(FRONT_BRACK);
 		this.methods = (content.substring(backBrack)).substring(secFrontBrack+1);
 		this.methods = methods.substring(0,methods.length()-1);
 		mField.setText(this.methods);
