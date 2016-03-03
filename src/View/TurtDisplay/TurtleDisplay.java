@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 
-public class TurtleDisplay implements TurtleAreaInterface, Observer {
+public class TurtleDisplay implements Observer {
     private static final double SCROLL_BAR_INITIAL = .5;
     private Rectangle background;
     private Group dispArea;
@@ -45,13 +45,12 @@ public class TurtleDisplay implements TurtleAreaInterface, Observer {
 
     }
 
-    @Override
+
     public Node getTurtlePane() {
         return scroll;
     }
 
 
-    @Override
     public Group getTurtleArea() {
         return dispArea;
     }

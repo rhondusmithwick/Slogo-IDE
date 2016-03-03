@@ -25,7 +25,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 
 		displayTitle = myResources.getString("methodDisplayTitle");
 		setDisplayTitle(displayTitle);
-		updateEnvNode();
+		createCurrEnvDisp();
 	}
 
 	@Override

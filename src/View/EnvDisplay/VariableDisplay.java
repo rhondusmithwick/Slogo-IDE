@@ -25,7 +25,7 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 		
 		displayTitle = myResources.getString("varTitle");
 		setDisplayTitle(displayTitle);
-		updateEnvNode();
+		createCurrEnvDisp();
 	}
 
 	@Override

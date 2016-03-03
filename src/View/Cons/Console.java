@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class Console implements ConsoleInterface{
+public class Console{
 
 
     private String language;
@@ -102,7 +102,6 @@ public class Console implements ConsoleInterface{
         box.getChildren().remove(contents);
     }
 
-    @Override
     public Node getConsole(){
         return scroll;
     }

@@ -1,6 +1,7 @@
 package View.EnvDisplay;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import Observables.ObjectObservable;
@@ -10,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -24,6 +26,8 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 
 	private static final int SCROLL_HEIGHT = 200;
 	private static final int SCROLL_WIDTH = 400;
+	private static final String ENGLISH = "English";
+    private static final int size = 400;
 
 	private SimpleStringProperty definedObjects, error;
 	private String displayLanguage;
@@ -44,21 +48,29 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 		this.definedObjects = definedObjects;
 		this.displayLanguage = Defaults.DISPLAY_LANG.getDefault();
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + displayLanguage);
-		myScrollPane = new ScrollPane();
-		myScrollPane.setPrefSize(SCROLL_WIDTH, SCROLL_HEIGHT);
 	}
 
 	protected abstract void updateDefinedObject(Label label) throws Exception;
 
+	private void setScrollPane () {
+        myScrollPane = new ScrollPane();
+        myScrollPane.setMinViewportWidth(size);
+        myScrollPane.setPrefViewportWidth(size);
+        myScrollPane.setMaxWidth(size);
+        VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
+    }
+	
 	@Override
 	public Node getEnvDisplay() {
 		return myScrollPane;
 	}
 
-	@Override
-	public void updateEnvNode() {
-		createCurrVDisp();
-	}
+
+	
+    private void setListners () {
+        definedObjects.addListener((ov, oldVal, newVal) -> createCurrEnvDisp());
+        
+    }
 
 	protected EnvUpdate getUpdater(String className) throws Exception {
 		Class<?> classTemp = Class.forName(className);
@@ -67,12 +79,12 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 		return (EnvUpdate) obj;
 	}
 
-	private void createCurrVDisp() {
+	protected void createCurrEnvDisp() {
 		vBox = new VBox();
 		setTitle();
 		String definedObjectsString = definedObjects.get();
 		if (definedObjectsString != null) {
-			definedObjectsArray = definedObjectsString.split("\n");
+			definedObjectsArray = definedObjectsString.split(",");
 			populateVBox();
 		}
 		myScrollPane.setContent(vBox);
@@ -81,27 +93,28 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 	private void setTitle() {
 		Label title = new Label(displayTitle);
 		title.setAlignment(Pos.TOP_CENTER);
-		title.setPrefWidth(SCROLL_WIDTH);
-		title.setStyle(Defaults.BORDER_COLOR.getDefault());
+		title.prefWidthProperty().bind(myScrollPane.widthProperty());
+        title.setStyle(Defaults.BORDER_COLOR.getDefault());
 		vBox.getChildren().add(title);
 	}
 
 	private void populateVBox() throws Exception {
-		for (String definedObject : definedObjectsArray) {
+        Arrays.asList(definedObjectsArray).forEach(e->setLabel(e));
+	}
+	
+	private void setLabel(String definedObject){
+
 			Label label = new Label(definedObject);
-			if (definedObject.length() == 0)
-				continue;
-			label.setPrefWidth(SCROLL_WIDTH);
+			if (definedObject.length() == 0){
+				return;
+			}
+			label.prefWidthProperty().bind(myScrollPane.widthProperty());
 			label.setStyle(Defaults.BORDER_COLOR.getDefault());
 			label.setWrapText(true);
-			try {
-				label.setOnMouseClicked(e -> updateDefinedObject(label));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			label.setOnMouseClicked(e -> updateDefinedObject(label));
+				
 			vBox.getChildren().add(label);
-		}
+		
 	}
 
 	public ResourceBundle getResources() {
@@ -111,5 +124,4 @@ public abstract class DefinedObjectsDisplay implements EnvironmentDisplayInterfa
 	public void setDisplayTitle(String displayTitle) {
 		this.displayTitle = displayTitle;
 	}
-
 }

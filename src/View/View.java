@@ -2,19 +2,13 @@ package View;
 
 import Observables.ObjectObservable;
 import View.CommEntry.CommandEntry;
-import View.CommEntry.CommandEntryInterface;
 import View.CommHistory.CommandHistoryDisplay;
-import View.CommHistory.CommandHistoryInterface;
 import View.Cons.Console;
-import View.Cons.ConsoleInterface;
-import View.EnvDisplay.EnvironmentDisplayInterface;
+import View.EnvDisplay.DefinedObjectsDisplay;
 import View.EnvDisplay.MethodDisplay;
 import View.EnvDisplay.VariableDisplay;
 import View.Error.ErrorDisplay;
-import View.Error.ErrorDisplayInterface;
 import View.TBar.ToolBar;
-import View.TBar.ToolBarInterface;
-import View.TurtDisplay.TurtleAreaInterface;
 import View.TurtDisplay.TurtleDisplay;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
@@ -42,14 +36,14 @@ public class View implements ViewInt {
     private BorderPane UI;
     private ResourceBundle myResources;
     private Group root;
-    private ToolBarInterface tBar;
+    private ToolBar tBar;
     private Button executeButton;
-    private TurtleAreaInterface turtDisp;
-    private CommandHistoryInterface commandHistory;
-    private CommandEntryInterface commandEntry;
-    private ErrorDisplayInterface errorDisplay;
-    private EnvironmentDisplayInterface vDisplay, methodsDisplay;
-    private ConsoleInterface console;
+    private TurtleDisplay turtDisp;
+    private CommandHistoryDisplay commandHistory;
+    private CommandEntry commandEntry;
+    private ErrorDisplay errorDisplay;
+    private DefinedObjectsDisplay vDisplay, methodsDisplay;
+    private Console console;
     private HBox bottom;
     private VBox left, right;
     private String dispLang;
@@ -82,6 +76,7 @@ public class View implements ViewInt {
     }
 
     private void createScene() {
+        setError();  
         UI.setStyle(Defaults.BACKGROUND_COLOR.getDefault());
         createTurtleDisplay();
         createToolBar();
@@ -90,6 +85,12 @@ public class View implements ViewInt {
         createLeftPane();
         addComponents();
     }
+
+
+	private void setError() {
+		errorDisplay = new ErrorDisplay(error);
+		errorDisplay.set();
+	}
 
 
     private void addComponents() {
@@ -115,9 +116,7 @@ public class View implements ViewInt {
     private void createBottomPane() {
         bottom = new HBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
-        errorDisplay = new ErrorDisplay(error);
-        bottom.getChildren().add(errorDisplay.getErrorDisplay());
-        
+      
         console = new Console(consoleIn);
         bottom.getChildren().add(console.getConsole());
         
@@ -162,8 +161,7 @@ public class View implements ViewInt {
 
 
     private void processExecute() {
-        commandEntry.processCommands();
-        vDisplay.updateEnvNode();    
+        commandEntry.processCommands(); 
     }
     
     @Override
