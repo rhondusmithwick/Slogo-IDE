@@ -105,9 +105,9 @@ public class View implements ViewInt {
     private void createLeftPane() {
         left = new VBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(left, ViewInsets.LEFT.getInset());
-        vDisplay = new VariableDisplay(pLang, intCommands, variables);
+        vDisplay = new VariableDisplay(pLang, intCommands, variables, error);
         left.getChildren().add(vDisplay.getEnvDisplay());
-        methodsDisplay = new MethodDisplay(pLang, intCommands, methods);
+        methodsDisplay = new MethodDisplay(pLang, intCommands, methods, error);
         left.getChildren().add(methodsDisplay.getEnvDisplay());
         
     }
