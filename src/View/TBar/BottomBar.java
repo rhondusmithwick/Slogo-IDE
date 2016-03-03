@@ -44,7 +44,8 @@ public class BottomBar extends SubBar {
 		makeButton("penUp", e -> setPen("PenUp"));
 		makeButton("penDown", e -> setPen("PenDown"));
 		makeButton("workSaver", e->saveWorkSpace());
-		
+		makeButton("setPenSize", e -> setPen("setPenSize"));
+
 	}
 
 
