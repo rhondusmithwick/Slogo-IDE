@@ -27,7 +27,6 @@ public class ToolBar implements Observer {
 	private VBox buttonContainer;
 	private HBox topContainer;
 	private HBox bottomContainer;
-	// private HBox container;
 	private HelpScreen hScreen;
 	private ResourceBundle myResources, myCommands;
 	private String dispLang, bColor, pLanguage, pColor;
@@ -58,7 +57,6 @@ public class ToolBar implements Observer {
 	private void setToolBar() {
 		getColors();
 		initButtonContainer();
-		// setHBox();
 		setHBoxes();
 		createButtons();
 		getLanguages();
@@ -79,15 +77,6 @@ public class ToolBar implements Observer {
 		buttonContainer.getChildren().add(bottomContainer);
 	}
 
-	// private void setHBox () {
-	// container = new HBox();
-	// container.setAlignment(Pos.CENTER);
-	// container.setSpacing(Size.TB_PADDING.getSize());
-	// }
-
-	// public HBox getToolBarMembers() {
-	// return container;
-	// }
 
 	public VBox getToolBarMembers() {
 		return buttonContainer;
@@ -115,10 +104,7 @@ public class ToolBar implements Observer {
 	private void setLang() {
 		pLanguage = Defaults.PARSELANG_LOC.getDefault() + langBox.getSelectionModel().getSelectedItem();
 		language.set(pLanguage);
-		// causes crash when switching language
-		// myCommands =
-		// ResourceBundle.getBundle(Defaults.RESOURCE_LOCATION.getDefault() +
-		// language.get());
+		myCommands =ResourceBundle.getBundle(language.get());
 	}
 
 	private ComboBox<String> createBox(String label, ArrayList<String> choices, EventHandler<ActionEvent> handler) {
@@ -127,7 +113,6 @@ public class ToolBar implements Observer {
 		choices.forEach(e -> comBox.getItems().add(e));
 		comBox.setOnAction(handler);
 		HBox.setHgrow(comBox, Priority.ALWAYS);
-		// container.getChildren().add(comBox);
 		topContainer.getChildren().add(comBox);
 		return comBox;
 
@@ -151,7 +136,6 @@ public class ToolBar implements Observer {
 		Button newButt = new Button();
 		newButt.setText(label);
 		container.getChildren().add(newButt);
-		// bottomContainer.getChildren().add(newButt);
 		newButt.setOnAction(handler);
 		HBox.setHgrow(newButt, Priority.ALWAYS);
 	}
@@ -205,7 +189,6 @@ public class ToolBar implements Observer {
 	}
 
 	private void updateColorBoxes() {
-		// container.getChildren().removeAll(bColorBox, pColorBox, langBox);
 		topContainer.getChildren().removeAll(bColorBox, pColorBox, langBox);
 		createComboBoxes();
 	}
