@@ -3,7 +3,6 @@ package View.TBar;
 import java.util.Observable;
 import Observables.ObjectObservable;
 import View.Defaults;
-import View.utilities.ComboFactory;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 

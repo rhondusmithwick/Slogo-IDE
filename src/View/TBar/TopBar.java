@@ -1,6 +1,5 @@
 package View.TBar;
 
-import java.net.MalformedURLException;
 import java.util.Observable;
 import Maps.ColorMap;
 import Maps.ImageMap;
@@ -106,7 +105,7 @@ public class TopBar extends SubBar {
             if (newImage != null) {
                 image.set(newImage);
             }
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             showError("picError");
         }
     }

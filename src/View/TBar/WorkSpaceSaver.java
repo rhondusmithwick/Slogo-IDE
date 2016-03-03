@@ -52,6 +52,7 @@ public class WorkSpaceSaver {
 		Label title = new Label(myResources.getString("workSaver"));
 		v.getChildren().addAll(title);
 		Button set = new Button(myResources.getString("save"));
+		createComboBoxes();
 		getPreferences();
 		v.getChildren().add(set);
 
@@ -62,6 +63,10 @@ public class WorkSpaceSaver {
 
 
 
+	private void createComboBoxes() {
+		// TODO Auto-generated method stub
+		
+	}
 	private void getPreferences() {
 		v.getChildren().addAll();
 	}

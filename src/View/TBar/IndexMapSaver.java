@@ -6,6 +6,7 @@ import Maps.IndexMap;
 import View.Defaults;
 import View.Size;
 import View.Xml.MapToXML;
+import View.utilities.ButtonFactory;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -52,8 +53,7 @@ public class IndexMapSaver {
         Label title = new Label(myResources.getString("saverTitle"));
         tField = new TextField();
         tField.prefWidthProperty().bind(myScene.widthProperty());
-        Button set = new Button(myResources.getString("save"));
-        set.setOnAction(e->saveList());
+        Button set = ButtonFactory.createButton(myResources.getString("save"), e->saveList());
         v.getChildren().addAll(title, tField, set);
 
     }

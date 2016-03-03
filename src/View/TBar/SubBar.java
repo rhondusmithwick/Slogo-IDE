@@ -8,6 +8,7 @@ import Maps.ColorMap;
 import Observables.ObjectObservable;
 import View.Defaults;
 import View.Size;
+import View.utilities.ButtonFactory;
 import View.utilities.ComboFactory;
 import View.utilities.FileGetter;
 import javafx.beans.property.SimpleStringProperty;
@@ -60,9 +61,8 @@ public abstract class SubBar implements Observer {
     }
 
     public Button makeButton(String key, EventHandler<ActionEvent> handler) {
-        Button newButt = new Button(myResources.getString(key));
+        Button newButt = ButtonFactory.createButton(myResources.getString(key), handler);
         container.getChildren().add(newButt);
-        newButt.setOnAction(handler);
         HBox.setHgrow(newButt, Priority.ALWAYS);
         return newButt;
     }
