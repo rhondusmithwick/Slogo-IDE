@@ -34,7 +34,7 @@ public class ToolBar implements Observer {
 	private ComboBox<String> langBox, bColorBox, pColorBox;
 	private ColorMap colors;
 	private PaletteDisp cDisp, iDisp;
-	private static final char SPLITTER = '|'; // put this in defaults?
+	private static final char SPLITTER = '|'; 
 
 	public ToolBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> bgColor,
 			SimpleStringProperty image, SimpleStringProperty penColor, ObjectObservable<String> intCommand) {
