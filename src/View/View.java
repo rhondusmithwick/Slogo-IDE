@@ -46,17 +46,15 @@ public class View implements ViewInt {
     private Console console;
     private HBox bottom;
     private VBox left, right;
-    private String dispLang;
 
     public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
         this.pLang = pLang;
         this.input = input;
-        this.dispLang = Defaults.DISPLAY_LANG.getDefault();
         this.turtleDispDimension = turtleDispDimension;
         this.intCommands = new ObjectObservable<>();
         this.backgroundColor = new ObjectObservable<>();
         this.commHistory = new ObjectObservable<>();
-        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + dispLang);
+        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     
         createAppView();
     }

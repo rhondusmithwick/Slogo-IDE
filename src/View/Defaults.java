@@ -1,8 +1,7 @@
 package View;
 
 public enum Defaults {
-	DISPLAY_LANG("English"),
-	DISPLAY_LOC("resources/guiStrings/"),
+	DISPLAY_LOC("resources/guiStrings/english"),
 	BACKGROUND_COLOR("-fx-background-color: cornflowerblue"),
 	BACKGROUND_WHITE("-fx-background-color: white"),
 	COMMAND_TO_TEXT_BOX("show in text box"),

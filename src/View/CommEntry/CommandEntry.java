@@ -30,12 +30,10 @@ public class CommandEntry implements Observer {
     private ScrollPane myScrollPane;
     private VBox container;
     private Label title;
-    private String dispLang;
     private ResourceBundle myResources;
 
     public CommandEntry(ObjectObservable<String> input, ObjectObservable<String> intCommands, ObjectObservable<String> commHistory) {
-        this.dispLang = Defaults.DISPLAY_LANG.getDefault();
-        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + dispLang);
+        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         this.input = input;
         this.commHistory = commHistory;
         this.intCommands = intCommands;
