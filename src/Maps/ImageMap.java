@@ -17,7 +17,7 @@ public class ImageMap extends IndexMap{
 
 
 
-    public static synchronized ImageMap getInstance() throws Exception
+    public static synchronized ImageMap getInstance() throws Exception 
     {
         if (instance == null)
             instance = new ImageMap();
@@ -37,9 +37,20 @@ public class ImageMap extends IndexMap{
     }
 
     @Override
-    protected void addElements () {
+    public void addElements(String type) {
+        images = new MapObservable<>("imageMap");     
+        if(type.equals("default")){
+            getDefault();
+        }
+        
+
+    }
+
+
+
+
+    private void getDefault () {
         count = 0;
-        images = new MapObservable<>("imageMap");
         File directory = new File(Defaults.IMAGE_LOC.getDefault());
         File[] fList = directory.listFiles();
         for (File file : fList) {
@@ -47,8 +58,10 @@ public class ImageMap extends IndexMap{
             images.put(count, Defaults.IMAGE_LOC.getDefault()+name);
             count++;
         }
-
     }
+
+
+
 
 
 }
