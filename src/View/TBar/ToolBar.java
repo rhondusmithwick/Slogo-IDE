@@ -40,6 +40,7 @@ public class ToolBar implements Observer{
         this.bgColor = bgColor;
         this.dispLang = Defaults.DISPLAY_LANG.getDefault();
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + dispLang);
+        
         cDisp = new ColorDisplay("colorTitle");
         iDisp = new ImageDisplay("imageTitle");
         hScreen = HelpScreen.getInstance();
@@ -88,7 +89,7 @@ public class ToolBar implements Observer{
     private void setLang() {
         pLanguage = Defaults.PARSELANG_LOC.getDefault() + langBox.getSelectionModel().getSelectedItem();
         language.set(pLanguage);
-        colors.setAtIndex(78, "300 90 87");
+
     }
 
     private ComboBox<String> createBox(String label, ArrayList<String> choices, EventHandler<ActionEvent> handler) {
