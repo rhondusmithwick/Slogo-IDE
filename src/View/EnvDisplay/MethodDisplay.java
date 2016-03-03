@@ -16,6 +16,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 		super(methods, parsingLanguage, intCommand, error);
 
 		setDisplayTitle("methodDisplayTitle");
+
 		createCurrEnvDisp();
 	}
 
