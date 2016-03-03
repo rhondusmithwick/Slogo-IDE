@@ -12,6 +12,7 @@ public class ColorMap extends IndexMap {
     private MapObservable<Integer,String> colors;
     private int count;
 
+
     
     
     private ColorMap() throws Exception{
@@ -25,12 +26,17 @@ public class ColorMap extends IndexMap {
                     instance = new ColorMap();
             return instance;
     }
+    
+    
+    
+    
     @Override
     public MapObservable<Integer, String> getIndexMap(){
         return colors;
+        
     }
     @Override
-    public void setAtIndex(int index, String toSet){
+    public void setAtIndex(int index, String toSet) throws Exception{
         String[] rgb = toSet.split(" ");
         String value = "rgb(" + rgb[0] + "," + rgb[1]+ ","+rgb[2]+")";
         colors.put(index, value);
@@ -38,10 +44,17 @@ public class ColorMap extends IndexMap {
         
     }
 
-    @SuppressWarnings("rawtypes")
+    
     @Override
-    protected void addElements () throws Exception {
+    public void addElements (String type) throws Exception {
+        if(type.equals("default")){
+            stripColors();
+        }
+        
+    }
 
+    @SuppressWarnings("rawtypes")
+    private void stripColors () throws Exception{
         colors = new MapObservable<>("colorMap");
         count =0;
         
@@ -54,7 +67,6 @@ public class ColorMap extends IndexMap {
                 count++;
             }
         }
-        
     }
     
     
