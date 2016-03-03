@@ -12,6 +12,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 			SimpleStringProperty methods, SimpleStringProperty error) {
 		super(methods, parsingLanguage, intCommand, error);
 		setDisplayTitle("methodDisplayTitle");
+
 		createCurrEnvDisp();
 	}
 

@@ -75,11 +75,6 @@ public class CommandEntry implements Observer {
     public Node getNode() {
         return myScrollPane;
     }
-
-
-    private void getCommandsFromString(String text) {
-        input.set(text);
-    }
     
    private void passInternalCommands(String command, boolean showInTextBox) {
         if(showInTextBox){
@@ -91,7 +86,7 @@ public class CommandEntry implements Observer {
             }
             myEntryBox.setText(curr);
         }else{
-            getCommandsFromString(command);
+           input.set(command);
         }
     }
 
@@ -99,7 +94,7 @@ public class CommandEntry implements Observer {
     public void processCommands() {
         String text = myEntryBox.getText();
         commHistory.set(text);
-        getCommandsFromString(text);
+        input.set(text);
         myEntryBox.clear();
     }
 
