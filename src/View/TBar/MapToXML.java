@@ -54,7 +54,7 @@ public class MapToXML {
         DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
         DocumentBuilder build = fact.newDocumentBuilder();
         doc = build.newDocument();
-        root = (Element) doc.createElement("ColorList");
+        root = (Element) doc.createElement("IndexedMap");
         doc.appendChild(root);
         
         
@@ -67,7 +67,7 @@ public class MapToXML {
     }
 
     private void addToDoc (Entry<Integer, String> e) {
-        Element color = doc.createElement("color");
+        Element color = doc.createElement("Element");
         color.setAttribute("index", e.getKey().toString());
         color.setAttribute("name", e.getValue());
         root.appendChild(color);

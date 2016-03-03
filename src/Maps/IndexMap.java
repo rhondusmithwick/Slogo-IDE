@@ -7,10 +7,25 @@ public abstract class IndexMap {
         addElements("default");
     }
     
-    public abstract void addElements(String type) throws Exception;
+    public void addElements(String type) throws Exception{
+        newMap();
+        if(type.equals("default")){
+            defaultElements();
+        }else{
+            getElementsFromXML(type);
+        }
+    }
+    
+    protected abstract void newMap ();
+
+    protected void getElementsFromXML(String type) throws Exception{
+        MapFromXML xMap = new MapFromXML(this.getIndexMap());
+        xMap.getElements(type);
+    }
+
+    protected abstract void defaultElements () throws Exception;
 
     public abstract MapObservable<Integer, String> getIndexMap();
     public abstract void setAtIndex(int index, String value) throws Exception;
 
-    
 }

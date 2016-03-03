@@ -44,18 +44,10 @@ public class ColorMap extends IndexMap {
         
     }
 
-    
-    @Override
-    public void addElements (String type) throws Exception {
-        if(type.equals("default")){
-            stripColors();
-        }
-        
-    }
+
 
     @SuppressWarnings("rawtypes")
-    private void stripColors () throws Exception{
-        colors = new MapObservable<>("colorMap");
+    protected void defaultElements () throws Exception{
         count =0;
         
         Class colorClass = Class.forName(Defaults.FX_PAINT_CLASS.getDefault());
@@ -68,6 +60,16 @@ public class ColorMap extends IndexMap {
             }
         }
     }
+
+
+    @Override
+    protected void newMap () {
+        colors = new MapObservable<Integer, String>("colors");
+        
+    }
+
+
+
     
     
     
