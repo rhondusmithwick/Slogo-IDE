@@ -23,7 +23,7 @@ public abstract class PaletteDisp {
     private VBox vbox;
     private Scene scene;
     private ResourceBundle myResources;
-    private String language, title;
+    private String title;
     private HBox h;
 
     
@@ -31,8 +31,7 @@ public abstract class PaletteDisp {
     
     public PaletteDisp(String title){
         this.title=title;
-        this.language=Defaults.DISPLAY_LANG.getDefault();
-        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault()+language);
+        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         setStage();
         root = new Group();
         scene = new Scene(root, Size.PALETTE.getSize(),Size.PALETTE.getSize());

@@ -2,6 +2,9 @@ package View.TBar;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.ResourceBundle;
+
+import View.Defaults;
 import View.FileExtensions;
 import View.Size;
 import javafx.scene.Group;
@@ -11,6 +14,8 @@ import javafx.stage.Stage;
 
 public class ImageChooser {
     private static ImageChooser instance;
+    
+    private ResourceBundle myResources;
     
     private ImageChooser(){
         
@@ -23,11 +28,11 @@ public class ImageChooser {
             return instance;
     }
     
-    private void setUpFileChooser(FileChooser fChoose, Stage s, String title) {
+    private void setUpFileChooser(FileChooser fChoose, Stage s) {
         Group root = new Group();
         s.setScene(new Scene(root, Size.MINI.getSize(), Size.MINI.getSize()));
 
-        fChoose.setTitle(title);
+        fChoose.setTitle(myResources.getString("image"));
         fChoose.getExtensionFilters().addAll(FileExtensions.JPG.getFilter(), 
                                              FileExtensions.PNG.getFilter(),
                                              FileExtensions.GIF.getFilter());
@@ -36,10 +41,11 @@ public class ImageChooser {
     }
     
     
-    public String chooseTurtIm(String title) throws MalformedURLException {
+    public String chooseTurtIm() throws MalformedURLException {
+    	myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         FileChooser fChoose = new FileChooser();
         Stage s = new Stage();
-        setUpFileChooser(fChoose, s, title);
+        setUpFileChooser(fChoose, s);
         File file = fChoose.showOpenDialog(s);
         s.close();
         if (file == null) {
