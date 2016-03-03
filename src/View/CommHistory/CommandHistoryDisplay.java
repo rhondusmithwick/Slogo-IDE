@@ -31,17 +31,17 @@ public class CommandHistoryDisplay implements Observer {
     private List<String> commands;
     private VBox myCommHistory;
     private ResourceBundle myResources;
-    private String language;
+
     private ObjectObservable<String> intCommand, commHistory;
 
     public CommandHistoryDisplay(ObjectObservable<String> intCommand, ObjectObservable<String> commHistory) {
-        this.language = Defaults.DISPLAY_LANG.getDefault();
+ 
         this.intCommand = intCommand;
         this.commHistory=commHistory;
         commHistory.addObserver(this);
         this.commands = new ArrayList<>();
         this.commandLabels = new ArrayList<>();
-        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + language);
+        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         
         createScrollPane();
         createVBox();

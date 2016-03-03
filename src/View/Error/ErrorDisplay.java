@@ -12,13 +12,11 @@ public class ErrorDisplay{
 
 
     private ResourceBundle myResources;
-    private String language;
     private SimpleStringProperty error;
     
     public ErrorDisplay(SimpleStringProperty error){
         this.error = error;
-        this.language = Defaults.DISPLAY_LANG.getDefault();
-        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + language);
+        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() );
 
     }
     

@@ -17,7 +17,6 @@ import javafx.scene.layout.VBox;
 public class Console{
 
 
-    private String language;
     private ResourceBundle myResources;
     private ScrollPane scroll;
     private Label contents;
@@ -30,8 +29,7 @@ public class Console{
         this.consoleInput=consoleInput;
         addListner();
         
-        this.language = Defaults.DISPLAY_LANG.getDefault();
-        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + language);
+        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         setScroll();
         
         box = new VBox();

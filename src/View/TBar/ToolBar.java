@@ -10,10 +10,6 @@ public class ToolBar  {
 	private VBox container;
 	private SubBar topBar, botBar;
 
-
-
-
-
 	public ToolBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> bgColor,
 			SimpleStringProperty image, SimpleStringProperty penColor, ObjectObservable<String> intCommand) {
 		

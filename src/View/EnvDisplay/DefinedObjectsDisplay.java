@@ -25,7 +25,6 @@ import javafx.scene.layout.VBox;
 public abstract class DefinedObjectsDisplay {
 
 	private SimpleStringProperty definedObjects, error;
-	private String displayLanguage;
 	private ResourceBundle myResources;
 	private ScrollPane myScrollPane;
 	private VBox vBox;
@@ -41,8 +40,7 @@ public abstract class DefinedObjectsDisplay {
 		this.error = error;
 		this.parsingLanguage = parsingLanguage;
 		this.definedObjects = definedObjects;
-		this.displayLanguage = Defaults.DISPLAY_LANG.getDefault();
-		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + displayLanguage);
+		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		setScrollPane();
 		setListners();
 	}

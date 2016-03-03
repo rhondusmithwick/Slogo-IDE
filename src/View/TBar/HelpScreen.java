@@ -29,8 +29,8 @@ public class HelpScreen {
             return instance;
     }
 
-    public void showHelpScreen(String language) {
-    	myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault()+ language);
+    public void showHelpScreen() {
+    	myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         Group root;
         root = new Group();
         Stage stage = new Stage();

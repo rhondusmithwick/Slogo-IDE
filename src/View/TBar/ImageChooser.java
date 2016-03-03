@@ -41,8 +41,8 @@ public class ImageChooser {
     }
     
     
-    public String chooseTurtIm(String lang) throws MalformedURLException {
-    	myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault()+lang);
+    public String chooseTurtIm() throws MalformedURLException {
+    	myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         FileChooser fChoose = new FileChooser();
         Stage s = new Stage();
         setUpFileChooser(fChoose, s);

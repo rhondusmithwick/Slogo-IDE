@@ -48,7 +48,7 @@ public class TopBar extends SubBar {
 
 	@Override
 	protected void createButtons() {
-		makeButton("help", e -> hScreen.showHelpScreen( getDispLang()));
+		makeButton("help", e -> hScreen.showHelpScreen( ));
 		makeButton("image", e -> chooseTurtIm());
 		makeButton("colorDisp", e -> showColorPalette());
 		makeButton("imageDisp", e -> showImagePalette());
@@ -75,7 +75,7 @@ public class TopBar extends SubBar {
 
 	private void chooseTurtIm() {
 		try {
-			String newImage = ImageChooser.getInstance().chooseTurtIm(getDispLang());
+			String newImage = ImageChooser.getInstance().chooseTurtIm();
 			if (newImage != null) {
 				image.set(newImage);
 			}

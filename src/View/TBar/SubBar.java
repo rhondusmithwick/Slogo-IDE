@@ -19,7 +19,6 @@ import javafx.scene.layout.Priority;
 
 public abstract class SubBar implements Observer {
 	
-	private String dispLang;
 	private ResourceBundle myResources, myCommands;
 	private HBox container;
 	private ObjectObservable<String> language;
@@ -31,8 +30,7 @@ public abstract class SubBar implements Observer {
 	public SubBar(ObjectObservable<String> language, SimpleStringProperty error){
 		this.language=language;
 		this.error=error;
-		this.dispLang = Defaults.DISPLAY_LANG.getDefault();
-		myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault() + dispLang);
+		myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		initHBox();
 		getColorMap();
 		setParsingLanguage(language.get());
@@ -106,10 +104,7 @@ public abstract class SubBar implements Observer {
 		 return new ArrayList<String>(colors.getIndexMap().getValues());
 		
 	}
-	
-	protected String getDispLang(){
-		return dispLang;
-	}
+
 	
 	public HBox getContainer(){
 		return container;
