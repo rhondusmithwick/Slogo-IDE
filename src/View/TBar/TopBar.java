@@ -41,6 +41,7 @@ public class TopBar extends SubBar {
     private void setPColor() {
         String pColor = pColorBox.getSelectionModel().getSelectedItem();
         penColor.set(pColor.toLowerCase());
+        
     }
 
     private void setBackground() {

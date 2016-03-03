@@ -36,20 +36,10 @@ public class ImageMap extends IndexMap{
 
     }
 
+
+
     @Override
-    public void addElements(String type) {
-        images = new MapObservable<>("imageMap");     
-        if(type.equals("default")){
-            getDefault();
-        }
-        
-
-    }
-
-
-
-
-    private void getDefault () {
+    protected void defaultElements () {
         count = 0;
         File directory = new File(Defaults.IMAGE_LOC.getDefault());
         File[] fList = directory.listFiles();
@@ -58,10 +48,17 @@ public class ImageMap extends IndexMap{
             images.put(count, Defaults.IMAGE_LOC.getDefault()+name);
             count++;
         }
+        
     }
 
 
 
+
+    @Override
+    protected void newMap () {
+        images = new MapObservable<Integer, String>("images");
+        
+    }
 
 
 }
