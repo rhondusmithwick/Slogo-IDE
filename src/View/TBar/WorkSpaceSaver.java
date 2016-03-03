@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import View.Defaults;
 import View.Size;
+import View.utilities.ButtonFactory;
 import View.utilities.ComboFactory;
+import View.utilities.FileGetter;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -23,7 +25,7 @@ public class WorkSpaceSaver {
 	private VBox v;
 	private Scene myScene;
 	private ArrayList<String> colors, langs;
-	private ComboBox<String> bColor,pColor, pLangs;
+	private ComboBox<String> bColor,pColor, pLangs, colorFile, imageFile; //variableFile;
 
 	public WorkSpaceSaver(List<String> colors, List<String> langs ){
 		this.langs = (ArrayList<String>) langs;
@@ -54,26 +56,36 @@ public class WorkSpaceSaver {
 	private void createSaver () {
 		Label title = new Label(myResources.getString("workSaver"));
 		v.getChildren().addAll(title);
-		Button set = new Button(myResources.getString("save"));
+		Button set = ButtonFactory.createButton("save", e->setPreferences());
 		createComboBoxes();
-		getPreferences();
+		numTurtleField();
 		v.getChildren().add(set);
 
 
 	}
 
-
-
-
-
+	private Object setPreferences() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	private void createComboBoxes() {
 		bColor = ComboFactory.createBox(myResources.getString("bColor"), colors, null);
 		pColor = ComboFactory.createBox(myResources.getString("pColor"), colors, null);
 		pLangs = ComboFactory.createBox(myResources.getString("selLang"), langs, null);
+		colorFile = ComboFactory.createBox(myResources.getString("colorFile"), 
+				FileGetter.getAllFromDirectory(Defaults.COLORLIST_LOC.getDefault()), null);
+		imageFile = ComboFactory.createBox(myResources.getString("imageFile"), 
+				FileGetter.getAllFromDirectory(Defaults.IMAGELIST_LOC.getDefault()), null);
+		v.getChildren().addAll(bColor, pColor, pLangs, colorFile, imageFile);
 		
 	}
-	private void getPreferences() {
-		v.getChildren().addAll(bColor, pColor, pLangs);
+	
+	private void numTurtleField(){
+		tField = new TextField();
+		tField.setPromptText(myResources.getString("numTurtles"));
+		v.getChildren().add(tField);
 	}
+	
+
 
 }
