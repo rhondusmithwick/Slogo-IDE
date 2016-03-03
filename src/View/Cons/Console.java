@@ -2,6 +2,9 @@ package View.Cons;
 
 
 import java.util.ResourceBundle;
+
+import View.Defaults;
+import View.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -11,17 +14,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class Console implements ConsoleInterface{
+public class Console{
 
-    private static final String DEFAULT_LOCATION = "resources/guiStrings/";
-    private static final String DEFAULT_LANGUAGE = "english";
-    private static final String CSS_BORDER_STYLE = "-fx-border-color: black;";
-    private static final String NEW_LINE = "\n";
-    private static final String DISP = "disp";
 
-    private static final int STARTING_HEIGHT = 195;
-
-    private String language;
     private ResourceBundle myResources;
     private ScrollPane scroll;
     private Label contents;
@@ -34,8 +29,7 @@ public class Console implements ConsoleInterface{
         this.consoleInput=consoleInput;
         addListner();
         
-        this.language = DEFAULT_LANGUAGE;
-        myResources = ResourceBundle.getBundle(DEFAULT_LOCATION + language + DISP);
+        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         setScroll();
         
         box = new VBox();
@@ -47,9 +41,9 @@ public class Console implements ConsoleInterface{
 
     private void setScroll () {
         scroll = new ScrollPane();
-        scroll.setMinViewportHeight(STARTING_HEIGHT);
-        scroll.setPrefViewportHeight(STARTING_HEIGHT);
-        scroll.setMaxHeight(STARTING_HEIGHT);
+        scroll.setMinViewportHeight(Size.BOTTOM_HEIGHT.getSize());
+        scroll.setPrefViewportHeight(Size.BOTTOM_HEIGHT.getSize());
+        scroll.setMaxHeight(Size.BOTTOM_HEIGHT.getSize());
         HBox.setHgrow(scroll, Priority.ALWAYS);
     }
 
@@ -69,7 +63,7 @@ public class Console implements ConsoleInterface{
     private Label createLabel(String text){
         Label label = new Label(text);
         label.setAlignment(Pos.TOP_CENTER);
-        label.setStyle(CSS_BORDER_STYLE);
+        label.setStyle(Defaults.BORDER_COLOR.getDefault());
         label.prefWidthProperty().bind(scroll.widthProperty());
         label.setWrapText(true);
         return label;
@@ -92,10 +86,10 @@ public class Console implements ConsoleInterface{
 
     private void createNew(String s) {
         String end;
-        if(s.endsWith(NEW_LINE)){
+        if(s.endsWith("\n")){
             end = "";
         }else{
-            end = NEW_LINE;
+            end = "\n";
         }
         contents = createLabel(s+end);
         contents.setOnMouseClicked(e->clearConsole());
@@ -106,7 +100,6 @@ public class Console implements ConsoleInterface{
         box.getChildren().remove(contents);
     }
 
-    @Override
     public Node getConsole(){
         return scroll;
     }

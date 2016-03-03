@@ -3,6 +3,7 @@ package View.EnvDisplay;
 import java.util.List;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
+import View.Defaults;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -19,9 +20,7 @@ public abstract class EnvUpdate {
     private static final int PADDING = 50;
 
     private static final int WIDTH = 300;
-    private static final int HEIGHT = 300;
-    private static final String UI_BACKGROUND_COLOR = "-fx-background-color: cornflowerblue";
-    private static final String LANGUAGE_LOCATION = "resources/";
+    private static final int HEIGHT = 600;
     private ObjectObservable<String> intCommand;
     private VBox vBox;
     private ResourceBundle myResources, myCommands;
@@ -32,7 +31,7 @@ public abstract class EnvUpdate {
 
     public EnvUpdate(ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
         this.myResources = myResources;
-        myCommands = ResourceBundle.getBundle(LANGUAGE_LOCATION + pLang.get());
+        myCommands = ResourceBundle.getBundle(Defaults.RESOURCE_LOCATION.getDefault() + pLang.get());
         this.intCommand=intCommand;
         s = new Stage();
         root = new Group();
@@ -47,7 +46,7 @@ public abstract class EnvUpdate {
 
     private void createVBox () {
         vBox = new VBox(PADDING);
-        vBox.setStyle(UI_BACKGROUND_COLOR);
+        vBox.setStyle(Defaults.BACKGROUND_COLOR.getDefault());
         vBox.prefWidthProperty().bind(scene.widthProperty());
         vBox.prefHeightProperty().bind(scene.heightProperty());
         vBox.setAlignment(Pos.TOP_CENTER);
@@ -69,8 +68,10 @@ public abstract class EnvUpdate {
         return tField;
     }
     
-    protected Label createTitle(String string) {
-        Label title = new Label(string);
+
+
+	protected Label createTitle(String titleName, String other) {
+        Label title = new Label(myResources.getString(titleName)+other);
         title.prefWidthProperty().bind(vBox.widthProperty());
         title.setAlignment(Pos.TOP_CENTER);
         return title;
