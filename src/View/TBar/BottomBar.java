@@ -43,7 +43,7 @@ public class BottomBar extends SubBar {
 	protected void createButtons() {
 		makeButton("penUp", e -> setPen("PenUp"));
 		makeButton("penDown", e -> setPen("PenDown"));
-		
+		makeButton("setPenSize", e -> setPen("setPenSize"));
 	}
 
 
