@@ -16,7 +16,7 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 
 	public VariableDisplay(ObjectObservable<String> pLang, ObjectObservable<String> intCommand,
 			SimpleStringProperty variables) {
-		super(variables);
+		super(variables, pLang, intCommand);
 		
 		// this is not ideal - need to resolve
 		this.intCommand = intCommand;

@@ -16,7 +16,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 
 	public MethodDisplay(ObjectObservable<String> parsingLanguage, ObjectObservable<String> intCommand,
 			SimpleStringProperty methods) {
-		super(methods);
+		super(methods, parsingLanguage, intCommand);
 
 		// this is not ideal - need to resolve
 		this.intCommand = intCommand;
@@ -29,10 +29,10 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 	}
 
 	@Override
-	protected void updateDefinedObject(Label label) {
+	protected void updateDefinedObject(Label label) throws Exception {
 		// Consider giving MethodUpdate empty constructor and set abstract's
 		// EnvUpdate to it; Then call init();
-		updater = new MethodUpdate(myResources, intCommand, parsingLanguage);
+		updater = getUpdater("MethodDisplay");
 		updater.updateEnv(label);
 	}
 }
