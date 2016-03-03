@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import Maps.IndexMap;
 import View.Defaults;
 import View.Size;
+import View.Xml.MapToXML;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Group;

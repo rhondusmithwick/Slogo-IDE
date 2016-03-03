@@ -1,6 +1,7 @@
 package Maps;
 
 import Observables.MapObservable;
+import View.Xml.MapFromXML;
 
 public abstract class IndexMap {
     protected IndexMap() throws Exception{
