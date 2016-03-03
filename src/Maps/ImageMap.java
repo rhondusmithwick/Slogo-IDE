@@ -61,4 +61,12 @@ public class ImageMap extends IndexMap{
     }
 
 
+
+
+	@Override
+	public String get(int key) {
+		return images.get(key);
+	}
+
+
 }

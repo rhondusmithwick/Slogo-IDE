@@ -69,6 +69,13 @@ public class ColorMap extends IndexMap {
     }
 
 
+	@Override
+	public String get(int key) {
+		return colors.get(key);
+		
+	}
+
+
 
     
     

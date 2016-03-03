@@ -28,5 +28,7 @@ public abstract class IndexMap {
 
     public abstract MapObservable<Integer, String> getIndexMap();
     public abstract void setAtIndex(int index, String value) throws Exception;
+    
+    public abstract String get(int key);
 
 }
