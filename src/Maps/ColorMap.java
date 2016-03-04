@@ -1,10 +1,10 @@
-package maps;
+package Maps;
 
 import java.lang.reflect.Field;
 
 
 import Observables.MapObservable;
-import view.Defaults;
+import View.Defaults;
 import javafx.scene.paint.Color;
 
 public class ColorMap extends IndexMap {
