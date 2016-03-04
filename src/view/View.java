@@ -2,13 +2,13 @@ package view;
 
 import view.commentry.CommandEntry;
 import view.commhistory.CommandHistoryDisplay;
-import view.cons.Console;
 import view.envdisplay.DefinedObjectsDisplay;
 import view.envdisplay.MethodDisplay;
 import view.envdisplay.VariableDisplay;
 import view.error.ErrorDisplay;
 import view.tbar.ToolBar;
 import view.turtdisplay.TurtleDisplay;
+import view.turtparams.TurtleParams;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -36,7 +36,6 @@ public class View implements ViewInt {
     private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
     private final SimpleStringProperty methods = new SimpleStringProperty(this, "methods");
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
-    private final SimpleStringProperty consoleIn = new SimpleStringProperty(this, "consoleIn");
     private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
     private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
@@ -50,7 +49,7 @@ public class View implements ViewInt {
     private CommandEntry commandEntry;
     private ErrorDisplay errorDisplay;
     private DefinedObjectsDisplay vDisplay, methodsDisplay;
-    private Console console;
+    private TurtleParams turtPar;
     private HBox bottom;
     private VBox left, right;
 
@@ -122,8 +121,8 @@ public class View implements ViewInt {
         bottom = new HBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
       
-        console = new Console(consoleIn, location, heading, penDown, penColor);
-        bottom.getChildren().add(console.getConsole());
+        turtPar= new TurtleParams(location, heading, penDown, penColor);
+        bottom.getChildren().add(turtPar.getTurtleParams());
         
         commandHistory = new CommandHistoryDisplay(intCommands, commHistory);
         bottom.getChildren().add(commandHistory.getHistoryGraphic());
@@ -182,7 +181,7 @@ public class View implements ViewInt {
 
     @Override
     public List<SimpleStringProperty> getProperties() {
-        return Arrays.asList(image, penColor,variables, methods, error, consoleIn);
+        return Arrays.asList(image, penColor,variables, methods, error);
     }
 
 

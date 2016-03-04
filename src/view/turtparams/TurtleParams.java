@@ -1,4 +1,4 @@
-package view.cons;
+package view.turtparams;
 
 import java.util.ResourceBundle;
 
@@ -17,33 +17,27 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class Console {
+public class TurtleParams {
 
 	private final SimpleObjectProperty<Point2D> location;
 	private final SimpleDoubleProperty heading;
 	private final SimpleBooleanProperty penDown;;
 	private final SimpleStringProperty penColor;
-	
-	private final String LOCATION_LABEL = "Location: ";
-	private final String HEADING_LABEL = "Heading: ";
-	private final String PEN_DOWN_LABEL = "Pen Status: ";
-	private final String PEN_COLOR = "Pen Color: ";
+
 
 	private ResourceBundle myResources;
 	private ScrollPane scroll;
-	private Label contents;
+
 	private Label title;
 	private VBox box;
-	private SimpleStringProperty consoleInput;
 
-	public Console(SimpleStringProperty consoleInput, SimpleObjectProperty<Point2D> location,
+	public TurtleParams(SimpleObjectProperty<Point2D> location,
 			SimpleDoubleProperty heading, SimpleBooleanProperty penDown, SimpleStringProperty penColor) {
-		this.consoleInput = consoleInput;
+
 		this.location = location;
 		this.heading = heading;
 		this.penDown = penDown;
 		this.penColor = penColor;
-//		addListner();
 
 		myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		setScroll();
@@ -52,10 +46,10 @@ public class Console {
 		box.prefWidthProperty().bind(scroll.widthProperty());
 		scroll.setContent(box);
 		addTitle();
-		box.getChildren().add(createLabel(LOCATION_LABEL + location.get()));
-		box.getChildren().add(createLabel(HEADING_LABEL + heading.get()));
-		box.getChildren().add(createLabel(PEN_COLOR + penColor.get()));
-		box.getChildren().add(createLabel(PEN_DOWN_LABEL + penDown.get()));
+		box.getChildren().add(createLabel(myResources.getString("penLoc") + location.get()));
+		box.getChildren().add(createLabel(myResources.getString("penHead") + heading.get()));
+		box.getChildren().add(createLabel(myResources.getString("penStat") + penColor.get()));
+		box.getChildren().add(createLabel(myResources.getString("penColor") + penDown.get()));
 	}
 
 	private void setScroll() {
@@ -66,9 +60,6 @@ public class Console {
 		HBox.setHgrow(scroll, Priority.ALWAYS);
 	}
 
-//	private void addListner() {
-//		consoleInput.addListener((ov, oldVal, newVal) -> addContents(newVal));
-//	}
 
 	private void addTitle() {
 		title = createLabel(myResources.getString("TurtlePropertiesTitle"));
@@ -84,38 +75,7 @@ public class Console {
 		return label;
 	}
 
-//	private void addContents(String s) {
-//		if (contents == null) {
-//			createNew(s);
-//		} else {
-//			addToCurrent(s);
-//		}
-//	}
-//
-//	private void addToCurrent(String s) {
-//		String curr = contents.getText();
-//		curr = curr + s;
-//		contents.setText(curr);
-//
-//	}
-
-//	private void createNew(String s) {
-//		String end;
-//		if (s.endsWith("\n")) {
-//			end = "";
-//		} else {
-//			end = "\n";
-//		}
-//		contents = createLabel(s + end);
-//		contents.setOnMouseClicked(e -> clearConsole());
-//		box.getChildren().add(contents);
-//	}
-
-//	private void clearConsole() {
-//		box.getChildren().remove(contents);
-//	}
-
-	public Node getConsole() {
+	public Node getTurtleParams() {
 		return scroll;
 	}
 
