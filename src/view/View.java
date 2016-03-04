@@ -1,15 +1,15 @@
 package view;
 
 import Observables.ObjectObservable;
-import view.CommEntry.CommandEntry;
-import view.CommHistory.CommandHistoryDisplay;
-import view.Cons.Console;
-import view.EnvDisplay.DefinedObjectsDisplay;
-import view.EnvDisplay.MethodDisplay;
-import view.EnvDisplay.VariableDisplay;
-import view.Error.ErrorDisplay;
-import view.TBar.ToolBar;
-import view.TurtDisplay.TurtleDisplay;
+import view.commentry.CommandEntry;
+import view.commhistory.CommandHistoryDisplay;
+import view.cons.Console;
+import view.envdisplay.DefinedObjectsDisplay;
+import view.envdisplay.MethodDisplay;
+import view.envdisplay.VariableDisplay;
+import view.error.ErrorDisplay;
+import view.tbar.ToolBar;
+import view.turtdisplay.TurtleDisplay;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;

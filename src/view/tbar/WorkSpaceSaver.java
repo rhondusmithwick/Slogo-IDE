@@ -1,4 +1,4 @@
-package view.TBar;
+package view.tbar;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import view.Defaults;
 import view.Size;
-import view.Xml.WorkspaceXML;
-import view.Xml.XMLChooser;
+import view.xml.WorkspaceXML;
+import view.xml.XMLChooser;
 import view.utilities.ButtonFactory;
 import view.utilities.ComboFactory;
 import view.utilities.FileGetter;

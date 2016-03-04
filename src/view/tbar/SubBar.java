@@ -1,4 +1,4 @@
-package view.TBar;
+package view.tbar;
 
 import java.util.ArrayList;
 import java.util.List;

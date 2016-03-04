@@ -2,7 +2,7 @@ package Maps;
 
 import Observables.MapObservable;
 import view.Defaults;
-import view.Xml.MapFromXML;
+import view.xml.MapFromXML;
 
 public abstract class IndexMap {
     protected IndexMap() throws Exception{

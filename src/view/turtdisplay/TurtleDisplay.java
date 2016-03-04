@@ -1,4 +1,4 @@
-package view.TurtDisplay;
+package view.turtdisplay;
 
 import java.util.Observable;
 import java.util.Observer;

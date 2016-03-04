@@ -1,4 +1,4 @@
-package view.TBar;
+package view.tbar;
 
 import java.util.Arrays;
 import java.util.Map.Entry;

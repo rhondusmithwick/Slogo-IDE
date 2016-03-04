@@ -1,4 +1,4 @@
-package view.TBar;
+package view.tbar;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;

@@ -1,11 +1,11 @@
-package view.TBar;
+package view.tbar;
 
 
 import java.util.ResourceBundle;
 import Maps.IndexMap;
 import view.Defaults;
 import view.Size;
-import view.Xml.MapToXML;
+import view.xml.MapToXML;
 import view.utilities.ButtonFactory;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;

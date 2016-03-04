@@ -1,4 +1,4 @@
-package view.CommEntry;
+package view.commentry;
 
 import java.util.Observable;
 import java.util.Observer;
