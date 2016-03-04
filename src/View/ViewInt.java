@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;

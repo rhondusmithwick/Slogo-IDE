@@ -1,9 +1,9 @@
-package View.TurtDisplay;
+package view.turtdisplay;
 
 import java.util.Observable;
 import java.util.Observer;
 import Observables.ObjectObservable;
-import View.Defaults;
+import view.Defaults;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import javafx.scene.Node;

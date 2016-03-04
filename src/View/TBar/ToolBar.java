@@ -1,7 +1,7 @@
-package View.TBar;
+package view.tbar;
 
 import Observables.ObjectObservable;
-import View.Size;
+import view.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.layout.VBox;
 

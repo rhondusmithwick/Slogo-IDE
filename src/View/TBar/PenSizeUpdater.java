@@ -1,9 +1,9 @@
-package View.TBar;
+package view.tbar;
 
 import java.util.ResourceBundle;
 
 import Observables.ObjectObservable;
-import View.Defaults;
+import view.Defaults;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;

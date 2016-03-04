@@ -1,4 +1,4 @@
-package View.Xml;
+package view.xml;
 
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;

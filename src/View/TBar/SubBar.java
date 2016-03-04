@@ -1,16 +1,16 @@
-package View.TBar;
+package view.tbar;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import Maps.ColorMap;
+import maps.ColorMap;
 import Observables.ObjectObservable;
-import View.Defaults;
-import View.Size;
-import View.utilities.ButtonFactory;
-import View.utilities.ComboFactory;
-import View.utilities.FileGetter;
+import view.Defaults;
+import view.Size;
+import view.utilities.ButtonFactory;
+import view.utilities.ComboFactory;
+import view.utilities.FileGetter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

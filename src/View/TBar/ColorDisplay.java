@@ -1,10 +1,10 @@
-package View.TBar;
+package view.tbar;
 
 import java.util.Arrays;
 import java.util.Map.Entry;
-import Maps.ColorMap;
+import maps.ColorMap;
 import Observables.MapObservable;
-import View.Size;
+import view.Size;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

@@ -1,9 +1,9 @@
-package View.Cons;
+package view.cons;
 
 import java.util.ResourceBundle;
 
-import View.Defaults;
-import View.Size;
+import view.Defaults;
+import view.Size;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;

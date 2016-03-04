@@ -1,4 +1,4 @@
-package View;
+package view;
 
 public enum Defaults {
 	DISPLAY_LOC("resources/guiStrings/english"),

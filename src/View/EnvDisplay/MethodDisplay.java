@@ -1,4 +1,4 @@
-package View.EnvDisplay;
+package view.envdisplay;
 
 import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
