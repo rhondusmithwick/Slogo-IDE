@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
-import maps.IndexMap;
+
 import observables.ObjectObservable;
 
 public class BottomBar extends SubBar {
@@ -19,6 +19,7 @@ public class BottomBar extends SubBar {
     private SimpleStringProperty error;
     ObjectObservable<String> intCommand;
     private ComboBox<String> langBox;
+    @SuppressWarnings("unused")
     private PenSizeUpdater penSizeUpdater;
 
     public BottomBar(ObjectObservable<String> language, SimpleStringProperty error, 
