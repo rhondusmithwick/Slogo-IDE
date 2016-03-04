@@ -112,12 +112,15 @@ public abstract class SubBar implements Observer {
             showError(myResources.getString("colorError"));
         }
         return null;
-
     }
 
 
     public HBox getContainer(){
         return container;
+    }
+    
+    public ObjectObservable<String> getLanguage() {
+    	return language;
     }
 
     protected abstract void createComboBoxes();

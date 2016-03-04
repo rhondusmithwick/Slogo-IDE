@@ -10,15 +10,19 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 
 public class BottomBar extends SubBar {
+
     
     private HelpScreen hScreen;
     private SimpleStringProperty error;
+    ObjectObservable<String> intCommand;
     private ComboBox<String> langBox;
+    private PenSizeUpdater penSizeUpdater;
 
     public BottomBar(ObjectObservable<String> language, SimpleStringProperty error, 
                      ObjectObservable<String> intCommand) {
         super(language, error, intCommand);
         this.error = error;
+        this.intCommand=intCommand;
         hScreen = HelpScreen.getInstance();
 
     }
@@ -44,6 +48,7 @@ public class BottomBar extends SubBar {
 
 
 
+
     @Override
     protected void createButtons() {
         makeButton("workSaver", e->saveWorkSpace());
@@ -57,9 +62,6 @@ public class BottomBar extends SubBar {
     }
 
 
-
-    
-    
     private void saveColors () {
         try {
             IndexMapSaver mSave = new IndexMapSaver(ColorMap.getInstance(), error);
@@ -69,6 +71,8 @@ public class BottomBar extends SubBar {
             showError("saveError");
         }
     }
+
+
 
     private void saveImages () {
         try {
@@ -87,7 +91,9 @@ public class BottomBar extends SubBar {
         wSaver.showSaver();
     }
 
-
+	private void setPenSize() {
+		penSizeUpdater = new PenSizeUpdater(getLanguage(), intCommand);
+	}
 
     private void setPen(String key) {
         passCommand(getCommand(key));
