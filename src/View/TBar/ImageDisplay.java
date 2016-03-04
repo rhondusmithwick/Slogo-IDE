@@ -1,10 +1,10 @@
-package view.tbar;
+package View.TBar;
 
 import java.util.Arrays;
 import java.util.Map.Entry;
-import maps.ImageMap;
+import Maps.ImageMap;
 import Observables.MapObservable;
-import view.Size;
+import View.Size;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

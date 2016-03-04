@@ -1,12 +1,12 @@
-package view.tbar;
+package View.TBar;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ResourceBundle;
 
-import view.Defaults;
-import view.FileExtensions;
-import view.Size;
+import View.Defaults;
+import View.FileExtensions;
+import View.Size;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;

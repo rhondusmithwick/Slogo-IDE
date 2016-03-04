@@ -1,12 +1,12 @@
-package view.tbar;
+package View.TBar;
 
 
 import java.util.Observable;
-import maps.ColorMap;
-import maps.ImageMap;
-import maps.IndexMap;
+import Maps.ColorMap;
+import Maps.ImageMap;
+import Maps.IndexMap;
 import Observables.ObjectObservable;
-import view.Defaults;
+import View.Defaults;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 

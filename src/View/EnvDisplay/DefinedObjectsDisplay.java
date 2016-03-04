@@ -1,11 +1,11 @@
-package view.envdisplay;
+package View.EnvDisplay;
 
 import java.lang.reflect.Constructor;
 import java.util.ResourceBundle;
 
 import Observables.ObjectObservable;
-import view.Defaults;
-import view.Size;
+import View.Defaults;
+import View.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

@@ -1,4 +1,4 @@
-package view.tbar;
+package View.TBar;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import view.Defaults;
-import view.Size;
+import View.Defaults;
+import View.Size;
 
 public class HelpScreen {
 

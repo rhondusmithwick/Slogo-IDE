@@ -1,11 +1,11 @@
-package view.commentry;
+package View.CommEntry;
 
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
-import view.Defaults;
-import view.Size;
+import View.Defaults;
+import View.Size;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

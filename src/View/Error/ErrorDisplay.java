@@ -1,10 +1,10 @@
-package view.error;
+package View.Error;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import java.util.ResourceBundle;
-import view.Defaults;
+import View.Defaults;
 
 
 
