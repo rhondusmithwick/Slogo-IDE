@@ -1,4 +1,4 @@
-package view.cons;
+package view.Cons;
 
 import java.util.ResourceBundle;
 

@@ -1,4 +1,4 @@
-package view.tbar;
+package view.TBar;
 
 import java.io.File;
 import java.net.MalformedURLException;

@@ -1,4 +1,4 @@
-package view.tbar;
+package view.TBar;
 
 import Observables.ObjectObservable;
 import view.Size;

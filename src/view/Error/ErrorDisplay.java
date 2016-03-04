@@ -1,4 +1,4 @@
-package view.error;
+package view.Error;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Alert;

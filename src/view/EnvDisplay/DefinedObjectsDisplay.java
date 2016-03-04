@@ -1,4 +1,4 @@
-package view.envdisplay;
+package view.EnvDisplay;
 
 import java.lang.reflect.Constructor;
 import java.util.ResourceBundle;

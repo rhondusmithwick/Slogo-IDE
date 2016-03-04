@@ -1,4 +1,4 @@
-package view.xml;
+package view.Xml;
 
 import java.io.File;
 import java.util.ArrayList;
