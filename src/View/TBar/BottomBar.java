@@ -54,7 +54,7 @@ public class BottomBar extends SubBar {
         makeButton("workSaver", e->saveWorkSpace());
         makeButton("penUp", e -> setPen("PenUp"));
         makeButton("penDown", e -> setPen("PenDown"));
-        makeButton("setPenSize", e -> setPen("setPenSize"));
+        makeButton("setPenSize", e -> setPenSize());
         makeButton("saveColor", e-> saveColors());
         makeButton("saveImage", e->saveImages());
         makeButton("help", e -> hScreen.showHelpScreen( ));

@@ -40,7 +40,7 @@ public class PenSizeUpdater {
 
     public PenSizeUpdater(ObjectObservable<String> language, ObjectObservable<String> intCommand){
     	myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-    	myCommands = ResourceBundle.getBundle(Defaults.RESOURCE_LOCATION.getDefault() + language.get());
+    	myCommands = ResourceBundle.getBundle(language.get());
         s = new Stage();
         root = new Group();
         scene = new Scene(root, WIDTH, HEIGHT);
@@ -68,14 +68,15 @@ public class PenSizeUpdater {
     
     private void retrieveUserInput() {
     	String userInput = tField.getText();
-    	String command = myCommands.getString("SetPenSize");
-    	String commandToPass = makeCommand(command);
-    	passCommand(commandToPass + SPACE + userInput);
+    	if (userInput.length() == 0) closeUpdater();
+    	String commandToPass = makeCommand("SetPenSize");
+    	System.out.println(commandToPass + SPACE + userInput);
+//    	passCommand(commandToPass + SPACE + userInput);
     	closeUpdater();
     }
 
     protected TextField createTextArea() {
-        TextField tField = new TextField();
+        tField = new TextField();
         tField.prefWidthProperty().bind(vBox.widthProperty());
         VBox.setVgrow(tField, Priority.ALWAYS);
         vBox.getChildren().add(tField);
