@@ -61,11 +61,11 @@ public class MethodUpdate extends EnvUpdate {
 
 
 
-
+    @Override
     protected String getCommand(String[] newVals) {
         String mNewVal = newVals[0];
         String vNewVal = newVals[1];
-        String command = super.makeCommand(newVals, "MakeUserCommand");
+        String command = super.makeCommand("MakeUserCommand");
         newDisp = this.name + SPACE+
 
        		 vNewVal + SPACE + FRONT_BRACK+ mNewVal + BACK_BRACKET;

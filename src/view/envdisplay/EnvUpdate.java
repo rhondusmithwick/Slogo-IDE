@@ -79,7 +79,9 @@ public abstract class EnvUpdate {
         return title;
     }
     
-    protected String makeCommand(String[] newVals, String key){
+	protected abstract String getCommand(String[] newVals);
+	
+    protected String makeCommand(String key){
     	String posCommands = myCommands.getString(key);
         String command;
         int multCommands = posCommands.indexOf(SPLITTER);

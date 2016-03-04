@@ -39,11 +39,11 @@ public class VariableUpdate extends EnvUpdate {
         label.setText(variable + SPACE + newVal);
     }
     
-
+    @Override
     protected String getCommand (String[] newVals) {
         String newVal = newVals[0];
 
-        String command =super.makeCommand(newVals, "MakeVariable");
+        String command =super.makeCommand("MakeVariable");
         command = command +SPACE +variable + SPACE +newVal;
         return command;
     }

@@ -24,6 +24,7 @@ public abstract class PopUp {
 	public PopUp(int height, int width, String backgroundColor){
 		this.height=height;
 		this.width = width;
+		this.backgroundColor=backgroundColor;
 	}
 	
 	
