@@ -60,7 +60,7 @@ public class VariableUpdate extends EnvUpdate {
     public void updateEnv(Label l){
         this.label = l;
         String[] splitUp = l.getText().split(SPACE);
-        this.variable = splitUp[0];;
+        this.variable = splitUp[0];
         title = createTitle("varUpdate" , this.variable);
         addToScene(Arrays.asList(title,tField));
         showScene();

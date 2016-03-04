@@ -55,7 +55,7 @@ public class MapToXML {
         DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
         DocumentBuilder build = fact.newDocumentBuilder();
         doc = build.newDocument();
-        root = (Element) doc.createElement("IndexedMap");
+        root = doc.createElement("IndexedMap");
         doc.appendChild(root);
         
         

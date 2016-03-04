@@ -42,7 +42,7 @@ public class WorkspaceXML {
         DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
         DocumentBuilder build = fact.newDocumentBuilder();
         doc = build.newDocument();
-        root = (Element) doc.createElement("WorkSpaceConfiguration");
+        root = doc.createElement("WorkSpaceConfiguration");
         config = doc.createElement("ConfigProps");
         doc.appendChild(root);
         root.appendChild(config);

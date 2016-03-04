@@ -105,7 +105,9 @@ public abstract class DefinedObjectsDisplay {
 
 	private void setLabel(String definedObject) {
 		Label label = new Label(definedObject);
-		if (definedObject.length() == 0) return;
+		if (definedObject.length() == 0){
+		    return;
+		}
 		label.prefWidthProperty().bind(myScrollPane.widthProperty());
 		label.setStyle(Defaults.BORDER_COLOR.getDefault());
 		label.setWrapText(true);

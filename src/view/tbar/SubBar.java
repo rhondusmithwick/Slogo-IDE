@@ -108,7 +108,7 @@ public abstract class SubBar implements Observer {
 
     protected List<String> getColors(){
         try {
-            return new ArrayList<String>(colors.getIndexMap().getValues());
+            return new ArrayList<>(colors.getIndexMap().getValues());
         }
         catch (Exception e) {
             showError(myResources.getString(COLOR_ERROR));

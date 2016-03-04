@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Observable;
 
 import view.Defaults;
+import view.LoadIndex;
 import view.xml.LoadWS;
 import view.xml.XMLChooser;
 import javafx.beans.property.SimpleStringProperty;
@@ -89,9 +90,9 @@ public class TopBar extends SubBar {
     
 
     private void setParams (LoadWS wsLoader) {
-        bgColor.set(wsLoader.getParam(0).toLowerCase());
-        penColor.set(wsLoader.getParam(1).toLowerCase());
-        setParsingLanguage(Defaults.PARSELANG_LOC.getDefault()+wsLoader.getParam(2));
+        bgColor.set(wsLoader.getParam(LoadIndex.BG_COLOR.getIndex()).toLowerCase());
+        penColor.set(wsLoader.getParam(LoadIndex.P_COLOR.getIndex()).toLowerCase());
+        setParsingLanguage(Defaults.PARSELANG_LOC.getDefault()+wsLoader.getParam(LoadIndex.P_LANG.getIndex()));
         setMaps(wsLoader);
         setTurts(wsLoader);
         
@@ -100,7 +101,7 @@ public class TopBar extends SubBar {
     }
 
     private void setTurts (LoadWS wsLoader) {
-        int num= Integer.parseInt(wsLoader.getParam(5));
+        int num= Integer.parseInt(wsLoader.getParam(LoadIndex.NUM_TURT.getIndex()));
         String comm = getCommand("Tell") + " "+Integer.toString(num);
         passCommand(comm);
 
@@ -109,12 +110,10 @@ public class TopBar extends SubBar {
 
     private void setMaps (LoadWS wsLoader) {
         try {
-            System.out.println(wsLoader.getParam(3));
-            ImageMap.getInstance().addElements(wsLoader.getParam(4));
-            ColorMap.getInstance().addElements(wsLoader.getParam(3));
+            ImageMap.getInstance().addElements(wsLoader.getParam(LoadIndex.I_FILE.getIndex()));
+            ColorMap.getInstance().addElements(wsLoader.getParam(LoadIndex.C_FILE.getIndex()));
         }
         catch (Exception e) {
-            e.printStackTrace();
             showError(LOAD_ERROR);
         }
     }
