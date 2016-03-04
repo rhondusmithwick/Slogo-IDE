@@ -17,7 +17,15 @@ public enum Defaults {
 	PEN_COLOR("black"),
 	COMM_SPLITER("|"),
 	METH_UP_LOC("view.envdisplay.MethodUpdate"),
-	VAR_UP_LOC("view.envdisplay.VariableUpdate");
+	VAR_UP_LOC("view.envdisplay.VariableUpdate"),
+	WS_DOC_EL("WorkspaceConfig"),
+	WS_CHILD_EL("ConfigProps"),
+	LANG("english"),
+	NUM_TURTS("1"),
+	WHITE("white"),
+	XML(".xml"),
+	IM_DOC_EL("IndexedMap"),
+	IM_CHILD_ELEMENT("Element");
 	
 	
 	

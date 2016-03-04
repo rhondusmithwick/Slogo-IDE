@@ -13,17 +13,8 @@ import observables.MapObservable;
 public class ColorDisplay extends PaletteDisp {
     
     
-    private MapObservable<Integer, String> cMap;
     public ColorDisplay (String title, SimpleStringProperty error, MapObservable<Integer, String> cMap) {
-        super(title, error);
-        this.cMap=cMap;
-        
-    }
-
-    @Override
-    public void createScene() {
-        super.createScene();
-		cMap.getEntrySet().stream().forEach(e-> addToPalette(e));
+        super(title, error, cMap);
         
     }
 

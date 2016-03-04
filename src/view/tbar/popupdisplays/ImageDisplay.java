@@ -12,12 +12,10 @@ import observables.MapObservable;
 
 public class ImageDisplay extends PaletteDisp{
 
-    private MapObservable<Integer, String> iMap;
 
     
     public ImageDisplay (String title, SimpleStringProperty error, MapObservable<Integer, String> iMap) {
-        super(title, error);
-        this.iMap=iMap;
+        super(title, error, iMap);
    
        
         
@@ -38,12 +36,6 @@ public class ImageDisplay extends PaletteDisp{
         
     }
     
-    
-    @Override
-    public void createScene(){
-        super.createScene();
-		iMap.getEntrySet().stream().forEach(e-> addToPalette(e));
-    }
 
 
 

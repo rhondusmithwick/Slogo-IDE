@@ -80,6 +80,7 @@ public class TopBar extends SubBar {
        
         try {
         	XMLChooser xChoose = new XMLChooser(false);
+        	xChoose.show();
             File file = xChoose.getFile();
             LoadWS wsLoader = new LoadWS();
             wsLoader.load(file);

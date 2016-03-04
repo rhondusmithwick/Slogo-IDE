@@ -11,8 +11,14 @@ import view.Defaults;
 
 public class LoadWS extends XMLParser {
     
-    private static List<String> paramNames = Arrays.asList("BGColor", "PenColor", "PLang", "CFile", "IFile", "NumTurts");
-    private static List<String> paramDefaults = Arrays.asList("white", "black", "english", Defaults.DEFAULT.getDefault(), Defaults.DEFAULT.getDefault(), "1");
+    
+    private static List<String> paramDefaults = Arrays.asList(Defaults.WHITE.getDefault(), 
+    															Defaults.PEN_COLOR.getDefault(), 
+    															Defaults.LANG.getDefault(), 
+    															Defaults.DEFAULT.getDefault(), 
+    															Defaults.DEFAULT.getDefault(), 
+    															Defaults.NUM_TURTS.getDefault());
+    
     private Document doc;
     private ArrayList<String> params;
     
@@ -27,7 +33,7 @@ public class LoadWS extends XMLParser {
     protected void addElements () {
         params = new ArrayList<>();
         Node config = doc.getDocumentElement().getChildNodes().item(0);
-        paramNames.stream().forEach(e->params.add(config.getAttributes().getNamedItem(e).getTextContent()));
+        AttrNames.WORKSPACE.getNames().stream().forEach(e->params.add(config.getAttributes().getNamedItem(e).getTextContent()));
  
         
     }

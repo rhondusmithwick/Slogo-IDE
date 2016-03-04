@@ -14,6 +14,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import observables.MapObservable;
 
 public abstract class PaletteDisp extends PopUp {
     
@@ -23,14 +24,16 @@ public abstract class PaletteDisp extends PopUp {
     private String title;
     private HBox h;
     private SimpleStringProperty error;
+	private MapObservable<Integer, String> map;
 
     
     
     
-    public PaletteDisp(String title, SimpleStringProperty error){
+    public PaletteDisp(String title, SimpleStringProperty error, MapObservable<Integer,String> map){
     	super(Size.PALETTE.getSize(), Size.PALETTE.getSize(), Defaults.BACKGROUND_WHITE.getDefault());
         this.title=title;
         this.error=error;
+        this.map = map;
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 
     }
@@ -51,6 +54,7 @@ public abstract class PaletteDisp extends PopUp {
     	setVBox();
         scroll.setContent(vbox);
         addNodes(Arrays.asList(scroll));
+        map.getEntrySet().stream().forEach(e->addToPalette(e));
     }
     
 

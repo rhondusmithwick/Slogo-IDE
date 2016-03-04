@@ -33,7 +33,9 @@ public abstract class SlogoFileChooser extends PopUp{
 	}
 	
 	protected File showWindow(){
-		return showFChooser(fChoose,save);
+		File file = showFChooser(fChoose,save);
+		closeScene();
+		return file;
 		
 	}
 

@@ -20,9 +20,9 @@ public class MapToXML extends XMLWriter {
         this.map = inMap.getIndexMap();
        
         getSaveLocation(inMap);
-        this.file = new File(saveLocation +fileName+".xml");
+        this.file = new File(saveLocation +fileName+ Defaults.XML.getDefault());
         file.createNewFile();
-        doc = buildDom("IndexedMap");
+        doc = buildDom(Defaults.IM_DOC_EL.getDefault());
         addElements();
         writeToFile(file);
     }
@@ -35,9 +35,9 @@ public class MapToXML extends XMLWriter {
     }
 
     private void addToDoc (Entry<Integer, String> e) {
-        Element color = doc.createElement("Element");
-        color.setAttribute("index", e.getKey().toString());
-        color.setAttribute("name", e.getValue());
+        Element color = doc.createElement(Defaults.IM_CHILD_ELEMENT.getDefault());
+        color.setAttribute(AttrNames.INDEX_MAP.getNames().get(0), e.getKey().toString());
+        color.setAttribute(AttrNames.INDEX_MAP.getNames().get(1), e.getValue());
         doc.getDocumentElement().appendChild(color);
     }
 

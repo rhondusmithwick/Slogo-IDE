@@ -32,8 +32,8 @@ public class MapFromXML extends XMLParser {
         Node curr;
         for(int i=0; i<elements.getLength(); i++){
             curr = elements.item(i);
-            String index = curr.getAttributes().getNamedItem("index").getTextContent();
-            String name = curr.getAttributes().getNamedItem("name").getTextContent();
+            String index = curr.getAttributes().getNamedItem(AttrNames.INDEX_MAP.getNames().get(0)).getTextContent();
+            String name = curr.getAttributes().getNamedItem(AttrNames.INDEX_MAP.getNames().get(1)).getTextContent();
             map.put(Integer.parseInt(index), name);
         }
         
