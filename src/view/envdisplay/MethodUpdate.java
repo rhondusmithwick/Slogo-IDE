@@ -21,8 +21,9 @@ public class MethodUpdate extends EnvUpdate {
 
 
 
-    public MethodUpdate(ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
+    public MethodUpdate(ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang, Label l){
         super(myResources,intCommand, pLang);
+        this.label=l;
 
        
     }
@@ -40,7 +41,7 @@ public class MethodUpdate extends EnvUpdate {
         setValues();
         String toPass = getCommand(new String[]{mNewVal, vNewVal});
         passCommand(toPass);
-        closeUpdater();
+        closeScene();
         label.setText(null);
         label.setText(newDisp);
 
@@ -80,16 +81,13 @@ public class MethodUpdate extends EnvUpdate {
 
 
     @Override
-    public void updateEnv(Label l){
-    	this.label = l;
-        getName(l.getText());
-        getVariables(l.getText());
-        getMethods(l.getText());
-        System.out.println(this.name);
+    public void updateEnv(){
+        getName(label.getText());
+        getVariables(label.getText());
+        getMethods(label.getText());
         mTitle = createTitle("methTitle", SPACE + name);
         vTitle = createTitle("methVarTitle",  SPACE + name); 
         addToScene(Arrays.asList(mTitle,mField,vTitle,vField));
-        showScene();
     }
 
 	private void getName(String content) {

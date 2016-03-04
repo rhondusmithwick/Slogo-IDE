@@ -63,15 +63,14 @@ public abstract class DefinedObjectsDisplay {
 		definedObjects.addListener((ov, oldVal, newVal) -> createCurrEnvDisp());
 	}
 
-	protected EnvUpdate getUpdater(String className) {
+	protected EnvUpdate getUpdater(String className, Label label) {
 		try {
 			Class<?> classTemp = Class.forName(className);
 			Constructor<?> constructor = classTemp.getConstructor(ResourceBundle.class, ObjectObservable.class,
-					ObjectObservable.class);
-			Object obj = constructor.newInstance(myResources, intCommand, parsingLanguage);
+					ObjectObservable.class, Label.class);
+			Object obj = constructor.newInstance(myResources, intCommand, parsingLanguage, label);
 			return (EnvUpdate) obj;
 		} catch (Exception e) {
-			e.printStackTrace();
 			error.set("");
 			error.set(myResources.getString("createUpError"));
 		}

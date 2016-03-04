@@ -18,7 +18,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 
 	@Override
 	protected void updateDefinedObject(Label label) {
-		updater = getUpdater("view.envdisplay.MethodUpdate");
-		updater.updateEnv(label);
+		updater = getUpdater("view.envdisplay.MethodUpdate", label);
+		updater.show();
 	}
 }

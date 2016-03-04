@@ -15,8 +15,9 @@ public class VariableUpdate extends EnvUpdate {
     private TextField tField;
     private Label title, label;
 
-    public VariableUpdate (ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang) {
+    public VariableUpdate (ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang, Label label) {
         super(myResources, intCommand, pLang);
+        this.label=label;
         
     }
     
@@ -34,7 +35,7 @@ public class VariableUpdate extends EnvUpdate {
         }
         String toPass = getCommand(new String[]{newVal});
         passCommand(toPass);
-        closeUpdater();
+        closeScene();
         label.setText(null);
         label.setText(variable + SPACE + newVal);
     }
@@ -50,13 +51,12 @@ public class VariableUpdate extends EnvUpdate {
  
 
     @Override
-    public void updateEnv(Label l){
-        this.label = l;
-        String[] splitUp = l.getText().split(SPACE);
+    public void updateEnv(){
+    
+        String[] splitUp = label.getText().split(SPACE);
         this.variable = splitUp[0];
         title = createTitle("varUpdate" , this.variable);
         addToScene(Arrays.asList(title,tField));
-        showScene();
         
     }
 
