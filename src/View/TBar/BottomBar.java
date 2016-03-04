@@ -10,12 +10,12 @@ public class BottomBar extends SubBar {
 	
 	private ObjectObservable<String> intCommand;
 	private ComboBox<String> langBox;
+	private PenSizeUpdater penSizeUpdater;
 	
 	public BottomBar(ObjectObservable<String> language, SimpleStringProperty error, 
 			ObjectObservable<String> intCommand) {
 		super(language, error);
 		this.intCommand=intCommand;
-		
 	}
 
 
@@ -34,7 +34,6 @@ public class BottomBar extends SubBar {
 	private void setLang() {
 		String pLanguage = Defaults.PARSELANG_LOC.getDefault() + langBox.getSelectionModel().getSelectedItem();
 		setParsingLanguage(pLanguage);
-		
 	}
 
 
@@ -43,10 +42,12 @@ public class BottomBar extends SubBar {
 	protected void createButtons() {
 		makeButton("penUp", e -> setPen("PenUp"));
 		makeButton("penDown", e -> setPen("PenDown"));
-		makeButton("setPenSize", e -> setPen("setPenSize"));
+		makeButton("setPenSize", e -> setPenSize());
 	}
 
-
+	private void setPenSize() {
+		penSizeUpdater = new PenSizeUpdater(getLanguage(), intCommand);
+	}
 
 	private void setPen(String key) {
 		intCommand.set(getCommand(key));
