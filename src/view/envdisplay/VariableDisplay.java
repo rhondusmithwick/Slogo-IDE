@@ -17,7 +17,7 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 
 	@Override
 	protected void updateDefinedObject(Label label) {
-		updater = getUpdater("View.EnvDisplay.VariableUpdate");
+		updater = getUpdater("view.envdisplay.VariableUpdate");
 		updater.updateEnv(label);
 	}
 }

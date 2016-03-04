@@ -33,7 +33,7 @@ public abstract class EnvUpdate {
 
     public EnvUpdate(ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
         this.myResources = myResources;
-        myCommands = ResourceBundle.getBundle(Defaults.RESOURCE_LOCATION.getDefault() + pLang.get());
+        myCommands = ResourceBundle.getBundle(pLang.get());
         this.intCommand=intCommand;
         s = new Stage();
         root = new Group();
