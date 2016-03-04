@@ -105,24 +105,24 @@ public class WorkSpaceSaver {
     private String checkInput (String text) {
         int temp;
         text = getInput(text);
-        if(!text.equals("Default")){
+        if(!text.equals(Defaults.DEFAULT.getDefault())){
             try{
                 temp = Integer.parseInt(text);
                 if(temp<0){
-                    return "Default";
+                    return Defaults.DEFAULT.getDefault();
                 }
                 return text;
             }catch (Exception e){
                 showError();
             }
         }
-        return "Default";
+        return Defaults.DEFAULT.getDefault();
     }
     
     
     private String getInput(String str) {
         if(str==null || str.length()==0){
-            str = "Default";
+            str = Defaults.DEFAULT.getDefault();
         }
         return str;
     }
@@ -133,10 +133,10 @@ public class WorkSpaceSaver {
         pLangs = ComboFactory.createBox(myResources.getString("selLang"), langs, null);
         colorFile = ComboFactory.createBox(myResources.getString("colorFile"), 
                                            FileGetter.getAllFromDirectory(Defaults.COLORLIST_LOC.getDefault()), null);
-        colorFile.getItems().add("Default");
+        colorFile.getItems().add(Defaults.DEFAULT.getDefault());
         imageFile = ComboFactory.createBox(myResources.getString("imageFile"), 
                                            FileGetter.getAllFromDirectory(Defaults.IMAGELIST_LOC.getDefault()), null);
-        imageFile.getItems().add("Default");
+        imageFile.getItems().add(Defaults.DEFAULT.getDefault());
         v.getChildren().addAll(bColor, pColor, pLangs, colorFile, imageFile);
 
     }

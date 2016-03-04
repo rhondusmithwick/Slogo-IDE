@@ -11,7 +11,8 @@ import javafx.scene.control.ComboBox;
 
 public class BottomBar extends SubBar {
 
-    
+
+    private static final String SAVE_ERROR = "saveError";
     private HelpScreen hScreen;
     private SimpleStringProperty error;
     ObjectObservable<String> intCommand;
@@ -54,7 +55,7 @@ public class BottomBar extends SubBar {
         makeButton("workSaver", e->saveWorkSpace());
         makeButton("penUp", e -> setPen("PenUp"));
         makeButton("penDown", e -> setPen("PenDown"));
-        makeButton("setPenSize", e -> setPen("setPenSize"));
+        makeButton("setPenSize", e -> setPenSize());
         makeButton("saveColor", e-> saveColors());
         makeButton("saveImage", e->saveImages());
         makeButton("help", e -> hScreen.showHelpScreen( ));
@@ -68,7 +69,7 @@ public class BottomBar extends SubBar {
             mSave.showSaver();
         }
         catch (Exception e) {
-            showError("saveError");
+            showError(SAVE_ERROR);
         }
     }
 
@@ -80,10 +81,10 @@ public class BottomBar extends SubBar {
             mSave.showSaver();
         }
         catch (Exception e) {
-            showError("saveError");
+            showError(SAVE_ERROR);
         }
     }
-    
+
 
 
     private void saveWorkSpace() {
@@ -91,9 +92,9 @@ public class BottomBar extends SubBar {
         wSaver.showSaver();
     }
 
-	private void setPenSize() {
-		penSizeUpdater = new PenSizeUpdater(getLanguage(), intCommand);
-	}
+    private void setPenSize() {
+        penSizeUpdater = new PenSizeUpdater(getLanguage(), intCommand);
+    }
 
     private void setPen(String key) {
         passCommand(getCommand(key));

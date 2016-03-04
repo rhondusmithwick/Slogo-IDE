@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 public class LoadWS {
     
     private static List<String> paramNames = Arrays.asList("BGColor", "PenColor", "PLang", "CFile", "IFile", "NumTurts");
-    private static List<String> paramDefaults = Arrays.asList("white", "black", "english", "default", "default", "1");
+    private static List<String> paramDefaults = Arrays.asList("white", "black", "english", "Default", "Default", "1");
     private Document doc;
     private File file;
     private ArrayList<String> params;

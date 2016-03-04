@@ -40,7 +40,7 @@ public class PenSizeUpdater {
 
     public PenSizeUpdater(ObjectObservable<String> language, ObjectObservable<String> intCommand){
     	myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-    	myCommands = ResourceBundle.getBundle(Defaults.RESOURCE_LOCATION.getDefault() + language.get());
+    	myCommands = ResourceBundle.getBundle(language.get());
         s = new Stage();
         root = new Group();
         scene = new Scene(root, WIDTH, HEIGHT);

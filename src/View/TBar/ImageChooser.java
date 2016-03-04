@@ -43,8 +43,8 @@ public class ImageChooser {
         if (file == null) {
             return null;
         }
-            String imagepath = file.toURI().toURL().toString();
-            return imagepath;
+            return file.toURI().toURL().toString();
+
 
     }
 }

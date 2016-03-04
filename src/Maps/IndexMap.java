@@ -1,16 +1,17 @@
 package Maps;
 
 import Observables.MapObservable;
+import View.Defaults;
 import View.Xml.MapFromXML;
 
 public abstract class IndexMap {
     protected IndexMap() throws Exception{
-        addElements("default");
+        addElements(Defaults.DEFAULT.getDefault());
     }
     
     public void addElements(String type) throws Exception{
         newMap();
-        if(type.equals("default")){
+        if(type.equals(Defaults.DEFAULT.getDefault())){
             defaultElements();
         }else{
             getElementsFromXML(type);
