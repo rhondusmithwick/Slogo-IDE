@@ -11,70 +11,44 @@ import view.xml.XMLChooser;
 import view.utilities.ButtonFactory;
 import view.utilities.ComboFactory;
 import view.utilities.FileGetter;
+import view.utilities.PopUp;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class WorkSpaceSaver {
+public class WorkSpaceSaver extends PopUp{
 
 
     private ResourceBundle myResources;
     SimpleStringProperty error;
     private TextField tField;
-    private VBox v;
-    private Scene myScene;
     private ArrayList<String> colors, langs;
     private ComboBox<String> bColor,pColor, pLangs, colorFile, imageFile;
-    private Stage stage;
 
     public WorkSpaceSaver(List<String> colors, List<String> langs , SimpleStringProperty error){
+    	super(Size.HTML_HEIGHT.getSize(), Size.HTML_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
         this.langs = (ArrayList<String>) langs;
         this.error=error;
         this.colors=(ArrayList<String>) colors;
         this.myResources= ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     }
-    public void showSaver(){
-        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-        Group root;
-        root = new Group();
-        stage = new Stage();
-        myScene = new Scene(root, Size.HTML_WIDTH.getSize(), Size.HTML_HEIGHT.getSize());
-        setVBox();
-        createSaver();
-        root.getChildren().add(v);
-        stage.setScene(myScene);
-        stage.show();
-    }
-
-    private void setVBox () {
-        v = new VBox(Size.TB_PADDING.getSize());
-        v.setAlignment(Pos.TOP_CENTER);
-        v.setStyle(Defaults.BACKGROUND_COLOR.getDefault());
-        v.prefHeightProperty().bind(myScene.heightProperty());
-        v.prefWidthProperty().bind(myScene.widthProperty());
-    }
-
-    private void createSaver () {
+    
+    @Override
+    protected void createScene () {
         Label title = new Label(myResources.getString("workSaver"));
-        v.getChildren().addAll(title);
+        addNodes(Arrays.asList(title));
         Button set = ButtonFactory.createButton(myResources.getString("save"), e->setPreferences());
         createComboBoxes();
         numTurtleField();
-        v.getChildren().add(set);
-
+        addNodes(Arrays.asList(set));
 
     }
 
     private void setPreferences()  {
-        XMLChooser xChoose = new XMLChooser();
-        File file = xChoose.getFile(true);
+        XMLChooser xChoose = new XMLChooser(true);
+        File file = xChoose.getFile();
         if(file==null){
             return;
         }
@@ -87,12 +61,14 @@ public class WorkSpaceSaver {
 
             showError();
         }
-        stage.close();
+        closeScene();
     }
+    
     private void showError () {
         error.set("");
         error.set(myResources.getString("wSpaceError"));
     }
+    
     private List<String> getAllInput () {
         return Arrays.asList(getInput(bColor.getSelectionModel().getSelectedItem()),
                              getInput(pColor.getSelectionModel().getSelectedItem()),
@@ -126,6 +102,7 @@ public class WorkSpaceSaver {
         }
         return str;
     }
+    
     private void createComboBoxes() {
 
         bColor = ComboFactory.createBox(myResources.getString("bColor"), colors, null);
@@ -137,7 +114,7 @@ public class WorkSpaceSaver {
         imageFile = ComboFactory.createBox(myResources.getString("imageFile"), 
                                            FileGetter.getAllFromDirectory(Defaults.IMAGELIST_LOC.getDefault()), null);
         imageFile.getItems().add(Defaults.DEFAULT.getDefault());
-        v.getChildren().addAll(bColor, pColor, pLangs, colorFile, imageFile);
+        addNodes(Arrays.asList(bColor, pColor, pLangs, colorFile, imageFile));
 
     }
 
@@ -145,8 +122,9 @@ public class WorkSpaceSaver {
     private void numTurtleField(){
         tField = new TextField();
         tField.setPromptText(myResources.getString("numTurtles"));
-        v.getChildren().add(tField);
+        addNodes(Arrays.asList(tField));
     }
+
 
 
 

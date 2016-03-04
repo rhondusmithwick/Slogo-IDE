@@ -72,8 +72,8 @@ public class TopBar extends SubBar {
     private void loadWorkSpace () {
        
         try {
-            XMLChooser xChoose = new XMLChooser();
-            File file = xChoose.getFile(false);
+        	XMLChooser xChoose = new XMLChooser(false);
+            File file = xChoose.getFile();
             LoadWS wsLoader = new LoadWS();
             wsLoader.load(file);
             setParams(wsLoader);
@@ -138,7 +138,8 @@ public class TopBar extends SubBar {
     private void chooseTurtIm() {
         try {
             ImageChooser imChoose = new ImageChooser();
-            String newImage = imChoose.chooseTurtIm();
+            imChoose.show();
+            String newImage = imChoose.getChosen();
             if (newImage != null) {
                 image.set(newImage);
             }

@@ -4,6 +4,7 @@ package view.tbar;
 import java.util.Observable;
 
 import view.Defaults;
+import view.utilities.PopUp;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
@@ -27,7 +28,7 @@ public class BottomBar extends SubBar {
         super(language, error, intCommand);
         this.error = error;
         this.intCommand=intCommand;
-        hScreen = HelpScreen.getInstance();
+        hScreen = new HelpScreen();
 
     }
 
@@ -61,7 +62,7 @@ public class BottomBar extends SubBar {
         makeButton("setPenSize", e -> setPenSize());
         makeButton("saveColor", e-> saveColors());
         makeButton("saveImage", e->saveImages());
-        makeButton("help", e -> hScreen.showHelpScreen( ));
+        makeButton("help", e -> hScreen.show());
 
     }
 
@@ -91,8 +92,8 @@ public class BottomBar extends SubBar {
 
 
     private void saveWorkSpace() {
-        WorkSpaceSaver wSaver = new WorkSpaceSaver(getColors(), getLanguages(),error);
-        wSaver.showSaver();
+        PopUp wSaver = new WorkSpaceSaver(getColors(), getLanguages(),error);
+        wSaver.show();
     }
 
     private void setPenSize() {

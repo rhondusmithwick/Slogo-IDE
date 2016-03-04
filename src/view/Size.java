@@ -17,7 +17,8 @@ public enum Size {
 	PALETTE_DIM(40),
 	PALETTE_ENT_PADDING(50),
 	ENV_DISPLAY_WIDTH(400),
-	MAP_SAVER(200);
+	MAP_SAVER(200),
+	POP_UP_PADDING(20);
 	
 	private int size;
 	Size(int size){
