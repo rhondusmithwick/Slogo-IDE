@@ -2,7 +2,7 @@ package Maps;
 
 import java.io.File;
 import Observables.MapObservable;
-import View.Defaults;
+import view.Defaults;
 
 public class ImageMap extends IndexMap{
 
@@ -19,8 +19,9 @@ public class ImageMap extends IndexMap{
 
     public static synchronized ImageMap getInstance() throws Exception 
     {
-        if (instance == null)
+        if (instance == null){
             instance = new ImageMap();
+        }
         return instance;
     }
 
@@ -56,7 +57,7 @@ public class ImageMap extends IndexMap{
 
     @Override
     protected void newMap () {
-        images = new MapObservable<Integer, String>("images");
+        images = new MapObservable<>("images");
         
     }
 

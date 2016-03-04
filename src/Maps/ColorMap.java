@@ -4,10 +4,13 @@ import java.lang.reflect.Field;
 
 
 import Observables.MapObservable;
-import View.Defaults;
+import view.Defaults;
 import javafx.scene.paint.Color;
 
 public class ColorMap extends IndexMap {
+    private static final int B = 2;
+    private static final int G = 1;
+    private static final int R = 0;
     private static ColorMap instance;
     private MapObservable<Integer,String> colors;
     private int count;
@@ -22,8 +25,9 @@ public class ColorMap extends IndexMap {
 
     public static synchronized ColorMap getInstance() throws Exception
     {
-        if (instance == null)
+        if (instance == null){
             instance = new ColorMap();
+        }
         return instance;
     }
 
@@ -38,7 +42,7 @@ public class ColorMap extends IndexMap {
     @Override
     public void setAtIndex(int index, String toSet) throws Exception{
         String[] rgb = toSet.split(" ");
-        String value = "rgb(" + rgb[0] + "," + rgb[1]+ ","+rgb[2]+")";
+        String value = "rgb(" + rgb[R] + "," + rgb[G]+ ","+rgb[B]+")";
         colors.put(index, value);
         colors.notifyObservers();
 
@@ -64,7 +68,7 @@ public class ColorMap extends IndexMap {
 
     @Override
     protected void newMap () {
-        colors = new MapObservable<Integer, String>("colors");
+        colors = new MapObservable<>("colors");
 
     }
 
