@@ -8,12 +8,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import View.Defaults;
 
 
 public class LoadWS {
     
     private static List<String> paramNames = Arrays.asList("BGColor", "PenColor", "PLang", "CFile", "IFile", "NumTurts");
-    private static List<String> paramDefaults = Arrays.asList("white", "black", "english", "Default", "Default", "1");
+    private static List<String> paramDefaults = Arrays.asList("white", "black", "english", Defaults.DEFAULT.getDefault(), Defaults.DEFAULT.getDefault(), "1");
     private Document doc;
     private File file;
     private ArrayList<String> params;
@@ -42,7 +43,7 @@ public class LoadWS {
     }
     
     public String getParam(int index){
-        if(params.get(index).equals("Default")){
+        if(params.get(index).equals(Defaults.DEFAULT.getDefault())){
             return paramDefaults.get(index);
         }
         return params.get(index);

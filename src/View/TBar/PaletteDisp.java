@@ -92,8 +92,8 @@ public abstract class PaletteDisp {
 
     
     protected Label createLabel(String key, String end){
-        Label label = new Label(myResources.getString(key)+end);
-        return label;
+        return new Label(myResources.getString(key)+end);
+        
     }
 
 

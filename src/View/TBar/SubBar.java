@@ -22,6 +22,7 @@ import javafx.scene.layout.Priority;
 
 public abstract class SubBar implements Observer {
 
+    private static final String COLOR_ERROR = "colorError";
     private ResourceBundle myResources, myCommands;
     private HBox container;
     private ObjectObservable<String> language, intCommand;
@@ -95,7 +96,7 @@ public abstract class SubBar implements Observer {
             this.colors = ColorMap.getInstance();
             colors.getIndexMap().addObserver(this);
         } catch (Exception e) {
-            showError(myResources.getString("colorError"));
+            showError(myResources.getString(COLOR_ERROR));
         }
 
     }
@@ -109,7 +110,7 @@ public abstract class SubBar implements Observer {
             return new ArrayList<String>(colors.getIndexMap().getValues());
         }
         catch (Exception e) {
-            showError(myResources.getString("colorError"));
+            showError(myResources.getString(COLOR_ERROR));
         }
         return null;
     }

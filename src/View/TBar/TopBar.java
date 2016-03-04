@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 
 
 public class TopBar extends SubBar {
+    private static final String LOAD_ERROR = "workLoadError";
     private SimpleStringProperty image, penColor;
     private PaletteDisp cDisp, iDisp;
     
@@ -78,7 +79,7 @@ public class TopBar extends SubBar {
         }
         catch (Exception e) {
             e.printStackTrace();
-            showError("workLoadError");
+            showError(LOAD_ERROR);
         }
     }
 
@@ -113,7 +114,7 @@ public class TopBar extends SubBar {
         }
         catch (Exception e) {
             e.printStackTrace();
-            showError("workLoadError");
+            showError(LOAD_ERROR);
         }
     }
 
