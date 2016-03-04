@@ -61,6 +61,7 @@ public class View implements ViewInt {
         this.backgroundColor = new ObjectObservable<>();
         this.commHistory = new ObjectObservable<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
+        
     
         createAppview();
     }

@@ -48,8 +48,10 @@ public class WorkSpaceSaver extends PopUp{
 
     private void setPreferences()  {
         XMLChooser xChoose = new XMLChooser(true);
+        xChoose.show();
         File file = xChoose.getFile();
         if(file==null){
+        	closeScene();
             return;
         }
         WorkspaceXML wXML = new WorkspaceXML();
