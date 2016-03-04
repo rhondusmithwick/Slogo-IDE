@@ -2,13 +2,14 @@ package view.tbar;
 
 
 import java.util.Observable;
-import Maps.ColorMap;
-import Maps.ImageMap;
-import Maps.IndexMap;
+
 import Observables.ObjectObservable;
 import view.Defaults;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
+import maps.ColorMap;
+import maps.ImageMap;
+import maps.IndexMap;
 
 public class BottomBar extends SubBar {
 

@@ -2,7 +2,7 @@ package view.tbar;
 
 
 import java.util.ResourceBundle;
-import Maps.IndexMap;
+
 import view.Defaults;
 import view.Size;
 import view.xml.MapToXML;
@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import maps.IndexMap;
 
 public class IndexMapSaver {
 

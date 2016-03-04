@@ -2,12 +2,13 @@ package view.tbar;
 
 import java.util.Arrays;
 import java.util.Map.Entry;
-import Maps.ColorMap;
+
 import Observables.MapObservable;
 import view.Size;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import maps.ColorMap;
 
 public class ColorDisplay extends PaletteDisp {
     

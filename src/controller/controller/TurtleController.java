@@ -1,10 +1,5 @@
 package controller.controller;
 
-import Model.Action.TurtleAction;
-import Model.Action.VisionAction;
-import Model.Deprecated.Command;
-import Model.TreeNode.TreeNode;
-import Model.Turtle.Turtle;
 import Observables.MapObservable;
 import Observables.ObjectObservable;
 import controller.slogoparser.ExpressionTree;
@@ -12,6 +7,11 @@ import controller.slogoparser.SlogoParser;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
+import model.action.TurtleAction;
+import model.action.VisionAction;
+import model.deprecated.Command;
+import model.treenode.TreeNode;
+import model.turtle.Turtle;
 
 import java.util.Arrays;
 import java.util.List;
