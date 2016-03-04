@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map.Entry;
 
 import view.Size;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,8 +16,8 @@ public class ImageDisplay extends PaletteDisp{
     private MapObservable<Integer, String> iMap;
 
     
-    public ImageDisplay (String title) {
-        super(title);
+    public ImageDisplay (String title, SimpleStringProperty error) {
+        super(title, error);
    
        
         
@@ -39,12 +40,18 @@ public class ImageDisplay extends PaletteDisp{
     
     
     @Override
-    public void createDisp() throws Exception{
-        super.createDisp();
-        iMap = ImageMap.getInstance().getIndexMap();
-        iMap.getEntrySet().stream().forEach(e-> addToPalette(e));
-        showDisplay();
+    public void createScene(){
+        super.createScene();
+        try {
+			iMap = ImageMap.getInstance().getIndexMap();
+			iMap.getEntrySet().stream().forEach(e-> addToPalette(e));
+		} catch (Exception e) {
+			showError("imagePalError");
+		}
+        
     }
+
+
 
     
 

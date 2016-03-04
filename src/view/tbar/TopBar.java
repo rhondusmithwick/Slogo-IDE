@@ -31,8 +31,8 @@ public class TopBar extends SubBar {
         this.image=image;
         this.bgColor = bgColor;
         this.penColor=penColor;
-        cDisp = new ColorDisplay("colorTitle");
-        iDisp = new ImageDisplay("imageTitle");
+        cDisp = new ColorDisplay("colorTitle", error);
+        iDisp = new ImageDisplay("imageTitle", error);
         
 
     }
@@ -119,20 +119,13 @@ public class TopBar extends SubBar {
     }
 
     private void showImagePalette() {
-        try {
-            iDisp.createDisp();
-        } catch (Exception e) {
-            showError("imagePalError");
-        }
+            iDisp.show();
+
     }
 
     private void showColorPalette() {
-        try {
-            cDisp.createDisp();
-        } catch (Exception e) {
-            e.printStackTrace();
-            showError("colorPalError");
-        }
+            cDisp.show();
+
     }
 
     private void chooseTurtIm() {

@@ -4,54 +4,54 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import view.Defaults;
 import view.Size;
+import view.utilities.PopUp;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public abstract class PaletteDisp {
+public abstract class PaletteDisp extends PopUp {
     
-    private Stage s;
-    private Group root;
     private ScrollPane scroll;
     private VBox vbox;
-    private Scene scene;
     private ResourceBundle myResources;
     private String title;
     private HBox h;
+    private SimpleStringProperty error;
 
     
     
     
-    public PaletteDisp(String title){
+    public PaletteDisp(String title, SimpleStringProperty error){
+    	super(Size.PALETTE.getSize(), Size.PALETTE.getSize(), Defaults.BACKGROUND_WHITE.getDefault());
         this.title=title;
+        this.error=error;
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-        setStage();
-        root = new Group();
-        scene = new Scene(root, Size.PALETTE.getSize(),Size.PALETTE.getSize());
-        setScrollPane();
+
     }
     
-    private void setStage () {
-        s = new Stage();
-        s.setTitle(myResources.getString(title));
-        
-    }
-
-    private void setScrollPane () {
+    @Override
+    protected void createContainer () {
+    	setStageTitle(title);
         scroll = new ScrollPane();
-        
-        scroll.prefHeightProperty().bind(scene.heightProperty());
-        scroll.prefWidthProperty().bind(scene.widthProperty());
-        root.getChildren().add(scroll);
+        scroll.prefHeightProperty().bind(getSize(true));
+        scroll.prefWidthProperty().bind(getSize(false));
+        addContainer(scroll);
         
     }
+    
+    @Override
+    protected void createScene(){
+    	setVBox();
+        scroll.setContent(vbox);
+    }
+    
+
+
     
     private void setVBox(){
         vbox = new VBox(Size.PALETTE_PADDING.getSize());
@@ -60,17 +60,8 @@ public abstract class PaletteDisp {
         vbox.prefWidthProperty().bind(scroll.widthProperty());
     }
 
-    public void createDisp() throws Exception{
-        setVBox();
-        scroll.setContent(vbox);
-        
 
-    }
-    
-    protected void showDisplay(){
-        s.setScene(scene);
-        s.show();
-    }
+
 
     protected abstract void addToPalette (Entry<Integer, String> e);
     
@@ -94,6 +85,11 @@ public abstract class PaletteDisp {
     protected Label createLabel(String key, String end){
         return new Label(myResources.getString(key)+end);
         
+    }
+    
+    protected void showError(String key){
+    	error.set("");
+    	error.set(myResources.getString(key));
     }
 
 

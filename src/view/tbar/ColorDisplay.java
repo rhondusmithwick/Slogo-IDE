@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map.Entry;
 
 import view.Size;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -14,17 +15,21 @@ public class ColorDisplay extends PaletteDisp {
     
     
     private MapObservable<Integer, String> cMap;
-    public ColorDisplay (String title) {
-        super(title);
+    public ColorDisplay (String title, SimpleStringProperty error) {
+        super(title, error);
         
     }
 
     @Override
-    public void createDisp() throws Exception{
-        super.createDisp();
-        cMap = ColorMap.getInstance().getIndexMap();
-        cMap.getEntrySet().stream().forEach(e-> addToPalette(e));
-        showDisplay();
+    public void createScene() {
+        super.createScene();
+        try {
+			cMap = ColorMap.getInstance().getIndexMap();
+			cMap.getEntrySet().stream().forEach(e-> addToPalette(e));
+		} catch (Exception e1) {
+			showError("colorPalError");
+		}
+        
     }
 
     @Override

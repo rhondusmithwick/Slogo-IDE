@@ -47,7 +47,7 @@ public abstract class PopUp {
         vBox.setStyle(backgroundColor);
         vBox.prefHeightProperty().bind(myScene.heightProperty());
         vBox.prefWidthProperty().bind(myScene.widthProperty());
-        root.getChildren().add(vBox);
+        addContainer(vBox);
 		
 	}
 
@@ -79,7 +79,6 @@ public abstract class PopUp {
 	}
 	
 	protected void addContainer(Node container){
-		root.getChildren().remove(vBox);
 		root.getChildren().add(container);
 	}
 	
@@ -88,6 +87,10 @@ public abstract class PopUp {
 			return myScene.heightProperty();
 		}
 		return myScene.widthProperty();
+	}
+	
+	protected void setStageTitle(String title){
+		s.setTitle(title);
 	}
 	
 	
