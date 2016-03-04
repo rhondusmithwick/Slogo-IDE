@@ -22,10 +22,14 @@ public class BottomBar extends SubBar {
     ObjectObservable<String> intCommand;
     private ComboBox<String> langBox;
     private EnvUpdate penSizeUpdater;
+	private ColorMap cMap;
+	private ImageMap iMap;
 
     public BottomBar(ObjectObservable<String> language, SimpleStringProperty error, 
-                     ObjectObservable<String> intCommand) {
-        super(language, error, intCommand);
+                     ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
+        super(language, error, intCommand, cMap);
+        this.iMap = iMap;
+        this.cMap = cMap;
         this.error = error;
         this.intCommand=intCommand;
         hScreen = new HelpScreen();
@@ -60,29 +64,23 @@ public class BottomBar extends SubBar {
         makeButton("penUp", e -> setPen("PenUp"));
         makeButton("penDown", e -> setPen("PenDown"));
         makeButton("setPenSize", e -> setPenSize());
-        makeButton("saveColor", e-> saveColors());
-        makeButton("saveImage", e->saveImages());
+        makeButton("saveColor", e-> saveMap(true));
+        makeButton("saveImage", e->saveMap(false));
         makeButton("help", e -> hScreen.show());
 
     }
 
 
-    private void saveColors () {
+    private void saveMap (boolean colors) {
         try {
-            PopUp mSave = new IndexMapSaver(ColorMap.getInstance(), error);
-            mSave.show();
-        }
-        catch (Exception e) {
-            showError(SAVE_ERROR);
-        }
-    }
-
-
-
-    private void saveImages () {
-        try {
-            IndexMapSaver mSave = new IndexMapSaver(ImageMap.getInstance(), error);
-            mSave.show();
+        	PopUp mSave;
+        	if(colors){
+        		mSave = new IndexMapSaver(cMap, error);
+        		
+        	}else{
+        		mSave = new IndexMapSaver(iMap, error);
+        	}
+        	mSave.show();
         }
         catch (Exception e) {
             showError(SAVE_ERROR);

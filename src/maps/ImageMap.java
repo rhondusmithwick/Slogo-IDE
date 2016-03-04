@@ -8,23 +8,13 @@ import view.Defaults;
 public class ImageMap extends IndexMap{
 
     private MapObservable<Integer, String> images;
-    private static ImageMap instance;
     private int count;
 
-    private ImageMap() throws Exception{
+    public ImageMap() throws Exception{
         super();
     }
 
 
-
-
-    public static synchronized ImageMap getInstance() throws Exception 
-    {
-        if (instance == null){
-            instance = new ImageMap();
-        }
-        return instance;
-    }
 
     @Override
     public MapObservable<Integer, String> getIndexMap () {

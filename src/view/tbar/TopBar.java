@@ -23,18 +23,21 @@ public class TopBar extends SubBar {
     private ComboBox<String> bColorBox;
     private ComboBox<String> pColorBox;
     private ObjectObservable<String> bgColor;
+	private ColorMap cMap;
+	private ImageMap iMap;
 
 
     public TopBar(ObjectObservable<String> language, ObjectObservable<String> bgColor,
                   SimpleStringProperty error, SimpleStringProperty image, SimpleStringProperty penColor, 
-                  ObjectObservable<String> intCommand) {
-        super(language, error, intCommand);
+                  ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
+        super(language, error, intCommand, cMap);
         this.image=image;
         this.bgColor = bgColor;
         this.penColor=penColor;
-        cDisp = new ColorDisplay("colorTitle", error);
-        iDisp = new ImageDisplay("imageTitle", error);
-        
+        cDisp = new ColorDisplay("colorTitle", error, cMap.getIndexMap());
+        iDisp = new ImageDisplay("imageTitle", error, iMap.getIndexMap());
+        this.iMap = iMap;
+        this.cMap = cMap;
 
     }
 
@@ -111,8 +114,8 @@ public class TopBar extends SubBar {
 
     private void setMaps (LoadWS wsLoader) {
         try {
-            ImageMap.getInstance().addElements(wsLoader.getParam(LoadIndex.I_FILE.getIndex()));
-            ColorMap.getInstance().addElements(wsLoader.getParam(LoadIndex.C_FILE.getIndex()));
+            iMap.addElements(wsLoader.getParam(LoadIndex.I_FILE.getIndex()));
+            cMap.addElements(wsLoader.getParam(LoadIndex.C_FILE.getIndex()));
         }
         catch (Exception e) {
             showError(LOAD_ERROR);

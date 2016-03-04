@@ -21,6 +21,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import maps.ColorMap;
+import maps.ImageMap;
+import maps.IndexMap;
 import observables.ObjectObservable;
 
 import java.util.Arrays;
@@ -52,6 +55,7 @@ public class View implements ViewInt {
     private TurtleParams turtPar;
     private HBox bottom;
     private VBox left, right;
+    private IndexMap cMap, iMap;
 
     public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
         this.pLang = pLang;
@@ -62,12 +66,16 @@ public class View implements ViewInt {
         this.commHistory = new ObjectObservable<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         
-    
+        
         createAppview();
+        
     }
 
 
-    private void createAppview () {
+
+
+
+	private void createAppview () {
         UI = new BorderPane();
         root = new Group();
         createScene();
@@ -130,9 +138,23 @@ public class View implements ViewInt {
         
     }
 
+    
+    private void createMaps() {
+    	
+    	try {
+			iMap = new ImageMap();
+			cMap = new ColorMap();
+		} catch (Exception e) {
+			error.set("");
+			error.set("colorError");
+		}
+		
+	}
+    
 
     private void createToolBar() {
-        tBar = new ToolBar(pLang, error, backgroundColor, image, penColor, intCommands);
+    	createMaps();
+        tBar = new ToolBar(pLang, error, backgroundColor, image, penColor, intCommands, (ColorMap) cMap, (ImageMap) iMap);
         BorderPane.setMargin(tBar.getToolBarMembers(), ViewInsets.TOP.getInset());
         tBar.getToolBarMembers().prefWidthProperty().bind(UI.widthProperty());
         

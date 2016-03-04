@@ -8,27 +8,22 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import maps.ColorMap;
 import observables.MapObservable;
 
 public class ColorDisplay extends PaletteDisp {
     
     
     private MapObservable<Integer, String> cMap;
-    public ColorDisplay (String title, SimpleStringProperty error) {
+    public ColorDisplay (String title, SimpleStringProperty error, MapObservable<Integer, String> cMap) {
         super(title, error);
+        this.cMap=cMap;
         
     }
 
     @Override
     public void createScene() {
         super.createScene();
-        try {
-			cMap = ColorMap.getInstance().getIndexMap();
-			cMap.getEntrySet().stream().forEach(e-> addToPalette(e));
-		} catch (Exception e1) {
-			showError("colorPalError");
-		}
+		cMap.getEntrySet().stream().forEach(e-> addToPalette(e));
         
     }
 
