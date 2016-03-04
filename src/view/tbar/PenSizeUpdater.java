@@ -41,6 +41,7 @@ public class PenSizeUpdater {
     public PenSizeUpdater(ObjectObservable<String> language, ObjectObservable<String> intCommand){
     	myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     	myCommands = ResourceBundle.getBundle(language.get());
+    	this.intCommand=intCommand;
         s = new Stage();
         root = new Group();
         scene = new Scene(root, WIDTH, HEIGHT);
@@ -68,10 +69,12 @@ public class PenSizeUpdater {
     
     private void retrieveUserInput() {
     	String userInput = tField.getText();
-    	if (userInput.length() == 0) closeUpdater();
+    	if (userInput.length() == 0){
+    	    closeUpdater();
+    	}
     	String commandToPass = makeCommand("SetPenSize");
     	System.out.println(commandToPass + SPACE + userInput);
-//    	passCommand(commandToPass + SPACE + userInput);
+    	passCommand(commandToPass + SPACE + userInput);
     	closeUpdater();
     }
 

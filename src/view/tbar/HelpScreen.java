@@ -24,8 +24,10 @@ public class HelpScreen {
     
     public static synchronized HelpScreen getInstance() 
     {
-            if (instance == null)
-                    instance = new HelpScreen();
+            if (instance == null){
+                instance = new HelpScreen();
+            }
+                    
             return instance;
     }
 
@@ -45,7 +47,7 @@ public class HelpScreen {
         ClassLoader classLoader = getClass().getClassLoader();
         WebView webView = new WebView();
         webView.prefHeightProperty().bind(myScene.heightProperty());
-        webView.prefWidthProperty().bind(myScene.widthProperty());;
+        webView.prefWidthProperty().bind(myScene.widthProperty());
         WebEngine webEngine = webView.getEngine();
         URL urlHello = classLoader.getResource(myResources.getString("helpFile"));
         webEngine.load(urlHello.toExternalForm());

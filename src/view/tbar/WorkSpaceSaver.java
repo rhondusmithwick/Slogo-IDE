@@ -31,7 +31,7 @@ public class WorkSpaceSaver {
     private VBox v;
     private Scene myScene;
     private ArrayList<String> colors, langs;
-    private ComboBox<String> bColor,pColor, pLangs, colorFile, imageFile; //variableFile;
+    private ComboBox<String> bColor,pColor, pLangs, colorFile, imageFile;
     private Stage stage;
 
     public WorkSpaceSaver(List<String> colors, List<String> langs , SimpleStringProperty error){
