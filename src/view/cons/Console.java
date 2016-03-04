@@ -52,6 +52,9 @@ public class Console {
 		box.prefWidthProperty().bind(scroll.widthProperty());
 		scroll.setContent(box);
 		addTitle();
+		box.getChildren().add(createLabel(LOCATION_LABEL + location.get()));
+		box.getChildren().add(createLabel(HEADING_LABEL + heading.get()));
+		box.getChildren().add(createLabel(PEN_COLOR + penColor.get()));
 		box.getChildren().add(createLabel(PEN_DOWN_LABEL + penDown.get()));
 	}
 
