@@ -23,10 +23,11 @@ public abstract class EnvUpdate extends PopUp{
     private ResourceBundle myResources, myCommands;
     private Button setB;
 	private static final char SPLITTER = '|';
+	private String newVal;
 
-    public EnvUpdate(ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
+    public EnvUpdate(ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
     	super(WIDTH, HEIGHT, Defaults.BACKGROUND_COLOR.getDefault());
-        this.myResources = myResources;
+        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         myCommands = ResourceBundle.getBundle(pLang.get());
         this.intCommand=intCommand;
         
@@ -41,6 +42,10 @@ public abstract class EnvUpdate extends PopUp{
     
 
     protected abstract void createTextFields ();
+    
+    public void updateLabel(Label l){
+    	l.setText(newVal);
+    }
 
 
     private void createSetButton() {

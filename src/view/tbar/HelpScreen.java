@@ -3,6 +3,7 @@ package view.tbar;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import view.Defaults;
 import view.Size;
@@ -21,8 +22,7 @@ public class HelpScreen extends PopUp {
     	myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     }
 
-    @Override
-    protected void createContainer() {
+    private void createWeb() {
         classLoader = getClass().getClassLoader();
         webView = new WebView();
         webView.prefHeightProperty().bind(getSize(true));
@@ -34,9 +34,10 @@ public class HelpScreen extends PopUp {
 
 	@Override
 	protected void createScene() {
+		createWeb();
 		URL urlHello = classLoader.getResource(myResources.getString("helpFile"));
         webEngine.load(urlHello.toExternalForm());
-        addContainer(webView);
+        addNodes(Arrays.asList(webView));
 		
 	}
 

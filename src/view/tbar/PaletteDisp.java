@@ -1,4 +1,5 @@
 package view.tbar;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
@@ -34,20 +35,22 @@ public abstract class PaletteDisp extends PopUp {
 
     }
     
-    @Override
-    protected void createContainer () {
-    	setStageTitle(title);
+    protected void createScroll() {
+    	
         scroll = new ScrollPane();
         scroll.prefHeightProperty().bind(getSize(true));
         scroll.prefWidthProperty().bind(getSize(false));
-        addContainer(scroll);
+        
         
     }
     
     @Override
     protected void createScene(){
+    	setStageTitle(title);
+    	createScroll();
     	setVBox();
         scroll.setContent(vbox);
+        addNodes(Arrays.asList(scroll));
     }
     
 

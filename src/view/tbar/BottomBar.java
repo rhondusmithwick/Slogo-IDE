@@ -4,6 +4,7 @@ package view.tbar;
 import java.util.Observable;
 
 import view.Defaults;
+import view.envdisplay.EnvUpdate;
 import view.utilities.PopUp;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
@@ -20,8 +21,7 @@ public class BottomBar extends SubBar {
     private SimpleStringProperty error;
     ObjectObservable<String> intCommand;
     private ComboBox<String> langBox;
-    @SuppressWarnings("unused")
-    private PenSizeUpdater penSizeUpdater;
+    private EnvUpdate penSizeUpdater;
 
     public BottomBar(ObjectObservable<String> language, SimpleStringProperty error, 
                      ObjectObservable<String> intCommand) {
@@ -98,6 +98,7 @@ public class BottomBar extends SubBar {
 
     private void setPenSize() {
         penSizeUpdater = new PenSizeUpdater(getLanguage(), intCommand);
+        penSizeUpdater.show();
     }
 
     private void setPen(String key) {

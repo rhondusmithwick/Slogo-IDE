@@ -1,8 +1,6 @@
 package view.envdisplay;
 
 import java.util.Arrays;
-import java.util.ResourceBundle;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import observables.ObjectObservable;
@@ -15,15 +13,16 @@ public class MethodUpdate extends EnvUpdate {
 	private static final char BACK_BRACKET = ']';
 
     private static final String SPACE = " ";
-    private String name, mNewVal, vNewVal, variables, methods, newDisp;
+    private String name, mNewVal, vNewVal, variables, methods, newVal, text;
     private TextField vField, mField;
-    private Label vTitle,mTitle, label;
+    private Label vTitle,mTitle;
+    
 
 
 
-    public MethodUpdate(ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang, Label l){
-        super(myResources,intCommand, pLang);
-        this.label=l;
+    public MethodUpdate(ObjectObservable<String> intCommand, ObjectObservable<String> pLang, String text){
+        super(intCommand, pLang);
+        this.text=text;
 
        
     }
@@ -42,8 +41,7 @@ public class MethodUpdate extends EnvUpdate {
         String toPass = getCommand(new String[]{mNewVal, vNewVal});
         passCommand(toPass);
         closeScene();
-        label.setText(null);
-        label.setText(newDisp);
+        
 
     }
 
@@ -67,24 +65,18 @@ public class MethodUpdate extends EnvUpdate {
         String mNewVal = newVals[0];
         String vNewVal = newVals[1];
         String command = super.makeCommand("MakeUserCommand");
-        newDisp = this.name + SPACE+
+        newVal = this.name + SPACE+
 
        		 vNewVal + SPACE + FRONT_BRACK+ mNewVal + BACK_BRACKET;
 
-        return command + SPACE +newDisp;
+        return command + SPACE +newVal;
     }
-
-
-
-
-
-
 
     @Override
     public void updateEnv(){
-        getName(label.getText());
-        getVariables(label.getText());
-        getMethods(label.getText());
+        getName(text);
+        getVariables(text);
+        getMethods(text);
         mTitle = createTitle("methTitle", SPACE + name);
         vTitle = createTitle("methVarTitle",  SPACE + name); 
         addToScene(Arrays.asList(mTitle,mField,vTitle,vField));

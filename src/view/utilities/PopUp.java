@@ -41,19 +41,18 @@ public abstract class PopUp {
 	protected abstract void createScene();
 
 
-	protected void createContainer() {
+	private void createContainer() {
 		vBox = new VBox(Size.POP_UP_PADDING.getSize());
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setStyle(backgroundColor);
         vBox.prefHeightProperty().bind(myScene.heightProperty());
         vBox.prefWidthProperty().bind(myScene.widthProperty());
-        addContainer(vBox);
+        root.getChildren().add(vBox);
 		
 	}
 
 
 	private void showScene() {
-		
 		s.setScene(myScene);
 		s.show();
 		
@@ -78,9 +77,6 @@ public abstract class PopUp {
 		vBox.getChildren().addAll(nodeList);
 	}
 	
-	protected void addContainer(Node container){
-		root.getChildren().add(container);
-	}
 	
 	protected ReadOnlyDoubleProperty getSize(boolean height){
 		if(height){

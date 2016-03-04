@@ -1,8 +1,6 @@
 package view.envdisplay;
 
 import java.util.Arrays;
-import java.util.ResourceBundle;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import observables.ObjectObservable;
@@ -11,13 +9,13 @@ public class VariableUpdate extends EnvUpdate {
     
     private static final String SPACE = " ";
 
-    private String variable, newVal;
+    private String variable, newVal, text;
     private TextField tField;
-    private Label title, label;
+    private Label title;
 
-    public VariableUpdate (ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang, Label label) {
-        super(myResources, intCommand, pLang);
-        this.label=label;
+    public VariableUpdate (ObjectObservable<String> intCommand, ObjectObservable<String> pLang, String text) {
+        super(intCommand, pLang);
+        this.text = text;
         
     }
     
@@ -34,10 +32,10 @@ public class VariableUpdate extends EnvUpdate {
             return;
         }
         String toPass = getCommand(new String[]{newVal});
+        newVal = variable+SPACE+newVal;
         passCommand(toPass);
         closeScene();
-        label.setText(null);
-        label.setText(variable + SPACE + newVal);
+        
     }
     
     @Override
@@ -53,12 +51,13 @@ public class VariableUpdate extends EnvUpdate {
     @Override
     public void updateEnv(){
     
-        String[] splitUp = label.getText().split(SPACE);
+        String[] splitUp = text.split(SPACE);
         this.variable = splitUp[0];
         title = createTitle("varUpdate" , this.variable);
         addToScene(Arrays.asList(title,tField));
         
     }
+
 
     
 
