@@ -1,4 +1,4 @@
-package Controller.SlogoParser;
+package controller.slogoparser;
 
 import Model.Repeat.Repeat;
 import Observables.MapObservable;

@@ -1,4 +1,4 @@
-package Controller.Controller;
+package controller.controller;
 
 import Model.Deprecated.Command;
 import Observables.ObjectObservable;

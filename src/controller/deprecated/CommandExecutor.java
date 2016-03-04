@@ -1,4 +1,4 @@
-package Controller.Deprecated;
+package controller.deprecated;
 
 import Model.Deprecated.Command;
 import Model.Turtle.Turtle;

@@ -1,7 +1,5 @@
 package main;
 
-import Controller.Controller.Controller;
-import Controller.Controller.TurtleController;
 import view.View;
 import view.ViewInt;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,6 +10,9 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+
+import controller.controller.Controller;
+import controller.controller.TurtleController;
 
 /**
  * Created by rhondusmithwick on 2/23/16.
