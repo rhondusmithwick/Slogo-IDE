@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import Controller.Controller.Controller;
 import Controller.Controller.TurtleController;
