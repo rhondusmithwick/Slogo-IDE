@@ -15,7 +15,7 @@ public class ToolBar  {
 			SimpleStringProperty image, SimpleStringProperty penColor, ObjectObservable<String> intCommand) {
 		
 		setToolBar();
-		topBar = new TopBar(language, bgColor, error, image, penColor);
+		topBar = new TopBar(language, bgColor, error, image, penColor, intCommand);
 		botBar = new BottomBar(language,error, intCommand);
 		setBars();
 	}

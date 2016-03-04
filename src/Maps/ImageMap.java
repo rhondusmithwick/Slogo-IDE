@@ -69,4 +69,12 @@ public class ImageMap extends IndexMap{
 	}
 
 
+
+
+    @Override
+    protected String getDirectory () {
+        return Defaults.IMAGELIST_LOC.getDefault();
+    }
+
+
 }

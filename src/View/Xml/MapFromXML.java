@@ -7,7 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import Observables.MapObservable;
-import View.Defaults;
+
 
 public class MapFromXML {
     
@@ -21,7 +21,7 @@ public class MapFromXML {
     }
     
     public void getElements(String fileName) throws Exception{
-        file = new File(Defaults.COLORLIST_LOC.getDefault()+fileName);
+        file = new File(fileName + ".xml");
         createDocBuilder();
         addElements();
         
