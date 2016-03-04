@@ -43,8 +43,6 @@ public class CommandEntry implements Observer {
         createTitle();
         createTextBox();
         myScrollPane.setContent(container);
-        
-        
     }
 
     private void setScrollPane () {

@@ -35,14 +35,12 @@ public class CommandHistoryDisplay implements Observer {
     private ObjectObservable<String> intCommand, commHistory;
 
     public CommandHistoryDisplay(ObjectObservable<String> intCommand, ObjectObservable<String> commHistory) {
- 
         this.intCommand = intCommand;
         this.commHistory=commHistory;
         commHistory.addObserver(this);
         this.commands = new ArrayList<>();
         this.commandLabels = new ArrayList<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-        
         createScrollPane();
         createVBox();
         createTitle();
@@ -52,7 +50,6 @@ public class CommandHistoryDisplay implements Observer {
     private void createVBox () {
         myCommHistory = new VBox();
         myCommHistory.prefWidthProperty().bind(myScrollPane.widthProperty());
-
     }
 
     private void createScrollPane () {
@@ -61,7 +58,6 @@ public class CommandHistoryDisplay implements Observer {
         myScrollPane.setPrefViewportHeight(Size.BOTTOM_HEIGHT.getSize());
         myScrollPane.setMaxHeight(Size.BOTTOM_HEIGHT.getSize());
         HBox.setHgrow(myScrollPane, Priority.ALWAYS);
-       
     }
 
     private void createTitle () {
@@ -73,20 +69,19 @@ public class CommandHistoryDisplay implements Observer {
     private Label addCommand(String command) {
         if (command.isEmpty()) return null;
         commands.add(command);
-        Label l = new Label(command);
-        l.prefWidthProperty().bind(myScrollPane.widthProperty());
-        l.setStyle(Defaults.BORDER_COLOR.getDefault() );
-        l.setWrapText(true);
-        l.setOnMouseClicked(e -> labelClicked(l));
-        commandLabels.add(l);
-        myCommHistory.getChildren().add(l);
-        return l;
+        Label label = new Label(command);
+        label.prefWidthProperty().bind(myScrollPane.widthProperty());
+        label.setStyle(Defaults.BORDER_COLOR.getDefault() );
+        label.setWrapText(true);
+        label.setOnMouseClicked(e -> labelClicked(label));
+        commandLabels.add(label);
+        myCommHistory.getChildren().add(label);
+        return label;
     }
 
-    private void labelClicked(Label l) {
-        String command = Defaults.COMMAND_TO_TEXT_BOX.getDefault()+l.getText();
+    private void labelClicked(Label label) {
+        String command = Defaults.COMMAND_TO_TEXT_BOX.getDefault()+label.getText();
         intCommand.set(command);
-        
     }
 
     public Node getHistoryGraphic() {
@@ -95,9 +90,7 @@ public class CommandHistoryDisplay implements Observer {
 
     @Override
     public void update (Observable o, Object arg) {
-        
         addCommand(commHistory.get());
-        
     }
 
 
