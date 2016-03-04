@@ -1,4 +1,4 @@
-package View.utilities;
+package view.utilities;
 
 import java.io.File;
 import java.util.ArrayList;

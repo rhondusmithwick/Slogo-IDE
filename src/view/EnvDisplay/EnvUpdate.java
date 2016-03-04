@@ -1,9 +1,9 @@
-package View.EnvDisplay;
+package view.EnvDisplay;
 
 import java.util.List;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
-import View.Defaults;
+import view.Defaults;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;

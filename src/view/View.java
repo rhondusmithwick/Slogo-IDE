@@ -1,15 +1,15 @@
-package View;
+package view;
 
 import Observables.ObjectObservable;
-import View.CommEntry.CommandEntry;
-import View.CommHistory.CommandHistoryDisplay;
-import View.Cons.Console;
-import View.EnvDisplay.DefinedObjectsDisplay;
-import View.EnvDisplay.MethodDisplay;
-import View.EnvDisplay.VariableDisplay;
-import View.Error.ErrorDisplay;
-import View.TBar.ToolBar;
-import View.TurtDisplay.TurtleDisplay;
+import view.CommEntry.CommandEntry;
+import view.CommHistory.CommandHistoryDisplay;
+import view.Cons.Console;
+import view.EnvDisplay.DefinedObjectsDisplay;
+import view.EnvDisplay.MethodDisplay;
+import view.EnvDisplay.VariableDisplay;
+import view.Error.ErrorDisplay;
+import view.TBar.ToolBar;
+import view.TurtDisplay.TurtleDisplay;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -63,11 +63,11 @@ public class View implements ViewInt {
         this.commHistory = new ObjectObservable<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     
-        createAppView();
+        createAppview();
     }
 
 
-    private void createAppView () {
+    private void createAppview () {
         UI = new BorderPane();
         root = new Group();
         createScene();

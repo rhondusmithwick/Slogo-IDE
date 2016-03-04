@@ -1,9 +1,9 @@
-package View.TBar;
+package view.TBar;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
-import View.Defaults;
-import View.Size;
+import view.Defaults;
+import view.Size;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;

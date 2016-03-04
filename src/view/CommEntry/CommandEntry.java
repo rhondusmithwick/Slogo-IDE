@@ -1,11 +1,11 @@
-package View.CommEntry;
+package view.CommEntry;
 
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
-import View.Defaults;
-import View.Size;
+import view.Defaults;
+import view.Size;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * This class implements the CommandEntryInterface interface and allows the user to input
- * commands to be executed when execute button (within View class) is clicked
+ * commands to be executed when execute button (within  class) is clicked
  *
  * @author Stephen
  */

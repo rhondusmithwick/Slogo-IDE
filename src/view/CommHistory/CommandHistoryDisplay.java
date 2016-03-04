@@ -1,4 +1,4 @@
-package View.CommHistory;
+package view.CommHistory;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -14,8 +14,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import Observables.ObjectObservable;
-import View.Defaults;
-import View.Size;
+import view.Defaults;
+import view.Size;
 
 /**
  * This class implements the CommHistory interface and allows any previously executed commands

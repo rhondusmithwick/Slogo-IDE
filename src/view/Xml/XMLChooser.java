@@ -1,9 +1,9 @@
-package View.Xml;
+package view.Xml;
 
 import java.io.File;
 import java.util.ResourceBundle;
-import View.Defaults;
-import View.Size;
+import view.Defaults;
+import view.Size;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;

@@ -1,4 +1,4 @@
-package View.Xml;
+package view.Xml;
 
 import java.io.File;
 import java.util.Map.Entry;
@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 import Maps.ColorMap;
 import Maps.IndexMap;
 import Observables.MapObservable;
-import View.Defaults;
+import view.Defaults;
 
 public class MapToXML {
     private String saveLocation;

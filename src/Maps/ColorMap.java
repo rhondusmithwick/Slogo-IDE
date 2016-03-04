@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 
 import Observables.MapObservable;
-import View.Defaults;
+import view.Defaults;
 import javafx.scene.paint.Color;
 
 public class ColorMap extends IndexMap {
