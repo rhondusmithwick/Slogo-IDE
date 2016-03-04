@@ -13,20 +13,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ImageChooser {
-    private static ImageChooser instance;
     
     private ResourceBundle myResources;
-    
-    private ImageChooser(){
+    public ImageChooser(){
         
     }
     
-    public static synchronized ImageChooser getInstance() 
-    {
-            if (instance == null)
-                    instance = new ImageChooser();
-            return instance;
-    }
     
     private void setUpFileChooser(FileChooser fChoose, Stage s) {
         Group root = new Group();

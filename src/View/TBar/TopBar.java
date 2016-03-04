@@ -1,32 +1,36 @@
 package View.TBar;
 
+import java.io.File;
 import java.util.Observable;
 import Maps.ColorMap;
 import Maps.ImageMap;
 import Observables.ObjectObservable;
+import View.Defaults;
+import View.Xml.LoadWS;
+import View.Xml.XMLChooser;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 
 
 public class TopBar extends SubBar {
-    private SimpleStringProperty image, penColor, error;
+    private SimpleStringProperty image, penColor;
     private PaletteDisp cDisp, iDisp;
-    private HelpScreen hScreen;
+    
     private ComboBox<String> bColorBox;
     private ComboBox<String> pColorBox;
     private ObjectObservable<String> bgColor;
 
 
     public TopBar(ObjectObservable<String> language, ObjectObservable<String> bgColor,
-                  SimpleStringProperty error, SimpleStringProperty image, SimpleStringProperty penColor) {
-        super(language, error);
-        this.error = error;
+                  SimpleStringProperty error, SimpleStringProperty image, SimpleStringProperty penColor, 
+                  ObjectObservable<String> intCommand) {
+        super(language, error, intCommand);
         this.image=image;
         this.bgColor = bgColor;
         this.penColor=penColor;
         cDisp = new ColorDisplay("colorTitle");
         iDisp = new ImageDisplay("imageTitle");
-        hScreen = HelpScreen.getInstance();
+        
 
     }
 
@@ -51,34 +55,65 @@ public class TopBar extends SubBar {
 
     @Override
     protected void createButtons() {
-        makeButton("help", e -> hScreen.showHelpScreen( ));
+        makeButton("workLoader" ,e->loadWorkSpace());
         makeButton("image", e -> chooseTurtIm());
         makeButton("colorDisp", e -> showColorPalette());
         makeButton("imageDisp", e -> showImagePalette());
-        makeButton("saveColor", e-> saveColors());
-        makeButton("saveImage", e->saveImages());
+        
 
 
 
     }
 
-    private void saveColors () {
+    
+    private void loadWorkSpace () {
+       
         try {
-            IndexMapSaver mSave = new IndexMapSaver(ColorMap.getInstance(), error);
-            mSave.showSaver();
+            XMLChooser xChoose = new XMLChooser();
+            File file = xChoose.getFile(false);
+            LoadWS wsLoader = new LoadWS();
+            wsLoader.load(file);
+            setParams(wsLoader);
+            
         }
         catch (Exception e) {
-            showError("saveError");
+            e.printStackTrace();
+            showError("workLoadError");
         }
     }
 
-    private void saveImages () {
+    
+    
+    
+
+    private void setParams (LoadWS wsLoader) {
+        bgColor.set(wsLoader.getParam(0).toLowerCase());
+        penColor.set(wsLoader.getParam(1).toLowerCase());
+        setParsingLanguage(Defaults.PARSELANG_LOC.getDefault()+wsLoader.getParam(2));
+        setMaps(wsLoader);
+        setTurts(wsLoader);
+        
+        
+        
+    }
+
+    private void setTurts (LoadWS wsLoader) {
+        int num= Integer.parseInt(wsLoader.getParam(5));
+        String comm = getCommand("Tell") + " "+Integer.toString(num);
+        passCommand(comm);
+
+        
+    }
+
+    private void setMaps (LoadWS wsLoader) {
         try {
-            IndexMapSaver mSave = new IndexMapSaver(ImageMap.getInstance(), error);
-            mSave.showSaver();
+            System.out.println(wsLoader.getParam(3));
+            ImageMap.getInstance().addElements(wsLoader.getParam(4));
+            ColorMap.getInstance().addElements(wsLoader.getParam(3));
         }
         catch (Exception e) {
-            showError("saveError");
+            e.printStackTrace();
+            showError("workLoadError");
         }
     }
 
@@ -101,7 +136,8 @@ public class TopBar extends SubBar {
 
     private void chooseTurtIm() {
         try {
-            String newImage = ImageChooser.getInstance().chooseTurtIm();
+            ImageChooser imChoose = new ImageChooser();
+            String newImage = imChoose.chooseTurtIm();
             if (newImage != null) {
                 image.set(newImage);
             }

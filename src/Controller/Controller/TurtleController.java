@@ -28,9 +28,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class TurtleController implements Controller, Observer {
 
-    private static final String DEFAULT_LANGUAGE = "languages/English";
+    private static final String DEFAULT_LANGUAGE = "resources/languages/English";
 
-    private final SlogoParser parser = new SlogoParser("languages/Syntax");
+    private final SlogoParser parser = new SlogoParser("resources/languages/Syntax");
 
     private final Group group = new Group();
     private final Turtle myTurtle;

@@ -24,14 +24,15 @@ public abstract class SubBar implements Observer {
 
     private ResourceBundle myResources, myCommands;
     private HBox container;
-    private ObjectObservable<String> language;
+    private ObjectObservable<String> language, intCommand;
     private static final char SPLITTER = '|'; 
     private SimpleStringProperty error;
     private ColorMap colors;
 
 
-    public SubBar(ObjectObservable<String> language, SimpleStringProperty error){
+    public SubBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> intCommand){
         this.language=language;
+        this.intCommand=intCommand;
         this.error=error;
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         initHBox();
@@ -48,14 +49,18 @@ public abstract class SubBar implements Observer {
 
         language.set(pLang);
     }
-
+    
+    protected void passCommand(String command){
+        intCommand.set(command);
+    }
+    
     public void initHBox(){
         container = new HBox(Size.TB_PADDING.getSize());
         container.setAlignment(Pos.CENTER);
 
     }
 
-    protected void showError(String key){
+    public void showError(String key){
         error.set("");
         error.set(myResources.getString(key));
     }
@@ -90,8 +95,7 @@ public abstract class SubBar implements Observer {
             this.colors = ColorMap.getInstance();
             colors.getIndexMap().addObserver(this);
         } catch (Exception e) {
-            error.set("");
-            error.set(myResources.getString("colorError"));
+            showError(myResources.getString("colorError"));
         }
 
     }
@@ -105,8 +109,7 @@ public abstract class SubBar implements Observer {
             return new ArrayList<String>(colors.getIndexMap().getValues());
         }
         catch (Exception e) {
-            error.set("");
-            error.set(myResources.getString("colorError"));
+            showError(myResources.getString("colorError"));
         }
         return null;
 

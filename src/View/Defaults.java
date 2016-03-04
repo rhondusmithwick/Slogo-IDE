@@ -12,7 +12,9 @@ public enum Defaults {
 	TURT_BACKGROUND("white"),
 	IMAGE_LOC("resources/images/"),
 	IMAGELIST_LOC("resources/imageFiles/"),
-	COLORLIST_LOC("resources/colors/");
+	COLORLIST_LOC("resources/colors/"),
+	DEFAULT("Default"),
+	PEN_COLOR("black");
 	
 	
 	
