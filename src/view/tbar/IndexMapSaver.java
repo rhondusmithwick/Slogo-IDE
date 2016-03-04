@@ -1,93 +1,66 @@
 package view.tbar;
 
 
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import view.Defaults;
 import view.Size;
 import view.xml.MapToXML;
 import view.utilities.ButtonFactory;
+import view.utilities.PopUp;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import maps.IndexMap;
 
-public class IndexMapSaver {
+public class IndexMapSaver extends PopUp{
 
-    private ResourceBundle myResources;
-    private Scene myScene;
-    private TextField tField;
-    private IndexMap inMap;
-    private SimpleStringProperty error;
-    private VBox v;
-    private Stage stage;
+	private ResourceBundle myResources;
+	private TextField tField;
+	private IndexMap inMap;
+	private SimpleStringProperty error;
 
 
-    public IndexMapSaver(IndexMap inMap, SimpleStringProperty error){
-        this.inMap = inMap;
-        this.error=error;
-    }
+
+	public IndexMapSaver(IndexMap inMap, SimpleStringProperty error){
+		super(Size.MAP_SAVER.getSize(), Size.MAP_SAVER.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
+		this.inMap = inMap;
+		this.error=error;
+		this.myResources =  ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
+	}
+
+	private void saveList (){
+
+		closeScene();
+		try {
+			String text = tField.getText();
+			if(text.equals("")){
+				return;
+			}else{
+				MapToXML mapper = new MapToXML();
+				mapper.saveMap(text, inMap);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			error.set("");
+			error.set("saveError");
+
+		}
+	}
 
 
-    public void showSaver() {
-        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-        Group root;
-        root = new Group();
-        stage = new Stage();
-        myScene = new Scene(root, Size.MAP_SAVER.getSize(), Size.MAP_SAVER.getSize());
-        
-        stage.setScene(myScene);
-        createSaver();
-        root.getChildren().add(v);
-        stage.show();
-    }
+	@Override
+	protected void createScene() {
+		Label title = new Label(myResources.getString("saverTitle"));
+		tField = new TextField();
+		tField.prefWidthProperty().bind(getSize(false));
+		Button set = ButtonFactory.createButton(myResources.getString("save"), e->saveList());
+		addNodes(Arrays.asList(title, tField, set));
 
-
-    private void createSaver () {
-        setVBox();
-        Label title = new Label(myResources.getString("saverTitle"));
-        tField = new TextField();
-        tField.prefWidthProperty().bind(myScene.widthProperty());
-        Button set = ButtonFactory.createButton(myResources.getString("save"), e->saveList());
-        v.getChildren().addAll(title, tField, set);
-
-    }
-
-
-    private void setVBox () {
-        v = new VBox(Size.TB_PADDING.getSize());
-        v.setAlignment(Pos.TOP_CENTER);
-        v.setStyle(Defaults.BACKGROUND_COLOR.getDefault());
-        v.prefHeightProperty().bind(myScene.heightProperty());
-        v.prefWidthProperty().bind(myScene.widthProperty());
-    }
-
-
-    private void saveList (){
-
-        stage.close();
-        try {
-            String text = tField.getText();
-            if(text.equals("")){
-                return;
-            }else{
-                MapToXML mapper = new MapToXML();
-                mapper.saveMap(text, inMap);
-            }
-        }
-        catch (Exception e) {
-           e.printStackTrace();
-           error.set("");
-           error.set("saveError");
-           
-        }
-    }
+	}
 
 }
 

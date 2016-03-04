@@ -5,6 +5,7 @@ import java.util.Observable;
 
 import view.Defaults;
 import view.LoadIndex;
+import view.utilities.PopUp;
 import view.xml.LoadWS;
 import view.xml.XMLChooser;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,7 +18,7 @@ import observables.ObjectObservable;
 public class TopBar extends SubBar {
     private static final String LOAD_ERROR = "workLoadError";
     private SimpleStringProperty image, penColor;
-    private PaletteDisp cDisp, iDisp;
+    private PopUp cDisp, iDisp;
     
     private ComboBox<String> bColorBox;
     private ComboBox<String> pColorBox;

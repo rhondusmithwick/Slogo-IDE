@@ -16,7 +16,7 @@ public class BottomBar extends SubBar {
 
 
     private static final String SAVE_ERROR = "saveError";
-    private HelpScreen hScreen;
+    private PopUp hScreen;
     private SimpleStringProperty error;
     ObjectObservable<String> intCommand;
     private ComboBox<String> langBox;
@@ -69,8 +69,8 @@ public class BottomBar extends SubBar {
 
     private void saveColors () {
         try {
-            IndexMapSaver mSave = new IndexMapSaver(ColorMap.getInstance(), error);
-            mSave.showSaver();
+            PopUp mSave = new IndexMapSaver(ColorMap.getInstance(), error);
+            mSave.show();
         }
         catch (Exception e) {
             showError(SAVE_ERROR);
@@ -82,7 +82,7 @@ public class BottomBar extends SubBar {
     private void saveImages () {
         try {
             IndexMapSaver mSave = new IndexMapSaver(ImageMap.getInstance(), error);
-            mSave.showSaver();
+            mSave.show();
         }
         catch (Exception e) {
             showError(SAVE_ERROR);
