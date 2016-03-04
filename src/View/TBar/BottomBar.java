@@ -27,7 +27,7 @@ public class BottomBar extends SubBar {
 
 	@Override
 	protected void createComboBoxes() {
-		langBox = createBox("selLang", getLanguages(), e -> setLang());
+		langBox = createComboBox("selLang", getLanguages(), e -> setLang() );
 		
 	}
 
@@ -43,6 +43,14 @@ public class BottomBar extends SubBar {
 		makeButton("penUp", e -> setPen("PenUp"));
 		makeButton("penDown", e -> setPen("PenDown"));
 		makeButton("setPenSize", e -> setPenSize());
+		makeButton("workSaver", e->saveWorkSpace());
+	}
+
+
+
+	private void saveWorkSpace() {
+		WorkSpaceSaver wSaver = new WorkSpaceSaver(getColors(), getLanguages());
+		wSaver.showSaver();
 	}
 
 	private void setPenSize() {

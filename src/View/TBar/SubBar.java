@@ -8,6 +8,9 @@ import Maps.ColorMap;
 import Observables.ObjectObservable;
 import View.Defaults;
 import View.Size;
+import View.utilities.ButtonFactory;
+import View.utilities.ComboFactory;
+import View.utilities.FileGetter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,17 +42,6 @@ public abstract class SubBar implements Observer {
     }
 
 
-    protected ComboBox<String> createBox(String label, List<String> choices, EventHandler<ActionEvent> handler) {
-        ComboBox<String> comBox = new ComboBox<>();
-        comBox.setPromptText(myResources.getString(label));
-        choices.forEach(e -> comBox.getItems().add(e));
-        comBox.setOnAction(handler);
-        HBox.setHgrow(comBox, Priority.ALWAYS);
-        container.getChildren().add(comBox);
-        return comBox;
-
-    }
-
     protected void setParsingLanguage(String pLang){
 
         myCommands = ResourceBundle.getBundle( pLang);
@@ -69,9 +61,8 @@ public abstract class SubBar implements Observer {
     }
 
     public Button makeButton(String key, EventHandler<ActionEvent> handler) {
-        Button newButt = new Button(myResources.getString(key));
+        Button newButt = ButtonFactory.createButton(myResources.getString(key), handler);
         container.getChildren().add(newButt);
-        newButt.setOnAction(handler);
         HBox.setHgrow(newButt, Priority.ALWAYS);
         return newButt;
     }
@@ -84,6 +75,14 @@ public abstract class SubBar implements Observer {
         } else {
             return retrievedString;
         }
+    }
+    
+    protected ComboBox<String> createComboBox(String key, List<String> choices, EventHandler<ActionEvent> handler){
+    	ComboBox<String> cBox = ComboFactory.createBox(myResources.getString(key), choices, handler);
+    	HBox.setHgrow(cBox, Priority.ALWAYS);
+    	container.getChildren().add(cBox);
+    	return cBox;
+    	
     }
 
     private void getColorMap() {
@@ -98,7 +97,7 @@ public abstract class SubBar implements Observer {
     }
 
     protected List<String> getLanguages() {
-        return (ArrayList<String>) ParseLangs.getInstance().getLangs();
+        return FileGetter.getAllFromDirectory(Defaults.PARSELANG_LOC.getDefault());
     }
 
     protected List<String> getColors(){
