@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
  */
 public class ExpressionTree {
 
-    private final ResourceBundle commandLocations = ResourceBundle.getBundle("Model/commandLocations");
+    private final ResourceBundle commandLocations = ResourceBundle.getBundle("model/commandLocations");
 
     private final Queue<Entry<String, String>> parsedText;
 
