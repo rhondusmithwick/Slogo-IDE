@@ -1,4 +1,4 @@
-package view.tbar;
+package view.tbar.popupdisplays;
 
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;

@@ -1,4 +1,4 @@
-package view.tbar;
+package view.tbar.popupdisplays;
 
 
 import java.util.Arrays;

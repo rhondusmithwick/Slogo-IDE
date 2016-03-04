@@ -5,6 +5,10 @@ import java.util.Observable;
 
 import view.Defaults;
 import view.envdisplay.EnvUpdate;
+import view.tbar.popupdisplays.HelpScreen;
+import view.tbar.popupdisplays.IndexMapSaver;
+import view.tbar.popupdisplays.PenSizeUpdater;
+import view.tbar.popupdisplays.WorkSpaceSaver;
 import view.utilities.PopUp;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;

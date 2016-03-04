@@ -5,6 +5,9 @@ import java.util.Observable;
 
 import view.Defaults;
 import view.LoadIndex;
+import view.tbar.popupdisplays.ColorDisplay;
+import view.tbar.popupdisplays.ImageChooser;
+import view.tbar.popupdisplays.ImageDisplay;
 import view.utilities.PopUp;
 import view.xml.LoadWS;
 import view.xml.XMLChooser;

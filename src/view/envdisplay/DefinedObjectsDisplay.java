@@ -71,7 +71,6 @@ public abstract class DefinedObjectsDisplay {
 			Object obj = constructor.newInstance(intCommand, parsingLanguage, text);
 			return (EnvUpdate) obj;
 		} catch (Exception e) {
-			e.printStackTrace();
 			error.set("");
 			error.set(myResources.getString("createUpError"));
 		}

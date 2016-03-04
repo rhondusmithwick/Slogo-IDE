@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import view.Defaults;
+import view.Size;
 import view.utilities.PopUp;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -16,17 +17,13 @@ import observables.ObjectObservable;
 
 public abstract class EnvUpdate extends PopUp{
 
-
-    private static final int WIDTH = 300;
-    private static final int HEIGHT = 600;
     private ObjectObservable<String> intCommand;
     private ResourceBundle myResources, myCommands;
     private Button setB;
-	private static final char SPLITTER = '|';
 	private String newVal;
 
     public EnvUpdate(ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
-    	super(WIDTH, HEIGHT, Defaults.BACKGROUND_COLOR.getDefault());
+    	super(Size.ENV_WIDTH.getSize(), Size.ENV_HEIGHT.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         myCommands = ResourceBundle.getBundle(pLang.get());
         this.intCommand=intCommand;
@@ -76,7 +73,7 @@ public abstract class EnvUpdate extends PopUp{
     protected String makeCommand(String key){
     	String posCommands = myCommands.getString(key);
         String command;
-        int multCommands = posCommands.indexOf(SPLITTER);
+        int multCommands = posCommands.indexOf(Defaults.COMM_SPLITER.getDefault());
         if(multCommands >0){
             command = posCommands.substring(0, multCommands);
         }else{

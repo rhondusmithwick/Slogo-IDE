@@ -26,7 +26,6 @@ public abstract class SubBar implements Observer {
     private ResourceBundle myResources, myCommands;
     private HBox container;
     private ObjectObservable<String> language, intCommand;
-    private static final char SPLITTER = '|'; 
     private SimpleStringProperty error;
     private ColorMap colors;
 
@@ -76,7 +75,7 @@ public abstract class SubBar implements Observer {
 
     protected String getCommand(String key) {
         String retrievedString = myCommands.getString(key);
-        int splitterPos = retrievedString.indexOf(SPLITTER);
+        int splitterPos = retrievedString.indexOf(Defaults.COMM_SPLITER.getDefault());
         if (splitterPos > 0) {
             return retrievedString.substring(0, splitterPos);
         } else {

@@ -9,6 +9,7 @@ import view.error.ErrorDisplay;
 import view.tbar.ToolBar;
 import view.turtdisplay.TurtleDisplay;
 import view.turtparams.TurtleParams;
+import view.utilities.ButtonFactory;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -65,8 +66,6 @@ public class View implements ViewInt {
         this.backgroundColor = new ObjectObservable<>();
         this.commHistory = new ObjectObservable<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-        
-        
         createAppview();
         
     }
@@ -179,8 +178,7 @@ public class View implements ViewInt {
 
 
     private void createExecute() {
-        executeButton = new Button(myResources.getString("execute"));
-        executeButton.setOnAction(e -> processExecute());
+    	executeButton = ButtonFactory.createButton(myResources.getString("execute"), e->processExecute());
         executeButton.prefWidthProperty().bind(right.widthProperty());
         executeButton.setPrefHeight(Size.EX_BUTTON.getSize());
         right.getChildren().add(executeButton);
