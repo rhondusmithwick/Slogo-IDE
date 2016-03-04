@@ -2,7 +2,7 @@ package view.turtdisplay;
 
 import java.util.Observable;
 import java.util.Observer;
-import Observables.ObjectObservable;
+
 import view.Defaults;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import observables.ObjectObservable;
 
 
 public class TurtleDisplay implements Observer {

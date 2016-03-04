@@ -6,7 +6,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import Observables.MapObservable;
+
+import observables.MapObservable;
 
 
 public class MapFromXML {

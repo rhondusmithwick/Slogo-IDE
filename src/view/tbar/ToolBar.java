@@ -1,9 +1,9 @@
 package view.tbar;
 
-import Observables.ObjectObservable;
 import view.Size;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.layout.VBox;
+import observables.ObjectObservable;
 
 public class ToolBar  {
 

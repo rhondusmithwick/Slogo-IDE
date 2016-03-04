@@ -1,7 +1,5 @@
 package controller.controller;
 
-import Observables.MapObservable;
-import Observables.ObjectObservable;
 import controller.slogoparser.ExpressionTree;
 import controller.slogoparser.SlogoParser;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,6 +10,8 @@ import model.action.VisionAction;
 import model.deprecated.Command;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
+import observables.MapObservable;
+import observables.ObjectObservable;
 
 import java.util.Arrays;
 import java.util.List;

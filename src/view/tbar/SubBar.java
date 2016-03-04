@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import Observables.ObjectObservable;
 import view.Defaults;
 import view.Size;
 import view.utilities.ButtonFactory;
@@ -20,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import maps.ColorMap;
+import observables.ObjectObservable;
 
 public abstract class SubBar implements Observer {
 

@@ -2,10 +2,9 @@ package maps;
 
 import java.lang.reflect.Field;
 
-
-import Observables.MapObservable;
 import view.Defaults;
 import javafx.scene.paint.Color;
+import observables.MapObservable;
 
 public class ColorMap extends IndexMap {
     private static final int B = 2;

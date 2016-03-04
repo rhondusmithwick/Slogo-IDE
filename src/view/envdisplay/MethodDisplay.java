@@ -1,8 +1,8 @@
 package view.envdisplay;
 
-import Observables.ObjectObservable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
+import observables.ObjectObservable;
 
 public class MethodDisplay extends DefinedObjectsDisplay {
 

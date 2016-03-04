@@ -3,7 +3,6 @@ package view.envdisplay;
 import java.lang.reflect.Constructor;
 import java.util.ResourceBundle;
 
-import Observables.ObjectObservable;
 import view.Defaults;
 import view.Size;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import observables.ObjectObservable;
 
 /**
  * This class implements EnviromentDisplayInterface and serves as the abstract

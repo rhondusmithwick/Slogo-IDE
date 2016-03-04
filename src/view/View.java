@@ -1,6 +1,5 @@
 package view;
 
-import Observables.ObjectObservable;
 import view.commentry.CommandEntry;
 import view.commhistory.CommandHistoryDisplay;
 import view.cons.Console;
@@ -22,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import observables.ObjectObservable;
 
 import java.util.Arrays;
 import java.util.List;

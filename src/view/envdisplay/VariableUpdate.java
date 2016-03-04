@@ -2,9 +2,10 @@ package view.envdisplay;
 
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import Observables.ObjectObservable;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import observables.ObjectObservable;
 
 public class VariableUpdate extends EnvUpdate {
     

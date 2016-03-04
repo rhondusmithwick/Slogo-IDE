@@ -1,7 +1,8 @@
 package maps;
 
 import java.io.File;
-import Observables.MapObservable;
+
+import observables.MapObservable;
 import view.Defaults;
 
 public class ImageMap extends IndexMap{

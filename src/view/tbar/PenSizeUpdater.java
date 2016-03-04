@@ -2,7 +2,6 @@ package view.tbar;
 
 import java.util.ResourceBundle;
 
-import Observables.ObjectObservable;
 import view.Defaults;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -13,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import observables.ObjectObservable;
 
 /**
  * INSERT CLASS DESCRIPTION

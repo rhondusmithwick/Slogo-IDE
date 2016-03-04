@@ -3,13 +3,13 @@ package view.tbar;
 
 import java.util.Observable;
 
-import Observables.ObjectObservable;
 import view.Defaults;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
 import maps.IndexMap;
+import observables.ObjectObservable;
 
 public class BottomBar extends SubBar {
 

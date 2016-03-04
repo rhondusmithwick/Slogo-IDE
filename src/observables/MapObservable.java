@@ -1,4 +1,4 @@
-package Observables;
+package observables;
 
 import javafx.beans.property.SimpleStringProperty;
 import java.util.Collection;

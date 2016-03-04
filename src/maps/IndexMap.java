@@ -1,6 +1,6 @@
 package maps;
 
-import Observables.MapObservable;
+import observables.MapObservable;
 import view.Defaults;
 import view.xml.MapFromXML;
 

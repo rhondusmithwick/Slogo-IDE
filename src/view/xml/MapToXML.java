@@ -13,9 +13,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import Observables.MapObservable;
 import maps.ColorMap;
 import maps.IndexMap;
+import observables.MapObservable;
 import view.Defaults;
 
 public class MapToXML {

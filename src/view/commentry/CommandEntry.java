@@ -3,7 +3,7 @@ package view.commentry;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import Observables.ObjectObservable;
+
 import view.Defaults;
 import view.Size;
 import javafx.geometry.Pos;
@@ -13,6 +13,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import observables.ObjectObservable;
 
 /**
  * This class implements the CommandEntryInterface interface and allows the user to input

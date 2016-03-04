@@ -3,7 +3,6 @@ package view.tbar;
 import java.io.File;
 import java.util.Observable;
 
-import Observables.ObjectObservable;
 import view.Defaults;
 import view.xml.LoadWS;
 import view.xml.XMLChooser;
@@ -11,6 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
+import observables.ObjectObservable;
 
 
 public class TopBar extends SubBar {

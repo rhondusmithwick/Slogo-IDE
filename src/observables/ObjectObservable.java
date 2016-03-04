@@ -1,4 +1,4 @@
-package Observables;
+package observables;
 
 import java.util.Observable;
 

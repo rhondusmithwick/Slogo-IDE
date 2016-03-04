@@ -3,12 +3,12 @@ package view.tbar;
 import java.util.Arrays;
 import java.util.Map.Entry;
 
-import Observables.MapObservable;
 import view.Size;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import maps.ImageMap;
+import observables.MapObservable;
 
 public class ImageDisplay extends PaletteDisp{
 
