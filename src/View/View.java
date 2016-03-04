@@ -10,8 +10,12 @@ import View.EnvDisplay.VariableDisplay;
 import View.Error.ErrorDisplay;
 import View.TBar.ToolBar;
 import View.TurtDisplay.TurtleDisplay;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,6 +37,9 @@ public class View implements ViewInt {
     private final SimpleStringProperty methods = new SimpleStringProperty(this, "methods");
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
     private final SimpleStringProperty consoleIn = new SimpleStringProperty(this, "consoleIn");
+    private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
+    private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
+    private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
     private BorderPane UI;
     private ResourceBundle myResources;
     private Group root;
@@ -115,7 +122,7 @@ public class View implements ViewInt {
         bottom = new HBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
       
-        console = new Console(consoleIn);
+        console = new Console(consoleIn, location, heading, penDown, penColor);
         bottom.getChildren().add(console.getConsole());
         
         commandHistory = new CommandHistoryDisplay(intCommands, commHistory);
