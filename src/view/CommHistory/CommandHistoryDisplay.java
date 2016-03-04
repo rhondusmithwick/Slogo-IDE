@@ -1,4 +1,4 @@
-package view.CommHistory;
+package view.commhistory;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;

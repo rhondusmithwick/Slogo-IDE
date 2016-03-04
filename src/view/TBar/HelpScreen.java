@@ -1,4 +1,4 @@
-package view.TBar;
+package view.tbar;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
