@@ -9,7 +9,6 @@ import observables.ObjectObservable;
 
 public class VariableUpdate extends EnvUpdate {
     
-    private static final char SPLITTER = '|';
     private static final String SPACE = " ";
 
     private String variable, newVal;
@@ -33,24 +32,18 @@ public class VariableUpdate extends EnvUpdate {
         if(newVal.length()==0){
             return;
         }
-        String toPass = makeCommand(new String[]{newVal});
+        String toPass = getCommand(new String[]{newVal});
         passCommand(toPass);
         closeUpdater();
         label.setText(null);
         label.setText(variable + SPACE + newVal);
     }
     
-    @Override
-    protected String makeCommand (String[] newVals) {
+
+    protected String getCommand (String[] newVals) {
         String newVal = newVals[0];
-        String posCommands = getCommand("MakeVariable");
-        String command;
-        int multCommands = posCommands.indexOf(SPLITTER);
-        if(multCommands >0){
-            command = posCommands.substring(0, multCommands);
-        }else{
-            command = posCommands;
-        }
+
+        String command =super.makeCommand(newVals, "MakeVariable");
         command = command +SPACE +variable + SPACE +newVal;
         return command;
     }

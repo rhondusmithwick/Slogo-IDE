@@ -13,7 +13,7 @@ public class MethodUpdate extends EnvUpdate {
 
     private static final char FRONT_BRACK = '[';
 	private static final char BACK_BRACKET = ']';
-	private static final char SPLITTER = '|';
+
     private static final String SPACE = " ";
     private String name, mNewVal, vNewVal, variables, methods, newDisp;
     private TextField vField, mField;
@@ -38,7 +38,7 @@ public class MethodUpdate extends EnvUpdate {
     @Override
     protected void setNewValues() {
         setValues();
-        String toPass = makeCommand(new String[]{mNewVal, vNewVal});
+        String toPass = getCommand(new String[]{mNewVal, vNewVal});
         passCommand(toPass);
         closeUpdater();
         label.setText(null);
@@ -62,18 +62,10 @@ public class MethodUpdate extends EnvUpdate {
 
 
 
-    @Override
-    protected String makeCommand(String[] newVals) {
+    protected String getCommand(String[] newVals) {
         String mNewVal = newVals[0];
         String vNewVal = newVals[1];
-        String posCommands = getCommand("MakeUserInstruction");
-        String command;
-        int multCommands = posCommands.indexOf(SPLITTER);
-        if(multCommands >0){
-            command = posCommands.substring(0, multCommands);
-        }else{
-            command = posCommands;
-        }
+        String command = super.makeCommand(newVals, "MakeUserCommand");
         newDisp = this.name + SPACE+
 
        		 vNewVal + SPACE + FRONT_BRACK+ mNewVal + BACK_BRACKET;

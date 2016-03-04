@@ -29,6 +29,7 @@ public abstract class EnvUpdate {
     private Group root;
     private Scene scene;
     private Button setB;
+	private static final char SPLITTER = '|';
 
     public EnvUpdate(ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
         this.myResources = myResources;
@@ -78,7 +79,17 @@ public abstract class EnvUpdate {
         return title;
     }
     
-    protected abstract String makeCommand(String[] newVals);
+    protected String makeCommand(String[] newVals, String key){
+    	String posCommands = myCommands.getString(key);
+        String command;
+        int multCommands = posCommands.indexOf(SPLITTER);
+        if(multCommands >0){
+            command = posCommands.substring(0, multCommands);
+        }else{
+            command = posCommands;
+        }
+        return command;
+    }
     
     protected abstract void setNewValues();
     
@@ -94,9 +105,6 @@ public abstract class EnvUpdate {
         s.show();
     }
     
-    protected String getCommand(String input){
-        return myCommands.getString(input);
-    }
     
     protected void passCommand(String command){
         intCommand.set(command);
