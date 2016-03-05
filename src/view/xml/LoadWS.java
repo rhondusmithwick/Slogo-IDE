@@ -12,7 +12,7 @@ import view.Defaults;
 public class LoadWS extends XMLParser {
     
     
-    private static List<String> paramDefaults = Arrays.asList(Defaults.WHITE.getDefault(), 
+    private static List<String> paramDefaults = Arrays.asList(Defaults.TURT_BACKGROUND.getDefault(), 
     															Defaults.PEN_COLOR.getDefault(), 
     															Defaults.LANG.getDefault(), 
     															Defaults.DEFAULT.getDefault(), 
@@ -30,7 +30,7 @@ public class LoadWS extends XMLParser {
             addElements();
         }
         catch (Exception e) {
-            params = new ArrayList<String>(paramDefaults);
+            params = new ArrayList<>(paramDefaults);
         }
         
 

@@ -19,8 +19,6 @@ import observables.ObjectObservable;
 
 public class BottomBar extends SubBar {
 
-
-    private static final String SAVE_ERROR = "saveError";
     private PopUp hScreen;
     private SimpleStringProperty error;
     ObjectObservable<String> intCommand;
@@ -31,7 +29,7 @@ public class BottomBar extends SubBar {
 
     public BottomBar(ObjectObservable<String> language, SimpleStringProperty error, 
                      ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
-        super(language, error, intCommand, cMap);
+        super(language, intCommand, cMap);
         this.iMap = iMap;
         this.cMap = cMap;
         this.error = error;
@@ -87,7 +85,7 @@ public class BottomBar extends SubBar {
         	mSave.show();
         }
         catch (Exception e) {
-            showError(SAVE_ERROR);
+            return;
         }
     }
 

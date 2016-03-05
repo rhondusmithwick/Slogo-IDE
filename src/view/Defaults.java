@@ -22,7 +22,6 @@ public enum Defaults {
 	WS_CHILD_EL("ConfigProps"),
 	LANG("english"),
 	NUM_TURTS("1"),
-	WHITE("white"),
 	XML(".xml"),
 	IM_DOC_EL("IndexedMap"),
 	IM_CHILD_ELEMENT("Element");

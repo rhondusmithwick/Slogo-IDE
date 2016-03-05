@@ -18,7 +18,7 @@ public class ToolBar  {
 			ColorMap cMap, ImageMap iMap) {
 		
 		setToolBar();
-		topBar = new TopBar(language, bgColor, error, image, penColor, intCommand, cMap, iMap);
+		topBar = new TopBar(language, bgColor, image, penColor, intCommand, cMap, iMap);
 		botBar = new BottomBar(language,error, intCommand, cMap, iMap);
 		setBars();
 	}

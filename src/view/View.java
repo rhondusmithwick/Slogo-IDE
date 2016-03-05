@@ -207,6 +207,14 @@ public class View implements ViewInt {
         return Arrays.asList(image, penColor,variables, methods, error);
     }
 
+    @Override
+    public IndexMap getMap (boolean colors) {
+        if(colors){
+            return cMap;
+        }
+        return iMap;
+    }
+
 
 
 

@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import view.Defaults;
 import view.Size;
 import view.utilities.PopUp;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -23,16 +22,15 @@ public abstract class PaletteDisp extends PopUp {
     private ResourceBundle myResources;
     private String title;
     private HBox h;
-    private SimpleStringProperty error;
+
 	private MapObservable<Integer, String> map;
 
     
     
     
-    public PaletteDisp(String title, SimpleStringProperty error, MapObservable<Integer,String> map){
+    public PaletteDisp(String title, MapObservable<Integer,String> map){
     	super(Size.PALETTE.getSize(), Size.PALETTE.getSize(), Defaults.BACKGROUND_WHITE.getDefault());
         this.title=title;
-        this.error=error;
         this.map = map;
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 
@@ -94,10 +92,6 @@ public abstract class PaletteDisp extends PopUp {
         
     }
     
-    protected void showError(String key){
-    	error.set("");
-    	error.set(myResources.getString(key));
-    }
 
 
 }

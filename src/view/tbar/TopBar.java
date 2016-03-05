@@ -1,12 +1,9 @@
 package view.tbar;
-
-
 import java.util.Observable;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.ImageChooser;
 import view.tbar.popupdisplays.ImageDisplay;
 import view.utilities.PopUp;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
@@ -25,14 +22,14 @@ public class TopBar extends SubBar {
 
 
     public TopBar(ObjectObservable<String> language, ObjectObservable<String> bgColor,
-                  SimpleStringProperty error, SimpleStringProperty image, SimpleStringProperty penColor, 
+                  SimpleStringProperty image, SimpleStringProperty penColor, 
                   ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
-        super(language, error, intCommand, cMap);
+        super(language, intCommand, cMap);
         this.image=image;
         this.bgColor = bgColor;
         this.penColor=penColor;
-        cDisp = new ColorDisplay("colorTitle", error, cMap.getIndexMap());
-        iDisp = new ImageDisplay("imageTitle", error, iMap.getIndexMap());
+        cDisp = new ColorDisplay("colorTitle", cMap.getIndexMap());
+        iDisp = new ImageDisplay("imageTitle",  iMap.getIndexMap());
 
 
     }
@@ -61,40 +58,34 @@ public class TopBar extends SubBar {
         makeButton("image", e -> chooseTurtIm());
         makeButton("colorDisp", e -> showColorPalette());
         makeButton("imageDisp", e -> showImagePalette());
-
-
-
-
     }
 
     private void showImagePalette() {
         iDisp.show();
-
     }
 
     private void showColorPalette() {
         cDisp.show();
-
     }
 
     private void chooseTurtIm() {
-        try {
+        
             ImageChooser imChoose = new ImageChooser();
             imChoose.show();
-            String newImage = imChoose.getChosen();
-            if (newImage != null) {
+            String newImage;
+            try {
+                newImage = imChoose.getChosen();
                 image.set(newImage);
             }
-        } catch (Exception e) {
-            showError("picError");
-        }
+            catch (Exception e) {
+                return;
+            }
     }
 
     @Override
     public void update(Observable o, Object arg) {
         getContainer().getChildren().removeAll(bColorBox, pColorBox);
         createComboBoxes();
-
     }
 
 }

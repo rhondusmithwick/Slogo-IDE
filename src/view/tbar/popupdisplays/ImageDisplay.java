@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Map.Entry;
 
 import view.Size;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,8 +13,8 @@ public class ImageDisplay extends PaletteDisp{
 
 
     
-    public ImageDisplay (String title, SimpleStringProperty error, MapObservable<Integer, String> iMap) {
-        super(title, error, iMap);
+    public ImageDisplay (String title,  MapObservable<Integer, String> iMap) {
+        super(title,  iMap);
    
        
         
