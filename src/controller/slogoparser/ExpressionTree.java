@@ -1,5 +1,6 @@
 package controller.slogoparser;
 
+import model.movement.Movement;
 import model.repeat.Repeat;
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
@@ -43,7 +44,6 @@ public class ExpressionTree {
     }
 
     public void executeAll() {
-        System.out.println(rootList);
         rootList.stream().forEach(TreeNode::getValue);
     }
 
@@ -67,6 +67,7 @@ public class ExpressionTree {
     private void createSubTree(TreeNode root) {
         while (stillRoot(root)) {
             TreeNode n = createSingleNode();
+            System.out.println(n);
             root.addChild(n);
             createSubTree(n);
         }
@@ -104,6 +105,7 @@ public class ExpressionTree {
             n = new ConstantNode(0);
         }
         addTurtleIfShould(n);
+        addLineIfShould(n);
         addVariableIfShould(n);
         makeRepeat(n);
         return n;
@@ -138,6 +140,12 @@ public class ExpressionTree {
         }
     }
 
+    private void addLineIfShould(TreeNode n) {
+        if (n instanceof Movement) {
+            Movement move = (Movement) n;
+            move.addLine();
+        }
+    }
     private void addVariableIfShould(TreeNode n) {
         if (n instanceof MakeVariable) {
             Entry<String, String> curr = parsedText.poll();
@@ -153,7 +161,6 @@ public class ExpressionTree {
             List<TreeNode> nRoots = getComamndsList();
             nRoots.stream().forEach(n::addChild);
         }
-        System.out.println(n);
     }
 
     private List<TreeNode> getComamndsList() {

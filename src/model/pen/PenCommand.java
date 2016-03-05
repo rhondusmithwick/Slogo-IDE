@@ -12,8 +12,7 @@ import model.treenode.TurtleCommandNode;
 abstract class PenCommand extends TurtleCommandNode {
 
     double changePen(boolean b) {
-        TurtleAction action = new PenAction(getTurtle(), b);
-        addAction(action);
+        getTurtle().getTurtleProperties().setPenDown(b);
         return b ? 1 : 0;
     }
 }
