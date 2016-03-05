@@ -75,7 +75,9 @@ public class TopBar extends SubBar {
             String newImage;
             try {
                 newImage = imChoose.getChosen();
-                image.set(newImage);
+                if(newImage!=null){
+                    image.set(newImage);
+                }
             }
             catch (Exception e) {
                 return;
