@@ -23,9 +23,16 @@ public class LoadWS extends XMLParser {
     private ArrayList<String> params;
     
     
-    public void load(File file) throws Exception{
-        doc = createDocBuilder(file);
-        addElements();
+    public void load(File file) {
+        
+        try {
+            doc = createDocBuilder(file);
+            addElements();
+        }
+        catch (Exception e) {
+            params = new ArrayList<String>(paramDefaults);
+        }
+        
 
     }
     
