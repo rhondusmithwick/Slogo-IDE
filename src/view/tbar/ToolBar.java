@@ -13,13 +13,13 @@ public class ToolBar  {
 	private SubBar topBar, botBar;
 
 
-	public ToolBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> bgColor,
+	public ToolBar(ObjectObservable<String> language, ObjectObservable<String> bgColor,
 			SimpleStringProperty image, SimpleStringProperty penColor, ObjectObservable<String> intCommand, 
 			ColorMap cMap, ImageMap iMap) {
 		
 		setToolBar();
 		topBar = new TopBar(language, bgColor, image, penColor, intCommand, cMap, iMap);
-		botBar = new BottomBar(language,error, intCommand, cMap, iMap);
+		botBar = new BottomBar(language, intCommand, cMap, iMap);
 		setBars();
 	}
 

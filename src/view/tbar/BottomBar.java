@@ -10,7 +10,6 @@ import view.tbar.popupdisplays.IndexMapSaver;
 import view.tbar.popupdisplays.PenSizeUpdater;
 import view.tbar.popupdisplays.WorkSpaceSaver;
 import view.utilities.PopUp;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
@@ -20,19 +19,18 @@ import observables.ObjectObservable;
 public class BottomBar extends SubBar {
 
     private PopUp hScreen;
-    private SimpleStringProperty error;
+
     ObjectObservable<String> intCommand;
     private ComboBox<String> langBox;
     private EnvUpdate penSizeUpdater;
 	private ColorMap cMap;
 	private ImageMap iMap;
 
-    public BottomBar(ObjectObservable<String> language, SimpleStringProperty error, 
+    public BottomBar(ObjectObservable<String> language, 
                      ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
         super(language, intCommand, cMap);
         this.iMap = iMap;
         this.cMap = cMap;
-        this.error = error;
         this.intCommand=intCommand;
         hScreen = new HelpScreen();
 
@@ -77,10 +75,10 @@ public class BottomBar extends SubBar {
         try {
         	PopUp mSave;
         	if(colors){
-        		mSave = new IndexMapSaver(cMap, error);
+        		mSave = new IndexMapSaver(cMap);
         		
         	}else{
-        		mSave = new IndexMapSaver(iMap, error);
+        		mSave = new IndexMapSaver(iMap);
         	}
         	mSave.show();
         }
@@ -92,7 +90,7 @@ public class BottomBar extends SubBar {
 
 
     private void saveWorkSpace() {
-        PopUp wSaver = new WorkSpaceSaver(getColors(), getLanguages(),error);
+        PopUp wSaver = new WorkSpaceSaver(getColors(), getLanguages());
         wSaver.show();
     }
 
