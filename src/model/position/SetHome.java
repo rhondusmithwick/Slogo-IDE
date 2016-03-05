@@ -1,5 +1,6 @@
 package model.position;
 
+import javafx.geometry.Point2D;
 import model.action.PositionAction;
 import model.action.TurtleAction;
 import model.treenode.ConstantNode;
@@ -9,9 +10,8 @@ public class SetHome extends Position {
 
 	@Override
 	protected double execute() {
-        addChild(new ConstantNode(0));
-        addChild(new ConstantNode(0));
-        return changePosition();
+        Point2D home = getTurtle().getTurtleProperties().getHome();
+        return changePosition(home.getX(), home.getY());
 	}
 	
 }

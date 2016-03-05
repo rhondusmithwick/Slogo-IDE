@@ -8,10 +8,7 @@ import model.turtle.Turtle;
 
 public abstract class Position extends TurtleCommandNode {
 	
-	protected double changePosition() {
-		Point2D home = getTurtle().getTurtleProperties().getHome();
-		double x = getChildren().get(0).getValue() + home.getX();
-		double y = getChildren().get(1).getValue() + home.getY();
+	protected double changePosition(double x, double y) {
 		Point2D pointToMoveTo = new Point2D(x, y);
 		Point2D location = getTurtle().getTurtleProperties().getLocation();
 		double distance = location.distance(pointToMoveTo);

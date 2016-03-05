@@ -17,8 +17,11 @@ public class Repeat extends CommandNode {
         getChildren().remove(0);
 //        Double value = null;
         IntStream.range(0, numTimes + 1)
-                .forEach((i ->
-                        getChildren().stream().forEach(TreeNode::getValue)));
+                .forEach(i -> runChildren());
         return 0.0;
+    }
+
+    private void runChildren() {
+        getChildren().stream().forEach(TreeNode::getValue);
     }
 }
