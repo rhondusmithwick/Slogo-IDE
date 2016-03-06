@@ -1,7 +1,7 @@
 package controller.slogoparser;
 
 import model.movement.Movement;
-import model.repeat.Repeat;
+import model.usercontrol.Repeat;
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.treenode.TurtleCommandNode;
