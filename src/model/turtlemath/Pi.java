@@ -2,15 +2,13 @@ package model.turtlemath;
 
 public class Pi extends TurtleMath {
 
-	@Override
-	public double calculate() {
-		double result = Math.PI;
+    @Override
+    public double calculate() {
+        return Math.PI;
+    }
 
-		return result;
-	}
-
-	@Override
-	public int getNumChildrenRequired() {
-		return 0;
-	}
+    @Override
+    public int getNumChildrenRequired() {
+        return 0;
+    }
 }

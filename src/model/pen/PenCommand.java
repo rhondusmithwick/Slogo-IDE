@@ -1,7 +1,5 @@
 package model.pen;
 
-import model.action.PenAction;
-import model.action.TurtleAction;
 import model.treenode.TurtleCommandNode;
 
 /**

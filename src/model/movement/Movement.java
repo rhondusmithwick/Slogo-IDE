@@ -4,14 +4,10 @@ import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.effect.Light;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
-import model.action.MovementAction;
-import model.action.TurtleAction;
 import model.treenode.TurtleCommandNode;
-import model.turtle.Turtle;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +37,6 @@ public abstract class Movement extends TurtleCommandNode {
     public int getNumChildrenRequired() {
         return 1;
     }
-
 
     public void addLine() {
         getTurtle().getGroup().getChildren().add(penLine);
@@ -86,7 +81,7 @@ public abstract class Movement extends TurtleCommandNode {
     }
 
 
-    private synchronized  void setDone(boolean b) {
+    private synchronized void setDone(boolean b) {
         isDone = b;
     }
 

@@ -2,7 +2,6 @@ package model.treenode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by rhondusmithwick on 2/25/16.
@@ -38,7 +37,6 @@ public abstract class TreeNode {
     public String toString() {
         return String.format("%s: %s", getClass().getSimpleName(), children);
     }
-
 
 
 }
