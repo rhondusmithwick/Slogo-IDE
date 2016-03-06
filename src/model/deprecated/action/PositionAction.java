@@ -1,4 +1,4 @@
-package model.action;
+package model.deprecated.action;
 
 import javafx.geometry.Point2D;
 import model.turtle.Turtle;

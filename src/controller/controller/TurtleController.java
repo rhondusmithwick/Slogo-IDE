@@ -5,8 +5,6 @@ import controller.slogoparser.SlogoParser;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
-import model.action.TurtleAction;
-import model.action.VisionAction;
 import model.deprecated.Command;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
@@ -19,7 +17,6 @@ import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by rhondusmithwick on 2/22/16.

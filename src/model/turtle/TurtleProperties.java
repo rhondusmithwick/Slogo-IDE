@@ -38,7 +38,7 @@ public final class TurtleProperties {
         home.set(new Point2D(turtleDispDimension.getWidth() / 2 - imageDimensions.get().getWidth() / 2,
                 turtleDispDimension.getHeight() / 2 - imageDimensions.get().getHeight() / 2));
         setLocation(getHome());
-        setHeading(180);
+        setHeading(0);
         setPenDown(true);
         setPenColor("black");
     }
