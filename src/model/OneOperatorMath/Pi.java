@@ -1,4 +1,4 @@
-package model.oneoperatormath;
+package model.OneOperatorMath;
 
 import model.treenode.CommandNode;
 
