@@ -1,25 +1,13 @@
 package model.queries;
 
-import model.action.QueryAction;
-import model.action.TurtleAction;
-import model.turtle.Turtle;
+import model.treenode.TurtleCommandNode;
 
-public class GetPenDown extends Query {
+public class GetPenDown extends TurtleCommandNode {
 
-	@Override
-	protected double getQuery() {
-		Turtle myTurtle = getTurtle();
-		
-		boolean isPenDown = myTurtle.getTurtleProperties().getPenDown();
-		
-		TurtleAction action = new QueryAction(myTurtle, isPenDown);
-		addAction(action);
-		return isPenDown ? 1 : 0;
-	}
-
-	@Override
-	protected double execute() {
-		return getQuery();
-	}
+    @Override
+    protected double execute() {
+        boolean isPenDown = getTurtle().getTurtleProperties().getPenDown();
+        return isPenDown ? 1 : 0;
+    }
 
 }

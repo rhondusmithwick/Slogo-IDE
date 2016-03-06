@@ -14,7 +14,17 @@ public enum Defaults {
 	IMAGELIST_LOC("resources/imageFiles/"),
 	COLORLIST_LOC("resources/colors/"),
 	DEFAULT("Default"),
-	PEN_COLOR("black");
+	PEN_COLOR("black"),
+	COMM_SPLITER("|"),
+	METH_UP_LOC("view.envdisplay.MethodUpdate"),
+	VAR_UP_LOC("view.envdisplay.VariableUpdate"),
+	WS_DOC_EL("WorkspaceConfig"),
+	WS_CHILD_EL("ConfigProps"),
+	LANG("english"),
+	NUM_TURTS("1"),
+	XML(".xml"),
+	IM_DOC_EL("IndexedMap"),
+	IM_CHILD_ELEMENT("Element");
 	
 	
 	

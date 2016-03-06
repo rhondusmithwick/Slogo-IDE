@@ -68,7 +68,9 @@ public class CommandHistoryDisplay implements Observer {
     }
 
     private Label addCommand(String command) {
-        if (command.isEmpty()) return null;
+        if (command.isEmpty()){
+            return null;
+        }
         commands.add(command);
         Label label = new Label(command);
         label.prefWidthProperty().bind(myScrollPane.widthProperty());

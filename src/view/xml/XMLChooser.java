@@ -1,49 +1,21 @@
 package view.xml;
 
 import java.io.File;
-import java.util.ResourceBundle;
-import view.Defaults;
-import view.Size;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Stage;
+import java.util.Arrays;
+import view.FileExtensions;
+import view.utilities.SlogoFileChooser;
 
-public class XMLChooser {
-    private FileChooser fChoose;
-    private ResourceBundle myResources;
-    private Stage s;
-    private Group root;
-    private File file;
-    public XMLChooser(){
-        myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
+
+public class XMLChooser extends SlogoFileChooser{
+
+    public XMLChooser(boolean save){
+    	super("xmlSelect", Arrays.asList(FileExtensions.XML.getFilter()), save);
     }
-    
-    
-    
-    
-    public File getFile(boolean save){
-        s = new Stage();
-        root = new Group();
-        s.setScene(new Scene(root, Size.MINI.getSize(), Size.MINI.getSize()));
-        setUpChooser(save);
-        return file;
+
+    public File getFile(){
+    	return showWindow();
     }
 
 
-
-
-    private void setUpChooser (boolean save) {
-        fChoose = new FileChooser();
-        fChoose.setTitle(myResources.getString("xmlSelect"));
-        fChoose.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"));
-        if(save){
-            file = fChoose.showSaveDialog(s);
-        }else{
-            file = fChoose.showOpenDialog(s);
-        }
-        
-    }
     
 }

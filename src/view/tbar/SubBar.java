@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
 import view.Defaults;
 import view.Size;
 import view.utilities.ButtonFactory;
 import view.utilities.ComboFactory;
 import view.utilities.FileGetter;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -23,22 +21,19 @@ import observables.ObjectObservable;
 
 public abstract class SubBar implements Observer {
 
-    private static final String COLOR_ERROR = "colorError";
     private ResourceBundle myResources, myCommands;
     private HBox container;
     private ObjectObservable<String> language, intCommand;
-    private static final char SPLITTER = '|'; 
-    private SimpleStringProperty error;
     private ColorMap colors;
 
 
-    public SubBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> intCommand){
+    public SubBar(ObjectObservable<String> language, ObjectObservable<String> intCommand, 
+    		ColorMap cMap){
         this.language=language;
         this.intCommand=intCommand;
-        this.error=error;
+        this.colors = cMap;
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         initHBox();
-        getColorMap();
         setParsingLanguage(language.get());
         createButtons();
         createComboBoxes();
@@ -62,10 +57,6 @@ public abstract class SubBar implements Observer {
 
     }
 
-    public void showError(String key){
-        error.set("");
-        error.set(myResources.getString(key));
-    }
 
     public Button makeButton(String key, EventHandler<ActionEvent> handler) {
         Button newButt = ButtonFactory.createButton(myResources.getString(key), handler);
@@ -76,7 +67,7 @@ public abstract class SubBar implements Observer {
 
     protected String getCommand(String key) {
         String retrievedString = myCommands.getString(key);
-        int splitterPos = retrievedString.indexOf(SPLITTER);
+        int splitterPos = retrievedString.indexOf(Defaults.COMM_SPLITER.getDefault());
         if (splitterPos > 0) {
             return retrievedString.substring(0, splitterPos);
         } else {
@@ -92,28 +83,12 @@ public abstract class SubBar implements Observer {
     	
     }
 
-    private void getColorMap() {
-        try {
-            this.colors = ColorMap.getInstance();
-            colors.getIndexMap().addObserver(this);
-        } catch (Exception e) {
-            showError(myResources.getString(COLOR_ERROR));
-        }
-
-    }
-
     protected List<String> getLanguages() {
         return FileGetter.getAllFromDirectory(Defaults.PARSELANG_LOC.getDefault());
     }
 
     protected List<String> getColors(){
-        try {
-            return new ArrayList<String>(colors.getIndexMap().getValues());
-        }
-        catch (Exception e) {
-            showError(myResources.getString(COLOR_ERROR));
-        }
-        return null;
+            return new ArrayList<>(colors.getIndexMap().getValues());
     }
 
 

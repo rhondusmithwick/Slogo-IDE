@@ -63,15 +63,14 @@ public abstract class DefinedObjectsDisplay {
 		definedObjects.addListener((ov, oldVal, newVal) -> createCurrEnvDisp());
 	}
 
-	protected EnvUpdate getUpdater(String className) {
+	protected EnvUpdate getUpdater(String className, String text) {
 		try {
 			Class<?> classTemp = Class.forName(className);
-			Constructor<?> constructor = classTemp.getConstructor(ResourceBundle.class, ObjectObservable.class,
-					ObjectObservable.class);
-			Object obj = constructor.newInstance(myResources, intCommand, parsingLanguage);
+			Constructor<?> constructor = classTemp.getConstructor(ObjectObservable.class,
+					ObjectObservable.class, String.class);
+			Object obj = constructor.newInstance(intCommand, parsingLanguage, text);
 			return (EnvUpdate) obj;
 		} catch (Exception e) {
-			e.printStackTrace();
 			error.set("");
 			error.set(myResources.getString("createUpError"));
 		}
@@ -105,7 +104,9 @@ public abstract class DefinedObjectsDisplay {
 
 	private void setLabel(String definedObject) {
 		Label label = new Label(definedObject);
-		if (definedObject.length() == 0) return;
+		if (definedObject.length() == 0){
+		    return;
+		}
 		label.prefWidthProperty().bind(myScrollPane.widthProperty());
 		label.setStyle(Defaults.BORDER_COLOR.getDefault());
 		label.setWrapText(true);

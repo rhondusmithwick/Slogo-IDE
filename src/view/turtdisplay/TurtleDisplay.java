@@ -42,6 +42,7 @@ public class TurtleDisplay implements Observer {
     }
 
     private void setBackground(String color) {
+    	System.out.println(color);
         background.setFill(Color.web(color));
 
     }

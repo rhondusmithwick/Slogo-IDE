@@ -1,8 +1,6 @@
 package view.envdisplay;
 
 import java.util.Arrays;
-import java.util.ResourceBundle;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import observables.ObjectObservable;
@@ -13,16 +11,18 @@ public class MethodUpdate extends EnvUpdate {
 
     private static final char FRONT_BRACK = '[';
 	private static final char BACK_BRACKET = ']';
-	private static final char SPLITTER = '|';
+
     private static final String SPACE = " ";
-    private String name, mNewVal, vNewVal, variables, methods, newDisp;
+    private String name, mNewVal, vNewVal, variables, methods, newVal, text;
     private TextField vField, mField;
-    private Label vTitle,mTitle, label;
+    private Label vTitle,mTitle;
+    
 
 
 
-    public MethodUpdate(ResourceBundle myResources, ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
-        super(myResources,intCommand, pLang);
+    public MethodUpdate(ObjectObservable<String> intCommand, ObjectObservable<String> pLang, String text){
+        super(intCommand, pLang);
+        this.text=text;
 
        
     }
@@ -38,11 +38,10 @@ public class MethodUpdate extends EnvUpdate {
     @Override
     protected void setNewValues() {
         setValues();
-        String toPass = makeCommand(new String[]{mNewVal, vNewVal});
+        String toPass = getCommand(new String[]{mNewVal, vNewVal});
         passCommand(toPass);
-        closeUpdater();
-        label.setText(null);
-        label.setText(newDisp);
+        closeScene();
+        
 
     }
 
@@ -61,43 +60,26 @@ public class MethodUpdate extends EnvUpdate {
 
 
 
-
     @Override
-    protected String makeCommand(String[] newVals) {
+    protected String getCommand(String[] newVals) {
         String mNewVal = newVals[0];
         String vNewVal = newVals[1];
-        String posCommands = getCommand("MakeUserInstruction");
-        String command;
-        int multCommands = posCommands.indexOf(SPLITTER);
-        if(multCommands >0){
-            command = posCommands.substring(0, multCommands);
-        }else{
-            command = posCommands;
-        }
-        newDisp = this.name + SPACE+
+        String command = super.makeCommand("MakeUserCommand");
+        newVal = this.name + SPACE+
 
        		 vNewVal + SPACE + FRONT_BRACK+ mNewVal + BACK_BRACKET;
 
-        return command + SPACE +newDisp;
+        return command + SPACE +newVal;
     }
 
-
-
-
-
-
-
     @Override
-    public void updateEnv(Label l){
-    	this.label = l;
-        getName(l.getText());
-        getVariables(l.getText());
-        getMethods(l.getText());
-        System.out.println(this.name);
+    public void updateEnv(){
+        getName(text);
+        getVariables(text);
+        getMethods(text);
         mTitle = createTitle("methTitle", SPACE + name);
         vTitle = createTitle("methVarTitle",  SPACE + name); 
         addToScene(Arrays.asList(mTitle,mField,vTitle,vField));
-        showScene();
     }
 
 	private void getName(String content) {

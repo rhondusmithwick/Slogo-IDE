@@ -1,6 +1,5 @@
 package model.treenode;
 
-import model.action.TurtleAction;
 import model.turtle.Turtle;
 
 /**
@@ -25,7 +24,4 @@ public abstract class TurtleCommandNode extends CommandNode {
         return execute();
     }
 
-    protected void addAction(TurtleAction action) {
-        myTurtle.addAction(action);
-    }
 }

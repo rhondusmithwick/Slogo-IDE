@@ -21,7 +21,7 @@ public class TurtleParams {
 
     private final SimpleObjectProperty<Point2D> location;
     private final SimpleDoubleProperty heading;
-    private final SimpleBooleanProperty penDown;;
+    private final SimpleBooleanProperty penDown;
     private final SimpleStringProperty penColor;
 
 

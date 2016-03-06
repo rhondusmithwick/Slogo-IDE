@@ -10,25 +10,17 @@ public class ColorMap extends IndexMap {
     private static final int B = 2;
     private static final int G = 1;
     private static final int R = 0;
-    private static ColorMap instance;
     private MapObservable<Integer,String> colors;
     private int count;
 
 
 
 
-    private ColorMap() throws Exception{
+    public ColorMap() throws Exception{
         super();
     }
 
 
-    public static synchronized ColorMap getInstance() throws Exception
-    {
-        if (instance == null){
-            instance = new ColorMap();
-        }
-        return instance;
-    }
 
 
 

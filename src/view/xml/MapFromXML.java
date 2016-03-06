@@ -1,8 +1,6 @@
 package view.xml;
 
 import java.io.File;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -10,7 +8,7 @@ import org.w3c.dom.NodeList;
 import observables.MapObservable;
 
 
-public class MapFromXML {
+public class MapFromXML extends XMLParser {
     
     private File file;
     private Document doc;
@@ -23,28 +21,24 @@ public class MapFromXML {
     
     public void getElements(String fileName) throws Exception{
         file = new File(fileName + ".xml");
-        createDocBuilder();
+        doc =createDocBuilder(file);
         addElements();
         
     }
-
-    private void addElements () {
+    
+    @Override
+    protected void addElements () {
         NodeList elements = doc.getDocumentElement().getChildNodes();
         Node curr;
         for(int i=0; i<elements.getLength(); i++){
             curr = elements.item(i);
-            String index = curr.getAttributes().getNamedItem("index").getTextContent();
-            String name = curr.getAttributes().getNamedItem("name").getTextContent();
+            String index = curr.getAttributes().getNamedItem(AttrNames.INDEX_MAP.getNames().get(0)).getTextContent();
+            String name = curr.getAttributes().getNamedItem(AttrNames.INDEX_MAP.getNames().get(1)).getTextContent();
             map.put(Integer.parseInt(index), name);
         }
         
         
     }
 
-    private void createDocBuilder () throws Exception {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuild = dbFactory.newDocumentBuilder();
-        doc = dBuild.parse(file);
-        
-    }
+   
 }

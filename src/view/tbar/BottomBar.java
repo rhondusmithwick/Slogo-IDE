@@ -4,7 +4,12 @@ package view.tbar;
 import java.util.Observable;
 
 import view.Defaults;
-import javafx.beans.property.SimpleStringProperty;
+import view.envdisplay.EnvUpdate;
+import view.tbar.popupdisplays.HelpScreen;
+import view.tbar.popupdisplays.IndexMapSaver;
+import view.tbar.popupdisplays.PenSizeUpdater;
+import view.tbar.popupdisplays.WorkSpaceSaver;
+import view.utilities.PopUp;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
@@ -13,21 +18,21 @@ import observables.ObjectObservable;
 
 public class BottomBar extends SubBar {
 
+    private PopUp hScreen;
 
-    private static final String SAVE_ERROR = "saveError";
-    private HelpScreen hScreen;
-    private SimpleStringProperty error;
     ObjectObservable<String> intCommand;
     private ComboBox<String> langBox;
-    @SuppressWarnings("unused")
-    private PenSizeUpdater penSizeUpdater;
+    private EnvUpdate penSizeUpdater;
+	private ColorMap cMap;
+	private ImageMap iMap;
 
-    public BottomBar(ObjectObservable<String> language, SimpleStringProperty error, 
-                     ObjectObservable<String> intCommand) {
-        super(language, error, intCommand);
-        this.error = error;
+    public BottomBar(ObjectObservable<String> language, 
+                     ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
+        super(language, intCommand, cMap);
+        this.iMap = iMap;
+        this.cMap = cMap;
         this.intCommand=intCommand;
-        hScreen = HelpScreen.getInstance();
+        hScreen = new HelpScreen();
 
     }
 
@@ -59,44 +64,39 @@ public class BottomBar extends SubBar {
         makeButton("penUp", e -> setPen("PenUp"));
         makeButton("penDown", e -> setPen("PenDown"));
         makeButton("setPenSize", e -> setPenSize());
-        makeButton("saveColor", e-> saveColors());
-        makeButton("saveImage", e->saveImages());
-        makeButton("help", e -> hScreen.showHelpScreen( ));
+        makeButton("saveColor", e-> saveMap(true));
+        makeButton("saveImage", e->saveMap(false));
+        makeButton("help", e -> hScreen.show());
 
     }
 
 
-    private void saveColors () {
+    private void saveMap (boolean colors) {
         try {
-            IndexMapSaver mSave = new IndexMapSaver(ColorMap.getInstance(), error);
-            mSave.showSaver();
+        	PopUp mSave;
+        	if(colors){
+        		mSave = new IndexMapSaver(cMap);
+        		
+        	}else{
+        		mSave = new IndexMapSaver(iMap);
+        	}
+        	mSave.show();
         }
         catch (Exception e) {
-            showError(SAVE_ERROR);
-        }
-    }
-
-
-
-    private void saveImages () {
-        try {
-            IndexMapSaver mSave = new IndexMapSaver(ImageMap.getInstance(), error);
-            mSave.showSaver();
-        }
-        catch (Exception e) {
-            showError(SAVE_ERROR);
+            return;
         }
     }
 
 
 
     private void saveWorkSpace() {
-        WorkSpaceSaver wSaver = new WorkSpaceSaver(getColors(), getLanguages(),error);
-        wSaver.showSaver();
+        PopUp wSaver = new WorkSpaceSaver(getColors(), getLanguages());
+        wSaver.show();
     }
 
     private void setPenSize() {
         penSizeUpdater = new PenSizeUpdater(getLanguage(), intCommand);
+        penSizeUpdater.show();
     }
 
     private void setPen(String key) {

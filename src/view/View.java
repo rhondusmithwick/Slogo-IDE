@@ -9,6 +9,7 @@ import view.error.ErrorDisplay;
 import view.tbar.ToolBar;
 import view.turtdisplay.TurtleDisplay;
 import view.turtparams.TurtleParams;
+import view.utilities.ButtonFactory;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -21,14 +22,16 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import maps.ColorMap;
+import maps.ImageMap;
+import maps.IndexMap;
 import observables.ObjectObservable;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class View implements ViewInt {
-	
+
     private final Dimension2D turtleDispDimension;
     private final ObjectObservable<String> pLang, input, backgroundColor, intCommands, commHistory;
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
@@ -52,6 +55,7 @@ public class View implements ViewInt {
     private TurtleParams turtPar;
     private HBox bottom;
     private VBox left, right;
+    private IndexMap cMap, iMap;
 
     public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
         this.pLang = pLang;
@@ -61,10 +65,16 @@ public class View implements ViewInt {
         this.backgroundColor = new ObjectObservable<>();
         this.commHistory = new ObjectObservable<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-    
         createAppview();
+        setPreferences();
+
     }
 
+    private void setPreferences () {
+        PreferenceSetter pSet = new PreferenceSetter(penColor, pLang, cMap, iMap, backgroundColor, intCommands);
+        pSet.setPreferences();
+        
+    }
 
     private void createAppview () {
         UI = new BorderPane();
@@ -91,10 +101,10 @@ public class View implements ViewInt {
     }
 
 
-	private void setError() {
-		errorDisplay = new ErrorDisplay(error);
-		errorDisplay.set();
-	}
+    private void setError() {
+        errorDisplay = new ErrorDisplay(error);
+        errorDisplay.set();
+    }
 
 
     private void addComponents() {
@@ -113,36 +123,50 @@ public class View implements ViewInt {
         left.getChildren().add(vDisplay.getEnvDisplay());
         methodsDisplay = new MethodDisplay(pLang, intCommands, methods, error);
         left.getChildren().add(methodsDisplay.getEnvDisplay());
-        
+
     }
 
 
     private void createBottomPane() {
         bottom = new HBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
-      
+
         turtPar= new TurtleParams(location, heading, penDown, penColor);
         bottom.getChildren().add(turtPar.getTurtleParams());
-        
+
         commandHistory = new CommandHistoryDisplay(intCommands, commHistory);
         bottom.getChildren().add(commandHistory.getHistoryGraphic());
-        
+
+    }
+
+
+    private void createMaps() {
+
+        try {
+            iMap = new ImageMap();
+            cMap = new ColorMap();
+        } catch (Exception e) {
+            error.set("");
+            error.set("colorError");
+        }
+
     }
 
 
     private void createToolBar() {
-        tBar = new ToolBar(pLang, error, backgroundColor, image, penColor, intCommands);
+        createMaps();
+        tBar = new ToolBar(pLang, backgroundColor, image, penColor, intCommands, (ColorMap) cMap, (ImageMap) iMap);
         BorderPane.setMargin(tBar.getToolBarMembers(), ViewInsets.TOP.getInset());
         tBar.getToolBarMembers().prefWidthProperty().bind(UI.widthProperty());
-        
+
     }
 
 
     private void createTurtleDisplay() {
-    	
+
         turtDisp = new TurtleDisplay(backgroundColor, turtleDispDimension);
         BorderPane.setMargin(turtDisp.getTurtlePane(), ViewInsets.TURTLE.getInset());
-        
+
 
     }
 
@@ -156,18 +180,17 @@ public class View implements ViewInt {
 
 
     private void createExecute() {
-        executeButton = new Button(myResources.getString("execute"));
-        executeButton.setOnAction(e -> processExecute());
+        executeButton = ButtonFactory.createButton(myResources.getString("execute"), e->processExecute());
         executeButton.prefWidthProperty().bind(right.widthProperty());
         executeButton.setPrefHeight(Size.EX_BUTTON.getSize());
         right.getChildren().add(executeButton);
-	}
+    }
 
 
     private void processExecute() {
         commandEntry.processCommands(); 
     }
-    
+
     @Override
     public Group getGroup() {
         return root;
@@ -184,8 +207,16 @@ public class View implements ViewInt {
         return Arrays.asList(image, penColor,variables, methods, error);
     }
 
+    @Override
+    public IndexMap getMap (boolean colors) {
+        if(colors){
+            return cMap;
+        }
+        return iMap;
+    }
 
 
-    
+
+
 
 }

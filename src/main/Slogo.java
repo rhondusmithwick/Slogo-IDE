@@ -6,11 +6,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-
 import controller.controller.Controller;
 import controller.controller.TurtleController;
 
