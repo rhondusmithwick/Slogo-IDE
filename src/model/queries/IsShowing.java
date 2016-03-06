@@ -1,25 +1,12 @@
 package model.queries;
 
-import model.action.QueryAction;
-import model.action.TurtleAction;
-import model.turtle.Turtle;
+import model.treenode.TurtleCommandNode;
 
-public class IsShowing extends Query {
+public class IsShowing extends TurtleCommandNode {
 
-	@Override
-	protected double getQuery() {
-		Turtle myTurtle = getTurtle();
-		
-		boolean isShowing = myTurtle.getTurtleProperties().getVisible();
-		
-		TurtleAction action = new QueryAction(myTurtle, isShowing);
-		addAction(action);
-		
-		return isShowing ? 1 : 0;
-	}
-
-	@Override
-	protected double execute() {
-		return getQuery();
-	}
+    @Override
+    protected double execute() {
+        boolean isShowing = getTurtle().getTurtleProperties().getVisible();
+        return isShowing ? 1 : 0;
+    }
 }

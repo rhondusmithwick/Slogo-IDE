@@ -1,28 +1,15 @@
 package model.queries;
 
-import model.action.QueryAction;
-import model.action.TurtleAction;
-import model.turtle.Turtle;
+import model.treenode.TurtleCommandNode;
 
-public class XCoordinate extends Query {
+public class XCoordinate extends TurtleCommandNode {
 
-	@Override
-	protected double execute() {
-		return getQuery();
-	}
-	
-	protected double getQuery() {
-		Turtle myTurtle = getTurtle();
-		
-		double x = myTurtle.getTurtleProperties().getLocation().getX();
-		
-		double distance = 0;
-		
-		TurtleAction action = new QueryAction(myTurtle, x);
-		addAction(action);
-		
-		return distance;
-	}
-		
+    @Override
+    protected double execute() {
+        double x = getTurtle().getTurtleProperties().getLocation().getX();
+        double homeX = getTurtle().getTurtleProperties().getHome().getX();
+        return x - homeX;
+    }
+
 
 }

@@ -1,4 +1,4 @@
-package model.action;
+package model.deprecated.action;
 
 import javafx.application.Platform;
 import model.turtle.Turtle;
@@ -10,11 +10,11 @@ public class ScreenAction extends TurtleAction {
         super(myTurtle);
     }
 
-	@Override
-	public void run() {
-		Platform.runLater(this::runLater);
-		super.run();
-	}
+    @Override
+    public void run() {
+        Platform.runLater(this::runLater);
+        super.run();
+    }
 
     private void runLater() {
         TurtleProperties properties = getMyTurtle().getTurtleProperties();
