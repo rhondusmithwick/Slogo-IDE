@@ -2,7 +2,7 @@ package model.oneoperatormath;
 
 import java.util.function.DoubleUnaryOperator;
 
-public class ArcTangent extends model.oneoperatormath.OneOperatorMath {
+public class ArcTangent extends OneOperatorMath {
 
     @Override
     protected double execute() {
