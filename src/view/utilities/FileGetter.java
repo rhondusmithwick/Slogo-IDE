@@ -13,7 +13,7 @@ import java.util.List;
 
 public class FileGetter {
 
-    private FileGetter(){};
+    private FileGetter(){}
 
 
     /**

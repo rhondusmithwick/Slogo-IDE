@@ -13,7 +13,7 @@ import javafx.scene.control.ComboBox;
 
 public class ComboFactory {
 	
-	private ComboFactory(){};
+	private ComboFactory(){}
 	
 	/**
 	 * Creates a new combobox. Is static so that it can be accessed as the actual class is never instantiated,

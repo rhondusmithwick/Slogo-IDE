@@ -14,7 +14,7 @@ import view.Defaults;
 
 public class GetCommand {
     
-    private GetCommand(){};
+    private GetCommand(){}
     
     /**
      * Makes a command that can be correctly passed to backend from a command key and

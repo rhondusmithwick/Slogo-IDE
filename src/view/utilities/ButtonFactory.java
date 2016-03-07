@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 
 public class ButtonFactory {
 
-        private ButtonFactory(){};
+        private ButtonFactory(){}
 	
         /**
          * Creates a new button. Is static so that it can be accessed as the actual class is never instantiated,

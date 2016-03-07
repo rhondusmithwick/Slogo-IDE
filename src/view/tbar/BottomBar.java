@@ -53,7 +53,7 @@ public class BottomBar extends SubBar {
      * Called on update to any observable. Not used for this class.
      */
     @Override
-    public void update(Observable o, Object arg){};
+    public void update(Observable o, Object arg){}
 
     /**
      * creates all comboboxes needed for sub bar
