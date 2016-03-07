@@ -16,12 +16,12 @@ import view.xml.XMLChooser;
  *  @author calinelson
  */
 public class PreferenceSetter {
-    public ObjectObservable<String> pLang;
-    public ObjectObservable<String> backgroundColor;
-    public ObjectObservable<String> intCommands;
-    public SimpleStringProperty penColor;
-    public IndexMap cMap;
-    public IndexMap iMap;
+    private ObjectObservable<String> pLang;
+    private ObjectObservable<String> backgroundColor;
+    private ObjectObservable<String> intCommands;
+    private SimpleStringProperty penColor;
+    private IndexMap cMap;
+    private IndexMap iMap;
 
     /**
      * creates a new preference setter object
@@ -40,7 +40,7 @@ public class PreferenceSetter {
         this.backgroundColor=backgroundColor;
         this.intCommands=intCommands;
     }
-    
+
     /**
      * Opens a file loader and allows user to choose xml file to load, then
      * passes xml file to parser to be read. After the file is read it then 
@@ -67,9 +67,9 @@ public class PreferenceSetter {
         pLang.set(Defaults.PARSELANG_LOC.getDefault()+wsLoader.getParam(LoadIndex.P_LANG.getIndex()));
         setMaps(wsLoader);
         setTurts(wsLoader);
-        
+
     }
-    
+
     private void setTurts (LoadWS wsLoader) {
         int num= Integer.parseInt(wsLoader.getParam(LoadIndex.NUM_TURT.getIndex()));
         String comm = GetCommand.makeCommand("Tell", pLang.get()) + " "+Integer.toString(num);
@@ -84,7 +84,7 @@ public class PreferenceSetter {
             cMap.addElements(wsLoader.getParam(LoadIndex.C_FILE.getIndex()));
         }
         catch (Exception e) {
-           return;
+            return;
         }
     }
 }
