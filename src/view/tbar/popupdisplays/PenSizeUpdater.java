@@ -50,7 +50,7 @@ public class PenSizeUpdater extends EnvUpdate {
 	}
 
 	@Override
-	protected void updateEnv() {
+	public void updateEnv() {
 		Label title = createTitle("setPenSize", "");
 		createTextFields();
 		addToScene(Arrays.asList(title, tField));
