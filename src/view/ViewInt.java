@@ -36,9 +36,17 @@ public interface ViewInt {
      * @return group that defines turtles area
      */
     Group getInnerGroup();
+
     
+    /**
+     * returns the index maps responsible for mapping index numbers to colors
+     * or images to define the pallets
+     * @param boolean for which map to choose
+     * @return chosen index map
+     */
     IndexMap getMap(boolean colors);
 
+    
     void bindSize (TabPane t);
 
 

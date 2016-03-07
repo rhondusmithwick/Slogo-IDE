@@ -5,6 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import observables.ObjectObservable;
 
+/**
+ * Sub class of EnvUpdate that is responsible for taking user input and updating user defined methods.
+ * @author Cali
+ *
+ */
 
 public class MethodUpdate extends EnvUpdate {
     
@@ -19,14 +24,22 @@ public class MethodUpdate extends EnvUpdate {
     
 
 
-
+    /**
+     * Creates a new method update instance
+     * @param intCommand string observable to pass commands to command entry instance
+     * @param pLang string observable to store and set parsing language
+     * @param text text for method needing to be updated
+     */
     public MethodUpdate(ObjectObservable<String> intCommand, ObjectObservable<String> pLang, String text){
         super(intCommand, pLang);
         this.text=text;
 
        
     }
-
+    
+    /**
+     * creates textfields needed for updater
+     */
     @Override
     public void createTextFields() {
         vField = createTextArea();
@@ -34,7 +47,10 @@ public class MethodUpdate extends EnvUpdate {
         
     }
     
-    
+    /**
+     * gets the user input for the updated method and creates and passes a command to set the methods
+     * new value
+     */
     @Override
     protected void setNewValues() {
         setValues();
@@ -59,7 +75,11 @@ public class MethodUpdate extends EnvUpdate {
 
 
 
-
+    /**
+     * creates command to pass to backend to set new values using new user input
+     * values
+     * @param newVals String[] of new user input values
+     */
     @Override
     protected String getCommand(String[] newVals) {
         String mNewVal = newVals[0];
@@ -71,7 +91,10 @@ public class MethodUpdate extends EnvUpdate {
 
         return command + SPACE +newVal;
     }
-
+    
+    /**
+     * creates and adds needed components to scene
+     */
     @Override
     public void updateEnv(){
         getName(text);

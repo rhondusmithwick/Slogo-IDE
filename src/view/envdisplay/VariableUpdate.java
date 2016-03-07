@@ -5,6 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import observables.ObjectObservable;
 
+/**
+ * Sub class of EnvUpdate that is responsible for taking user input and updating user defined variables.
+ * @author Cali
+ *
+ */
 public class VariableUpdate extends EnvUpdate {
     
     private static final String SPACE = " ";
@@ -13,18 +18,30 @@ public class VariableUpdate extends EnvUpdate {
     private TextField tField;
     private Label title;
 
+    /**
+     * Creates a new variable update instance
+     * @param intCommand string observable to pass commands to command entry instance
+     * @param pLang string observable to store and set parsing language
+     * @param text text for method needing to be updated
+     */
     public VariableUpdate (ObjectObservable<String> intCommand, ObjectObservable<String> pLang, String text) {
         super(intCommand, pLang);
         this.text = text;
         
     }
     
+    /**
+     * creates textfields needed for updater
+     */
     @Override
     protected void createTextFields(){
         tField = createTextArea();
     }
 
-
+    /**
+     * gets the user input for the updated variable and creates and passes a command to set the variables
+     * new value
+     */
     @Override
     protected void setNewValues() {
         newVal = tField.getText();
@@ -38,6 +55,11 @@ public class VariableUpdate extends EnvUpdate {
         
     }
     
+    /**
+     * creates command to pass to backend to set new values using new user input
+     * values
+     * @param newVals String[] of new user input values
+     */
     @Override
     protected String getCommand (String[] newVals) {
         String newVal = newVals[0];
@@ -48,6 +70,9 @@ public class VariableUpdate extends EnvUpdate {
     }
  
 
+    /**
+     * creates and adds needed components to scene
+     */
     @Override
     public void updateEnv(){
     
