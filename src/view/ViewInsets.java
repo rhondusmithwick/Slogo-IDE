@@ -1,12 +1,12 @@
 
 package view;
 
+import javafx.geometry.Insets;
+
 /**
  * this class is an enum of the insets for each area of the border pane
  * @author calinelson
  */
-
-import javafx.geometry.Insets;
 
 public enum ViewInsets {
 	RIGHT(new Insets(0, 10,5,5)), 
