@@ -48,7 +48,7 @@ public abstract class IndexMap {
     protected void getElementsFromXML(String type) throws Exception{
         MapFromXML xMap = new MapFromXML(this.getIndexMap());
         String direct = getDirectory();
-        xMap.getElements(direct+type);
+        xMap.populateMap(direct+type);
     }
 
     /**

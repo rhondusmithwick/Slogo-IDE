@@ -7,6 +7,12 @@ import org.w3c.dom.NodeList;
 
 import observables.MapObservable;
 
+/**
+ * Creates IndexMap object from preferences written in XML file.
+ * Subclass of abstract XMLParser class.
+ * @author Cali
+ *
+ */
 
 public class MapFromXML extends XMLParser {
     
@@ -15,19 +21,31 @@ public class MapFromXML extends XMLParser {
     
     private MapObservable<Integer, String> map;
 
+    /**
+     * creates new MapFromXML instance
+     * @param map MapObservable object to be populated by file data
+     */
     public MapFromXML(MapObservable<Integer, String> map){
         this.map = map;
     }
     
-    public void getElements(String fileName) throws Exception{
+    /**
+     * Populates the MapObservable object with data read from xml file
+     * @param fileName String filename of file to be read and parsed into dom tree
+     * @throws Exception
+     */
+    public void populateMap(String fileName) throws Exception{
         file = new File(fileName + ".xml");
         doc =createDocBuilder(file);
-        addElements();
+        getElements();
         
     }
     
+    /**
+     * Gets the elements from the created dom tree and adds them to the given MapObservable object from the constructor.
+     */
     @Override
-    protected void addElements () {
+    protected void getElements () {
         NodeList elements = doc.getDocumentElement().getChildNodes();
         Node curr;
         for(int i=0; i<elements.getLength(); i++){
