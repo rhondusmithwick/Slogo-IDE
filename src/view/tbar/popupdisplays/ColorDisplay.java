@@ -10,14 +10,27 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import observables.MapObservable;
 
+/**
+ * sub class of palette display responsible for displaying color palette
+ * @author Cali
+ *
+ */
 public class ColorDisplay extends PaletteDisp {
     
-    
+    /**
+     * creates a new color display instance
+     * @param title String title of the display
+     * @param map MapObservable that the contents of the display will be pulled from
+     */
     public ColorDisplay (String title, MapObservable<Integer, String> cMap) {
         super(title, cMap);
         
     }
 
+    /**
+     * adds a map entry for one color integer pair to the color palette display
+     * @param e map entry containing an integer key and string color value
+     */
     @Override
     protected void addToPalette (Entry<Integer, String> e) {
         setHBox();
