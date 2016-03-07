@@ -34,7 +34,14 @@ public abstract class DefinedObjectsDisplay {
 
 	private String displayTitle;
 
-	public DefinedObjectsDisplay(SimpleStringProperty definedObjects, ObjectObservable<String> parsingLanguage,
+	/**
+	 * Serves as the super constructor for any DefinedObjectsDisplay subclass
+	 * @param definedObjects simplestringproperty representing objects defined by user
+	 * @param parsingLanguage string observable for storing parsing language
+	 * @param intCommand string observable to pass commands from this component to command entry
+	 * @param error simplestring property used to show error messages
+	 */
+	protected DefinedObjectsDisplay(SimpleStringProperty definedObjects, ObjectObservable<String> parsingLanguage,
 			ObjectObservable<String> intCommand, SimpleStringProperty error) {
 		this.intCommand = intCommand;
 		this.error = error;
@@ -45,6 +52,10 @@ public abstract class DefinedObjectsDisplay {
 		setListners();
 	}
 
+	/**
+	 * updates a label which shows a defined variable or method
+	 * @param label label whose contentes to update
+	 */
 	protected abstract void updateDefinedObject(Label label);
 
 	private void setScrollPane() {
@@ -55,6 +66,10 @@ public abstract class DefinedObjectsDisplay {
 		VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
 	}
 
+	/**
+	 * returns the node containing all components of the display
+	 * @return node containing all definedobjectdisplay components
+	 */
 	public Node getEnvDisplay() {
 		return myScrollPane;
 	}
@@ -63,6 +78,13 @@ public abstract class DefinedObjectsDisplay {
 		definedObjects.addListener((ov, oldVal, newVal) -> createCurrEnvDisp());
 	}
 
+	/**
+	 * creates an updater used to update a defined object from user input. 
+	 * creates updater using reflection from class name string
+	 * @param className string of classname of object to create
+	 * @param text text representing user defined object to update
+	 * @return updater object used to update the defined object
+	 */
 	protected EnvUpdate getUpdater(String className, String text) {
 		try {
 			Class<?> classTemp = Class.forName(className);
@@ -76,7 +98,11 @@ public abstract class DefinedObjectsDisplay {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * creates the current display based off of the current state of the definedObjects
+	 * simplestring property
+	 */
 	protected void createCurrEnvDisp() {
 		vBox = new VBox();
 		setTitle();
@@ -122,7 +148,11 @@ public abstract class DefinedObjectsDisplay {
 			error.set(myResources.getString("envUpdate"));
 		}
 	}
-
+	
+	/**
+	 * sets the displays title
+	 * @param displayTitle string of title to set
+	 */
 	public void setDisplayTitle(String displayTitle) {
 		this.displayTitle = myResources.getString(displayTitle);
 	}

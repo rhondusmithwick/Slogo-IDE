@@ -33,6 +33,13 @@ public class CommandEntry implements Observer {
     private Label title;
     private ResourceBundle myResources;
 
+    
+    /**
+     * creates new command entry object
+     * @param input observable string to pass input to backend 
+     * @param intCommands observable string used to pass input from other view components to command entry
+     * @param commHistory observable string used to pass entered commands to be entered into history
+     */
     public CommandEntry(ObjectObservable<String> input, ObjectObservable<String> intCommands, ObjectObservable<String> commHistory) {
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         this.input = input;

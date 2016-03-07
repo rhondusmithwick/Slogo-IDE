@@ -1,10 +1,5 @@
 package view;
-/**
- * this class is repsonsible for opening a file loader, and
- *  loading workspace preferences from a chosen xml file or setting default settings
- *  if no file is chosen
- *  @author calinelson
- */
+
 import java.io.File;
 import javafx.beans.property.SimpleStringProperty;
 import maps.IndexMap;
@@ -13,6 +8,13 @@ import view.utilities.GetCommand;
 import view.xml.LoadWS;
 import view.xml.XMLChooser;
 
+
+/**
+ * this class is repsonsible for opening a file loader, and
+ *  loading workspace preferences from a chosen xml file or setting default settings
+ *  if no file is chosen
+ *  @author calinelson
+ */
 public class PreferenceSetter {
     public ObjectObservable<String> pLang;
     public ObjectObservable<String> backgroundColor;

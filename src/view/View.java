@@ -1,11 +1,5 @@
 package view;
 
-/**
- * @author calinelson and stephen kwok
- * This class represents a single workspace for the slogo interpreter, and is repsonsible for displaying and managing
- * all componenets of the larger view;
- */
-
 import view.commentry.CommandEntry;
 import view.commhistory.CommandHistoryDisplay;
 import view.envdisplay.DefinedObjectsDisplay;
@@ -36,6 +30,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
+/**
+ * @author calinelson and stephen kwok
+ * This class represents a single workspace for the slogo interpreter, and is repsonsible for displaying and managing
+ * all componenets of the larger view;
+ */
 public class View implements ViewInt {
 
     private final Dimension2D turtleDispDimension;

@@ -35,6 +35,11 @@ public class CommandHistoryDisplay implements Observer {
 
     private ObjectObservable<String> intCommand, commHistory;
 
+    /**
+     * Creates a new command history object.
+     * @param intCommand string observable used to pass commands from view components to command entry
+     * @param commHistory string observable observed by this to add commands to history display
+     */
     public CommandHistoryDisplay(ObjectObservable<String> intCommand, ObjectObservable<String> commHistory) {
         this.intCommand = intCommand;
         this.commHistory=commHistory;
