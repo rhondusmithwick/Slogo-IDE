@@ -6,7 +6,9 @@ import view.envdisplay.DefinedObjectsDisplay;
 import view.envdisplay.MethodDisplay;
 import view.envdisplay.VariableDisplay;
 import view.error.ErrorDisplay;
-import view.tbar.ToolBar;
+import view.tbar.BottomBar;
+import view.tbar.SubBar;
+import view.tbar.TopBar;
 import view.turtdisplay.TurtleDisplay;
 import view.turtparams.TurtleParams;
 import view.utilities.ButtonFactory;
@@ -51,7 +53,6 @@ public class View implements ViewInt {
     private BorderPane UI;
     private ResourceBundle myResources;
     private Group root;
-    private ToolBar tBar;
     private Button executeButton;
     private TurtleDisplay turtDisp;
     private CommandHistoryDisplay commandHistory;
@@ -60,8 +61,9 @@ public class View implements ViewInt {
     private DefinedObjectsDisplay vDisplay, methodsDisplay;
     private TurtleParams turtPar;
     private HBox bottom;
-    private VBox left, right;
+    private VBox left, right, top;
     private IndexMap cMap, iMap;
+    private SubBar topBar, botBar;
 
     /**
      * creates a new view object
@@ -128,7 +130,7 @@ public class View implements ViewInt {
         UI.setRight(right);
         UI.setLeft(left);
         UI.setBottom(bottom);
-        UI.setTop(tBar.getToolBarMembers());
+        UI.setTop(top);
     }
 
 
@@ -171,9 +173,12 @@ public class View implements ViewInt {
 
     private void createToolBar() {
         createMaps();
-        tBar = new ToolBar(pLang, backgroundColor, image, penColor, intCommands, (ColorMap) cMap, (ImageMap) iMap);
-        BorderPane.setMargin(tBar.getToolBarMembers(), ViewInsets.TOP.getInset());
-        tBar.getToolBarMembers().prefWidthProperty().bind(UI.widthProperty());
+        top = new VBox(Size.TB_PADDING.getSize());
+        topBar = new TopBar(pLang, backgroundColor, image, penColor, intCommands, (ColorMap)cMap, (ImageMap)iMap);
+        botBar = new BottomBar(pLang, intCommands, (ColorMap) cMap, (ImageMap) iMap);
+        top.getChildren().addAll(topBar.getContainer(), botBar.getContainer());
+        BorderPane.setMargin(top, ViewInsets.TOP.getInset());
+        
 
     }
 
