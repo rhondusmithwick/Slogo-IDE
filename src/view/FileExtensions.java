@@ -1,5 +1,8 @@
 package view;
-
+/**
+ * @author calinelson
+ * class representing file extensions used in file choosers in the view
+ */
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public enum FileExtensions {
@@ -16,6 +19,10 @@ public enum FileExtensions {
             this.filter = new ExtensionFilter(type, ext);
     }
     
+    /**
+     * returns the ExtensionFilter for the given enum file type
+     * @return ExtensionFilter for a file type
+     */
     public ExtensionFilter getFilter(){
             return this.filter;
     }

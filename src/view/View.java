@@ -1,5 +1,11 @@
 package view;
 
+/**
+ * @author calinelson and stephen kwok
+ * This class represents a single workspace for the slogo interpreter, and is repsonsible for displaying and managing
+ * all componenets of the larger view;
+ */
+
 import view.commentry.CommandEntry;
 import view.commhistory.CommandHistoryDisplay;
 import view.envdisplay.DefinedObjectsDisplay;
@@ -83,6 +89,10 @@ public class View implements ViewInt {
         root.getChildren().add(UI);
     }
 
+    /**
+     * binds the size of the border pane to the size of the application
+     * @param scene to bind the panes size to
+     */
     @Override
     public void bindSize (Scene scene) {
         UI.prefHeightProperty().bind(scene.heightProperty());
@@ -190,23 +200,42 @@ public class View implements ViewInt {
     private void processExecute() {
         commandEntry.processCommands(); 
     }
-
+    
+    
+    /**
+     * returns the root containing the border pane and all view components
+     * @return Group containing all view components
+     */
     @Override
     public Group getGroup() {
         return root;
     }
 
-
+    /**
+     * returns the group contained by the turtle area scroll pane
+     * @return turtle area group
+     */
     @Override
     public Group getInnerGroup() {
         return turtDisp.getTurtleArea();
     }
-
+    
+    /**
+     * returns all simplestring properties defined in the view that need to 
+     * be bound to their twins in the controller/model
+     * @return list of all needed simplestring properties
+     */
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(image, penColor,variables, methods, error);
     }
 
+    /**
+     * returns the index maps responsible for mapping index numbers to colors
+     * or images to define the pallets
+     * @param boolean for which map to choose
+     * @return chosen index map
+     */
     @Override
     public IndexMap getMap (boolean colors) {
         if(colors){

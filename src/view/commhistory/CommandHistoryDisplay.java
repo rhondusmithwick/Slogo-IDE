@@ -87,6 +87,11 @@ public class CommandHistoryDisplay implements Observer {
         intCommand.set(command);
     }
 
+    /**
+     * returns the node containing all visual components for the command history display,
+     * so it can be added to the view
+     * @return node containing all command history components
+     */
     public Node getHistoryGraphic() {
         return myScrollPane;
     }

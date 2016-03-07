@@ -1,3 +1,7 @@
+/**
+ * this class is an enum of the insets for each area of the border pane
+ * @author calinelson
+ */
 package view;
 
 import javafx.geometry.Insets;
@@ -15,6 +19,10 @@ public enum ViewInsets {
 		
 	}
 	
+	/**
+	 * returns insets for border pane area based on area name
+	 * @return insets object 
+	 */
 	public Insets getInset(){
 		return this.inset;
 	}

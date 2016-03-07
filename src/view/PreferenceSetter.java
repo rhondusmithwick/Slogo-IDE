@@ -1,5 +1,10 @@
 package view;
-
+/**
+ * this class is repsonsible for opening a file loader, and
+ *  loading workspace preferences from a chosen xml file or setting default settings
+ *  if no file is chosen
+ *  @author calinelson
+ */
 import java.io.File;
 import javafx.beans.property.SimpleStringProperty;
 import maps.IndexMap;
@@ -25,7 +30,12 @@ public class PreferenceSetter {
         this.intCommands=intCommands;
     }
     
-    
+    /**
+     * Opens a file loader and allows user to choose xml file to load, then
+     * passes xml file to parser to be read. After the file is read it then 
+     * sets the appropriate parameters in the workspace based on the xml 
+     * file chosen.
+     */
     public void setPreferences () {
         XMLChooser xChoose = new XMLChooser(false);
         xChoose.show();
