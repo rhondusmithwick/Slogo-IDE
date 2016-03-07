@@ -17,19 +17,17 @@ import controller.controller.TurtleController;
  *
  * @author Rhondu Smithwick
  */
-class Slogo {
+public class Slogo {
     private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1200, 800);
 
     private static final Dimension2D turtleDispDimension = new Dimension2D(3000, 3000);
 
-    private final Controller controller = new TurtleController(turtleDispDimension);
+    private final static Controller controller = new TurtleController(turtleDispDimension);
 
-    private final MultiView multView = new MultiView(turtleDispDimension, controller.getInput(), controller.getLanguage());
+    private final MultiView multView = new MultiView(turtleDispDimension, controller.getInput(), controller.getLanguage(), controller);
 
-    Slogo() {
+    public Slogo() {
         MultiView.createTab();
-        multView.getViews().get(0).getInnerGroup().getChildren().add(controller.getGroup());
-        multView.getViews().forEach(e->bindProperties(e));
     }
 
     void init(Stage primaryStage) {
@@ -37,15 +35,16 @@ class Slogo {
         multView.bindSize(scene);
         primaryStage.setScene(scene);
     }
+    
 
 
-    private void bindProperties(ViewInt v) {
+    public static void bindProperties(ViewInt v) {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
         controllerProperties.parallelStream()
                 .forEach(e->findTwin(e, v));
     }
 
-    private void findTwin(SimpleStringProperty cProp, ViewInt view) {
+    private static void findTwin(SimpleStringProperty cProp, ViewInt view) {
         String cName = cProp.getName();
         List<SimpleStringProperty> viewProperties = view.getProperties();
         Predicate<SimpleStringProperty> shouldBind = (p) ->
