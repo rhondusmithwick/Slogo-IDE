@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
 import view.Defaults;
 import view.Size;
 import view.utilities.ButtonFactory;
 import view.utilities.ComboFactory;
 import view.utilities.FileGetter;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -26,15 +24,13 @@ public abstract class SubBar implements Observer {
     private ResourceBundle myResources, myCommands;
     private HBox container;
     private ObjectObservable<String> language, intCommand;
-    private SimpleStringProperty error;
     private ColorMap colors;
 
 
-    public SubBar(ObjectObservable<String> language, SimpleStringProperty error, ObjectObservable<String> intCommand, 
+    public SubBar(ObjectObservable<String> language, ObjectObservable<String> intCommand, 
     		ColorMap cMap){
         this.language=language;
         this.intCommand=intCommand;
-        this.error=error;
         this.colors = cMap;
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         initHBox();
@@ -61,10 +57,6 @@ public abstract class SubBar implements Observer {
 
     }
 
-    public void showError(String key){
-        error.set("");
-        error.set(myResources.getString(key));
-    }
 
     public Button makeButton(String key, EventHandler<ActionEvent> handler) {
         Button newButt = ButtonFactory.createButton(myResources.getString(key), handler);

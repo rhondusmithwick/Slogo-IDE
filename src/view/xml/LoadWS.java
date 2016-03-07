@@ -12,7 +12,7 @@ import view.Defaults;
 public class LoadWS extends XMLParser {
     
     
-    private static List<String> paramDefaults = Arrays.asList(Defaults.WHITE.getDefault(), 
+    private static List<String> paramDefaults = Arrays.asList(Defaults.TURT_BACKGROUND.getDefault(), 
     															Defaults.PEN_COLOR.getDefault(), 
     															Defaults.LANG.getDefault(), 
     															Defaults.DEFAULT.getDefault(), 
@@ -23,9 +23,16 @@ public class LoadWS extends XMLParser {
     private ArrayList<String> params;
     
     
-    public void load(File file) throws Exception{
-        doc = createDocBuilder(file);
-        addElements();
+    public void load(File file) {
+        
+        try {
+            doc = createDocBuilder(file);
+            addElements();
+        }
+        catch (Exception e) {
+            params = new ArrayList<>(paramDefaults);
+        }
+        
 
     }
     

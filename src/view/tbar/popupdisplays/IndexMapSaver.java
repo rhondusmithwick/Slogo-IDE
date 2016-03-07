@@ -9,7 +9,6 @@ import view.Size;
 import view.xml.MapToXML;
 import view.utilities.ButtonFactory;
 import view.utilities.PopUp;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -20,14 +19,13 @@ public class IndexMapSaver extends PopUp{
 	private ResourceBundle myResources;
 	private TextField tField;
 	private IndexMap inMap;
-	private SimpleStringProperty error;
 
 
 
-	public IndexMapSaver(IndexMap inMap, SimpleStringProperty error){
+
+	public IndexMapSaver(IndexMap inMap){
 		super(Size.MAP_SAVER.getSize(), Size.MAP_SAVER.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
 		this.inMap = inMap;
-		this.error=error;
 		this.myResources =  ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 	}
 
@@ -44,9 +42,8 @@ public class IndexMapSaver extends PopUp{
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			error.set("");
-			error.set("saveError");
+			
+			return;
 
 		}
 	}

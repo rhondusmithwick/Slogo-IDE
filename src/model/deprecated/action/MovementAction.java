@@ -1,4 +1,4 @@
-package model.action;
+package model.deprecated.action;
 
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;

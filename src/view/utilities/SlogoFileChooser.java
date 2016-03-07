@@ -33,6 +33,7 @@ public abstract class SlogoFileChooser extends PopUp{
 	}
 	
 	protected File showWindow(){
+	        hideScene();
 		File file = showFChooser(fChoose,save);
 		closeScene();
 		return file;

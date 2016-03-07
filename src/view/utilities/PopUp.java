@@ -89,5 +89,9 @@ public abstract class PopUp {
 		s.setTitle(title);
 	}
 	
+	protected void hideScene(){
+	    s.hide();
+	}
+	
 	
 }

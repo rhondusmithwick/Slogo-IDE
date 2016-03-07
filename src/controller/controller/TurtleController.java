@@ -5,8 +5,6 @@ import controller.slogoparser.SlogoParser;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
-import model.action.TurtleAction;
-import model.action.VisionAction;
 import model.deprecated.Command;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
@@ -19,7 +17,6 @@ import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -70,35 +67,13 @@ public class TurtleController implements Controller, Observer {
         } else {
         	try {
         		ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, parsedText);        		
-        		expressionTree.executeAll();
+        		System.out.println(expressionTree);
+                new Thread(expressionTree::executeAll).start();
         		variables.modifyIfShould();
-        		new Thread(this::runActions).start();
         	} catch (Exception es) {
         		error.set("");
         		error.set("Exception in command argument: " + input);
         	}
-        }
-    }
-
-    private void runActions() {
-        Queue<TurtleAction> actions = myTurtle.getActions();
-        if (!actions.isEmpty()) {
-            boolean isVisible = myTurtle.getTurtleProperties().getVisible();
-            runAction(new VisionAction(myTurtle, false));
-            actions.stream().forEach(this::runAction);
-            runAction(new VisionAction(myTurtle, isVisible));
-            myTurtle.clearActions();
-        }
-    }
-
-    private void runAction(TurtleAction action) {
-        new Thread(action).start();
-        while (!action.isDone()) {
-            try {
-                TimeUnit.MILLISECONDS.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Map.Entry;
 
 import view.Size;
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -13,8 +13,8 @@ import observables.MapObservable;
 public class ColorDisplay extends PaletteDisp {
     
     
-    public ColorDisplay (String title, SimpleStringProperty error, MapObservable<Integer, String> cMap) {
-        super(title, error, cMap);
+    public ColorDisplay (String title, MapObservable<Integer, String> cMap) {
+        super(title, cMap);
         
     }
 

@@ -1,25 +1,11 @@
 package model.queries;
 
-import model.action.QueryAction;
-import model.action.TurtleAction;
-import model.turtle.Turtle;
+import model.treenode.TurtleCommandNode;
 
-public class GetHeading extends Query {
+public class GetHeading extends TurtleCommandNode {
 
-	@Override
-	protected double getQuery() {
-		Turtle myTurtle = getTurtle();
-		
-		double heading = myTurtle.getTurtleProperties().getHeading();
-		
-		TurtleAction action = new QueryAction(myTurtle, heading);
-		addAction(action);
-		
-		return heading;
-	}
-
-	@Override
-	protected double execute() {
-		return getQuery();
-	}
+    @Override
+    protected double execute() {
+        return getTurtle().getTurtleProperties().getHeading();
+    }
 }

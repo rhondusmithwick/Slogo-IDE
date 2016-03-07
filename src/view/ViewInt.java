@@ -3,6 +3,7 @@ package view;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import maps.IndexMap;
 import java.util.List;
 
 /**
@@ -37,6 +38,8 @@ public interface ViewInt {
     Group getInnerGroup();
 
     void bindSize (Scene scene);
+    
+    IndexMap getMap(boolean colors);
 
 
 }

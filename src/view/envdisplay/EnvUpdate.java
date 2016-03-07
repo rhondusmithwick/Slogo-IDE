@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import view.Defaults;
 import view.Size;
+import view.utilities.GetCommand;
 import view.utilities.PopUp;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -18,15 +19,16 @@ import observables.ObjectObservable;
 public abstract class EnvUpdate extends PopUp{
 
     private ObjectObservable<String> intCommand;
-    private ResourceBundle myResources, myCommands;
+    private ResourceBundle myResources;
     private Button setB;
 	private String newVal;
+    private ObjectObservable<String> pLang;
 
     public EnvUpdate(ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
     	super(Size.ENV_WIDTH.getSize(), Size.ENV_HEIGHT.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-        myCommands = ResourceBundle.getBundle(pLang.get());
         this.intCommand=intCommand;
+        this.pLang = pLang;
         
     }
 
@@ -70,17 +72,6 @@ public abstract class EnvUpdate extends PopUp{
     
 	protected abstract String getCommand(String[] newVals);
 	
-    protected String makeCommand(String key){
-    	String posCommands = myCommands.getString(key);
-        String command;
-        int multCommands = posCommands.indexOf(Defaults.COMM_SPLITER.getDefault());
-        if(multCommands >0){
-            command = posCommands.substring(0, multCommands);
-        }else{
-            command = posCommands;
-        }
-        return command;
-    }
     
     protected abstract void setNewValues();
     
@@ -94,6 +85,10 @@ public abstract class EnvUpdate extends PopUp{
     
     protected void passCommand(String command){
         intCommand.set(command);
+    }
+
+    protected String makeCommand (String key) {
+        return GetCommand.makeCommand(key,pLang.get() );
     }
 
 

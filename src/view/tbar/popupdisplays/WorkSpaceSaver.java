@@ -12,7 +12,6 @@ import view.utilities.ButtonFactory;
 import view.utilities.ComboFactory;
 import view.utilities.FileGetter;
 import view.utilities.PopUp;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -22,15 +21,13 @@ public class WorkSpaceSaver extends PopUp{
 
 
     private ResourceBundle myResources;
-    SimpleStringProperty error;
     private TextField tField;
     private ArrayList<String> colors, langs;
     private ComboBox<String> bColor,pColor, pLangs, colorFile, imageFile;
 
-    public WorkSpaceSaver(List<String> colors, List<String> langs , SimpleStringProperty error){
+    public WorkSpaceSaver(List<String> colors, List<String> langs){
     	super(Size.HTML_HEIGHT.getSize(), Size.HTML_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
         this.langs = (ArrayList<String>) langs;
-        this.error=error;
         this.colors=(ArrayList<String>) colors;
         this.myResources= ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     }
@@ -61,15 +58,11 @@ public class WorkSpaceSaver extends PopUp{
         }
         catch (Exception e) {
 
-            showError();
+            return;
         }
         closeScene();
     }
     
-    private void showError () {
-        error.set("");
-        error.set(myResources.getString("wSpaceError"));
-    }
     
     private List<String> getAllInput () {
         return Arrays.asList(getInput(bColor.getSelectionModel().getSelectedItem()),
@@ -91,7 +84,7 @@ public class WorkSpaceSaver extends PopUp{
                 }
                 return text;
             }catch (Exception e){
-                showError();
+                return Defaults.DEFAULT.getDefault();
             }
         }
         return Defaults.DEFAULT.getDefault();
