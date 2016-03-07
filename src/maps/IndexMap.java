@@ -1,14 +1,14 @@
 package maps;
 
+import observables.MapObservable;
+import view.Defaults;
+import view.xml.MapFromXML;
+
 /**
  * This class represents a map from an Integer index to a string value.  It is backed by
  * a MapObservable so that observers can be notified whenever components are added to the map.
  * @author calinelson
  */
-
-import observables.MapObservable;
-import view.Defaults;
-import view.xml.MapFromXML;
 
 public abstract class IndexMap {
 	

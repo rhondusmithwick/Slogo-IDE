@@ -34,6 +34,11 @@ public enum Defaults {
 	
 	
 	private String content;
+	
+	/**
+	 * creates default for string str
+	 * @param str default string
+	 */
 	Defaults(String str){
 		this.content=str;
 	}

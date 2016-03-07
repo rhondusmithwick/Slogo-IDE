@@ -63,6 +63,12 @@ public class View implements ViewInt {
     private VBox left, right;
     private IndexMap cMap, iMap;
 
+    /**
+     * creates a new view object
+     * @param turtleDispDimension 2D dimension defining the turtle area size
+     * @param input observable string used to pass input to back end
+     * @param pLang observabl string used to set parsing language on backend
+     */
     public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
         this.pLang = pLang;
         this.input = input;

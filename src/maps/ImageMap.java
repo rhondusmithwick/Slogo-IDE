@@ -1,14 +1,17 @@
 package maps;
+
+import java.io.File;
+
+import observables.MapObservable;
+import view.Defaults;
+
+
 /**
  * this class is a map between an integer index and a string representing a valid
  * image file path. It is an observable map so that when new images are added, observers
  * are notified of the change.
  * @author calinelson
  */
-import java.io.File;
-
-import observables.MapObservable;
-import view.Defaults;
 
 public class ImageMap extends IndexMap{
 

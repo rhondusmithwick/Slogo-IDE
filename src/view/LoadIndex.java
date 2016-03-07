@@ -16,6 +16,11 @@ public enum LoadIndex {
     NUM_TURT(5);
     
     private int index;
+    
+    /**
+     * sets index for parameter
+     * @param index index of param
+     */
     LoadIndex(int index){
             this.index=index;
     }

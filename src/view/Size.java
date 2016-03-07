@@ -1,8 +1,10 @@
+
+package view;
+
 /**
  * this class is an enum of all component sizes,borders, and padding for the view
  * @author calinelson
  */
-package view;
 
 public enum Size {
 	
@@ -27,6 +29,11 @@ public enum Size {
 	ENV_WIDTH(300);
 	
 	private int size;
+	
+	/**
+	 * creates new size enum for component name
+	 * @param size size for component
+	 */
 	Size(int size){
 		this.size=size;
 	}

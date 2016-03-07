@@ -15,6 +15,11 @@ public enum FileExtensions {
     
     private ExtensionFilter filter;
     
+    /**
+     * creates extension filter for file type
+     * @param type file type of extension
+     * @param ext file extension
+     */
     FileExtensions(String type, String ext){
             this.filter = new ExtensionFilter(type, ext);
     }

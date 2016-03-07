@@ -1,17 +1,17 @@
 package maps;
 
+import java.lang.reflect.Field;
+
+import view.Defaults;
+import javafx.scene.paint.Color;
+import observables.MapObservable;
+
 /**
  * this class is a map between an integer index and a string representing a valid
  * javafx color. It is an observable map so that when new colors are added, observers
  * are notified of the change.
  * @author calinelson
  */
-
-import java.lang.reflect.Field;
-
-import view.Defaults;
-import javafx.scene.paint.Color;
-import observables.MapObservable;
 
 public class ColorMap extends IndexMap {
     private static final int B = 2;

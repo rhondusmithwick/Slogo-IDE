@@ -21,6 +21,15 @@ public class PreferenceSetter {
     public IndexMap cMap;
     public IndexMap iMap;
 
+    /**
+     * creates a new preference setter object
+     * @param penColor simplestringproperty for pencolor
+     * @param pLang observable string for parsing language
+     * @param cMap color map object
+     * @param iMap index map object
+     * @param backgroundColor observable string for background color
+     * @param intCommands observable string for passing internal commands
+     */
     public PreferenceSetter (SimpleStringProperty penColor, ObjectObservable<String> pLang, IndexMap cMap, IndexMap iMap, ObjectObservable<String> backgroundColor, ObjectObservable<String> intCommands) {
         this.penColor = penColor;
         this.pLang=pLang;
