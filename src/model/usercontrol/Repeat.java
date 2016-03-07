@@ -17,9 +17,8 @@ public class Repeat extends CommandNode {
     @Override
     protected double execute() {
         int numTimes = (int) getChildren().get(0).getValue();
-        getChildren().remove(0);
         IntStream.range(0, numTimes + 1).forEach(i -> runChildren());
-        return value;
+        return (value != null) ? value : 0;
     }
 
     private void runChildren() {

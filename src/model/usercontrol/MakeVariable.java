@@ -31,4 +31,9 @@ public class MakeVariable extends TreeNode {
         }
         return value.toString();
     }
+
+
+    public void setValue(double value) {
+        this.value = value;
+    }
 }

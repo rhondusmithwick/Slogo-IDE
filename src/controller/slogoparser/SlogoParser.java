@@ -36,15 +36,22 @@ public class SlogoParser {
             String regex = resources.getString(key);
             mySymbols.put(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
         }
-        mySymbols.remove("Command");
+//        mySymbols.remove("Command");
         System.out.println(mySymbols);
     }
 
     private String getSymbol(String text) {
         Predicate<Entry<String, Pattern>> matched = (e) -> match(text, e.getValue());
-        return mySymbols.entrySet()
-                .parallelStream().filter(matched).findFirst()
-                .map(Entry::getKey).orElse(ERROR);
+        List<String> symbols = mySymbols.entrySet()
+                .parallelStream().filter(matched)
+                .map(Entry::getKey)
+                .collect(Collectors.toList());
+        if (symbols.size() == 0) return ERROR;
+        if (symbols.size() == 1) return symbols.get(0);
+        Predicate<String> getRidOfCommand = (e -> !e.equals("Command"));
+        return symbols.parallelStream()
+                .filter(getRidOfCommand)
+                .findFirst().orElse(ERROR);
     }
 
     private boolean match(String text, Pattern regex) {
@@ -54,6 +61,7 @@ public class SlogoParser {
     public Queue<Entry<String, String>> parseText(String input) {
         Predicate<Entry<String, String>> containsError = (e) -> Objects.equals(e.getKey(), ERROR);
         Queue<Entry<String, String>> parsedText = createParsedText(input);
+        System.out.println(parsedText);
         if (parsedText.stream().anyMatch(containsError)) {
             return null;
         } else {
