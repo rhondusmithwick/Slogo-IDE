@@ -4,6 +4,7 @@ package view.tbar;
 import java.util.Observable;
 
 import view.Defaults;
+import view.MultiView;
 import view.envdisplay.EnvUpdate;
 import view.tbar.popupdisplays.HelpScreen;
 import view.tbar.popupdisplays.IndexMapSaver;
@@ -67,6 +68,7 @@ public class BottomBar extends SubBar {
         makeButton("saveColor", e-> saveMap(true));
         makeButton("saveImage", e->saveMap(false));
         makeButton("help", e -> hScreen.show());
+        makeButton("newTab", e-> MultiView.createTab());
 
     }
 

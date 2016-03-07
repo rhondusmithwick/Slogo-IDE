@@ -2,7 +2,7 @@ package view;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import maps.IndexMap;
 import java.util.List;
 
@@ -36,10 +36,10 @@ public interface ViewInt {
      * @return group that defines turtles area
      */
     Group getInnerGroup();
-
-    void bindSize (Scene scene);
     
     IndexMap getMap(boolean colors);
+
+    void bindSize (TabPane t);
 
 
 }

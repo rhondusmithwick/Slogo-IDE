@@ -17,8 +17,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -84,9 +84,9 @@ public class View implements ViewInt {
     }
 
     @Override
-    public void bindSize (Scene scene) {
-        UI.prefHeightProperty().bind(scene.heightProperty());
-        UI.prefWidthProperty().bind(scene.widthProperty());
+    public void bindSize (TabPane t) {
+        UI.prefHeightProperty().bind(t.heightProperty());
+        UI.prefWidthProperty().bind(t.widthProperty());
     }
 
     private void createScene() {
