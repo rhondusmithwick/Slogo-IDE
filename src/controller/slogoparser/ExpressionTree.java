@@ -49,6 +49,7 @@ public class ExpressionTree {
     public void executeAll() {
         rootList.stream().forEach(TreeNode::getValue);
         Platform.runLater(variables::modifyIfShould);
+        Platform.runLater(definedCommands::modifyIfShould);
     }
 
     private List<TreeNode> createRootList() {
