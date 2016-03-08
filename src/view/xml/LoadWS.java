@@ -1,29 +1,30 @@
 package view.xml;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import view.Defaults;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Class is responsible for parsing workspace preferences xml file. It is a subclass
  * of the abstract XMLParser class.
- * @author Cali
  *
+ * @author Cali
  */
 
 public class LoadWS extends XMLParser {
 
 
-    private static List<String> paramDefaults = Arrays.asList(Defaults.TURT_BACKGROUND.getDefault(), 
-                                                              Defaults.PEN_COLOR.getDefault(), 
-                                                              Defaults.LANG.getDefault(), 
-                                                              Defaults.DEFAULT.getDefault(), 
-                                                              Defaults.DEFAULT.getDefault(), 
-                                                              Defaults.NUM_TURTS.getDefault());
+    private static List<String> paramDefaults = Arrays.asList(Defaults.TURT_BACKGROUND.getDefault(),
+            Defaults.PEN_COLOR.getDefault(),
+            Defaults.LANG.getDefault(),
+            Defaults.DEFAULT.getDefault(),
+            Defaults.DEFAULT.getDefault(),
+            Defaults.NUM_TURTS.getDefault());
 
     private Document doc;
     private ArrayList<String> params;
@@ -31,6 +32,7 @@ public class LoadWS extends XMLParser {
     /**
      * Gets user workspace preference parameters from an XML file.
      * If no file passed, it sets default preferences.
+     *
      * @param file File to load preferences from.
      */
     public void load(File file) {
@@ -38,8 +40,7 @@ public class LoadWS extends XMLParser {
         try {
             doc = createDocBuilder(file);
             getElements();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             params = new ArrayList<>(paramDefaults);
         }
 
@@ -51,10 +52,10 @@ public class LoadWS extends XMLParser {
      * preferences
      */
     @Override
-    protected void getElements () {
+    protected void getElements() {
         params = new ArrayList<>();
         Node config = doc.getDocumentElement().getChildNodes().item(0);
-        AttrNames.WORKSPACE.getNames().stream().forEach(e->params.add(config.getAttributes().getNamedItem(e).getTextContent()));
+        AttrNames.WORKSPACE.getNames().stream().forEach(e -> params.add(config.getAttributes().getNamedItem(e).getTextContent()));
 
 
     }
@@ -62,11 +63,12 @@ public class LoadWS extends XMLParser {
     /**
      * returns the Preference associated with a certain Integer index. These indexes are set in the LoadIndex
      * enum in the view package. If no preference has been specified, the default value is set.
+     *
      * @param index index of preference to return
      * @return String representing user preference for given integer index
      */
-    public String getParam(int index){
-        if(params.get(index).equals(Defaults.DEFAULT.getDefault())){
+    public String getParam(int index) {
+        if (params.get(index).equals(Defaults.DEFAULT.getDefault())) {
             return paramDefaults.get(index);
         }
         return params.get(index);

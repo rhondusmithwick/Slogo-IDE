@@ -1,20 +1,22 @@
 package view.tbar;
-import java.util.Observable;
-import view.tbar.popupdisplays.ColorDisplay;
-import view.tbar.popupdisplays.ImageChooser;
-import view.tbar.popupdisplays.ImageDisplay;
-import view.utilities.PopUp;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
 import observables.ObjectObservable;
+import view.tbar.popupdisplays.ColorDisplay;
+import view.tbar.popupdisplays.ImageChooser;
+import view.tbar.popupdisplays.ImageDisplay;
+import view.utilities.PopUp;
+
+import java.util.Observable;
 
 
 /**
  * class represents the top sub bar of the tool bar. it is a sub class of the abstract class sub bar.
- * @author calisnelson and Stephen Kwok
  *
+ * @author calisnelson and Stephen Kwok
  */
 public class TopBar extends SubBar {
 
@@ -27,23 +29,24 @@ public class TopBar extends SubBar {
 
     /**
      * creates a new top bar instance.
-     * @param language language string observable for setting and storing parsing language
+     *
+     * @param language   language string observable for setting and storing parsing language
      * @param intCommand string observable for passing commands to command entry instance
-     * @param cMap Index map object for mapping colors to integer indexes
-     * @param iMap Index map object for mapping images to integer indexes
-     * @param bgColor string observable to set turtle area background color
-     * @param image simplestring property to set turtles image
-     * @param penColor simplestringproperty to set turtles pen color
+     * @param cMap       Index map object for mapping colors to integer indexes
+     * @param iMap       Index map object for mapping images to integer indexes
+     * @param bgColor    string observable to set turtle area background color
+     * @param image      simplestring property to set turtles image
+     * @param penColor   simplestringproperty to set turtles pen color
      */
     public TopBar(ObjectObservable<String> language, ObjectObservable<String> bgColor,
-                  SimpleStringProperty image, SimpleStringProperty penColor, 
+                  SimpleStringProperty image, SimpleStringProperty penColor,
                   ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
         super(language, intCommand, cMap);
-        this.image=image;
+        this.image = image;
         this.bgColor = bgColor;
-        this.penColor=penColor;
+        this.penColor = penColor;
         cDisp = new ColorDisplay("colorTitle", cMap.getIndexMap());
-        iDisp = new ImageDisplay("imageTitle",  iMap.getIndexMap());
+        iDisp = new ImageDisplay("imageTitle", iMap.getIndexMap());
 
 
     }
@@ -89,19 +92,18 @@ public class TopBar extends SubBar {
     }
 
     private void chooseTurtIm() {
-        
-            ImageChooser imChoose = new ImageChooser();
-            imChoose.show();
-            String newImage;
-            try {
-                newImage = imChoose.getChosen();
-                if(newImage!=null){
-                    image.set(newImage);
-                }
+
+        ImageChooser imChoose = new ImageChooser();
+        imChoose.show();
+        String newImage;
+        try {
+            newImage = imChoose.getChosen();
+            if (newImage != null) {
+                image.set(newImage);
             }
-            catch (Exception e) {
-                return;
-            }
+        } catch (Exception e) {
+            return;
+        }
     }
 
     /**

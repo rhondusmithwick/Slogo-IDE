@@ -1,8 +1,10 @@
 package view.tbar;
 
 
-import java.util.Observable;
-
+import javafx.scene.control.ComboBox;
+import maps.ColorMap;
+import maps.ImageMap;
+import observables.ObjectObservable;
 import view.Defaults;
 import view.envdisplay.EnvUpdate;
 import view.tbar.popupdisplays.HelpScreen;
@@ -10,22 +12,18 @@ import view.tbar.popupdisplays.IndexMapSaver;
 import view.tbar.popupdisplays.PenSizeUpdater;
 import view.tbar.popupdisplays.WorkSpaceSaver;
 import view.utilities.PopUp;
-import javafx.scene.control.ComboBox;
-import maps.ColorMap;
-import maps.ImageMap;
 
-import observables.ObjectObservable;
+import java.util.Observable;
 
 /**
  * class represents the bottom sub bar of the tool bar. it is a sub class of the abstract class sub bar.
- * @author calisnelson and Stephen Kwok
  *
+ * @author calisnelson and Stephen Kwok
  */
 public class BottomBar extends SubBar {
 
-    private PopUp hScreen;
-
     ObjectObservable<String> intCommand;
+    private PopUp hScreen;
     private ComboBox<String> langBox;
     private EnvUpdate penSizeUpdater;
     private ColorMap cMap;
@@ -33,17 +31,18 @@ public class BottomBar extends SubBar {
 
     /**
      * Creates a new bottom bar instance
-     * @param language language string observable for setting and storing parsing language
+     *
+     * @param language   language string observable for setting and storing parsing language
      * @param intCommand string observable for passing commands to command entry instance
-     * @param cMap Index map object for mapping colors to integer indexes
-     * @param iMap Index map object for mapping images to integer indexes
+     * @param cMap       Index map object for mapping colors to integer indexes
+     * @param iMap       Index map object for mapping images to integer indexes
      */
-    public BottomBar(ObjectObservable<String> language, 
+    public BottomBar(ObjectObservable<String> language,
                      ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
         super(language, intCommand, cMap);
         this.iMap = iMap;
         this.cMap = cMap;
-        this.intCommand=intCommand;
+        this.intCommand = intCommand;
         hScreen = new HelpScreen();
 
     }
@@ -53,14 +52,15 @@ public class BottomBar extends SubBar {
      * Called on update to any observable. Not used for this class.
      */
     @Override
-    public void update(Observable o, Object arg){}
+    public void update(Observable o, Object arg) {
+    }
 
     /**
      * creates all comboboxes needed for sub bar
      */
     @Override
     protected void createComboBoxes() {
-        langBox = createComboBox("selLang", getLanguages(), e -> setLang() );
+        langBox = createComboBox("selLang", getLanguages(), e -> setLang());
 
     }
 
@@ -71,39 +71,36 @@ public class BottomBar extends SubBar {
     }
 
 
-
     /**
      * creates all buttons needed for sub bar
      */
     @Override
     protected void createButtons() {
-        makeButton("workSaver", e->saveWorkSpace());
+        makeButton("workSaver", e -> saveWorkSpace());
         makeButton("penUp", e -> setPen("PenUp"));
         makeButton("penDown", e -> setPen("PenDown"));
         makeButton("setPenSize", e -> setPenSize());
-        makeButton("saveColor", e-> saveMap(true));
-        makeButton("saveImage", e->saveMap(false));
+        makeButton("saveColor", e -> saveMap(true));
+        makeButton("saveImage", e -> saveMap(false));
         makeButton("help", e -> hScreen.show());
 
     }
 
 
-    private void saveMap (boolean colors) {
+    private void saveMap(boolean colors) {
         try {
             PopUp mSave;
-            if(colors){
+            if (colors) {
                 mSave = new IndexMapSaver(cMap);
 
-            }else{
+            } else {
                 mSave = new IndexMapSaver(iMap);
             }
             mSave.show();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return;
         }
     }
-
 
 
     private void saveWorkSpace() {

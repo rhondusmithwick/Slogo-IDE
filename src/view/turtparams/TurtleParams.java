@@ -1,9 +1,5 @@
 package view.turtparams;
 
-import java.util.ResourceBundle;
-
-import view.Defaults;
-import view.Size;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -16,12 +12,16 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import view.Defaults;
+import view.Size;
+
+import java.util.ResourceBundle;
 
 /**
- * Class is responsible for displaying certain turtle parameters and properties to the user such as location, 
+ * Class is responsible for displaying certain turtle parameters and properties to the user such as location,
  * heading, etc.
- * @author Stephen Kwok
  *
+ * @author Stephen Kwok
  */
 
 public class TurtleParams {
@@ -40,9 +40,10 @@ public class TurtleParams {
 
     /**
      * creates new turtle params object
+     *
      * @param location SimpleObjectProperty containing turtle's location
-     * @param heading SimpleDoubleProperty containing turtle's heading
-     * @param penDown SimpleBooleanProperty showing whether turtle's pen is down
+     * @param heading  SimpleDoubleProperty containing turtle's heading
+     * @param penDown  SimpleBooleanProperty showing whether turtle's pen is down
      * @param penColor SimpleStringProperty displaying turtle's pen color
      */
     public TurtleParams(SimpleObjectProperty<Point2D> location,
@@ -63,7 +64,7 @@ public class TurtleParams {
         addParams();
     }
 
-    private void addParams () {
+    private void addParams() {
         box.getChildren().add(createLabel(myResources.getString("penLoc") + location.get()));
         box.getChildren().add(createLabel(myResources.getString("penHead") + heading.get()));
         box.getChildren().add(createLabel(myResources.getString("penStat") + penColor.get()));
@@ -92,9 +93,10 @@ public class TurtleParams {
         label.setWrapText(true);
         return label;
     }
-    
+
     /**
      * returns the scrollpane containing all the nodes needed to display the turtle parameters
+     *
      * @return scroll pane containing all components needed to display parameters
      */
     public Node getTurtleParams() {

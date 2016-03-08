@@ -1,13 +1,12 @@
 package controller.slogoparser;
 
-import model.movement.Movement;
-import model.usercontrol.MakeUserInstruction;
-import model.usercontrol.Repeat;
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
-import model.usercontrol.MakeVariable;
+import model.usercontrol.MakeUserInstruction;
+import model.usercontrol.Repeat;
+import model.usercontrol.Variable;
 import observables.MapObservable;
 
 import java.util.LinkedList;
@@ -155,13 +154,13 @@ public class ExpressionTree {
     }
 
     private void addVariableIfShould(TreeNode n) {
-        if (n instanceof MakeVariable) {
+        if (n instanceof Variable) {
             Entry<String, String> curr = parsedText.poll();
             variables.put(curr.getValue(), n);
             createSubTree(n);
         }
     }
-  
+
     private void makeRepeat(TreeNode n) {
         if (n instanceof Repeat) {
             TreeNode numTimes = createRoot();
@@ -177,7 +176,7 @@ public class ExpressionTree {
             String name = parsedText.poll().getValue();
             definedCommands.put(name, mn);
             mn.makeVariables(parsedText);
-            Map<String, MakeVariable> currVariableMap = mn.getVariableMap();
+            Map<String, Variable> currVariableMap = mn.getVariableMap();
             variables.putAll(currVariableMap);
             List<TreeNode> myRoots = getComamndsList();
             myRoots.stream().forEach(mn::addChild);
@@ -185,7 +184,6 @@ public class ExpressionTree {
             currVariableMap.keySet().stream().filter(pred).forEach(variables::remove);
         }
     }
-
 
 
     private List<TreeNode> getComamndsList() {

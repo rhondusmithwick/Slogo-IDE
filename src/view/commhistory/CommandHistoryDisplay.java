@@ -8,15 +8,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
+import view.Defaults;
+import view.Size;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
-import view.Defaults;
-import view.Size;
 
 /**
  * This class implements the CommHistory interface and allows any previously executed commands
@@ -37,12 +36,13 @@ public class CommandHistoryDisplay implements Observer {
 
     /**
      * Creates a new command history object.
-     * @param intCommand string observable used to pass commands from view components to command entry
+     *
+     * @param intCommand  string observable used to pass commands from view components to command entry
      * @param commHistory string observable observed by this to add commands to history display
      */
     public CommandHistoryDisplay(ObjectObservable<String> intCommand, ObjectObservable<String> commHistory) {
         this.intCommand = intCommand;
-        this.commHistory=commHistory;
+        this.commHistory = commHistory;
         commHistory.addObserver(this);
         this.commands = new ArrayList<>();
         this.commandLabels = new ArrayList<>();
@@ -53,33 +53,33 @@ public class CommandHistoryDisplay implements Observer {
         myScrollPane.setContent(myCommHistory);
     }
 
-    private void createVBox () {
+    private void createVBox() {
         myCommHistory = new VBox();
         myCommHistory.prefWidthProperty().bind(myScrollPane.widthProperty());
     }
 
-    private void createScrollPane () {
-        myScrollPane = new ScrollPane(); 
+    private void createScrollPane() {
+        myScrollPane = new ScrollPane();
         myScrollPane.setMinViewportHeight(Size.BOTTOM_HEIGHT.getSize());
         myScrollPane.setPrefViewportHeight(Size.BOTTOM_HEIGHT.getSize());
         myScrollPane.setMaxHeight(Size.BOTTOM_HEIGHT.getSize());
         HBox.setHgrow(myScrollPane, Priority.ALWAYS);
     }
 
-    private void createTitle () {
+    private void createTitle() {
         title = addCommand(myResources.getString("commBTitle"));
         title.setAlignment(Pos.TOP_CENTER);
         title.setOnMouseClicked(null);
     }
 
     private Label addCommand(String command) {
-        if (command.isEmpty()){
+        if (command.isEmpty()) {
             return null;
         }
         commands.add(command);
         Label label = new Label(command);
         label.prefWidthProperty().bind(myScrollPane.widthProperty());
-        label.setStyle(Defaults.BORDER_COLOR.getDefault() );
+        label.setStyle(Defaults.BORDER_COLOR.getDefault());
         label.setWrapText(true);
         label.setOnMouseClicked(e -> labelClicked(label));
         commandLabels.add(label);
@@ -88,13 +88,14 @@ public class CommandHistoryDisplay implements Observer {
     }
 
     private void labelClicked(Label label) {
-        String command = Defaults.COMMAND_TO_TEXT_BOX.getDefault()+label.getText();
+        String command = Defaults.COMMAND_TO_TEXT_BOX.getDefault() + label.getText();
         intCommand.set(command);
     }
 
     /**
      * returns the node containing all visual components for the command history display,
      * so it can be added to the view
+     *
      * @return node containing all command history components
      */
     public Node getHistoryGraphic() {
@@ -102,7 +103,7 @@ public class CommandHistoryDisplay implements Observer {
     }
 
     @Override
-    public void update (Observable o, Object arg) {
+    public void update(Observable o, Object arg) {
         addCommand(commHistory.get());
     }
 
