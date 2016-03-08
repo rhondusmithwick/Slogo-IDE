@@ -39,7 +39,7 @@ public class TurtleController implements Controller, Observer {
 
     private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
 
-    private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedComamnds");
+    private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedCommands");
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
@@ -47,6 +47,7 @@ public class TurtleController implements Controller, Observer {
         input.addObserver(this);
         language.set(DEFAULT_LANGUAGE);
         variables.addObserver(this);
+        definedCommands.addObserver(this);
         group.getChildren().add(myTurtle.getGroup());
     }
 
