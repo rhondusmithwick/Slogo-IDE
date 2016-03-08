@@ -6,7 +6,14 @@ import java.util.function.DoubleUnaryOperator;
 
 public abstract class OneOperatorMath extends CommandNode {
 
-    protected double calculate(DoubleUnaryOperator func) {
+    private final DoubleUnaryOperator func;
+
+    protected OneOperatorMath(DoubleUnaryOperator func) {
+        this.func = func;
+    }
+
+    @Override
+    public double execute() {
         double value = getChildren().get(0).getValue();
         return func.applyAsDouble(value);
     }
