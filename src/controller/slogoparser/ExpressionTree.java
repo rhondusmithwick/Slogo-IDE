@@ -116,7 +116,6 @@ public class ExpressionTree {
             Class<?> theClass = Class.forName(commandLocations.getString(className));
             n = (TreeNode) theClass.newInstance();
         } catch (Exception e) {
-            System.out.println(className);
             n = new ConstantNode(0);
         }
         addTurtleIfShould(n);
@@ -177,7 +176,7 @@ public class ExpressionTree {
             MakeUserInstruction mn = (MakeUserInstruction) n;
             String name = parsedText.poll().getValue();
             definedCommands.put(name, mn);
-            makeVariables(mn);
+            mn.makeVariables(parsedText);
             Map<String, MakeVariable> currVariableMap = mn.getVariableMap();
             variables.putAll(currVariableMap);
             List<TreeNode> myRoots = getComamndsList();
@@ -187,21 +186,7 @@ public class ExpressionTree {
         }
     }
 
-    private void makeVariables(MakeUserInstruction n) {
-        if (parsedText.peek().getKey().equals("ListStart")) {
-            parsedText.poll();
-            int index = 0;
-            while (true) {
-                if (parsedText.peek().getKey().equals("ListEnd")) {
-                    parsedText.poll();
-                    break;
-                }
-                Entry<String, String> curr = parsedText.poll();
-                n.putInMap(index, curr.getValue());
-                index++;
-            }
-        }
-    }
+
 
     private List<TreeNode> getComamndsList() {
         List<TreeNode> myRoots = new LinkedList<>();

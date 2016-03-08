@@ -4,7 +4,10 @@ import model.treenode.CommandNode;
 import model.treenode.TreeNode;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  * Created by rhondusmithwick on 3/6/16.
@@ -28,7 +31,7 @@ public class MakeUserInstruction extends CommandNode {
 
     public void putInMap(int index, String name) {
         variableNames.put(index, name);
-        variableMap.put(name, new MakeVariable());
+        variableMap.put(name, new UserCommandVariable());
     }
 
 
@@ -41,8 +44,25 @@ public class MakeUserInstruction extends CommandNode {
         variableMap.get(variableName).setValue(Double.valueOf(value));
     }
 
-
     public Map<String, MakeVariable> getVariableMap() {
         return variableMap;
     }
+
+
+    public void makeVariables(Queue<Entry<String, String>> parsedText) {
+        if (parsedText.peek().getKey().equals("ListStart")) {
+            parsedText.poll();
+            int index = 0;
+            while (true) {
+                if (parsedText.peek().getKey().equals("ListEnd")) {
+                    parsedText.poll();
+                    break;
+                }
+                Entry<String, String> curr = parsedText.poll();
+                putInMap(index, curr.getValue());
+                index++;
+            }
+        }
+    }
+
 }

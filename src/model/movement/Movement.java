@@ -55,7 +55,7 @@ public abstract class Movement extends TurtleCommandNode {
     }
 
     private TranslateTransition createTransition(Point2D pointToMoveTo) {
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(1));
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(.5));
         transition.setNode(getTurtle().getTurtleProperties().getImageView());
         transition.setToX(pointToMoveTo.getX());
         transition.setToY(pointToMoveTo.getY());
