@@ -17,6 +17,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ *Class responsible for allowing user to set and save workspace preferences to an xml file.
+ *Is a subclass of abstract popup class.
+ * @author Cali
+ *
+ */
+
 public class WorkSpaceSaver extends PopUp{
 
 
@@ -25,6 +32,11 @@ public class WorkSpaceSaver extends PopUp{
     private ArrayList<String> colors, langs;
     private ComboBox<String> bColor,pColor, pLangs, colorFile, imageFile;
 
+    /**
+     * creates new workspace saver instance
+     * @param colors List of string of current possible colors
+     * @param langs List of strings of current possible parsing languages
+     */
     public WorkSpaceSaver(List<String> colors, List<String> langs){
     	super(Size.HTML_HEIGHT.getSize(), Size.HTML_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
         this.langs = (ArrayList<String>) langs;
@@ -32,6 +44,11 @@ public class WorkSpaceSaver extends PopUp{
         this.myResources= ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     }
     
+    /**
+     * creates all components needed for the updater popup and adds them to the popups scene.
+     * Also sets event handlers to handle user input when set button is pressed, and to pass
+     * set preferences to and XML writer.
+     */
     @Override
     protected void createScene () {
         Label title = new Label(myResources.getString("workSaver"));

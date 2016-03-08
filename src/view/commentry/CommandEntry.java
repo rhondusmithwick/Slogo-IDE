@@ -33,6 +33,13 @@ public class CommandEntry implements Observer {
     private Label title;
     private ResourceBundle myResources;
 
+    
+    /**
+     * creates new command entry object
+     * @param input observable string to pass input to backend 
+     * @param intCommands observable string used to pass input from other view components to command entry
+     * @param commHistory observable string used to pass entered commands to be entered into history
+     */
     public CommandEntry(ObjectObservable<String> input, ObjectObservable<String> intCommands, ObjectObservable<String> commHistory) {
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         this.input = input;
@@ -68,7 +75,11 @@ public class CommandEntry implements Observer {
 
     }
 
-
+    /**
+     * returns the Node containing all visual components needed for the command
+     * entry component of the view
+     * @return node containing all command entry components
+     */
     public Node getNode() {
         return myScrollPane;
     }
@@ -87,7 +98,10 @@ public class CommandEntry implements Observer {
         }
     }
 
-
+   /**
+    * Gets all entered text from the text box, sends the commands to the back end,
+    * adds commands to the history, and clears the text box for further use.
+    */
     public void processCommands() {
         String text = myEntryBox.getText();
         commHistory.set(text);

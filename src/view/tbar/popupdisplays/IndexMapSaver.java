@@ -14,50 +14,62 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import maps.IndexMap;
 
+/**
+ *Class responsible for allowing user to save current palettes based on index maps such as color and index palettes.
+ *Is a subclass of abstract popup class.
+ * @author Cali
+ *
+ */
 public class IndexMapSaver extends PopUp{
 
-	private ResourceBundle myResources;
-	private TextField tField;
-	private IndexMap inMap;
+    private ResourceBundle myResources;
+    private TextField tField;
+    private IndexMap inMap;
 
 
 
+    /**
+     * creates new indexmap save instance
+     * @param inMap index map to be saved
+     */
+    public IndexMapSaver(IndexMap inMap){
+        super(Size.MAP_SAVER.getSize(), Size.MAP_SAVER.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
+        this.inMap = inMap;
+        this.myResources =  ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
+    }
 
-	public IndexMapSaver(IndexMap inMap){
-		super(Size.MAP_SAVER.getSize(), Size.MAP_SAVER.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
-		this.inMap = inMap;
-		this.myResources =  ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-	}
+    private void saveList (){
 
-	private void saveList (){
+        closeScene();
+        try {
+            String text = tField.getText();
+            if(text.equals("")){
+                return;
+            }else{
+                MapToXML mapper = new MapToXML();
+                mapper.saveMap(text, inMap);
+            }
+        }
+        catch (Exception e) {
 
-		closeScene();
-		try {
-			String text = tField.getText();
-			if(text.equals("")){
-				return;
-			}else{
-				MapToXML mapper = new MapToXML();
-				mapper.saveMap(text, inMap);
-			}
-		}
-		catch (Exception e) {
-			
-			return;
+            return;
 
-		}
-	}
+        }
+    }
 
+    /**
+     * creates the scene and components needed to save the map, and adds them to
+     * popup scene
+     */
+    @Override
+    protected void createScene() {
+        Label title = new Label(myResources.getString("saverTitle"));
+        tField = new TextField();
+        tField.prefWidthProperty().bind(getSize(false));
+        Button set = ButtonFactory.createButton(myResources.getString("save"), e->saveList());
+        addNodes(Arrays.asList(title, tField, set));
 
-	@Override
-	protected void createScene() {
-		Label title = new Label(myResources.getString("saverTitle"));
-		tField = new TextField();
-		tField.prefWidthProperty().bind(getSize(false));
-		Button set = ButtonFactory.createButton(myResources.getString("save"), e->saveList());
-		addNodes(Arrays.asList(title, tField, set));
-
-	}
+    }
 
 }
 

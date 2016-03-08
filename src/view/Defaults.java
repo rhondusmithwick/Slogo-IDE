@@ -1,5 +1,10 @@
 package view;
-
+/**
+ * enum representing all string defaults for the view, for example css styling strings
+ * for the background
+ * @author calinelson
+ *
+ */
 public enum Defaults {
 	DISPLAY_LOC("resources/guiStrings/english"),
 	BACKGROUND_COLOR("-fx-background-color: cornflowerblue"),
@@ -29,10 +34,19 @@ public enum Defaults {
 	
 	
 	private String content;
+	
+	/**
+	 * creates default for string str
+	 * @param str default string
+	 */
 	Defaults(String str){
 		this.content=str;
 	}
 	
+	/**
+	 * returns default string
+	 * @return default string for enum
+	 */
 	public String getDefault(){
 		return this.content;
 	}
