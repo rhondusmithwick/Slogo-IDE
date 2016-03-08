@@ -21,6 +21,7 @@ public class MethodUpdate extends EnvUpdate {
     private String name, mNewVal, vNewVal, variables, methods, newVal, text;
     private TextField vField, mField;
     private Label vTitle,mTitle;
+	private Label label;
     
 
 
@@ -30,9 +31,10 @@ public class MethodUpdate extends EnvUpdate {
      * @param pLang string observable to store and set parsing language
      * @param text text for method needing to be updated
      */
-    public MethodUpdate(ObjectObservable<String> intCommand, ObjectObservable<String> pLang, String text){
+    public MethodUpdate(ObjectObservable<String> intCommand, ObjectObservable<String> pLang, Label label){
         super(intCommand, pLang);
-        this.text=text;
+        this.text=label.getText();
+        this.label= label;
 
        
     }
@@ -56,6 +58,7 @@ public class MethodUpdate extends EnvUpdate {
         setValues();
         String toPass = getCommand(new String[]{mNewVal, vNewVal});
         passCommand(toPass);
+        updateLabel(label);
         closeScene();
         
 

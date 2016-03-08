@@ -15,9 +15,8 @@ import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
 
 /**
- * This class implements EnviromentDisplayInterface and serves as the abstract
- * base class for all GUI elements that display any user-defined objects such as
- * methods or variables
+ * This class serves as the abstract base class for all GUI elements that 
+ * display any user-defined objects such as methods or variables
  *
  * @author Stephen
  */
@@ -54,7 +53,7 @@ public abstract class DefinedObjectsDisplay {
 
 	/**
 	 * updates a label which shows a defined variable or method
-	 * @param label label whose contentes to update
+	 * @param label label whose contents to update
 	 */
 	protected abstract void updateDefinedObject(Label label);
 
@@ -85,12 +84,12 @@ public abstract class DefinedObjectsDisplay {
 	 * @param text text representing user defined object to update
 	 * @return updater object used to update the defined object
 	 */
-	protected EnvUpdate getUpdater(String className, String text) {
+	protected EnvUpdate getUpdater(String className, Label label) {
 		try {
 			Class<?> classTemp = Class.forName(className);
 			Constructor<?> constructor = classTemp.getConstructor(ObjectObservable.class,
-					ObjectObservable.class, String.class);
-			Object obj = constructor.newInstance(intCommand, parsingLanguage, text);
+					ObjectObservable.class, Label.class);
+			Object obj = constructor.newInstance(intCommand, parsingLanguage, label);
 			return (EnvUpdate) obj;
 		} catch (Exception e) {
 			error.set("");
@@ -103,7 +102,8 @@ public abstract class DefinedObjectsDisplay {
 	 * creates the current display based off of the current state of the definedObjects
 	 * simplestring property
 	 */
-	protected void createCurrEnvDisp() {
+	public void createCurrEnvDisp() {
+	        System.out.println(definedObjects.get());
 		vBox = new VBox();
 		setTitle();
 		String definedObjectsString = definedObjects.get();

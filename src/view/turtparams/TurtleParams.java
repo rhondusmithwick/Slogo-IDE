@@ -66,8 +66,8 @@ public class TurtleParams {
     private void addParams () {
         box.getChildren().add(createLabel(myResources.getString("penLoc") + location.get()));
         box.getChildren().add(createLabel(myResources.getString("penHead") + heading.get()));
-        box.getChildren().add(createLabel(myResources.getString("penStat") + penColor.get()));
-        box.getChildren().add(createLabel(myResources.getString("penColor") + penDown.get()));
+        box.getChildren().add(createLabel(myResources.getString("penStat") + penDown.get()));
+        box.getChildren().add(createLabel(myResources.getString("penColor") + penColor.get()));
     }
 
     private void setScroll() {
