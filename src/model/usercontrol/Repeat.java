@@ -26,6 +26,7 @@ public class Repeat extends CommandNode {
 
     private void runChildren() {
         repcount.setValue(repcount.getValue() + 1);
+        System.out.println(repcount.getValue());
         value = getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
     }
 
