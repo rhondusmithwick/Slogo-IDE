@@ -160,10 +160,12 @@ public class ExpressionTree {
   
     private void makeRepeat(TreeNode n) {
         if (n instanceof Repeat) {
+        	Repeat r = (Repeat) n;
             TreeNode numTimes = createRoot();
             n.addChild(numTimes);
             List<TreeNode> nRoots = getCommandsList();
             nRoots.stream().forEach(n::addChild);
+            variables.put(":repcount", r.getVariable());
         }
     }
 

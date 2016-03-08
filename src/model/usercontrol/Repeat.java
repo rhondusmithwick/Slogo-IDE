@@ -29,9 +29,12 @@ public class Repeat extends CommandNode {
         value = getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
     }
 
-
     private void getNumTimes() {
         numTimes = (int) getChildren().get(0).getValue();
         getChildren().remove(0);
+    }
+    
+    public Variable getVariable() {
+    	return repcount;
     }
 }
