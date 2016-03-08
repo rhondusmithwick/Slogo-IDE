@@ -11,6 +11,11 @@ import maps.ImageMap;
 import observables.ObjectObservable;
 
 
+/**
+ * class represents the top sub bar of the tool bar. it is a sub class of the abstract class sub bar.
+ * @author calisnelson and Stephen Kwok
+ *
+ */
 public class TopBar extends SubBar {
 
     private SimpleStringProperty image, penColor;
@@ -20,7 +25,16 @@ public class TopBar extends SubBar {
     private ObjectObservable<String> bgColor;
 
 
-
+    /**
+     * creates a new top bar instance.
+     * @param language language string observable for setting and storing parsing language
+     * @param intCommand string observable for passing commands to command entry instance
+     * @param cMap Index map object for mapping colors to integer indexes
+     * @param iMap Index map object for mapping images to integer indexes
+     * @param bgColor string observable to set turtle area background color
+     * @param image simplestring property to set turtles image
+     * @param penColor simplestringproperty to set turtles pen color
+     */
     public TopBar(ObjectObservable<String> language, ObjectObservable<String> bgColor,
                   SimpleStringProperty image, SimpleStringProperty penColor, 
                   ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
@@ -34,6 +48,9 @@ public class TopBar extends SubBar {
 
     }
 
+    /**
+     * creates all comboboxes needed for sub bar
+     */
     @Override
     protected void createComboBoxes() {
         bColorBox = createComboBox("bColor", getColors(), e -> setBackground());
@@ -53,6 +70,9 @@ public class TopBar extends SubBar {
 
     }
 
+    /**
+     * creates all buttons needed for sub bar
+     */
     @Override
     protected void createButtons() {
         makeButton("image", e -> chooseTurtIm());
@@ -84,6 +104,10 @@ public class TopBar extends SubBar {
             }
     }
 
+    /**
+     * called whenever color map is updated with new option. Removes and recreates background color box
+     * and pen color box so that that they include the new option.
+     */
     @Override
     public void update(Observable o, Object arg) {
         getContainer().getChildren().removeAll(bColorBox, pColorBox);

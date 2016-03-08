@@ -19,9 +19,8 @@ public class MakeVariable extends TreeNode {
         return value;
     }
 
-    @Override
-    protected int getNumChildrenRequired() {
-        return 1;
+    public void setValue(double value) {
+        this.value = value;
     }
 
     @Override
@@ -29,6 +28,6 @@ public class MakeVariable extends TreeNode {
         if (value == null) {
             return "value not yet visible";
         }
-        return value.toString();
+        return String.format("MakeVariable with value:  %s", value.toString());
     }
 }

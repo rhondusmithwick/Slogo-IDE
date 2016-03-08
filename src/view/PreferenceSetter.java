@@ -8,14 +8,30 @@ import view.utilities.GetCommand;
 import view.xml.LoadWS;
 import view.xml.XMLChooser;
 
-public class PreferenceSetter {
-    public ObjectObservable<String> pLang;
-    public ObjectObservable<String> backgroundColor;
-    public ObjectObservable<String> intCommands;
-    public SimpleStringProperty penColor;
-    public IndexMap cMap;
-    public IndexMap iMap;
 
+/**
+ * this class is repsonsible for opening a file loader, and
+ *  loading workspace preferences from a chosen xml file or setting default settings
+ *  if no file is chosen
+ *  @author calinelson
+ */
+public class PreferenceSetter {
+    private ObjectObservable<String> pLang;
+    private ObjectObservable<String> backgroundColor;
+    private ObjectObservable<String> intCommands;
+    private SimpleStringProperty penColor;
+    private IndexMap cMap;
+    private IndexMap iMap;
+
+    /**
+     * creates a new preference setter object
+     * @param penColor simplestringproperty for pencolor
+     * @param pLang observable string for parsing language
+     * @param cMap color map object
+     * @param iMap index map object
+     * @param backgroundColor observable string for background color
+     * @param intCommands observable string for passing internal commands
+     */
     public PreferenceSetter (SimpleStringProperty penColor, ObjectObservable<String> pLang, IndexMap cMap, IndexMap iMap, ObjectObservable<String> backgroundColor, ObjectObservable<String> intCommands) {
         this.penColor = penColor;
         this.pLang=pLang;
@@ -24,8 +40,13 @@ public class PreferenceSetter {
         this.backgroundColor=backgroundColor;
         this.intCommands=intCommands;
     }
-    
-    
+
+    /**
+     * Opens a file loader and allows user to choose xml file to load, then
+     * passes xml file to parser to be read. After the file is read it then 
+     * sets the appropriate parameters in the workspace based on the xml 
+     * file chosen.
+     */
     public void setPreferences () {
         XMLChooser xChoose = new XMLChooser(false);
         xChoose.show();
@@ -46,9 +67,9 @@ public class PreferenceSetter {
         pLang.set(Defaults.PARSELANG_LOC.getDefault()+wsLoader.getParam(LoadIndex.P_LANG.getIndex()));
         setMaps(wsLoader);
         setTurts(wsLoader);
-        
+
     }
-    
+
     private void setTurts (LoadWS wsLoader) {
         int num= Integer.parseInt(wsLoader.getParam(LoadIndex.NUM_TURT.getIndex()));
         String comm = GetCommand.makeCommand("Tell", pLang.get()) + " "+Integer.toString(num);
@@ -63,7 +84,7 @@ public class PreferenceSetter {
             cMap.addElements(wsLoader.getParam(LoadIndex.C_FILE.getIndex()));
         }
         catch (Exception e) {
-           return;
+            return;
         }
     }
 }

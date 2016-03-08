@@ -18,7 +18,7 @@ import javafx.scene.image.ImageView;
 public final class TurtleProperties {
 
     private static final int IMAGE_DIM = 30;
-    private static final double baseAngle = 180;
+//    private static final double baseAngle = 180;
 
     private static final String DEFAULT_TURTLE_IMAGE = "resources/images/blackarrow.png";
 
@@ -38,7 +38,7 @@ public final class TurtleProperties {
         home.set(new Point2D(turtleDispDimension.getWidth() / 2 - imageDimensions.get().getWidth() / 2,
                 turtleDispDimension.getHeight() / 2 - imageDimensions.get().getHeight() / 2));
         setLocation(getHome());
-        setHeading(0);
+        setHeading(180);
         setPenDown(true);
         setPenColor("black");
     }
@@ -100,13 +100,12 @@ public final class TurtleProperties {
     }
 
     public void setHeading(double heading) {
-        double newAngle = baseAngle + heading;
-        if (newAngle >= 360) {
-            newAngle -= 360;
-        } else if (newAngle < 0) {
-            newAngle += 360;
+        if (heading >= 360) {
+            heading -= 360;
+        } else if (heading < 0) {
+            heading += 360;
         }
-        this.heading.set(newAngle);
+        this.heading.set(heading);
     }
 
     public boolean getPenDown() {

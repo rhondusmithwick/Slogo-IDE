@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import model.deprecated.Command;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
+import model.usercontrol.MakeUserInstruction;
 import observables.MapObservable;
 import observables.ObjectObservable;
 
@@ -38,7 +39,7 @@ public class TurtleController implements Controller, Observer {
 
     private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
 
-    private final MapObservable<String, TreeNode> definedCommands = new MapObservable<>("definedComamnds");
+    private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedComamnds");
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
@@ -61,20 +62,20 @@ public class TurtleController implements Controller, Observer {
     public void takeInput(String input) {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
-        if (parsedText == null) {
-        	error.set("");
-        	error.set("Command not recognized: " + input);
-        } else {
-        	try {
+//        if (parsedText == null) {
+//        	error.set("");
+//        	error.set("Command not recognized: " + input);
+//        } else {
+//        	try {
         		ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, parsedText);        		
         		System.out.println(expressionTree);
                 new Thread(expressionTree::executeAll).start();
         		variables.modifyIfShould();
-        	} catch (Exception es) {
-        		error.set("");
-        		error.set("Exception in command argument: " + input);
-        	}
-        }
+//        	} catch (Exception es) {
+//        		error.set("");
+//        		error.set("Exception in command argument: " + input);
+//        	}
+//        }
     }
 
     @Override

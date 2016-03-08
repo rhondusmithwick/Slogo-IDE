@@ -6,7 +6,9 @@ import view.envdisplay.DefinedObjectsDisplay;
 import view.envdisplay.MethodDisplay;
 import view.envdisplay.VariableDisplay;
 import view.error.ErrorDisplay;
-import view.tbar.ToolBar;
+import view.tbar.BottomBar;
+import view.tbar.SubBar;
+import view.tbar.TopBar;
 import view.turtdisplay.TurtleDisplay;
 import view.turtparams.TurtleParams;
 import view.utilities.ButtonFactory;
@@ -30,6 +32,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
+/**
+ * @author calinelson and stephen kwok
+ * This class represents a single workspace for the slogo interpreter, and is repsonsible for displaying and managing
+ * all componenets of the larger view;
+ */
 public class View implements ViewInt {
 
     private final Dimension2D turtleDispDimension;
@@ -45,7 +53,6 @@ public class View implements ViewInt {
     private BorderPane UI;
     private ResourceBundle myResources;
     private Group root;
-    private ToolBar tBar;
     private Button executeButton;
     private TurtleDisplay turtDisp;
     private CommandHistoryDisplay commandHistory;
@@ -54,9 +61,16 @@ public class View implements ViewInt {
     private DefinedObjectsDisplay vDisplay, methodsDisplay;
     private TurtleParams turtPar;
     private HBox bottom;
-    private VBox left, right;
+    private VBox left, right, top;
     private IndexMap cMap, iMap;
+    private SubBar topBar, botBar;
 
+    /**
+     * creates a new view object
+     * @param turtleDispDimension 2D dimension defining the turtle area size
+     * @param input observable string used to pass input to back end
+     * @param pLang observabl string used to set parsing language on backend
+     */
     public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
         this.pLang = pLang;
         this.input = input;
@@ -83,6 +97,10 @@ public class View implements ViewInt {
         root.getChildren().add(UI);
     }
 
+    /**
+     * binds the size of the border pane to the size of the application
+     * @param scene to bind the panes size to
+     */
     @Override
     public void bindSize (Scene scene) {
         UI.prefHeightProperty().bind(scene.heightProperty());
@@ -112,7 +130,7 @@ public class View implements ViewInt {
         UI.setRight(right);
         UI.setLeft(left);
         UI.setBottom(bottom);
-        UI.setTop(tBar.getToolBarMembers());
+        UI.setTop(top);
     }
 
 
@@ -155,9 +173,12 @@ public class View implements ViewInt {
 
     private void createToolBar() {
         createMaps();
-        tBar = new ToolBar(pLang, backgroundColor, image, penColor, intCommands, (ColorMap) cMap, (ImageMap) iMap);
-        BorderPane.setMargin(tBar.getToolBarMembers(), ViewInsets.TOP.getInset());
-        tBar.getToolBarMembers().prefWidthProperty().bind(UI.widthProperty());
+        top = new VBox(Size.TB_PADDING.getSize());
+        topBar = new TopBar(pLang, backgroundColor, image, penColor, intCommands, (ColorMap)cMap, (ImageMap)iMap);
+        botBar = new BottomBar(pLang, intCommands, (ColorMap) cMap, (ImageMap) iMap);
+        top.getChildren().addAll(topBar.getContainer(), botBar.getContainer());
+        BorderPane.setMargin(top, ViewInsets.TOP.getInset());
+        
 
     }
 
@@ -190,23 +211,42 @@ public class View implements ViewInt {
     private void processExecute() {
         commandEntry.processCommands(); 
     }
-
+    
+    
+    /**
+     * returns the root containing the border pane and all view components
+     * @return Group containing all view components
+     */
     @Override
     public Group getGroup() {
         return root;
     }
 
-
+    /**
+     * returns the group contained by the turtle area scroll pane
+     * @return turtle area group
+     */
     @Override
     public Group getInnerGroup() {
         return turtDisp.getTurtleArea();
     }
-
+    
+    /**
+     * returns all simplestring properties defined in the view that need to 
+     * be bound to their twins in the controller/model
+     * @return list of all needed simplestring properties
+     */
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(image, penColor,variables, methods, error);
     }
 
+    /**
+     * returns the index maps responsible for mapping index numbers to colors
+     * or images to define the pallets
+     * @param boolean for which map to choose
+     * @return chosen index map
+     */
     @Override
     public IndexMap getMap (boolean colors) {
         if(colors){
