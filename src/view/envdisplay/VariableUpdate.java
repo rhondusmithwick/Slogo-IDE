@@ -16,7 +16,7 @@ public class VariableUpdate extends EnvUpdate {
 
     private String variable, newVal, text;
     private TextField tField;
-    private Label title;
+    private Label title, label;
 
     /**
      * Creates a new variable update instance
@@ -24,9 +24,10 @@ public class VariableUpdate extends EnvUpdate {
      * @param pLang string observable to store and set parsing language
      * @param text text for method needing to be updated
      */
-    public VariableUpdate (ObjectObservable<String> intCommand, ObjectObservable<String> pLang, String text) {
+    public VariableUpdate (ObjectObservable<String> intCommand, ObjectObservable<String> pLang, Label label) {
         super(intCommand, pLang);
-        this.text = text;
+        this.label=label;
+        this.text = label.getText();
         
     }
     
@@ -51,6 +52,7 @@ public class VariableUpdate extends EnvUpdate {
         String toPass = getCommand(new String[]{newVal});
         newVal = variable+SPACE+newVal;
         passCommand(toPass);
+        updateLabel(label);
         closeScene();
         
     }
