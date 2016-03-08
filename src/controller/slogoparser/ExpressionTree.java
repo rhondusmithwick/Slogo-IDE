@@ -7,7 +7,7 @@ import model.treenode.TreeNode;
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
 import model.usercontrol.MakeVariable;
-import model.usercontrol.DoTimes;
+import model.usercontrol.IfClause;
 import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Repeat;
 import observables.MapObservable;
@@ -118,7 +118,7 @@ public class ExpressionTree {
         }
         addTurtleIfShould(n);
         addVariableIfShould(n);
-        makeDoTimes(n);
+        makeIfClause(n);
         makeRepeat(n);
         makeUserInstruction(n);
         return n;
@@ -161,9 +161,12 @@ public class ExpressionTree {
         }
     }
     
-    private void makeDoTimes(TreeNode n) {
-    	if (n instanceof DoTimes) {
-    		//
+    private void makeIfClause(TreeNode n) {
+    	if (n instanceof IfClause) {
+    		TreeNode numTimes = createRoot();
+    		n.addChild(numTimes);
+    		List<TreeNode> nRoots = getCommandsList();
+    		nRoots.stream().forEach(n::addChild);
     	}
     }
   
