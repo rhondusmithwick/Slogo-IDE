@@ -3,6 +3,8 @@ package model.usercontrol;
 import model.treenode.CommandNode;
 import model.treenode.TreeNode;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 /**
@@ -16,7 +18,8 @@ public class Repeat extends CommandNode {
 
     @Override
     protected double execute() {
-        int numTimes = (int) getChildren().get(0).getValue();
+        TreeNode numTimesNode = getChildren().get(0);
+        int numTimes = (int) numTimesNode.getValue();
         IntStream.range(0, numTimes + 1).forEach(i -> runChildren());
         return (value != null) ? value : 0;
     }

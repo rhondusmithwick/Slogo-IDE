@@ -120,7 +120,6 @@ public class ExpressionTree {
             n = new ConstantNode(0);
         }
         addTurtleIfShould(n);
-        addLineIfShould(n);
         addVariableIfShould(n);
         makeRepeat(n);
         makeUserInstruction(n);
@@ -156,12 +155,6 @@ public class ExpressionTree {
         }
     }
 
-    private void addLineIfShould(TreeNode n) {
-        if (n instanceof Movement) {
-            Movement move = (Movement) n;
-            move.addLine();
-        }
-    }
     private void addVariableIfShould(TreeNode n) {
         if (n instanceof MakeVariable) {
             Entry<String, String> curr = parsedText.poll();

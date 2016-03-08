@@ -2,6 +2,7 @@ package model.movement;
 
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
@@ -18,11 +19,12 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class Movement extends TurtleCommandNode {
 
-    private final Line penLine = new Line();
+    private Line penLine;
 
     private volatile boolean isDone = false;
 
     double move(int direction) {
+        setUp();
         double distance = getChildren().get(0).getValue();
         Point2D pointToMoveTo = getPointToMoveTo(distance, direction);
         modifyPenLine();
@@ -33,13 +35,16 @@ public abstract class Movement extends TurtleCommandNode {
         return distance;
     }
 
+
+    private void setUp() {
+        setDone(false);
+        penLine = new Line();
+        Platform.runLater(() -> getTurtle().getGroup().getChildren().add(penLine));
+    }
+
     @Override
     public int getNumChildrenRequired() {
         return 1;
-    }
-
-    public void addLine() {
-        getTurtle().getGroup().getChildren().add(penLine);
     }
 
     private void cleanUpMove(Point2D pointToMoveTo) {
