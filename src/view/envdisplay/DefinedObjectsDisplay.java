@@ -15,9 +15,8 @@ import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
 
 /**
- * This class implements EnviromentDisplayInterface and serves as the abstract
- * base class for all GUI elements that display any user-defined objects such as
- * methods or variables
+ * This class serves as the abstract base class for all GUI elements that 
+ * display any user-defined objects such as methods or variables
  *
  * @author Stephen
  */
@@ -54,7 +53,7 @@ public abstract class DefinedObjectsDisplay {
 
 	/**
 	 * updates a label which shows a defined variable or method
-	 * @param label label whose contentes to update
+	 * @param label label whose contents to update
 	 */
 	protected abstract void updateDefinedObject(Label label);
 
