@@ -62,22 +62,25 @@ public class TurtleController implements Controller, Observer {
     public void takeInput(String input) {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
-//        if (parsedText == null) {
-//        	error.set("");
-//        	error.set("Command not recognized: " + input);
-//        } else {
-//        	try {
-        		ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, parsedText);        		
-        		System.out.println(expressionTree);
-                new Thread(expressionTree::executeAll).start();
-        		variables.modifyIfShould();
-//        	} catch (Exception es) {
-//        		error.set("");
-//        		error.set("Exception in command argument: " + input);
-//        	}
-//        }
-    }
+        runCommands(parsedText);
+}
 
+
+
+    private void runCommands(Queue<Entry<String, String>> parsedText) {
+        if (parsedText == null) {
+            error.set("");
+            error.set("Command not recognized: " + input);
+        } else {
+            try {
+                ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, parsedText);
+                new Thread(expressionTree::executeAll).start();
+            } catch (Exception es) {
+                error.set("");
+                error.set("Exception in command argument: " + input);
+            }
+        }
+    }
     @Override
     public List<Command> getCommands() {
         return null;

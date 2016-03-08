@@ -28,7 +28,7 @@ public class MapObservable<K, V> extends Observable {
         setChanged();
     }
 
-    public V remove(Object key) {
+    public V remove(K key) {
         setChanged();
         return map.remove(key);
     }
@@ -60,8 +60,6 @@ public class MapObservable<K, V> extends Observable {
     public Set<Entry<K, V>> getEntrySet(){
         return map.entrySet();
     }
-    
-    
 
     private void modifyString() {
         StringBuilder sb = new StringBuilder();
