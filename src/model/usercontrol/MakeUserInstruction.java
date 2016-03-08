@@ -4,7 +4,6 @@ import model.treenode.CommandNode;
 import model.treenode.TreeNode;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Map;
 import java.util.Queue;
@@ -48,7 +47,6 @@ public class MakeUserInstruction extends CommandNode {
         return variableMap;
     }
 
-
     public void makeVariables(Queue<Entry<String, String>> parsedText) {
         if (parsedText.peek().getKey().equals("ListStart")) {
             parsedText.poll();
@@ -64,5 +62,4 @@ public class MakeUserInstruction extends CommandNode {
             }
         }
     }
-
 }

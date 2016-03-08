@@ -1,6 +1,5 @@
 package controller.slogoparser;
 
-import model.movement.Movement;
 import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Repeat;
 import model.treenode.ConstantNode;
@@ -166,7 +165,7 @@ public class ExpressionTree {
         if (n instanceof Repeat) {
             TreeNode numTimes = createRoot();
             n.addChild(numTimes);
-            List<TreeNode> nRoots = getComamndsList();
+            List<TreeNode> nRoots = getCommandsList();
             nRoots.stream().forEach(n::addChild);
         }
     }
@@ -179,16 +178,14 @@ public class ExpressionTree {
             mn.makeVariables(parsedText);
             Map<String, MakeVariable> currVariableMap = mn.getVariableMap();
             variables.putAll(currVariableMap);
-            List<TreeNode> myRoots = getComamndsList();
+            List<TreeNode> myRoots = getCommandsList();
             myRoots.stream().forEach(mn::addChild);
             Predicate<String> pred = (currVariableMap::containsKey);
             currVariableMap.keySet().stream().filter(pred).forEach(variables::remove);
         }
     }
 
-
-
-    private List<TreeNode> getComamndsList() {
+    private List<TreeNode> getCommandsList() {
         List<TreeNode> myRoots = new LinkedList<>();
         if (parsedText.peek().getKey().equals("ListStart")) {
             parsedText.poll();
