@@ -34,7 +34,7 @@ public class TurtleController implements Controller, Observer {
     private final Turtle myTurtle;
     private final ObjectObservable<String> language = new ObjectObservable<>();
     private final ObjectObservable<String> input = new ObjectObservable<>();
-
+    
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
 
     private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
@@ -63,7 +63,8 @@ public class TurtleController implements Controller, Observer {
         System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         runCommands(parsedText);
-    }
+}
+
 
 
     private void runCommands(Queue<Entry<String, String>> parsedText) {
@@ -74,15 +75,12 @@ public class TurtleController implements Controller, Observer {
             try {
                 ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, parsedText);
                 new Thread(expressionTree::executeAll).start();
-//                variables.modifyIfShould();
-                variables.modifyString();
             } catch (Exception es) {
                 error.set("");
                 error.set("Exception in command argument: " + input);
             }
         }
     }
-
     @Override
     public List<Command> getCommands() {
         return null;
@@ -106,9 +104,9 @@ public class TurtleController implements Controller, Observer {
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
-                error,
+        		error,
                 myTurtle.getTurtleProperties().imageProperty(),
                 myTurtle.getTurtleProperties().penColorProperty(),
-                variables.getStringProperty());
+                variables.getStringProperty(), definedCommands.getStringProperty());
     }
 }

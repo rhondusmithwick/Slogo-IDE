@@ -1,17 +1,16 @@
 package main;
 
-import controller.controller.Controller;
-import controller.controller.TurtleController;
+import view.View;
+import view.ViewInt;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import view.View;
-import view.ViewInt;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import controller.controller.Controller;
+import controller.controller.TurtleController;
 
 /**
  * Created by rhondusmithwick on 2/23/16.

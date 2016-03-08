@@ -1,7 +1,6 @@
 package observables;
 
 import javafx.beans.property.SimpleStringProperty;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class MapObservable<K, V> extends Observable {
         setChanged();
     }
 
-    public V remove(Object key) {
+    public V remove(K key) {
         setChanged();
         return map.remove(key);
     }
@@ -54,21 +53,20 @@ public class MapObservable<K, V> extends Observable {
         }
     }
 
-    public Collection<V> getValues() {
+    public Collection<V> getValues(){
         return map.values();
     }
-
-    public Set<Entry<K, V>> getEntrySet() {
+    
+    public Set<Entry<K, V>> getEntrySet(){
         return map.entrySet();
     }
 
-
-    public void modifyString() {
+    private void modifyString() {
         StringBuilder sb = new StringBuilder();
         map.entrySet().parallelStream().forEach(e ->
                 sb.append(e.getKey() + " " + e.getValue() + ",")
         );
-
+        
         myString.set(sb.toString());
     }
 

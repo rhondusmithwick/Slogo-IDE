@@ -1,12 +1,13 @@
 package controller.slogoparser;
 
+import javafx.application.Platform;
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
+import model.usercontrol.MakeVariable;
 import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Repeat;
-import model.usercontrol.Variable;
 import observables.MapObservable;
 
 import java.util.LinkedList;
@@ -47,10 +48,10 @@ public class ExpressionTree {
 
     public void executeAll() {
         rootList.stream().forEach(TreeNode::getValue);
+        Platform.runLater(variables::modifyIfShould);
     }
 
     private List<TreeNode> createRootList() {
-        System.out.println(parsedText);
         List<TreeNode> rootList = new LinkedList<>();
         while (inBounds()) {
             TreeNode root = createRoot();
@@ -60,36 +61,26 @@ public class ExpressionTree {
     }
 
     private TreeNode createRoot() {
-        TreeNode root = createSingleNode();
+        TreeNode root = createNode();
         createSubTree(root);
         return root;
     }
 
     private void createSubTree(TreeNode root) {
         while (stillRoot(root)) {
-            TreeNode n = createSingleNode();
+            TreeNode n = createNode();
             root.addChild(n);
             createSubTree(n);
         }
     }
 
-    private TreeNode createSingleNode() {
+    private TreeNode createNode() {
+        TreeNode n;
         Entry<String, String> curr = parsedText.poll();
-        TreeNode n;
-        if (variables.containsKey(curr.getValue())) {
-            n = variables.get(curr.getValue());
-        } else {
-            n = createNode(curr);
-        }
-        return n;
-    }
-
-    private TreeNode createNode(Entry<String, String> curr) {
-        TreeNode n;
         if (isConstant(curr.getKey())) {
-            String doubleText = curr.getValue();
-            Double constant = Double.parseDouble(doubleText);
-            n = new ConstantNode(constant);
+            n = getConstant(curr);
+        } else if (variables.containsKey(curr.getValue())) {
+            n = variables.get(curr.getValue());
         } else if (definedCommands.containsKey(curr.getValue())) {
             n = definedCommands.get(curr.getValue());
             setValuesForCommand((MakeUserInstruction) n);
@@ -99,6 +90,11 @@ public class ExpressionTree {
         return n;
     }
 
+    private ConstantNode getConstant(Entry<String, String> curr) {
+        String doubleText = curr.getValue();
+        Double constant = Double.parseDouble(doubleText);
+        return new ConstantNode(constant);
+    }
 
     private void setValuesForCommand(MakeUserInstruction n) {
         int numAssigned = 0;
@@ -154,13 +150,13 @@ public class ExpressionTree {
     }
 
     private void addVariableIfShould(TreeNode n) {
-        if (n instanceof Variable) {
+        if (n instanceof MakeVariable) {
             Entry<String, String> curr = parsedText.poll();
             variables.put(curr.getValue(), n);
             createSubTree(n);
         }
     }
-
+  
     private void makeRepeat(TreeNode n) {
         if (n instanceof Repeat) {
             TreeNode numTimes = createRoot();
@@ -176,7 +172,7 @@ public class ExpressionTree {
             String name = parsedText.poll().getValue();
             definedCommands.put(name, mn);
             mn.makeVariables(parsedText);
-            Map<String, Variable> currVariableMap = mn.getVariableMap();
+            Map<String, MakeVariable> currVariableMap = mn.getVariableMap();
             variables.putAll(currVariableMap);
             List<TreeNode> myRoots = getComamndsList();
             myRoots.stream().forEach(mn::addChild);
@@ -184,6 +180,7 @@ public class ExpressionTree {
             currVariableMap.keySet().stream().filter(pred).forEach(variables::remove);
         }
     }
+
 
 
     private List<TreeNode> getComamndsList() {

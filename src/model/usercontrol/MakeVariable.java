@@ -1,23 +1,38 @@
 package model.usercontrol;
 
+import model.treenode.TreeNode;
+
 /**
- * Created by rhondusmithwick on 3/8/16.
+ * Created by rhondusmithwick on 2/28/16.
  *
  * @author Rhondu Smithwick
  */
-public class MakeVariable extends Variable {
+public class MakeVariable extends TreeNode {
+
+    private Double value = null;
 
     @Override
     public double getValue() {
-        if (getVal() == null) {
-            double myVal = getChildren().get(0).getValue();
-            setValue(myVal);
+        if (value == null) {
+            value = getChildren().get(0).getValue();
         }
-        return super.getValue();
+        return value;
     }
 
     @Override
     public int getNumChildrenRequired() {
         return 1;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        if (value == null) {
+            return "value not yet visible";
+        }
+        return String.format("MakeVariable with value:  %s", value.toString());
     }
 }

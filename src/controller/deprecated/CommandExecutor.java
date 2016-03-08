@@ -1,12 +1,13 @@
 package controller.deprecated;
 
-import model.deprecated.Command;
-import model.turtle.Turtle;
-
 import java.lang.reflect.Constructor;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+
+import model.deprecated.Command;
+import model.turtle.Turtle;
+
 import java.util.Objects;
 
 

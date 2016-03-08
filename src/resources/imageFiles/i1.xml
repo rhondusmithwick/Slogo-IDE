@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<ColorList>
-    <color index="0" name="resources/images/blackarrow.png"/>
-    <color index="1" name="resources/images/blackcircle.jpg"/>
-    <color index="2" name="resources/images/blacksquare.png"/>
-    <color index="3" name="resources/images/bluesquare.jpg"/>
-    <color index="4" name="resources/images/brownsquare.png"/>
-    <color index="5" name="resources/images/dukelogo.png"/>
-    <color index="6" name="resources/images/greeeensquare.png"/>
-    <color index="7" name="resources/images/GreenSquare.jpg"/>
-    <color index="8" name="resources/images/limegreensquare.jpg"/>
-    <color index="9" name="resources/images/orangesquare.jpg"/>
-    <color index="10" name="resources/images/purplesquare.jpg"/>
-    <color index="11" name="resources/images/redsquare.gif"/>
-    <color index="12" name="resources/images/yellowSquare.png"/>
-</ColorList>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ColorList><color index="0" name="resources/images/blackarrow.png"/><color index="1" name="resources/images/blackcircle.jpg"/><color index="2" name="resources/images/blacksquare.png"/><color index="3" name="resources/images/bluesquare.jpg"/><color index="4" name="resources/images/brownsquare.png"/><color index="5" name="resources/images/dukelogo.png"/><color index="6" name="resources/images/greeeensquare.png"/><color index="7" name="resources/images/GreenSquare.jpg"/><color index="8" name="resources/images/limegreensquare.jpg"/><color index="9" name="resources/images/orangesquare.jpg"/><color index="10" name="resources/images/purplesquare.jpg"/><color index="11" name="resources/images/redsquare.gif"/><color index="12" name="resources/images/yellowSquare.png"/></ColorList>

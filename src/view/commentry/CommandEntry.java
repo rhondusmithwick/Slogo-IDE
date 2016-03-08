@@ -1,5 +1,11 @@
 package view.commentry;
 
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
+
+import view.Defaults;
+import view.Size;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -8,12 +14,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
-import view.Defaults;
-import view.Size;
-
-import java.util.Observable;
-import java.util.Observer;
-import java.util.ResourceBundle;
 
 /**
  * This class implements the CommandEntryInterface interface and allows the user to input
@@ -33,11 +33,10 @@ public class CommandEntry implements Observer {
     private Label title;
     private ResourceBundle myResources;
 
-
+    
     /**
      * creates new command entry object
-     *
-     * @param input       observable string to pass input to backend
+     * @param input observable string to pass input to backend 
      * @param intCommands observable string used to pass input from other view components to command entry
      * @param commHistory observable string used to pass entered commands to be entered into history
      */
@@ -54,7 +53,7 @@ public class CommandEntry implements Observer {
         myScrollPane.setContent(container);
     }
 
-    private void setScrollPane() {
+    private void setScrollPane () {
         myScrollPane = new ScrollPane();
         myScrollPane.setMinViewportWidth(Size.RIGHT_WIDTH.getSize());
         myScrollPane.setPrefViewportWidth(Size.RIGHT_WIDTH.getSize());
@@ -62,14 +61,14 @@ public class CommandEntry implements Observer {
         VBox.setVgrow(myScrollPane, Priority.SOMETIMES);
     }
 
-    private void createTextBox() {
+    private void createTextBox () {
         myEntryBox = new TextArea();
         myEntryBox.prefHeightProperty().bind(myScrollPane.heightProperty().subtract(Size.COMMAND_TITLE.getSize()));
         myEntryBox.prefWidthProperty().bind(myScrollPane.widthProperty().subtract(Size.COMM_ENTRY_SPACE.getSize()));
         container.getChildren().add(myEntryBox);
     }
 
-    private void createTitle() {
+    private void createTitle () {
         title = new Label(myResources.getString("entryTitle"));
         container.getChildren().add(title);
         container.setAlignment(Pos.TOP_CENTER);
@@ -79,31 +78,30 @@ public class CommandEntry implements Observer {
     /**
      * returns the Node containing all visual components needed for the command
      * entry component of the view
-     *
      * @return node containing all command entry components
      */
     public Node getNode() {
         return myScrollPane;
     }
-
-    private void passInternalCommands(String command, boolean showInTextBox) {
-        if (showInTextBox) {
+    
+   private void passInternalCommands(String command, boolean showInTextBox) {
+        if(showInTextBox){
             String curr = myEntryBox.getText();
-            if (!curr.endsWith("\n") && !curr.equals("")) {
-                curr = curr + "\n" + command;
-            } else {
-                curr = curr + command;
+            if(!curr.endsWith("\n") && !curr.equals("")){
+            	curr = curr + "\n" + command;
+            }else{
+            	curr = curr + command;
             }
             myEntryBox.setText(curr);
-        } else {
-            input.set(command);
+        }else{
+           input.set(command);
         }
     }
 
-    /**
-     * Gets all entered text from the text box, sends the commands to the back end,
-     * adds commands to the history, and clears the text box for further use.
-     */
+   /**
+    * Gets all entered text from the text box, sends the commands to the back end,
+    * adds commands to the history, and clears the text box for further use.
+    */
     public void processCommands() {
         String text = myEntryBox.getText();
         commHistory.set(text);
@@ -112,16 +110,16 @@ public class CommandEntry implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update (Observable o, Object arg) {
 
         String command = intCommands.get();
-        boolean show = command.startsWith(Defaults.COMMAND_TO_TEXT_BOX.getDefault());
-        if (show) {
-
+        boolean show =command.startsWith(Defaults.COMMAND_TO_TEXT_BOX.getDefault());
+        if(show){
+            
             command = command.substring(Defaults.COMMAND_TO_TEXT_BOX.getDefault().length());
         }
         passInternalCommands(command, show);
-
+        
     }
 
 
