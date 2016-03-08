@@ -1,8 +1,8 @@
 package model.oneoperatormath;
 
-public class Sine extends OneOperatorMath {
+public class Sine extends Trig {
 
     public Sine() {
-        super((t -> (Math.sin(Math.toRadians(t)))));
+        super(Math::sin);
     }
 }

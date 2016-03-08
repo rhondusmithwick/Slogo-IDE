@@ -1,10 +1,10 @@
 package model.oneoperatormath;
 
 
-public class Tangent extends OneOperatorMath {
+public class Tangent extends Trig {
 
     public Tangent() {
-        super((t -> (Math.tan(Math.toRadians(t)))));
+        super(Math::tan);
     }
 
 }
