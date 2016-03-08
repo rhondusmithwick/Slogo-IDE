@@ -42,6 +42,7 @@ public abstract class SlogoFileChooser extends PopUp{
 	@Override
 	protected void createScene() {
 		 fChoose = new FileChooser();
+		 fChoose.setInitialDirectory(new File("WorkSpacePreferences/"));
 		 fChoose.setTitle(myResources.getString(title));
 	     fChoose.getExtensionFilters().addAll(fExt);
 		
