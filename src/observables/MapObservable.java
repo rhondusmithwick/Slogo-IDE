@@ -63,7 +63,7 @@ public class MapObservable<K, V> extends Observable {
     }
 
 
-    public void modifyString() {
+    private void modifyString() {
         StringBuilder sb = new StringBuilder();
         map.entrySet().parallelStream().forEach(e ->
                 sb.append(e.getKey() + " " + e.getValue() + ",")

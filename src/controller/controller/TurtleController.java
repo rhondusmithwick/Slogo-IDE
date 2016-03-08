@@ -74,8 +74,6 @@ public class TurtleController implements Controller, Observer {
             try {
                 ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, parsedText);
                 new Thread(expressionTree::executeAll).start();
-//                variables.modifyIfShould();
-                variables.modifyString();
             } catch (Exception es) {
                 error.set("");
                 error.set("Exception in command argument: " + input);

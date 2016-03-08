@@ -1,5 +1,6 @@
 package controller.slogoparser;
 
+import javafx.application.Platform;
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.treenode.TurtleCommandNode;
@@ -47,10 +48,10 @@ public class ExpressionTree {
 
     public void executeAll() {
         rootList.stream().forEach(TreeNode::getValue);
+        Platform.runLater(variables::modifyIfShould);
     }
 
     private List<TreeNode> createRootList() {
-        System.out.println(parsedText);
         List<TreeNode> rootList = new LinkedList<>();
         while (inBounds()) {
             TreeNode root = createRoot();
@@ -60,36 +61,26 @@ public class ExpressionTree {
     }
 
     private TreeNode createRoot() {
-        TreeNode root = createSingleNode();
+        TreeNode root = createNode();
         createSubTree(root);
         return root;
     }
 
     private void createSubTree(TreeNode root) {
         while (stillRoot(root)) {
-            TreeNode n = createSingleNode();
+            TreeNode n = createNode();
             root.addChild(n);
             createSubTree(n);
         }
     }
 
-    private TreeNode createSingleNode() {
+    private TreeNode createNode() {
+        TreeNode n;
         Entry<String, String> curr = parsedText.poll();
-        TreeNode n;
-        if (variables.containsKey(curr.getValue())) {
-            n = variables.get(curr.getValue());
-        } else {
-            n = createNode(curr);
-        }
-        return n;
-    }
-
-    private TreeNode createNode(Entry<String, String> curr) {
-        TreeNode n;
         if (isConstant(curr.getKey())) {
-            String doubleText = curr.getValue();
-            Double constant = Double.parseDouble(doubleText);
-            n = new ConstantNode(constant);
+            n = getConstant(curr);
+        } else if (variables.containsKey(curr.getValue())) {
+            n = variables.get(curr.getValue());
         } else if (definedCommands.containsKey(curr.getValue())) {
             n = definedCommands.get(curr.getValue());
             setValuesForCommand((MakeUserInstruction) n);
@@ -99,6 +90,11 @@ public class ExpressionTree {
         return n;
     }
 
+    private ConstantNode getConstant(Entry<String, String> curr) {
+        String doubleText = curr.getValue();
+        Double constant = Double.parseDouble(doubleText);
+        return new ConstantNode(constant);
+    }
 
     private void setValuesForCommand(MakeUserInstruction n) {
         int numAssigned = 0;
