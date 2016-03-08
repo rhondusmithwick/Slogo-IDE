@@ -104,6 +104,6 @@ public class TurtleController implements Controller, Observer {
         		error,
                 myTurtle.getTurtleProperties().imageProperty(),
                 myTurtle.getTurtleProperties().penColorProperty(),
-                variables.getStringProperty());
+                variables.getStringProperty(), definedCommands.getStringProperty());
     }
 }

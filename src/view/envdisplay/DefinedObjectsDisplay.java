@@ -103,7 +103,8 @@ public abstract class DefinedObjectsDisplay {
 	 * creates the current display based off of the current state of the definedObjects
 	 * simplestring property
 	 */
-	protected void createCurrEnvDisp() {
+	public void createCurrEnvDisp() {
+	        System.out.println(definedObjects.get());
 		vBox = new VBox();
 		setTitle();
 		String definedObjectsString = definedObjects.get();
