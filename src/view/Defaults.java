@@ -29,7 +29,8 @@ public enum Defaults {
 	NUM_TURTS("1"),
 	XML(".xml"),
 	IM_DOC_EL("IndexedMap"),
-	IM_CHILD_ELEMENT("Element");
+	IM_CHILD_ELEMENT("Element"),
+	WS_PREF_LOC("WorkSpacePreferences/");
 	
 	
 	
