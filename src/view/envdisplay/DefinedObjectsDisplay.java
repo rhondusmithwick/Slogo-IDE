@@ -85,12 +85,12 @@ public abstract class DefinedObjectsDisplay {
 	 * @param text text representing user defined object to update
 	 * @return updater object used to update the defined object
 	 */
-	protected EnvUpdate getUpdater(String className, String text) {
+	protected EnvUpdate getUpdater(String className, Label label) {
 		try {
 			Class<?> classTemp = Class.forName(className);
 			Constructor<?> constructor = classTemp.getConstructor(ObjectObservable.class,
-					ObjectObservable.class, String.class);
-			Object obj = constructor.newInstance(intCommand, parsingLanguage, text);
+					ObjectObservable.class, Label.class);
+			Object obj = constructor.newInstance(intCommand, parsingLanguage, label);
 			return (EnvUpdate) obj;
 		} catch (Exception e) {
 			error.set("");

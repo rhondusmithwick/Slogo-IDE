@@ -238,7 +238,7 @@ public class View implements ViewInt {
      */
     @Override
     public List<SimpleStringProperty> getProperties() {
-        return Arrays.asList(image, penColor,variables, definedCommands, error);
+        return Arrays.asList(error, image, penColor,variables, definedCommands);
     }
 
     /**

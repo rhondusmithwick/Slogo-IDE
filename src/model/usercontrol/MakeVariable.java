@@ -33,6 +33,6 @@ public class MakeVariable extends TreeNode {
         if (value == null) {
             return "value not yet visible";
         }
-        return String.format("MakeVariable with value:  %s", value.toString());
+        return value.toString();
     }
 }

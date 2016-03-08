@@ -13,16 +13,25 @@ import java.util.stream.IntStream;
 public class Repeat extends CommandNode {
 
     private Double value = null;
+    private Integer numTimes = null;
+    private Variable repcount = new Variable();
 
     @Override
     protected double execute() {
-        TreeNode numTimesNode = getChildren().get(0);
-        int numTimes = (int) numTimesNode.getValue();
+        repcount.setValue(0);
+        if (numTimes == null) getNumTimes();
         IntStream.range(0, numTimes + 1).forEach(i -> runChildren());
         return (value != null) ? value : 0;
     }
 
     private void runChildren() {
+        repcount.setValue(repcount.getValue() + 1);
         value = getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
+    }
+
+
+    private void getNumTimes() {
+        numTimes = (int) getChildren().get(0).getValue();
+        getChildren().remove(0);
     }
 }
