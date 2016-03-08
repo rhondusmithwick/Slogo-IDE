@@ -10,7 +10,7 @@ import observables.ObjectObservable;
  * @author Cali
  *
  */
-public class VariableUpdate extends EnvUpdate {
+public class VariableUpdate extends EnvActor {
     
     private static final String SPACE = " ";
 
@@ -52,7 +52,7 @@ public class VariableUpdate extends EnvUpdate {
         String toPass = getCommand(new String[]{newVal});
         newVal = variable+SPACE+newVal;
         passCommand(toPass);
-        updateLabel(label);
+        label.setText(newVal);
         closeScene();
         
     }
@@ -84,7 +84,8 @@ public class VariableUpdate extends EnvUpdate {
         addToScene(Arrays.asList(title,tField));
         
     }
-
+    
+   
 
     
 

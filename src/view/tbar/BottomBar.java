@@ -4,7 +4,7 @@ package view.tbar;
 import java.util.Observable;
 
 import view.Defaults;
-import view.envdisplay.EnvUpdate;
+import view.envdisplay.EnvActor;
 import view.tbar.popupdisplays.HelpScreen;
 import view.tbar.popupdisplays.IndexMapSaver;
 import view.tbar.popupdisplays.PenSizeUpdater;
@@ -27,7 +27,7 @@ public class BottomBar extends SubBar {
 
     ObjectObservable<String> intCommand;
     private ComboBox<String> langBox;
-    private EnvUpdate penSizeUpdater;
+    private EnvActor penSizeUpdater;
     private ColorMap cMap;
     private ImageMap iMap;
 

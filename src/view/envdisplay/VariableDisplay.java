@@ -14,7 +14,7 @@ import view.Defaults;
 
 public class VariableDisplay extends DefinedObjectsDisplay {
 
-	private EnvUpdate updater;
+	private EnvActor updater;
 	
 	/**
 	 * creates new variable display instance
