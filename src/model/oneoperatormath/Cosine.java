@@ -1,9 +1,9 @@
 package model.oneoperatormath;
 
 
-public class Cosine extends OneOperatorMath {
+public class Cosine extends Trig {
 
     public Cosine() {
-        super ((t -> Math.cos(Math.toRadians(t))));
+        super(Math::cos);
     }
 }
