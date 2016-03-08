@@ -45,7 +45,7 @@ public class View implements ViewInt {
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
     private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
-    private final SimpleStringProperty methods = new SimpleStringProperty(this, "methods");
+    private final SimpleStringProperty definedCommands = new SimpleStringProperty(this, "definedCommands");
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
     private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
     private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
@@ -139,7 +139,7 @@ public class View implements ViewInt {
         BorderPane.setMargin(left, ViewInsets.LEFT.getInset());
         vDisplay = new VariableDisplay(pLang, intCommands, variables, error);
         left.getChildren().add(vDisplay.getEnvDisplay());
-        methodsDisplay = new MethodDisplay(pLang, intCommands, methods, error);
+        methodsDisplay = new MethodDisplay(pLang, intCommands, definedCommands, error);
         left.getChildren().add(methodsDisplay.getEnvDisplay());
 
     }
@@ -209,7 +209,7 @@ public class View implements ViewInt {
 
 
     private void processExecute() {
-        commandEntry.processCommands(); 
+        commandEntry.processCommands();
     }
     
     
@@ -238,7 +238,7 @@ public class View implements ViewInt {
      */
     @Override
     public List<SimpleStringProperty> getProperties() {
-        return Arrays.asList(image, penColor,variables, methods, error);
+        return Arrays.asList(image, penColor,variables, definedCommands, error);
     }
 
     /**

@@ -8,7 +8,7 @@ package model.usercontrol;
 public class UserCommandVariable extends MakeVariable {
 
     @Override
-    protected int getNumChildrenRequired() {
+    public int getNumChildrenRequired() {
         return 0;
     }
 }
