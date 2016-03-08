@@ -37,6 +37,6 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 	@Override
 	protected void updateDefinedObject(Label label) {
 		updater = getUpdater(Defaults.VAR_UP_LOC.getDefault(), label);
-		updater.updateLabel(label);
+		updater.show();
 	}
 }

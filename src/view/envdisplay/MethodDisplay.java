@@ -36,6 +36,6 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 	@Override
 	protected void updateDefinedObject(Label label) {
 		updater = getUpdater(Defaults.METH_UP_LOC.getDefault(), label);
-		updater.updateLabel(label);
+		updater.show();
 	}
 }
