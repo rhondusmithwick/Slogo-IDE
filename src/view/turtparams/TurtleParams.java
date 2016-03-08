@@ -17,6 +17,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+/**
+ * Class is responsible for displaying certain turtle parameters and properties to the user such as location, 
+ * heading, etc.
+ * @author Stephen Kwok
+ *
+ */
+
 public class TurtleParams {
 
     private final SimpleObjectProperty<Point2D> location;
@@ -31,6 +38,13 @@ public class TurtleParams {
     private Label title;
     private VBox box;
 
+    /**
+     * creates new turtle params object
+     * @param location SimpleObjectProperty containing turtle's location
+     * @param heading SimpleDoubleProperty containing turtle's heading
+     * @param penDown SimpleBooleanProperty showing whether turtle's pen is down
+     * @param penColor SimpleStringProperty displaying turtle's pen color
+     */
     public TurtleParams(SimpleObjectProperty<Point2D> location,
                         SimpleDoubleProperty heading, SimpleBooleanProperty penDown, SimpleStringProperty penColor) {
 
@@ -78,7 +92,11 @@ public class TurtleParams {
         label.setWrapText(true);
         return label;
     }
-
+    
+    /**
+     * returns the scrollpane containing all the nodes needed to display the turtle parameters
+     * @return scroll pane containing all components needed to display parameters
+     */
     public Node getTurtleParams() {
         return scroll;
     }

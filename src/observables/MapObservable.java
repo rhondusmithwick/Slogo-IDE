@@ -22,8 +22,19 @@ public class MapObservable<K, V> extends Observable {
     public MapObservable(String name) {
         this.myString = new SimpleStringProperty(this, name, "");
     }
+
     public void put(K key, V value) {
         map.put(key, value);
+        setChanged();
+    }
+
+    public V remove(Object key) {
+        setChanged();
+        return map.remove(key);
+    }
+
+    public void putAll(Map<? extends K, ? extends V> m) {
+        map.putAll(m);
         setChanged();
     }
 
@@ -41,7 +52,7 @@ public class MapObservable<K, V> extends Observable {
             clearChanged();
         }
     }
-    
+
     public Collection<V> getValues(){
         return map.values();
     }
@@ -64,4 +75,9 @@ public class MapObservable<K, V> extends Observable {
     public SimpleStringProperty getStringProperty() {
         return myString;
     }
+
+    public Map<K, V> getMap() {
+        return map;
+    }
+
 }

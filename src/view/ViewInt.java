@@ -36,9 +36,19 @@ public interface ViewInt {
      * @return group that defines turtles area
      */
     Group getInnerGroup();
-
+    
+    /**
+     * binds the size of the border pane to the size of the application
+     * @param scene to bind the panes size to
+     */
     void bindSize (Scene scene);
     
+    /**
+     * returns the index maps responsible for mapping index numbers to colors
+     * or images to define the pallets
+     * @param boolean for which map to choose
+     * @return chosen index map
+     */
     IndexMap getMap(boolean colors);
 
 

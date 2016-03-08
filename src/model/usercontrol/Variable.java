@@ -7,22 +7,15 @@ import model.treenode.TreeNode;
  *
  * @author Rhondu Smithwick
  */
-public class MakeVariable extends TreeNode {
+public class Variable extends TreeNode {
 
-    private Double value = null;
+    protected Double value = null;
 
     @Override
     public double getValue() {
-        if (value == null) {
-            value = getChildren().get(0).getValue();
-        }
-        return value;
+        return (value != null) ? value : 0.0;
     }
 
-    @Override
-    public int getNumChildrenRequired() {
-        return 1;
-    }
 
     public void setValue(double value) {
         this.value = value;
@@ -33,6 +26,11 @@ public class MakeVariable extends TreeNode {
         if (value == null) {
             return "value not yet visible";
         }
-        return String.format("MakeVariable with value:  %s", value.toString());
+        return String.format("Variable with value:  %s", value.toString());
     }
+
+    protected Double getVal() {
+        return value;
+    }
+
 }

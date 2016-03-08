@@ -16,10 +16,10 @@ public class Repeat extends CommandNode {
 
     @Override
     protected double execute() {
-        int numTimes = (int) getChildren().get(0).getValue();
-        getChildren().remove(0);
+        TreeNode numTimesNode = getChildren().get(0);
+        int numTimes = (int) numTimesNode.getValue();
         IntStream.range(0, numTimes + 1).forEach(i -> runChildren());
-        return value;
+        return (value != null) ? value : 0;
     }
 
     private void runChildren() {
