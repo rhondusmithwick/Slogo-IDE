@@ -16,8 +16,8 @@ import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
 
 /**
- * This class implements the CommandEntryInterface interface and allows the user to input
- * commands to be executed when execute button (within  class) is clicked
+ * This class allows the user to input commands to be executed when execute button 
+ * (within View class) is clicked
  *
  * @author Stephen
  */
@@ -72,7 +72,6 @@ public class CommandEntry implements Observer {
         title = new Label(myResources.getString("entryTitle"));
         container.getChildren().add(title);
         container.setAlignment(Pos.TOP_CENTER);
-
     }
 
     /**
@@ -114,8 +113,7 @@ public class CommandEntry implements Observer {
 
         String command = intCommands.get();
         boolean show =command.startsWith(Defaults.COMMAND_TO_TEXT_BOX.getDefault());
-        if(show){
-            
+        if(show){  
             command = command.substring(Defaults.COMMAND_TO_TEXT_BOX.getDefault().length());
         }
         passInternalCommands(command, show);
