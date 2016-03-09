@@ -6,8 +6,9 @@ import observables.ObjectObservable;
 import view.Defaults;
 
 /**
- * class reponsible for displaying user defined variables and starting user updating process. is subclass
+ * Class responsible for displaying user defined variables and starting user updating process. is subclass
  * of defined objects display abstract class.
+ * 
  * @author calisnelson and Stephen Kwok
  *
  */
