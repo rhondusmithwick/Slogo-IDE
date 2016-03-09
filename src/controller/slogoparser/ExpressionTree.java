@@ -4,22 +4,15 @@ import javafx.application.Platform;
 
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
-import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
-import model.usercontrol.MakeVariable;
-import model.usercontrol.IfClause;
-import model.usercontrol.IfElseClause;
 import model.usercontrol.MakeUserInstruction;
-import model.usercontrol.Repeat;
 import observables.MapObservable;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 /**
@@ -99,7 +92,6 @@ public class ExpressionTree {
         double constant = Double.parseDouble(doubleText);
         return new ConstantNode(constant);
     }
-
 
     private TreeNode createNodeInstance(String className) {
         TreeNode n;
