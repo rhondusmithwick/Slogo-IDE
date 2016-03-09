@@ -22,11 +22,6 @@ public class IfElseClause extends CommandNode {
 		return (expr == 1) ? true : false;
 	}
 	
-	private void runChildren() {
-		value = getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
-		getChildren().stream().forEach(i -> System.out.println(i));
-	}
-	
 	public void handleSpecific(ExpressionTree tree) {
 		TreeNode node = tree.createRoot();
 		this.addChild(node);
