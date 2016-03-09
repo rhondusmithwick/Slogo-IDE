@@ -155,7 +155,7 @@ public class ExpressionTree {
         return myRoots;
     }
     
-    private List<List<TreeNode>> getMultipleCommandsList(int children) {
+    public List<List<TreeNode>> getMultipleCommandsList(int children) {
     	List<List<TreeNode>> myRoots = new LinkedList<>();
     	while (children > 0) {
     		if (parsedText.peek().getKey().equals("ListStart")) {
