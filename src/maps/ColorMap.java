@@ -21,8 +21,6 @@ public class ColorMap extends IndexMap {
     private MapObservable<Integer,String> colors;
     private int count;
 
-
-
     /**
      * Constructor for new color map with default index, color values
      * @throws Exception
@@ -38,9 +36,7 @@ public class ColorMap extends IndexMap {
     @Override
     public MapObservable<Integer, String> getIndexMap(){
         return colors;
-
     }
-    
     
     /**
      * Sets the given rgb color string the the given index, either adding
@@ -54,17 +50,15 @@ public class ColorMap extends IndexMap {
         String value = "rgb(" + rgb[R] + "," + rgb[G]+ ","+rgb[B]+")";
         colors.put(index, value);
         colors.notifyObservers();
-
     }
-
 
     /**
      * Obtains default set of colors and indexes. Uses reflection to obtain
      * all currently named colors in the JavaFx paint class.
      */
     @SuppressWarnings("rawtypes")
-    protected void defaultElements () throws Exception{
-        count =0;
+    protected void defaultElements() throws Exception{
+        count = 0;
 
         Class colorClass = Class.forName(Defaults.FX_PAINT_CLASS.getDefault());
         Field[] fields = colorClass.getFields();
@@ -82,9 +76,8 @@ public class ColorMap extends IndexMap {
      * current map backing the color map
      */
     @Override
-    protected void newMap () {
+    protected void newMap() {
         colors = new MapObservable<>("colors");
-
     }
 
     /**
@@ -95,7 +88,6 @@ public class ColorMap extends IndexMap {
     @Override
     public String get(int key) {
         return colors.get(key);
-
     }
 
     /**
@@ -103,9 +95,8 @@ public class ColorMap extends IndexMap {
      * @return string of directory path where color map files are saved
      */
     @Override
-    protected String getDirectory () {
+    protected String getDirectory() {
        return Defaults.COLORLIST_LOC.getDefault();
     }
-    
 
 }

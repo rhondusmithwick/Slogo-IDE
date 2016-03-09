@@ -1,22 +1,18 @@
 package controller.slogoparser;
 
 import javafx.application.Platform;
+
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
-import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
-import model.usercontrol.MakeVariable;
 import model.usercontrol.MakeUserInstruction;
-import model.usercontrol.Repeat;
 import observables.MapObservable;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 /**
@@ -97,7 +93,6 @@ public class ExpressionTree {
         return new ConstantNode(constant);
     }
 
-
     private TreeNode createNodeInstance(String className) {
         TreeNode n;
         try {
@@ -139,19 +134,40 @@ public class ExpressionTree {
     public List<TreeNode> getCommandsFromList() {
         List<TreeNode> myRoots = new LinkedList<>();
         if (parsedText.peek().getKey().equals("ListStart")) {
-            parsedText.poll();
-            while (true) {
-                if (parsedText.peek().getKey().equals("ListEnd")) {
-                    parsedText.poll();
-                    break;
-                }
-                TreeNode root = createRoot();
-                myRoots.add(root);
-            }
-        }
+        	parsedText.poll();
+        	while (true) {
+        		if (parsedText.peek().getKey().equals("ListEnd")) {
+        			parsedText.poll();
+        			break;
+        		}
+        		TreeNode root = createRoot();
+        		myRoots.add(root);
+        	}
+        }   
         return myRoots;
     }
-
+    
+    public List<List<TreeNode>> getMultipleCommandsList(int children) {
+    	List<List<TreeNode>> myRoots = new LinkedList<>();
+    	while (children > 0) {
+    		if (parsedText.peek().getKey().equals("ListStart")) {
+    			List<TreeNode> tempRoots = new LinkedList<>();
+    			parsedText.poll();
+    			while (true) {
+    				if (parsedText.peek().getKey().equals("ListEnd")) {
+    					parsedText.poll();
+    					break;
+    				}
+    				TreeNode root = createRoot();
+    				tempRoots.add(root);
+    			}
+    			myRoots.add(tempRoots);
+    		}
+    		children--;
+    	}
+    	return myRoots;
+    }
+    	
     public Queue<Entry<String, String>> getParsedText() {
         return parsedText;
     }

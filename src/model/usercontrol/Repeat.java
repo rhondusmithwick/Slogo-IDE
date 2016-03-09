@@ -35,7 +35,6 @@ public class Repeat extends CommandNode {
         value = runChildren();
     }
 
-
     private void getNumTimes() {
         numTimes = (int) numTimesNode.getValue();
     }
