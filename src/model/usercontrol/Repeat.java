@@ -26,13 +26,13 @@ public class Repeat extends CommandNode {
         if (numTimes == null) {
             getNumTimes();
         }
-        IntStream.range(0, numTimes + 1).forEach(i -> runChildren());
+        IntStream.range(0, numTimes + 1).forEach(i -> doIteration());
         return (value != null) ? value : 0;
     }
 
-    private void runChildren() {
+    private void doIteration() {
         repcount.setValue(repcount.getValue() + 1);
-        value = getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
+        value = runChildren();
     }
 
 
