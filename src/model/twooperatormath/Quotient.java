@@ -1,11 +1,9 @@
 package model.twooperatormath;
 
-import java.util.function.DoubleBinaryOperator;
-
 public class Quotient extends TwoOperatorMath {
 
-    public double execute() {
-        DoubleBinaryOperator func = ((a, b) -> a / b);
-        return calculate(func);
+    public Quotient() {
+        super(((a, b) -> a / b));
     }
+
 }

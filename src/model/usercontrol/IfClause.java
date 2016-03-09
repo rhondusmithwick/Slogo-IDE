@@ -1,5 +1,8 @@
 package model.usercontrol;
 
+import java.util.List;
+
+import controller.slogoparser.ExpressionTree;
 import model.treenode.CommandNode;
 import model.treenode.TreeNode;
 
@@ -26,5 +29,17 @@ public class IfClause extends CommandNode {
 	private void runChildren() {
 		value = getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
 		getChildren().stream().forEach(i -> System.out.println(i));
+	}
+	
+	public void handleSpecific(ExpressionTree tree) {
+		TreeNode node = tree.createRoot();
+		this.addChild(node);
+		List<TreeNode> nRoots = tree.getCommandsFromList();
+		nRoots.stream().forEach(this::addChild);
+	}
+	
+	@Override
+	public int getNumChildrenRequired() {
+		return 2;
 	}
 }

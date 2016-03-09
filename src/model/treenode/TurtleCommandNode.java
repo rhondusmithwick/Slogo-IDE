@@ -1,5 +1,6 @@
 package model.treenode;
 
+import controller.slogoparser.ExpressionTree;
 import model.turtle.Turtle;
 
 /**
@@ -22,6 +23,11 @@ public abstract class TurtleCommandNode extends CommandNode {
     @Override
     public double getValue() {
         return execute();
+    }
+
+    @Override
+    public void handleSpecific(ExpressionTree tree) {
+        setTurtle(tree.getMyTurtle());
     }
 
 }

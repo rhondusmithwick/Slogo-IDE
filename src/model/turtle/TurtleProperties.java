@@ -71,7 +71,7 @@ public final class TurtleProperties {
         return new Image(filePath);
     }
 
-    public void setImage(String image) {
+    private void setImage(String image) {
         this.image.set(image);
     }
 
@@ -120,7 +120,7 @@ public final class TurtleProperties {
         return penColor.get();
     }
 
-    public void setPenColor(String penColor) {
+    private void setPenColor(String penColor) {
         this.penColor.set(penColor);
     }
 

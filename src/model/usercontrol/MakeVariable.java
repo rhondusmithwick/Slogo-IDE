@@ -1,6 +1,9 @@
 package model.usercontrol;
 
+import controller.slogoparser.ExpressionTree;
 import model.treenode.TreeNode;
+
+import java.util.Map.Entry;
 
 /**
  * Created by rhondusmithwick on 2/28/16.
@@ -19,13 +22,13 @@ public class MakeVariable extends TreeNode {
         return value;
     }
 
+    public void setValue(double value) {
+        this.value = value;
+    }
+
     @Override
     public int getNumChildrenRequired() {
         return 1;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
     }
 
     @Override
@@ -34,5 +37,11 @@ public class MakeVariable extends TreeNode {
             return "value not yet visible";
         }
         return value.toString();
+    }
+
+    @Override
+    public void handleSpecific(ExpressionTree tree) {
+        Entry<String, String> curr = tree.getParsedText().poll();
+        tree.getVariables().put(curr.getValue(), this);
     }
 }

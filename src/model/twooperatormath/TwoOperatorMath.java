@@ -11,7 +11,14 @@ import java.util.function.DoubleBinaryOperator;
  */
 public abstract class TwoOperatorMath extends CommandNode {
 
-    protected double calculate(DoubleBinaryOperator func) {
+    private final DoubleBinaryOperator func;
+
+    protected TwoOperatorMath(DoubleBinaryOperator func) {
+        this.func = func;
+    }
+
+    @Override
+    public double execute() {
         double value1 = getChildren().get(0).getValue();
         double value2 = getChildren().get(1).getValue();
         return func.applyAsDouble(value1, value2);

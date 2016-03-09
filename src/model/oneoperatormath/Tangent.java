@@ -1,11 +1,10 @@
 package model.oneoperatormath;
 
-import java.util.function.DoubleUnaryOperator;
 
-public class Tangent extends OneOperatorMath {
+public class Tangent extends Trig {
 
-    public double execute() {
-        DoubleUnaryOperator func = (t -> (Math.tan(Math.toRadians(t))));
-        return calculate(func);
+    public Tangent() {
+        super(Math::tan);
     }
+
 }

@@ -1,9 +1,9 @@
-package model.usercontrol;
+package model.display;
 
 import model.treenode.CommandNode;
 
-public class DoTimes extends CommandNode {
-	
+public class SetBackground extends CommandNode {
+
 	@Override
 	protected double execute() {
 		// TODO Auto-generated method stub
