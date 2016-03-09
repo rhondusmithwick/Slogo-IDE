@@ -80,7 +80,7 @@ public class View implements ViewInt {
         this.commHistory = new ObjectObservable<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         createAppview();
-        setPreferences();
+//        setPreferences();
 
     }
 

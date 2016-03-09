@@ -1,8 +1,10 @@
 package model.usercontrol;
 
+import controller.slogoparser.ExpressionTree;
 import model.treenode.CommandNode;
 import model.treenode.TreeNode;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 /**
@@ -12,14 +14,17 @@ import java.util.stream.IntStream;
  */
 public class Repeat extends CommandNode {
 
+    private final Variable repcount = new Variable();
     private Double value = null;
+    private TreeNode numTimesNode;
     private Integer numTimes = null;
-    private Variable repcount = new Variable();
 
     @Override
     protected double execute() {
         repcount.setValue(0);
-        if (numTimes == null) getNumTimes();
+        if (numTimes == null) {
+            getNumTimes();
+        }
         IntStream.range(0, numTimes + 1).forEach(i -> runChildren());
         return (value != null) ? value : 0;
     }
@@ -31,7 +36,12 @@ public class Repeat extends CommandNode {
 
 
     private void getNumTimes() {
-        numTimes = (int) getChildren().get(0).getValue();
-        getChildren().remove(0);
+        numTimes = (int) numTimesNode.getValue();
+    }
+
+    public void handleSpecific(ExpressionTree tree) {
+        numTimesNode = tree.createRoot();
+        List<TreeNode> nRoots = tree.getCommandsFromList();
+        nRoots.stream().forEach(this::addChild);
     }
 }

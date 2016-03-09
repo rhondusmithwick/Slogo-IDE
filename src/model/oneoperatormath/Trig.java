@@ -7,9 +7,9 @@ import java.util.function.DoubleUnaryOperator;
  *
  * @author Rhondu Smithwick
  */
-public class Trig extends OneOperatorMath {
+class Trig extends OneOperatorMath {
 
-    protected Trig(DoubleUnaryOperator func) {
+    Trig(DoubleUnaryOperator func) {
         super(t -> func.applyAsDouble(Math.toRadians(t)));
     }
 }

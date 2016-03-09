@@ -9,7 +9,7 @@ import model.treenode.TreeNode;
  */
 public class Variable extends TreeNode {
 
-    protected Double value = null;
+    private Double value = null;
 
     @Override
     public double getValue() {
@@ -26,7 +26,7 @@ public class Variable extends TreeNode {
         if (value == null) {
             return "value not yet visible";
         }
-        return String.format("Variable with value:  %s", value.toString());
+        return String.format("%s with value:  %s", getClass().getSimpleName(), value.toString());
     }
 
     protected Double getVal() {

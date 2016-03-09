@@ -61,7 +61,7 @@ public class ExpressionTree {
         return rootList;
     }
 
-    private TreeNode createRoot() {
+    public TreeNode createRoot() {
         TreeNode root = createNode();
         createSubTree(root);
         return root;
@@ -84,7 +84,7 @@ public class ExpressionTree {
             n = variables.get(curr.getValue());
         } else if (definedCommands.containsKey(curr.getValue())) {
             n = definedCommands.get(curr.getValue());
-            setValuesForCommand((MakeUserInstruction) n);
+            ((MakeUserInstruction) n).setValuesForCommand(this);
         } else {
             n = createNodeInstance(curr.getKey());
         }
@@ -93,18 +93,10 @@ public class ExpressionTree {
 
     private ConstantNode getConstant(Entry<String, String> curr) {
         String doubleText = curr.getValue();
-        Double constant = Double.parseDouble(doubleText);
+        double constant = Double.parseDouble(doubleText);
         return new ConstantNode(constant);
     }
 
-    private void setValuesForCommand(MakeUserInstruction n) {
-        int numAssigned = 0;
-        while (numAssigned < n.numVariables()) {
-            Entry<String, String> curr = parsedText.poll();
-            n.setValue(numAssigned, curr.getValue());
-            numAssigned++;
-        }
-    }
 
     private TreeNode createNodeInstance(String className) {
         TreeNode n;
@@ -114,10 +106,7 @@ public class ExpressionTree {
         } catch (Exception e) {
             n = new ConstantNode(0);
         }
-        addTurtleIfShould(n);
-        addVariableIfShould(n);
-        makeRepeat(n);
-        makeUserInstruction(n);
+        n.handleSpecific(this);
         return n;
     }
 
@@ -143,48 +132,11 @@ public class ExpressionTree {
         return sb.toString();
     }
 
-    private void addTurtleIfShould(TreeNode n) {
-        if (n instanceof TurtleCommandNode) {
-            TurtleCommandNode turtleNode = (TurtleCommandNode) n;
-            turtleNode.setTurtle(myTurtle);
-        }
+    public MapObservable<String, MakeUserInstruction> getDefinedCommands() {
+        return definedCommands;
     }
 
-    private void addVariableIfShould(TreeNode n) {
-        if (n instanceof MakeVariable) {
-            Entry<String, String> curr = parsedText.poll();
-            variables.put(curr.getValue(), n);
-            createSubTree(n);
-        }
-    }
-  
-    private void makeRepeat(TreeNode n) {
-        if (n instanceof Repeat) {
-            TreeNode numTimes = createRoot();
-            n.addChild(numTimes);
-            List<TreeNode> nRoots = getComamndsList();
-            nRoots.stream().forEach(n::addChild);
-        }
-    }
-
-    private void makeUserInstruction(TreeNode n) {
-        if (n instanceof MakeUserInstruction) {
-            MakeUserInstruction mn = (MakeUserInstruction) n;
-            String name = parsedText.poll().getValue();
-            definedCommands.put(name, mn);
-            mn.makeVariables(parsedText);
-            Map<String, MakeVariable> currVariableMap = mn.getVariableMap();
-            variables.putAll(currVariableMap);
-            List<TreeNode> myRoots = getComamndsList();
-            myRoots.stream().forEach(mn::addChild);
-            Predicate<String> pred = (currVariableMap::containsKey);
-            currVariableMap.keySet().stream().filter(pred).forEach(variables::remove);
-        }
-    }
-
-
-
-    private List<TreeNode> getComamndsList() {
+    public List<TreeNode> getCommandsFromList() {
         List<TreeNode> myRoots = new LinkedList<>();
         if (parsedText.peek().getKey().equals("ListStart")) {
             parsedText.poll();
@@ -198,5 +150,17 @@ public class ExpressionTree {
             }
         }
         return myRoots;
+    }
+
+    public Queue<Entry<String, String>> getParsedText() {
+        return parsedText;
+    }
+
+    public Turtle getMyTurtle() {
+        return myTurtle;
+    }
+
+    public MapObservable<String, TreeNode> getVariables() {
+        return variables;
     }
 }
