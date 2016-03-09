@@ -27,7 +27,7 @@ public class MakeUserInstruction extends CommandNode {
             hasRun = true;
             return 1.0;
         }
-        return getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
+        return runChildren();
     }
 
     private void putInMap(int index, String name) {

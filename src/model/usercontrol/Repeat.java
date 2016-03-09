@@ -7,6 +7,7 @@ import model.treenode.TreeNode;
 import java.util.List;
 import java.util.stream.IntStream;
 
+
 /**
  * Created by rhondusmithwick on 3/1/16.
  *
@@ -25,14 +26,13 @@ public class Repeat extends CommandNode {
         if (numTimes == null) {
             getNumTimes();
         }
-        IntStream.range(0, numTimes + 1).forEach(i -> runChildren());
+        IntStream.range(0, numTimes + 1).forEach(i -> doIteration());
         return (value != null) ? value : 0;
     }
 
-    private void runChildren() {
+    private void doIteration() {
         repcount.setValue(repcount.getValue() + 1);
-        System.out.println(repcount.getValue());
-        value = getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
+        value = runChildren();
     }
 
     private void getNumTimes() {
@@ -42,10 +42,11 @@ public class Repeat extends CommandNode {
     public void handleSpecific(ExpressionTree tree) {
         numTimesNode = tree.createRoot();
         List<TreeNode> nRoots = tree.getCommandsFromList();
-        nRoots.stream().forEach(this::addChild);
+        getChildren().addAll(nRoots);
+        tree.getVariables().put(":repcount", repcount);
     }
-    
+
     public Variable getVariable() {
-    	return repcount;
+        return repcount;
     }
 }
