@@ -7,6 +7,7 @@ import model.treenode.TreeNode;
 import java.util.List;
 import java.util.stream.IntStream;
 
+
 /**
  * Created by rhondusmithwick on 3/1/16.
  *
@@ -42,6 +43,11 @@ public class Repeat extends CommandNode {
     public void handleSpecific(ExpressionTree tree) {
         numTimesNode = tree.createRoot();
         List<TreeNode> nRoots = tree.getCommandsFromList();
-        nRoots.stream().forEach(this::addChild);
+        getChildren().addAll(nRoots);
+        tree.getVariables().put(":repcount", repcount);
+    }
+
+    public Variable getVariable() {
+        return repcount;
     }
 }

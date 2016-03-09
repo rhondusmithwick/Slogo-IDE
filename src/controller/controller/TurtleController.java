@@ -61,13 +61,10 @@ public class TurtleController implements Controller, Observer {
 
     @Override
     public void takeInput(String input) {
-        System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         runCommands(parsedText);
 }
-
-
-
+    
     private void runCommands(Queue<Entry<String, String>> parsedText) {
         if (parsedText == null) {
             error.set("");
