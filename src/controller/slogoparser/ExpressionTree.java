@@ -8,6 +8,7 @@ import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
 import model.usercontrol.MakeVariable;
 import model.usercontrol.IfClause;
+import model.usercontrol.IfElseClause;
 import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Repeat;
 import observables.MapObservable;
@@ -119,6 +120,7 @@ public class ExpressionTree {
         addTurtleIfShould(n);
         addVariableIfShould(n);
         makeIfClause(n);
+        makeIfElseClause(n);
         makeRepeat(n);
         makeUserInstruction(n);
         return n;
@@ -169,6 +171,20 @@ public class ExpressionTree {
     		nRoots.stream().forEach(n::addChild);
     	}
     }
+    
+    private void makeIfElseClause(TreeNode n) {
+    	if (n instanceof IfElseClause) {
+    		IfElseClause clause = (IfElseClause) n;
+    		TreeNode node = createRoot();
+    		n.addChild(node);
+    		List<List<TreeNode>> nRoots = getMultipleCommandsList(2);
+    		if (clause.getBoolean()) {
+    			nRoots.get(0).stream().forEach(n::addChild);
+    		} else {
+    			nRoots.get(1).stream().forEach(n::addChild);
+    		}	
+    	}
+    }
   
     private void makeRepeat(TreeNode n) {
         if (n instanceof Repeat) {
@@ -199,16 +215,37 @@ public class ExpressionTree {
     private List<TreeNode> getCommandsList() {
         List<TreeNode> myRoots = new LinkedList<>();
         if (parsedText.peek().getKey().equals("ListStart")) {
-            parsedText.poll();
-            while (true) {
-                if (parsedText.peek().getKey().equals("ListEnd")) {
-                    parsedText.poll();
-                    break;
-                }
-                TreeNode root = createRoot();
-                myRoots.add(root);
-            }
-        }
+        	parsedText.poll();
+        	while (true) {
+        		if (parsedText.peek().getKey().equals("ListEnd")) {
+        			parsedText.poll();
+        			break;
+        		}
+        		TreeNode root = createRoot();
+        		myRoots.add(root);
+        	}
+        }   
         return myRoots;
+    }
+    
+    private List<List<TreeNode>> getMultipleCommandsList(int children) {
+    	List<List<TreeNode>> myRoots = new LinkedList<>();
+    	while (children > 0) {
+    		if (parsedText.peek().getKey().equals("ListStart")) {
+    			List<TreeNode> tempRoots = new LinkedList<>();
+    			parsedText.poll();
+    			while (true) {
+    				if (parsedText.peek().getKey().equals("ListEnd")) {
+    					parsedText.poll();
+    					break;
+    				}
+    				TreeNode root = createRoot();
+    				tempRoots.add(root);
+    			}
+    			myRoots.add(tempRoots);
+    		}
+    		children--;
+    	}
+    	return myRoots;
     }
 }

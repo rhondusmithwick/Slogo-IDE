@@ -62,6 +62,7 @@ public class SlogoParser {
         Predicate<Entry<String, String>> containsError = (e) -> Objects.equals(e.getKey(), ERROR);
         Queue<Entry<String, String>> parsedText = createParsedText(input);
         System.out.println(parsedText);
+        System.out.println("-----text has been parsed-----");
         if (parsedText.stream().anyMatch(containsError)) {
             return null;
         } else {

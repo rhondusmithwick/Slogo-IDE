@@ -20,10 +20,11 @@ public class IfClause extends CommandNode {
 	private void getBoolean() {
 		int expr = (int) getChildren().get(0).getValue();
 		getChildren().remove(0);
-		bool = expr == 1? true : false;
+		bool = (expr == 1) ? true : false;
 	}
 	
 	private void runChildren() {
 		value = getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
+		getChildren().stream().forEach(i -> System.out.println(i));
 	}
 }
