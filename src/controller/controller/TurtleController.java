@@ -63,7 +63,7 @@ public class TurtleController implements Controller, Observer {
     public void takeInput(String input) {
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         runCommands(parsedText);
-}
+    }
     
     private void runCommands(Queue<Entry<String, String>> parsedText) {
         if (parsedText == null) {
@@ -79,6 +79,7 @@ public class TurtleController implements Controller, Observer {
             }
         }
     }
+    
     @Override
     public List<Command> getCommands() {
         return null;

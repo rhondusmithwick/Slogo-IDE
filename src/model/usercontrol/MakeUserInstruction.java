@@ -19,7 +19,6 @@ import java.util.Queue;
 public class MakeUserInstruction extends CommandNode {
     private final Map<Integer, String> variableNames = new HashMap<>();
     private final Map<String, MakeVariable> variableMap = new HashMap<>();
-
     private boolean hasRun = false;
 
     @Override
@@ -82,5 +81,4 @@ public class MakeUserInstruction extends CommandNode {
             numAssigned++;
         }
     }
-
 }

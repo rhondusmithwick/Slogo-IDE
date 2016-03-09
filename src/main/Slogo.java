@@ -37,7 +37,6 @@ class Slogo {
         primaryStage.setScene(scene);
     }
 
-
     private void bindProperties() {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
         controllerProperties.parallelStream()
@@ -54,6 +53,4 @@ class Slogo {
                 .findFirst()
                 .ifPresent(vProp -> vProp.bindBidirectional(cProp));
     }
-
-
 }
