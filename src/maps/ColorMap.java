@@ -2,6 +2,7 @@ package maps;
 
 import java.lang.reflect.Field;
 
+
 import view.Defaults;
 import javafx.scene.paint.Color;
 import observables.MapObservable;
@@ -105,12 +106,6 @@ public class ColorMap extends IndexMap {
     protected String getDirectory () {
        return Defaults.COLORLIST_LOC.getDefault();
     }
-
-
-
-
-
-
-
+    
 
 }

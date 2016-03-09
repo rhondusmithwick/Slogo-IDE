@@ -18,7 +18,7 @@ import observables.ObjectObservable;
  */
 public class TopBar extends SubBar {
 
-    private SimpleStringProperty image, penColor;
+    private SimpleStringProperty image;
     private PopUp cDisp, iDisp;
     private ComboBox<String> bColorBox;
     private ComboBox<String> pColorBox;
@@ -36,12 +36,11 @@ public class TopBar extends SubBar {
      * @param penColor simplestringproperty to set turtles pen color
      */
     public TopBar(ObjectObservable<String> language, ObjectObservable<String> bgColor,
-                  SimpleStringProperty image, SimpleStringProperty penColor, 
+                  SimpleStringProperty image,
                   ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
         super(language, intCommand, cMap);
         this.image=image;
         this.bgColor = bgColor;
-        this.penColor=penColor;
         cDisp = new ColorDisplay("colorTitle", cMap.getIndexMap());
         iDisp = new ImageDisplay("imageTitle",  iMap.getIndexMap());
 
@@ -60,7 +59,9 @@ public class TopBar extends SubBar {
 
     private void setPColor() {
         String pColor = pColorBox.getSelectionModel().getSelectedItem();
-        penColor.set(pColor.toLowerCase());
+        String command = getCommand("SetPenColor");
+        int index = getColorIndex(pColor);
+        passCommand(command + " " + index);
 
     }
 

@@ -1,5 +1,8 @@
 package maps;
 
+import java.util.Map.Entry;
+import java.util.stream.Stream;
+
 import observables.MapObservable;
 import view.Defaults;
 import view.xml.MapFromXML;
@@ -32,6 +35,13 @@ public abstract class IndexMap {
         }else{
             getElementsFromXML(type);
         }
+    }
+    
+    public int getIndex(String value){
+    	Stream<Entry<Integer, String>>  filt= this.getIndexMap().getEntrySet().stream().filter(e-> e.getValue().equals(value));
+    	Entry<Integer, String> first =filt.findFirst().get();
+    	return first.getKey();
+
     }
     
     /**

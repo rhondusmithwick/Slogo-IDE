@@ -174,7 +174,7 @@ public class View implements ViewInt {
     private void createToolBar() {
         createMaps();
         top = new VBox(Size.TB_PADDING.getSize());
-        topBar = new TopBar(pLang, backgroundColor, image, penColor, intCommands, (ColorMap)cMap, (ImageMap)iMap);
+        topBar = new TopBar(pLang, backgroundColor, image, intCommands, (ColorMap)cMap, (ImageMap)iMap);
         botBar = new BottomBar(pLang, intCommands, (ColorMap) cMap, (ImageMap) iMap);
         top.getChildren().addAll(topBar.getContainer(), botBar.getContainer());
         BorderPane.setMargin(top, ViewInsets.TOP.getInset());
