@@ -73,13 +73,13 @@ public class TurtleController implements Controller, Observer {
             error.set("");
             error.set("Command not recognized: " + input);
         } else {
-            try {
+//            try {
                 ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables, definedCommands, colorMap, parsedText);
                 new Thread(expressionTree::executeAll).start();
-            } catch (Exception es) {
-                error.set("");
-                error.set("Exception in command argument: " + input);
-            }
+//            } catch (Exception es) {
+//                error.set("");
+//                error.set("Exception in command argument: " + input);
+//            }
         }
     }
     
