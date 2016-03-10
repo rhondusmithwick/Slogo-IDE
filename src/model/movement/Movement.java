@@ -39,6 +39,7 @@ public abstract class Movement extends TurtleCommandNode {
     private void setUp() {
         setDone(false);
         penLine = new Line();
+        penLine.strokeWidthProperty().bind(getTurtle().getTurtleProperties().penSizeProperty());
         Platform.runLater(() -> getTurtle().getGroup().getChildren().add(penLine));
     }
 
