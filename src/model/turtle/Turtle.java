@@ -14,10 +14,12 @@ import java.util.concurrent.Executors;
 public class Turtle {
 
     private final Group root = new Group();
+    private final int ID;
     private final TurtleProperties turtleProperties;
     private final ExecutorService executorService = Executors.newWorkStealingPool(1);
 
-    public Turtle(Dimension2D turtleDispDimension) {
+    public Turtle(int ID, Dimension2D turtleDispDimension) {
+        this.ID = ID;
         turtleProperties = new TurtleProperties();
         turtleProperties.addListeners();
         turtleProperties.init(turtleDispDimension);
@@ -34,5 +36,10 @@ public class Turtle {
 
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Turtle with ID: %d", ID);
     }
 }

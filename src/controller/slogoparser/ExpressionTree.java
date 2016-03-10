@@ -5,10 +5,12 @@ import javafx.application.Platform;
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
+import model.turtle.TurtleManager;
 import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Variable;
 import observables.MapObservable;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -82,7 +84,8 @@ public class ExpressionTree {
         if (isConstant(curr.getKey())) {
             n = getConstant(curr);
         } else if (curr.getKey().equals("Tell")) {
-            turtleManager.doTell(parsedText);
+            Collection<Integer> IDs = turtleManager.doTell(parsedText);
+            turtleManager.populateActiveTurtles(IDs);
             n = new ConstantNode(0.0);
         } else if (variables.containsKey(curr.getValue())) {
             n = variables.get(curr.getValue());
