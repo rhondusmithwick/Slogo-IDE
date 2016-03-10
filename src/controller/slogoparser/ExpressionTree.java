@@ -2,6 +2,7 @@ package controller.slogoparser;
 
 import javafx.application.Platform;
 
+import maps.IndexMap;
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
@@ -33,12 +34,12 @@ public class ExpressionTree {
 
     private final MapObservable<String, Variable> variables;
     private final MapObservable<String, MakeUserInstruction> definedCommands;
-    private final MapObservable<Integer, String> colorMap;
+    private final IndexMap colorMap;
 
     private final TurtleManager turtleManager;
 
     public ExpressionTree(TurtleManager turtleManager, MapObservable<String, Variable> variables, MapObservable<String, MakeUserInstruction> definedCommands,
-                          MapObservable<Integer, String> colorMap, Queue<Entry<String, String>> parsedText) {
+                          IndexMap colorMap, Queue<Entry<String, String>> parsedText) {
         this.turtleManager = turtleManager;
         this.variables = variables;
         this.definedCommands = definedCommands;
@@ -146,12 +147,11 @@ public class ExpressionTree {
         return definedCommands;
     }
     
-    public MapObservable<Integer, String> getColorMap() {
+    public IndexMap getColorMap() {
     	return colorMap;
     }
 
     public List<TreeNode> getCommandsFromList() {
-        System.out.println(parsedText);
         List<TreeNode> myRoots = new LinkedList<>();
         if (parsedText.peek().getKey().equals("ListStart")) {
         	parsedText.poll();

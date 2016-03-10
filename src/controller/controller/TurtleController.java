@@ -2,6 +2,8 @@ package controller.controller;
 
 import controller.slogoparser.ExpressionTree;
 import controller.slogoparser.SlogoParser;
+import main.GlobalProperties;
+import maps.IndexMap;
 import model.turtle.TurtleManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
@@ -32,19 +34,22 @@ public class TurtleController implements Controller, Observer {
 
     private final Group group = new Group();
     private final TurtleManager turtleManager;
-    private final ObjectObservable<String> language = new ObjectObservable<>();
-    private final ObjectObservable<String> input = new ObjectObservable<>();
-    
+    private final ObjectObservable<String> language;
+    private final ObjectObservable<String> input;
+    private final IndexMap colorMap, imageMap;
+
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
 
     private final MapObservable<String, Variable> variables = new MapObservable<>("variables");
 
     private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedCommands");
-    
-    private MapObservable<Integer, String> colorMap = new MapObservable<>("colorMap");
 
-    public TurtleController(Dimension2D turtleDispDimension) {
+    public TurtleController(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
         turtleManager = new TurtleManager(turtleDispDimension);
+        this.language = globalProperties.getLanguage();
+        this.input = globalProperties.getInput();
+        this.colorMap = globalProperties.getColorMap();
+        this.imageMap = globalProperties.getImageMap();
         language.addObserver(this);
         input.addObserver(this);
         language.set(DEFAULT_LANGUAGE);
@@ -91,11 +96,7 @@ public class TurtleController implements Controller, Observer {
     public Group getGroup() {
         return group;
     }
-    
-    public void setMap(MapObservable<Integer, String> map) {
-    	System.out.println("set map from controller");
-    	this.colorMap = map;
-    }
+
 
     @Override
     public void update(Observable o, Object arg) {

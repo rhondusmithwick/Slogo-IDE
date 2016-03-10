@@ -22,7 +22,7 @@ public class ImageMap extends IndexMap{
      * creates a new image map with default images and indexes
      * @throws Exception
      */
-    public ImageMap() throws Exception{
+    public ImageMap() {
         super();
     }
 
