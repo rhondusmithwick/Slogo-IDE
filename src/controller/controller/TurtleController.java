@@ -3,7 +3,6 @@ package controller.controller;
 import controller.slogoparser.ExpressionTree;
 import controller.slogoparser.SlogoParser;
 import main.GlobalProperties;
-import maps.IndexMap;
 import model.turtle.TurtleManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;

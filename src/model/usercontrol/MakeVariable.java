@@ -1,7 +1,6 @@
 package model.usercontrol;
 
 import controller.slogoparser.ExpressionTree;
-import model.treenode.TreeNode;
 
 import java.util.Map.Entry;
 
