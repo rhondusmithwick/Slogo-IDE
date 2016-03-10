@@ -27,6 +27,7 @@ public class SetPenColor extends TurtleCommandNode {
 	
 	private void setPenColor() {
 		index = (int) getChildren().get(0).getValue();
+		turtle.getTurtleProperties().setPenColorIndex(index);
 		turtle.getTurtleProperties().setPenColor(colorMap.get(index));
 	}
 

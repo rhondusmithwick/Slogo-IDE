@@ -27,6 +27,7 @@ public class SetShape extends TurtleCommandNode {
 	
 	private void setShape() {
 		index = (int) getChildren().get(0).getValue();
+		turtle.getTurtleProperties().setPenShapeIndex(index);
 		turtle.getTurtleProperties().setImage(imageMap.get(index));
 	}
 
