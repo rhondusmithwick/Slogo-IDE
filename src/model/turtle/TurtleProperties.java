@@ -70,7 +70,7 @@ public final class TurtleProperties {
         return new Image(filePath);
     }
 
-    private void setImage(String image) {
+    public void setImage(String image) {
         this.image.set(image);
     }
 

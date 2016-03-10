@@ -33,16 +33,18 @@ public class ExpressionTree {
     private final MapObservable<String, TreeNode> variables;
     private final MapObservable<String, MakeUserInstruction> definedCommands;
     private final MapObservable<Integer, String> colorMap;
+    private final MapObservable<Integer, String> imageMap;
     private final ObjectObservable<String> backgroundColor;
 
     private final Turtle myTurtle;
 
     public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, MapObservable<String, MakeUserInstruction> definedCommands,
-                          MapObservable<Integer, String> colorMap, ObjectObservable<String> backgroundColor, Queue<Entry<String, String>> parsedText) {
+                          MapObservable<Integer, String> colorMap, MapObservable<Integer, String> imageMap, ObjectObservable<String> backgroundColor, Queue<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
         this.variables = variables;
         this.definedCommands = definedCommands;
         this.colorMap = colorMap;
+        this.imageMap = imageMap;
         this.backgroundColor = backgroundColor;
         this.parsedText = parsedText;
         rootList = createRootList();
@@ -140,6 +142,10 @@ public class ExpressionTree {
     
     public MapObservable<Integer, String> getColorMap() {
     	return colorMap;
+    }
+    
+    public MapObservable<Integer, String> getImageMap() {
+    	return imageMap;
     }
     
     public ObjectObservable<String> getBackgroundColor() {

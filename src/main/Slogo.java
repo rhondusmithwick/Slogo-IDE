@@ -41,7 +41,8 @@ class Slogo {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
         controllerProperties.parallelStream()
                 .forEach(this::findTwin);
-        ((TurtleController) controller).setMap(view.getMap(true).getIndexMap());
+        ((TurtleController) controller).setColorMap(view.getMap(true).getIndexMap());
+        ((TurtleController) controller).setImageMap(view.getMap(false).getIndexMap());
         ((TurtleController) controller).setBackgroundColor(((View) view).getBackgroundColor());
     }
 

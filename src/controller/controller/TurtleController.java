@@ -43,6 +43,7 @@ public class TurtleController implements Controller, Observer {
     private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedCommands");
     
     private MapObservable<Integer, String> colorMap = new MapObservable<>("colorMap");
+    private MapObservable<Integer, String> imageMap = new MapObservable<>("imageMap");
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
@@ -74,7 +75,7 @@ public class TurtleController implements Controller, Observer {
             error.set("Command not recognized: " + input);
         } else {
             try {
-                ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, colorMap, backgroundColor, parsedText);
+                ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, colorMap, imageMap, backgroundColor, parsedText);
                 new Thread(expressionTree::executeAll).start();
             } catch (Exception es) {
                 error.set("");
@@ -93,8 +94,12 @@ public class TurtleController implements Controller, Observer {
         return group;
     }
     
-    public void setMap(MapObservable<Integer, String> map) {
+    public void setColorMap(MapObservable<Integer, String> map) {
     	this.colorMap = map;
+    }
+    
+    public void setImageMap(MapObservable<Integer, String> map) {
+    	this.imageMap = map;
     }
     
     public void setBackgroundColor(ObjectObservable<String> color) {
