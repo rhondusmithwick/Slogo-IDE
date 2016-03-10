@@ -30,14 +30,16 @@ public class ExpressionTree {
 
     private final MapObservable<String, TreeNode> variables;
     private final MapObservable<String, MakeUserInstruction> definedCommands;
+    private final MapObservable<Integer, String> colorMap;
 
     private final Turtle myTurtle;
 
     public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, MapObservable<String, MakeUserInstruction> definedCommands,
-                          Queue<Entry<String, String>> parsedText) {
+                          MapObservable<Integer, String> colorMap, Queue<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
         this.variables = variables;
         this.definedCommands = definedCommands;
+        this.colorMap = colorMap;
         this.parsedText = parsedText;
         rootList = createRootList();
     }
@@ -129,6 +131,10 @@ public class ExpressionTree {
 
     public MapObservable<String, MakeUserInstruction> getDefinedCommands() {
         return definedCommands;
+    }
+    
+    public MapObservable<Integer, String> getColorMap() {
+    	return colorMap;
     }
 
     public List<TreeNode> getCommandsFromList() {

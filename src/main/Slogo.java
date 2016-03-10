@@ -41,6 +41,7 @@ class Slogo {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
         controllerProperties.parallelStream()
                 .forEach(this::findTwin);
+        ((TurtleController) controller).setMap(view.getMap(true).getIndexMap());
     }
 
     private void findTwin(SimpleStringProperty cProp) {

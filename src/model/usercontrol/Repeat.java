@@ -26,7 +26,7 @@ public class Repeat extends CommandNode {
         if (numTimes == null) {
             getNumTimes();
         }
-        IntStream.range(0, numTimes + 1).forEach(i -> doIteration());
+        IntStream.range(0, numTimes).forEach(i -> doIteration());
         return (value != null) ? value : 0;
     }
 
@@ -42,6 +42,7 @@ public class Repeat extends CommandNode {
     public void handleSpecific(ExpressionTree tree) {
         numTimesNode = tree.createRoot();
         List<TreeNode> nRoots = tree.getCommandsFromList();
+        System.out.println(nRoots);
         getChildren().addAll(nRoots);
         tree.getVariables().put(":repcount", repcount);
     }

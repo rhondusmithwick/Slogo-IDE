@@ -19,7 +19,7 @@ public abstract class IndexMap {
 	 * Constructor for new index map. Adds default elements to newly created map
 	 * @throws Exception
 	 */
-    protected IndexMap() throws Exception{
+    protected IndexMap() throws Exception {
         addElements(Defaults.DEFAULT.getDefault());
     }
     

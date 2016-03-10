@@ -1,6 +1,5 @@
 package model.turtle;
 
-
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -120,13 +119,11 @@ public final class TurtleProperties {
         return penColor.get();
     }
 
-    private void setPenColor(String penColor) {
+    public void setPenColor(String penColor) {
         this.penColor.set(penColor);
     }
 
     public SimpleStringProperty penColorProperty() {
         return penColor;
     }
-
-
 }
