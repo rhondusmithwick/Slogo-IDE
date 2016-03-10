@@ -6,6 +6,7 @@ import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
 import model.usercontrol.MakeUserInstruction;
+import model.usercontrol.Variable;
 import observables.MapObservable;
 
 import java.util.LinkedList;
@@ -51,6 +52,7 @@ public class ExpressionTree {
     }
 
     private List<TreeNode> createRootList() {
+        variables.put(":repcount", new Variable());
         List<TreeNode> rootList = new LinkedList<>();
         while (inBounds()) {
             TreeNode root = createRoot();
