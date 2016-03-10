@@ -10,33 +10,19 @@ import java.util.Map.Entry;
  *
  * @author Rhondu Smithwick
  */
-public class MakeVariable extends TreeNode {
-
-    private Double value = null;
+public class MakeVariable extends Variable {
 
     @Override
     public double getValue() {
-        if (value == null) {
-            value = getChildren().get(0).getValue();
+        if (getVal() == null) {
+           setValue(getChildren().get(0).getValue());
         }
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
+        return super.getValue();
     }
 
     @Override
     public int getNumChildrenRequired() {
         return 1;
-    }
-
-    @Override
-    public String toString() {
-        if (value == null) {
-            return "value not yet visible";
-        }
-        return value.toString();
     }
 
     @Override
