@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.function.Predicate;
 
 /**
  * Created by rhondusmithwick on 3/6/16.
@@ -77,12 +78,19 @@ public class MakeUserInstruction extends CommandNode {
         UserCommand userCommand = new UserCommand();
         setValuesForCommand(tree);
         MapObservable<String, Variable> treeVariables = tree.getVariables();
-        treeVariables.putAll(variableMap);
+        Predicate<Entry<String, Variable>> notAlreadyVariable = (e) -> (!isAlreadyVariable(tree, e.getKey()));
+        variableMap.entrySet().parallelStream().filter(notAlreadyVariable)
+                .forEach(e -> treeVariables.put(e.getKey(), e.getValue()));
         addChildrenToUserCommand(userCommand, tree);
-        variableMap.keySet().parallelStream().forEach(treeVariables::remove);
+        variableMap.entrySet().parallelStream().filter(notAlreadyVariable)
+                .map(Entry::getKey).forEach(treeVariables::remove);
         return userCommand;
     }
 
+
+    private boolean isAlreadyVariable(ExpressionTree tree, String value) {
+        return tree.getVariables().containsKey(value);
+    }
     private void  makeCommands(Queue<Entry<String, String>> parsedText) {
         if (parsedText.peek().getKey().equals("ListStart")) {
             int numEnds = 1;
@@ -104,7 +112,9 @@ public class MakeUserInstruction extends CommandNode {
         int numAssigned = 0;
         while (numAssigned < numVariables()) {
             Entry<String, String> curr = tree.getParsedText().poll();
-            setValue(numAssigned, curr.getValue());
+            if (!isAlreadyVariable(tree, curr.getValue())) {
+                setValue(numAssigned, curr.getValue());
+            }
             numAssigned++;
         }
     }
