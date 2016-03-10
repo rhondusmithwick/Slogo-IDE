@@ -1,7 +1,8 @@
 package view.tbar.popupdisplays;
 
 import java.util.Arrays;
-import view.envdisplay.EnvUpdate;
+
+import view.envdisplay.EnvActor;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import observables.ObjectObservable;
@@ -14,7 +15,7 @@ import observables.ObjectObservable;
  *
  */
 
-public class PenSizeUpdater extends EnvUpdate {
+public class PenSizeUpdater extends EnvActor{
 
 
     private static final String SPACE = " ";

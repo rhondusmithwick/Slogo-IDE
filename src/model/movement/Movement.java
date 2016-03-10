@@ -90,7 +90,7 @@ public abstract class Movement extends TurtleCommandNode {
         isDone = b;
     }
 
-    public void keepGoing() {
+    private void keepGoing() {
         while (!isDone) {
             try {
                 TimeUnit.MILLISECONDS.sleep(100);

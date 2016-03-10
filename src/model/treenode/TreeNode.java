@@ -1,5 +1,7 @@
 package model.treenode;
 
+import controller.slogoparser.ExpressionTree;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,4 +41,10 @@ public abstract class TreeNode {
     }
 
 
+    public void handleSpecific(ExpressionTree tree) {
+    }
+
+    protected Double runChildren() {
+       return getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
+    }
 }

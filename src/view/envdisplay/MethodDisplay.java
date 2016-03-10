@@ -13,7 +13,7 @@ import view.Defaults;
  */
 public class MethodDisplay extends DefinedObjectsDisplay {
 
-	private EnvUpdate updater;
+	private EnvActor updater;
 
 	/**
 	 * Creates new Method display instance
@@ -35,7 +35,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 	 */
 	@Override
 	protected void updateDefinedObject(Label label) {
-		updater = getUpdater(Defaults.METH_UP_LOC.getDefault(), label);
+		updater = getUpdater(Defaults.METH_ACT_LOC.getDefault(), label);
 		updater.show();
 	}
 }

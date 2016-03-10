@@ -440,6 +440,112 @@
       </tr>
     </TABLE>
     
+    <h4>Display Commands</h4>
+<p>Note, for commands below that receive/return an index number, that index should refer to a list of  graphical items (like an image or color) whose items are clearly available in the GUI with their number or order apparent (so the user knows how to refer  to them within a command). Also, it would be helpful to populate each list with some initial default choices for the user.</p>
+
+<table border="1">
+<tbody><tr>
+  <th>Command</th>
+  <th>Description</th>
+  </tr>
+<tr>
+  <td><code>SETBACKGROUND</code> <em>index</em><br>
+      <code>SETBG</code> <em>index</em>
+  </td>
+  <td>sets background color of screen to that represented by <em>index</em><br>
+    returns given <em>index</em></td>
+  </tr>
+<tr>
+  <td><code>SETPENCOLOR</code> <em>index</em><br>
+      <code>SETPC</code> <em>index</em>
+  </td>
+  <td>sets color of the pen to that represented by <em>index</em><br>
+    returns given <em>index</em></td>
+  </tr>
+<tr>
+  <td><code>SETPENSIZE</code> <em>pixels</em><br>
+      <code>SETPS</code> <em>pixels</em>
+  </td>
+  <td>sets size of the pen to be <em>pixels</em> thickness<br>
+    returns given <em>pixels</em></td>
+  </tr>
+<tr>
+  <td><code>SETSHAPE</code> <em>index</em><br>
+      <code>SETSH</code> <em>index</em>
+  </td>
+  <td>sets shape of turtle to that represented by <em>index</em><br>
+    returns given <em>index</em></td>
+  </tr>
+<tr>
+  <td><code>SETPALETTE</code> <em>index</em> <em>r</em> <em>g</em> <em>b</em></td>
+  <td>sets color corresponding at given <em>index</em> to given <em>r</em> <em>g</em> <em>b</em> color values<br>
+    returns given <em>index</em><br>
+    note, color component values are nonnegative integers less than 256 specifying an amount of red, green, and blue </td>
+  </tr>
+<tr>
+  <td><code>PENCOLOR<br>
+  </code><code>PC</code></td>
+  <td>returns  turtle's current color index</td>
+  </tr>
+<tr>
+  <td><code>SHAPE</code><br>
+    <code>SH</code><em></em></td>
+  <td>returns   turtle's current shape index</td>
+  </tr>
+<tr>
+  <td><code>STAMP</code></td>
+  <td>draw the image of the turtle in its current settings on the workspace display<br>
+    returns the  index of the turtle's image used for the stamp</td>
+</tr>
+<tr>
+  <td><code>CLEARSTAMPS</code></td>
+  <td>remove all stamps that have been made<br>
+    returns 1 if there were any stamps  cleared, 0 otherwise</td>
+</tr>
+</tbody></table>
+<h4>Multiple Turtle Commands</h4>
+<table border="1">
+<tbody><tr>
+  <th>Command</th>
+  <th>Description</th>
+  </tr>
+<tr>
+  <td>ID</td>
+  <td>returns  current active turtle's ID number<br>
+    ID values typically start at 1 and increase by 1 with each new turtle created<br>
+    note, there is  technically only one "active turtle" at any given time since each command is run once for each active turtle, i.e., this value can always be used to identify the current turtle running the command</td>
+  </tr>
+<tr>
+  <td>TURTLES<br>
+    <br></td>
+  <td>returns  number of turtles created so far (i.e., the ID of the last turtle)</td>
+</tr>
+<tr>
+  <td><code>TELL</code> <code>[</code> <em>turtle(s)</em> <code>]</code></td>
+  <td>sets <em>turtles</em> that will follow commands hereafter<br>
+    returns last value in <em>turtles</em> list<em><br>
+      </em>note, if turtle has not previously existed, it is created and placed at the home location<br>
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
+  </tr>
+<tr>
+  <td><code>ASK</code> <code>[</code> <em>turtle(s)</em> <code>]</code> <br>    
+    <code>[</code><em>&nbsp;&nbsp;command(s)</em> <code>]</code></td>
+  <td>tell <i>turtles</i> given in first list to run <em>commands</em> given in the second list<em><br>
+    </em>returns result of last command run<br>
+    note, after commands are run,  currently active list of turtles returns to that set by the last TELL command (or default active turtle if TELL never given)<br>
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
+</tr>
+<tr>
+  <td><code>ASKWITH</code> <code>[</code> <em>condition</em> <code>]<br>
+  </code> <code>[</code><em>&nbsp;&nbsp;command(s)</em> <code>]</code></td>
+  <td>tell <i>turtles</i> matching  given <em>condition</em> to run <em>commands</em> given in the second list<em><br>
+    </em>returns result of last command run<br>
+    note, after commands are run,  currently active list of turtles returns to that set by the last TELL command (or default active turtle if TELL never given)<br>
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
+  </tr>
+</tbody></table>
+    
+    
     <H4>GUI Controls</H4>
      <ul>
       <li>Commands should be entered in the text box on the right of the screen. To run the commands press the execute button.</li>

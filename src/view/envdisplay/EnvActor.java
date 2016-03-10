@@ -17,17 +17,16 @@ import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
 
 /**
- * this class represents an abstract base for classes that update objects defined by the
+ * this class represents an abstract base for classes that acts on objects defined by the
  * user. as it is a popup, it also extends the abstract PopUp class.
  * @author calinelson
  *
  */
-public abstract class EnvUpdate extends PopUp{
+public abstract class EnvActor extends PopUp{
 
     private ObjectObservable<String> intCommand;
     private ResourceBundle myResources;
     private Button setB;
-	private String newVal;
     private ObjectObservable<String> pLang;
 
     /**
@@ -35,7 +34,7 @@ public abstract class EnvUpdate extends PopUp{
      * @param intCommand string observable for passing commands to command entry instance
      * @param pLang string observable that stores the current parsing language
      */
-    public EnvUpdate(ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
+    public EnvActor(ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
     	super(Size.ENV_WIDTH.getSize(), Size.ENV_HEIGHT.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         this.intCommand=intCommand;
@@ -63,9 +62,7 @@ public abstract class EnvUpdate extends PopUp{
      * Updates the passed label with the new text value created by the updater
      * @param l label to be updated
      */
-    public void updateLabel(Label l){
-    	l.setText(newVal);
-    }
+
 
 
     private void createSetButton() {
@@ -140,7 +137,7 @@ public abstract class EnvUpdate extends PopUp{
     
     /**
      * Gets the correct command given the correct command key, 
-     * and the current parsing langauge
+     * and the current parsing language
      * @param key command key
      * @return String command in correct parsing language
      */

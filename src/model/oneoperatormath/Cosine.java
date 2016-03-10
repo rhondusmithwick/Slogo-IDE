@@ -1,11 +1,9 @@
 package model.oneoperatormath;
 
-import java.util.function.DoubleUnaryOperator;
 
-public class Cosine extends OneOperatorMath {
-    @Override
-    protected double execute() {
-        DoubleUnaryOperator func = (t -> (Math.cos(Math.toRadians(t))));
-        return calculate(func);
+public class Cosine extends Trig {
+
+    public Cosine() {
+        super(Math::cos);
     }
 }

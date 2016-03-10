@@ -39,7 +39,9 @@ public class TurtleController implements Controller, Observer {
 
     private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
 
-    private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedComamnds");
+    private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedCommands");
+    
+    private MapObservable<Integer, String> colorMap = new MapObservable<>("colorMap");
 
     public TurtleController(Dimension2D turtleDispDimension) {
         myTurtle = new Turtle(turtleDispDimension);
@@ -47,6 +49,7 @@ public class TurtleController implements Controller, Observer {
         input.addObserver(this);
         language.set(DEFAULT_LANGUAGE);
         variables.addObserver(this);
+        definedCommands.addObserver(this);
         group.getChildren().add(myTurtle.getGroup());
     }
 
@@ -60,20 +63,17 @@ public class TurtleController implements Controller, Observer {
 
     @Override
     public void takeInput(String input) {
-        System.out.printf("text backend is doing: %s \n", input);
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         runCommands(parsedText);
-}
-
-
-
+    }
+    
     private void runCommands(Queue<Entry<String, String>> parsedText) {
         if (parsedText == null) {
             error.set("");
             error.set("Command not recognized: " + input);
         } else {
             try {
-                ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, parsedText);
+                ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, colorMap, parsedText);
                 new Thread(expressionTree::executeAll).start();
             } catch (Exception es) {
                 error.set("");
@@ -81,6 +81,7 @@ public class TurtleController implements Controller, Observer {
             }
         }
     }
+    
     @Override
     public List<Command> getCommands() {
         return null;
@@ -89,6 +90,11 @@ public class TurtleController implements Controller, Observer {
     @Override
     public Group getGroup() {
         return group;
+    }
+    
+    public void setMap(MapObservable<Integer, String> map) {
+    	System.out.println("set map from controller");
+    	this.colorMap = map;
     }
 
     @Override

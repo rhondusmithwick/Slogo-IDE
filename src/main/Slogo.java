@@ -37,11 +37,19 @@ public class Slogo {
     }
     
 
+<<<<<<< HEAD
 
     public static void bindProperties(ViewInt v) {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
         controllerProperties.parallelStream()
                 .forEach(e->findTwin(e, v));
+=======
+    private void bindProperties() {
+        List<SimpleStringProperty> controllerProperties = controller.getProperties();
+        controllerProperties.parallelStream()
+                .forEach(this::findTwin);
+        ((TurtleController) controller).setMap(view.getMap(true).getIndexMap());
+>>>>>>> master
     }
 
     private static void findTwin(SimpleStringProperty cProp, ViewInt view) {
@@ -54,6 +62,4 @@ public class Slogo {
                 .findFirst()
                 .ifPresent(vProp -> vProp.bindBidirectional(cProp));
     }
-
-
 }

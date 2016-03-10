@@ -26,7 +26,9 @@ public enum Size {
 	MAP_SAVER(200),
 	POP_UP_PADDING(20),
 	ENV_HEIGHT(600), 
-	ENV_WIDTH(300);
+	ENV_WIDTH(300),
+	TURT_SELECT_WIDTH(200),
+	TURT_SELECT_HEIGHT(300);
 	
 	private int size;
 	

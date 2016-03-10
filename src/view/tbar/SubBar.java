@@ -139,6 +139,12 @@ public abstract class SubBar implements Observer {
     protected List<String> getColors(){
             return new ArrayList<>(colors.getIndexMap().getValues());
     }
+    
+    protected int getColorIndex(String value){
+    	return colors.getIndex(value);
+    }
+    
+    
 
     /**
      * gets Hbox containing all of subbars components

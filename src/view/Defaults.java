@@ -21,7 +21,7 @@ public enum Defaults {
 	DEFAULT("Default"),
 	PEN_COLOR("black"),
 	COMM_SPLITER("|"),
-	METH_UP_LOC("view.envdisplay.MethodUpdate"),
+	METH_ACT_LOC("view.envdisplay.MethodExec"),
 	VAR_UP_LOC("view.envdisplay.VariableUpdate"),
 	WS_DOC_EL("WorkspaceConfig"),
 	WS_CHILD_EL("ConfigProps"),
@@ -29,7 +29,8 @@ public enum Defaults {
 	NUM_TURTS("1"),
 	XML(".xml"),
 	IM_DOC_EL("IndexedMap"),
-	IM_CHILD_ELEMENT("Element");
+	IM_CHILD_ELEMENT("Element"),
+	WS_PREF_LOC("WorkSpacePreferences/");
 	
 	
 	
