@@ -31,9 +31,8 @@ public enum Defaults {
 	IM_DOC_EL("IndexedMap"),
 	IM_CHILD_ELEMENT("Element"),
 	WS_PREF_LOC("WorkSpacePreferences/"),
-	REP_VAR(":repcount");
-	
-	
+	REP_VAR(":repcount"),
+	ACTIVATE_TURTLES_COMMAND("tell [ %s]");
 	
 	private String content;
 	

@@ -20,7 +20,6 @@ public class PenSizeUpdater extends EnvActor{
 
     private static final String SPACE = " ";
     private TextField tField;
-    private String newVal;
     
     /**
      * creates new pensizeupdater instance
@@ -60,7 +59,7 @@ public class PenSizeUpdater extends EnvActor{
     @Override
     protected void setNewValues() {
         closeScene();
-        newVal = tField.getText();
+        String newVal = tField.getText();
         if (newVal.length() == 0){
             return;
         }
@@ -76,7 +75,6 @@ public class PenSizeUpdater extends EnvActor{
         Label title = createTitle("setPenSize", "");
         createTextFields();
         addToScene(Arrays.asList(title, tField));
-
     }
 
 }

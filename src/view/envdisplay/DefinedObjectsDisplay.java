@@ -23,13 +23,13 @@ import observables.ObjectObservable;
 
 public abstract class DefinedObjectsDisplay {
 
-	private SimpleStringProperty definedObjects, error;
-	private ResourceBundle myResources;
+	private final SimpleStringProperty definedObjects, error;
+	private final ResourceBundle myResources;
 	private ScrollPane myScrollPane;
 	private VBox vBox;
 	private String[] definedObjectsArray;
-	private ObjectObservable<String> parsingLanguage;
-	private ObjectObservable<String> intCommand;
+	private final ObjectObservable<String> parsingLanguage;
+	private final ObjectObservable<String> intCommand;
 
 	private String displayTitle;
 
