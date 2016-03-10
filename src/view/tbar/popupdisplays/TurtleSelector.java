@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
@@ -22,9 +23,11 @@ public class TurtleSelector extends PopUp {
 	
 	private List<Node> nodeList;
 	private ResourceBundle myResources;
+	private SimpleStringProperty turtleIDS;
 
-	public TurtleSelector(int height, int width, String backgroundColor) {
+	public TurtleSelector(int height, int width, String backgroundColor, SimpleStringProperty turtleIDS) {
 		super(height, width, backgroundColor);
+		this.turtleIDS = turtleIDS;
 		nodeList = new ArrayList<Node>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 	}
@@ -37,9 +40,12 @@ public class TurtleSelector extends PopUp {
 	}
 	
 	private void createCheckBoxes() {
-		// Strings currently hard-coded
-		createCheckBox("Option 1");
-		createCheckBox("Option 2");
+		String turtleIDString = turtleIDS.get();
+		System.out.println("String: " + turtleIDString);
+		String[] turtleIDS = turtleIDString.split(",");
+		for (String ID : turtleIDS) {
+			createCheckBox(ID);
+		}
 	}
 	
 	private void createCheckBox(String title) {

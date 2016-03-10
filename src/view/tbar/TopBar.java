@@ -24,7 +24,7 @@ import view.utilities.PopUp;
  */
 public class TopBar extends SubBar {
 
-	private SimpleStringProperty image;
+	private SimpleStringProperty image, turtleIDS;
 	private PopUp cDisp, iDisp;
 	private ComboBox<String> bColorBox;
 	private ComboBox<String> pColorBox;
@@ -52,8 +52,9 @@ public class TopBar extends SubBar {
 	 *            simplestringproperty to set turtles pen color
 	 */
 	public TopBar(ObjectObservable<String> language, ObjectObservable<String> bgColor, SimpleStringProperty image,
-			ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
+			SimpleStringProperty turtleIDS, ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
 		super(language, intCommand, cMap);
+		this.turtleIDS = turtleIDS;
 		this.image = image;
 		this.bgColor = bgColor;
 		cDisp = new ColorDisplay("colorTitle", cMap.getIndexMap());
@@ -108,7 +109,7 @@ public class TopBar extends SubBar {
 		int width = Size.TURT_SELECT_WIDTH.getSize();
 		int height = Size.TURT_SELECT_HEIGHT.getSize();
 		String backgroundColor = Defaults.BACKGROUND_COLOR.getDefault();
-		turtleSelector = new TurtleSelector(width, height, backgroundColor);
+		turtleSelector = new TurtleSelector(width, height, backgroundColor, turtleIDS);
 		turtleSelector.show();
 	}
 

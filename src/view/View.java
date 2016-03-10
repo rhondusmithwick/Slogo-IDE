@@ -49,6 +49,7 @@ public class View implements ViewInt {
 	private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
 	private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
 	private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
+	private final SimpleStringProperty turtleIDS = new SimpleStringProperty(this, "turtleIDS");
 	private BorderPane UI;
 	private ResourceBundle myResources;
 	private Group root;
@@ -173,7 +174,7 @@ public class View implements ViewInt {
 	private void createToolBar() {
 		createMaps();
 		top = new VBox(Size.TB_PADDING.getSize());
-		topBar = new TopBar(pLang, backgroundColor, image, intCommands, (ColorMap) cMap, (ImageMap) iMap);
+		topBar = new TopBar(pLang, backgroundColor, image, turtleIDS, intCommands, (ColorMap) cMap, (ImageMap) iMap);
 		botBar = new BottomBar(pLang, intCommands, (ColorMap) cMap, (ImageMap) iMap);
 		top.getChildren().addAll(topBar.getContainer(), botBar.getContainer());
 		BorderPane.setMargin(top, ViewInsets.TOP.getInset());
@@ -234,7 +235,7 @@ public class View implements ViewInt {
 	 */
 	@Override
 	public List<SimpleStringProperty> getProperties() {
-		return Arrays.asList(error, image, penColor, variables, definedCommands);
+		return Arrays.asList(error, image, penColor, variables, definedCommands, turtleIDS);
 	}
 
 	/**
