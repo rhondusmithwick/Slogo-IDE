@@ -2,16 +2,13 @@ package model.turtle;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableMap;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
-import model.turtle.Turtle;
 
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -23,12 +20,13 @@ import java.util.Queue;
  * @author Rhondu Smithwick
  */
 public class TurtleManager {
-    private final ObservableList<Turtle> allTurtles = FXCollections.observableArrayList();
+    private final ObservableMap<Integer, Turtle> allTurtles = FXCollections.observableHashMap();
+
     private final Group group = new Group();
     private final Dimension2D turtDispDimension;
     private final List<Turtle> activeTurtles = new LinkedList<>();
 
-    private final SimpleStringProperty numTurtles = new SimpleStringProperty(this, "numTurtles", "1");
+    private final SimpleStringProperty turtleIDs = new SimpleStringProperty(this, "turtleIDs");
 
     public TurtleManager(Dimension2D turtDispDimension) {
         this.turtDispDimension = turtDispDimension;
@@ -38,11 +36,10 @@ public class TurtleManager {
     }
 
     public Turtle get(int ID) {
-        int index = ID - 1;
-        if (index >= allTurtles.size()) {
+        if (!allTurtles.containsKey(ID)) {
             addTurtle(ID);
         }
-        return allTurtles.get(index);
+        return allTurtles.get(ID);
     }
 
 
@@ -58,7 +55,7 @@ public class TurtleManager {
 
     public void addTurtle(int ID) {
         Turtle turtle = new Turtle(ID, turtDispDimension);
-        allTurtles.add(turtle);
+        allTurtles.put(ID, turtle);
         group.getChildren().add(turtle.getGroup());
     }
 
@@ -91,16 +88,15 @@ public class TurtleManager {
     }
 
     private void formatActiveTurtles() {
-        allTurtles.addListener((ListChangeListener<Turtle>) change -> {
-            String value = Integer.toString(allTurtles.size());
-            numTurtles.set(value);
-            System.out.println("NUM TURTLES " + numTurtles.get());
+        allTurtles.addListener((MapChangeListener<Integer, Turtle>) change -> {
+            turtleIDs.set(allTurtles.keySet().toString());
+            System.out.println("TURTLE IDS "+ turtleIDs.get());
         });
     }
 
 
-    public SimpleStringProperty numTurtlesProperty() {
-        return numTurtles;
+    public SimpleStringProperty getTurtleIDsProperty() {
+        return turtleIDs;
     }
 
 }
