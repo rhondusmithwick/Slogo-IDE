@@ -252,5 +252,4 @@ public class View implements ViewInt {
 		}
 		return iMap;
 	}
-
 }
