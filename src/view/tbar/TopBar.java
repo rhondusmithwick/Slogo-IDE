@@ -12,6 +12,7 @@ import view.Size;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.ImageChooser;
 import view.tbar.popupdisplays.ImageDisplay;
+import view.tbar.popupdisplays.TurtleSelector;
 import view.utilities.PopUp;
 
 /**
