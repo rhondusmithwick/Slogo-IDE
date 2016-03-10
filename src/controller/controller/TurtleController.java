@@ -2,18 +2,16 @@ package controller.controller;
 
 import controller.slogoparser.ExpressionTree;
 import controller.slogoparser.SlogoParser;
-import controller.slogoparser.TurtleManager;
+import model.turtle.TurtleManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import model.deprecated.Command;
 import model.treenode.TreeNode;
-import model.turtle.Turtle;
 import model.usercontrol.MakeUserInstruction;
 import observables.MapObservable;
 import observables.ObjectObservable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
