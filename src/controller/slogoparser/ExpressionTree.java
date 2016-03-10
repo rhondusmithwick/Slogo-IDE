@@ -33,11 +33,11 @@ public class ExpressionTree {
     private final MapObservable<String, MakeUserInstruction> definedCommands;
     private final MapObservable<Integer, String> colorMap;
 
-    private final Turtle myTurtle;
+    private final TurtleManager turtleManager;
 
-    public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, MapObservable<String, MakeUserInstruction> definedCommands,
+    public ExpressionTree(TurtleManager turtleManager, MapObservable<String, TreeNode> variables, MapObservable<String, MakeUserInstruction> definedCommands,
                           MapObservable<Integer, String> colorMap, Queue<Entry<String, String>> parsedText) {
-        this.myTurtle = myTurtle;
+        this.turtleManager = turtleManager;
         this.variables = variables;
         this.definedCommands = definedCommands;
         this.colorMap = colorMap;
@@ -80,6 +80,9 @@ public class ExpressionTree {
         Entry<String, String> curr = parsedText.poll();
         if (isConstant(curr.getKey())) {
             n = getConstant(curr);
+        } else if (curr.getKey().equals("Tell")) {
+            turtleManager.doTell(parsedText);
+            n = new ConstantNode(0.0);
         } else if (variables.containsKey(curr.getValue())) {
             n = variables.get(curr.getValue());
         } else if (definedCommands.containsKey(curr.getValue())) {
@@ -89,6 +92,12 @@ public class ExpressionTree {
             n = createNodeInstance(curr.getKey());
         }
         return n;
+    }
+
+
+
+    public TurtleManager getTurtleManager() {
+        return turtleManager;
     }
 
     private ConstantNode getConstant(Entry<String, String> curr) {
@@ -105,6 +114,7 @@ public class ExpressionTree {
         } catch (Exception e) {
             n = new ConstantNode(0);
         }
+        System.out.println(turtleManager.getActiveTurtles());
         n.handleSpecific(this);
         return n;
     }
@@ -181,7 +191,7 @@ public class ExpressionTree {
     }
 
     public Turtle getMyTurtle() {
-        return myTurtle;
+        return turtleManager.get(1);
     }
 
     public MapObservable<String, TreeNode> getVariables() {

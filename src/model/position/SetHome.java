@@ -1,13 +1,12 @@
 package model.position;
 
 import javafx.geometry.Point2D;
+import model.turtle.Turtle;
 
 public class SetHome extends Position {
-
     @Override
-    protected double execute() {
-        Point2D home = getTurtle().getTurtleProperties().getHome();
-        return changePosition(home.getX(), home.getY());
+    public double turtleExecute(Turtle turtle) {
+        Point2D home = turtle.getTurtleProperties().getHome();
+        return changePosition(turtle, home.getX(), home.getY());
     }
-
 }

@@ -3,12 +3,14 @@ package model.movement;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import model.treenode.TurtleCommandNode;
+import model.turtle.Turtle;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,27 +21,24 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class Movement extends TurtleCommandNode {
 
-    private Line penLine;
-
-    private volatile boolean isDone = false;
-
-    double move(int direction) {
-        setUp();
+    double move(Turtle turtle, int direction) {
+        SimpleBooleanProperty isDone = new SimpleBooleanProperty(this, "", false);
+        Line penLine = setUp(turtle);
         double distance = getChildren().get(0).getValue();
-        Point2D pointToMoveTo = getPointToMoveTo(distance, direction);
-        modifyPenLine();
-        Transition transition = createTransition(pointToMoveTo);
-        transition.onFinishedProperty().set(t -> cleanUpMove(pointToMoveTo));
+        Point2D pointToMoveTo = getPointToMoveTo(turtle, distance, direction);
+        modifyPenLine(turtle, penLine);
+        Transition transition = createTransition(turtle, pointToMoveTo);
+        transition.onFinishedProperty().set(t -> cleanUpMove(turtle, penLine, pointToMoveTo, isDone));
         new Thread(transition::play).start();
-        keepGoing();
+        keepGoing(isDone);
         return distance;
     }
 
 
-    private void setUp() {
-        setDone(false);
-        penLine = new Line();
-        Platform.runLater(() -> getTurtle().getGroup().getChildren().add(penLine));
+    private Line setUp(Turtle turtle) {
+        Line penLine = new Line();
+        Platform.runLater(() -> turtle.getGroup().getChildren().add(penLine));
+        return penLine;
     }
 
     @Override
@@ -47,37 +46,37 @@ public abstract class Movement extends TurtleCommandNode {
         return 1;
     }
 
-    private void cleanUpMove(Point2D pointToMoveTo) {
+    private void cleanUpMove(Turtle turtle, Line penLine, Point2D pointToMoveTo, SimpleBooleanProperty isDone) {
         penLine.endXProperty().unbind();
         penLine.endYProperty().unbind();
-        getTurtle().getTurtleProperties().setLocation(pointToMoveTo);
-        setDone(true);
+        turtle.getTurtleProperties().setLocation(pointToMoveTo);
+        isDone.set(true);
     }
 
-    private TranslateTransition createTransition(Point2D pointToMoveTo) {
+    private TranslateTransition createTransition(Turtle turtle, Point2D pointToMoveTo) {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(.5));
-        transition.setNode(getTurtle().getTurtleProperties().getImageView());
+        transition.setNode(turtle.getTurtleProperties().getImageView());
         transition.setToX(pointToMoveTo.getX());
         transition.setToY(pointToMoveTo.getY());
         return transition;
     }
 
-    private void modifyPenLine() {
-        Point2D location = getTurtle().getTurtleProperties().getLocation();
+    private void modifyPenLine(Turtle turtle, Line penLine) {
+        Point2D location = turtle.getTurtleProperties().getLocation();
         penLine.setStartX(location.getX());
         penLine.setStartY(location.getY());
-        Node imageView = getTurtle().getTurtleProperties().getImageView();
+        Node imageView = turtle.getTurtleProperties().getImageView();
         penLine.endXProperty().bind(imageView.translateXProperty());
         penLine.endYProperty().bind(imageView.translateYProperty());
-        Paint stroke = Paint.valueOf(getTurtle().getTurtleProperties().getPenColor());
+        Paint stroke = Paint.valueOf(turtle.getTurtleProperties().getPenColor());
         penLine.setStroke(stroke);
-        penLine.setVisible(getTurtle().getTurtleProperties().getPenDown());
+        penLine.setVisible(turtle.getTurtleProperties().getPenDown());
     }
 
-    private Point2D getPointToMoveTo(double distance, int direction) {
-        double heading = getTurtle().getTurtleProperties().getHeading();
+    private Point2D getPointToMoveTo(Turtle turtle, double distance, int direction) {
+        double heading = turtle.getTurtleProperties().getHeading();
         double angle = Math.toRadians(heading);
-        Point2D location = getTurtle().getTurtleProperties().getLocation();
+        Point2D location = turtle.getTurtleProperties().getLocation();
         double offsetX = direction * (distance * Math.sin(angle));
         double offsetY = direction * (distance * Math.cos(angle));
         double newX = location.getX() + offsetX;
@@ -85,13 +84,8 @@ public abstract class Movement extends TurtleCommandNode {
         return new Point2D(newX, newY);
     }
 
-
-    private synchronized void setDone(boolean b) {
-        isDone = b;
-    }
-
-    private void keepGoing() {
-        while (!isDone) {
+    private void keepGoing(SimpleBooleanProperty isDone) {
+        while (!isDone.get()) {
             try {
                 TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException e) {

@@ -10,22 +10,21 @@ public class SetPenColor extends TurtleCommandNode {
 	
 	private int index;
 	private MapObservable<Integer, String> colorMap;
-	private Turtle turtle;
 
 	@Override
-	protected double execute() {
-		setPenColor();
+	public double turtleExecute(Turtle turtle) {
+		setPenColor(turtle);
 		return index;
 	}
+
 	
 	public void handleSpecific(ExpressionTree tree) {
 		TreeNode node = tree.createRoot();
 		this.addChild(node);
 		this.colorMap = tree.getColorMap();
-		this.turtle = tree.getMyTurtle();
 	}
 	
-	private void setPenColor() {
+	private void setPenColor(Turtle turtle) {
 		index = (int) getChildren().get(0).getValue();
 		turtle.getTurtleProperties().setPenColor(colorMap.get(index));
 	}

@@ -72,8 +72,8 @@ public class PreferenceSetter {
 
     private void setTurts (LoadWS wsLoader) {
         int num= Integer.parseInt(wsLoader.getParam(LoadIndex.NUM_TURT.getIndex()));
-        String comm = GetCommand.makeCommand("Tell", pLang.get()) + " "+Integer.toString(num);
-        intCommands.set(comm);
+//        String comm = GetCommand.makeCommand("Tell", pLang.get()) + " "+Integer.toString(num);
+//        intCommands.set(comm);
 
 
     }

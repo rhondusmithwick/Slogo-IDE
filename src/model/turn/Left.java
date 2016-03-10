@@ -1,5 +1,7 @@
 package model.turn;
 
+import model.turtle.Turtle;
+
 /**
  * Created by rhondusmithwick on 2/27/16.
  *
@@ -7,7 +9,8 @@ package model.turn;
  */
 public class Left extends Turn {
 
-    public double execute() {
-        return turn(1);
+    @Override
+    public double turtleExecute(Turtle turtle) {
+        return turn(turtle, 1);
     }
 }
