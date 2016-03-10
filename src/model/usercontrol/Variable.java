@@ -1,5 +1,6 @@
 package model.usercontrol;
 
+import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 
 /**
@@ -26,11 +27,14 @@ public class Variable extends TreeNode {
         if (value == null) {
             return "value not yet visible";
         }
-        return String.format("%s with value:  %s", getClass().getSimpleName(), value.toString());
+        return value.toString();
     }
 
     protected Double getVal() {
         return value;
     }
 
+    public ConstantNode getConstnatnNode() {
+        return new ConstantNode(getValue());
+    }
 }

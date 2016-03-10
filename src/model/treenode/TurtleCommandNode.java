@@ -3,8 +3,10 @@ package model.treenode;
 import controller.slogoparser.ExpressionTree;
 import model.turtle.Turtle;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -15,29 +17,29 @@ import java.util.concurrent.Future;
  */
 public abstract class TurtleCommandNode extends TreeNode {
 
-    private Double value = 0.0;
-
-    private Future<Double> future;
-
-    private final List<Turtle> myTurtles = new ArrayList<>();
-    
+    private final List<Turtle> myTurtles = new LinkedList<>();
+    private final Map<Turtle, Future<Double>> turtleFutureMap = new HashMap<>();
     private ExpressionTree tree;
 
     public abstract double turtleExecute(Turtle turtle);
 
     @Override
     public double getValue() {
+        Turtle lastTurtle = myTurtles.get(myTurtles.size() - 1);
         myTurtles.parallelStream().forEach(this::submit);
+        Double value;
         try {
-            value = future.get();
+            value = turtleFutureMap.get(lastTurtle).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+            value = 0.0;
         }
         return value;
     }
 
     private void submit(Turtle turtle) {
-        future = turtle.getExecutorService().submit(() -> turtleExecute(turtle));
+        Future<Double> future = turtle.getExecutorService().submit(() -> turtleExecute(turtle));
+        turtleFutureMap.put(turtle, future);
     }
     
     public ExpressionTree getTree() {
@@ -47,7 +49,8 @@ public abstract class TurtleCommandNode extends TreeNode {
     @Override
     public void handleSpecific(ExpressionTree tree) {
     	this.tree = tree;
-        myTurtles.clear();;
+        myTurtles.clear();
+        turtleFutureMap.clear();
         myTurtles.addAll(tree.getTurtleManager().getActiveTurtles());
     }
 

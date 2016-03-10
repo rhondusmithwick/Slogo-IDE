@@ -2,13 +2,13 @@ package controller.controller;
 
 import controller.slogoparser.ExpressionTree;
 import controller.slogoparser.SlogoParser;
-import controller.slogoparser.TurtleManager;
+import model.turtle.TurtleManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import model.deprecated.Command;
-import model.treenode.TreeNode;
 import model.usercontrol.MakeUserInstruction;
+import model.usercontrol.Variable;
 import observables.MapObservable;
 import observables.ObjectObservable;
 
@@ -38,7 +38,7 @@ public class TurtleController implements Controller, Observer {
     
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
 
-    private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
+    private final MapObservable<String, Variable> variables = new MapObservable<>("variables");
 
     private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedCommands");
     
@@ -119,7 +119,7 @@ public class TurtleController implements Controller, Observer {
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
-        		error,
+        		error, turtleManager.numTurtlesProperty(),
                 turtleManager.get(1).getTurtleProperties().imageProperty(),
                 turtleManager.get(1).getTurtleProperties().penColorProperty(),
                 variables.getStringProperty(), definedCommands.getStringProperty());

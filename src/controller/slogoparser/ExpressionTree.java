@@ -5,11 +5,13 @@ import javafx.application.Platform;
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
+import model.turtle.TurtleManager;
 import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Variable;
 import observables.MapObservable;
 import observables.ObjectObservable;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -30,7 +32,7 @@ public class ExpressionTree {
 
     private final List<TreeNode> rootList;
 
-    private final MapObservable<String, TreeNode> variables;
+    private final MapObservable<String, Variable> variables;
     private final MapObservable<String, MakeUserInstruction> definedCommands;
     private final MapObservable<Integer, String> colorMap;
     private final MapObservable<Integer, String> imageMap;
@@ -38,7 +40,7 @@ public class ExpressionTree {
 
     private final TurtleManager turtleManager;
 
-    public ExpressionTree(TurtleManager turtleManager, MapObservable<String, TreeNode> variables, MapObservable<String, MakeUserInstruction> definedCommands,
+    public ExpressionTree(TurtleManager turtleManager, MapObservable<String, Variable> variables, MapObservable<String, MakeUserInstruction> definedCommands,
                           MapObservable<Integer, String> colorMap, MapObservable<Integer, String> imageMap, ObjectObservable<String> backgroundColor, Queue<Entry<String, String>> parsedText) {
         this.turtleManager = turtleManager;
         this.variables = variables;
@@ -87,10 +89,11 @@ public class ExpressionTree {
         if (isConstant(curr.getKey())) {
             n = getConstant(curr);
         } else if (curr.getKey().equals("Tell")) {
-            turtleManager.doTell(parsedText);
+            Collection<Integer> IDs = turtleManager.doTell(parsedText);
+            turtleManager.populateActiveTurtles(IDs);
             n = new ConstantNode(0.0);
         } else if (variables.containsKey(curr.getValue())) {
-            n = variables.get(curr.getValue());
+            n = variables.get(curr.getValue()).getConstnatnNode();
         } else if (definedCommands.containsKey(curr.getValue())) {
             n = definedCommands.get(curr.getValue());
             ((MakeUserInstruction) n).setValuesForCommand(this);
@@ -192,7 +195,7 @@ public class ExpressionTree {
         return turtleManager.get(1);
     }
 
-    public MapObservable<String, TreeNode> getVariables() {
+    public MapObservable<String, Variable> getVariables() {
         return variables;
     }
 }
