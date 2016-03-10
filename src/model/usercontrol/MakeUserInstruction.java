@@ -18,7 +18,7 @@ import java.util.Queue;
  */
 public class MakeUserInstruction extends CommandNode {
     private final Map<Integer, String> variableNames = new HashMap<>();
-    private final Map<String, MakeVariable> variableMap = new HashMap<>();
+    private final Map<String, Variable> variableMap = new HashMap<>();
     private boolean hasRun = false;
 
     @Override
@@ -66,7 +66,7 @@ public class MakeUserInstruction extends CommandNode {
         String name = tree.getParsedText().poll().getValue();
         tree.getDefinedCommands().put(name, this);
         makeVariables(tree.getParsedText());
-        MapObservable<String, TreeNode> treeVariables = tree.getVariables();
+        MapObservable<String, Variable> treeVariables = tree.getVariables();
         treeVariables.putAll(variableMap);
         List<TreeNode> myRoots = tree.getCommandsFromList();
         myRoots.stream().forEach(this::addChild);

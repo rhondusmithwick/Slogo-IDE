@@ -31,13 +31,13 @@ public class ExpressionTree {
 
     private final List<TreeNode> rootList;
 
-    private final MapObservable<String, TreeNode> variables;
+    private final MapObservable<String, Variable> variables;
     private final MapObservable<String, MakeUserInstruction> definedCommands;
     private final MapObservable<Integer, String> colorMap;
 
     private final TurtleManager turtleManager;
 
-    public ExpressionTree(TurtleManager turtleManager, MapObservable<String, TreeNode> variables, MapObservable<String, MakeUserInstruction> definedCommands,
+    public ExpressionTree(TurtleManager turtleManager, MapObservable<String, Variable> variables, MapObservable<String, MakeUserInstruction> definedCommands,
                           MapObservable<Integer, String> colorMap, Queue<Entry<String, String>> parsedText) {
         this.turtleManager = turtleManager;
         this.variables = variables;
@@ -88,7 +88,7 @@ public class ExpressionTree {
             turtleManager.populateActiveTurtles(IDs);
             n = new ConstantNode(0.0);
         } else if (variables.containsKey(curr.getValue())) {
-            n = variables.get(curr.getValue());
+            n = variables.get(curr.getValue()).getConstnatnNode();
         } else if (definedCommands.containsKey(curr.getValue())) {
             n = definedCommands.get(curr.getValue());
             ((MakeUserInstruction) n).setValuesForCommand(this);
@@ -184,7 +184,7 @@ public class ExpressionTree {
         return turtleManager.get(1);
     }
 
-    public MapObservable<String, TreeNode> getVariables() {
+    public MapObservable<String, Variable> getVariables() {
         return variables;
     }
 }

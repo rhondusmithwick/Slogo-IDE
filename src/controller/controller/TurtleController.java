@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import model.deprecated.Command;
 import model.treenode.TreeNode;
 import model.usercontrol.MakeUserInstruction;
+import model.usercontrol.Variable;
 import observables.MapObservable;
 import observables.ObjectObservable;
 
@@ -37,7 +38,7 @@ public class TurtleController implements Controller, Observer {
     
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
 
-    private final MapObservable<String, TreeNode> variables = new MapObservable<>("variables");
+    private final MapObservable<String, Variable> variables = new MapObservable<>("variables");
 
     private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedCommands");
     
