@@ -1,8 +1,8 @@
 package model.display;
 
 import controller.slogoparser.ExpressionTree;
-import model.treenode.TreeNode;
 import model.treenode.TurtleCommandNode;
+import model.treenode.TreeNode;
 import model.turtle.Turtle;
 import observables.MapObservable;
 

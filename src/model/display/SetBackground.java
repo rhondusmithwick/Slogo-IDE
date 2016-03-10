@@ -24,7 +24,7 @@ public class SetBackground extends CommandNode {
 	private void setBackground() {
 		index = (int) getChildren().get(0).getValue();
 		System.out.println("reached1");
-		bgColor.set("blue");
+		
 	}
 	
 	@Override
