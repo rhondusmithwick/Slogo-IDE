@@ -34,6 +34,7 @@ public class TurtleController implements Controller, Observer {
     private final Turtle myTurtle;
     private final ObjectObservable<String> language = new ObjectObservable<>();
     private final ObjectObservable<String> input = new ObjectObservable<>();
+    private ObjectObservable<String> backgroundColor = new ObjectObservable<>();
     
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
 
@@ -73,7 +74,7 @@ public class TurtleController implements Controller, Observer {
             error.set("Command not recognized: " + input);
         } else {
             try {
-                ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, colorMap, parsedText);
+                ExpressionTree expressionTree = new ExpressionTree(myTurtle, variables, definedCommands, colorMap, backgroundColor, parsedText);
                 new Thread(expressionTree::executeAll).start();
             } catch (Exception es) {
                 error.set("");
@@ -93,8 +94,11 @@ public class TurtleController implements Controller, Observer {
     }
     
     public void setMap(MapObservable<Integer, String> map) {
-    	System.out.println("set map from controller");
     	this.colorMap = map;
+    }
+    
+    public void setBackgroundColor(ObjectObservable<String> color) {
+    	this.backgroundColor = color;
     }
 
     @Override

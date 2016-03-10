@@ -8,6 +8,7 @@ import model.turtle.Turtle;
 import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Variable;
 import observables.MapObservable;
+import observables.ObjectObservable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,15 +33,17 @@ public class ExpressionTree {
     private final MapObservable<String, TreeNode> variables;
     private final MapObservable<String, MakeUserInstruction> definedCommands;
     private final MapObservable<Integer, String> colorMap;
+    private final ObjectObservable<String> backgroundColor;
 
     private final Turtle myTurtle;
 
     public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, MapObservable<String, MakeUserInstruction> definedCommands,
-                          MapObservable<Integer, String> colorMap, Queue<Entry<String, String>> parsedText) {
+                          MapObservable<Integer, String> colorMap, ObjectObservable<String> backgroundColor, Queue<Entry<String, String>> parsedText) {
         this.myTurtle = myTurtle;
         this.variables = variables;
         this.definedCommands = definedCommands;
         this.colorMap = colorMap;
+        this.backgroundColor = backgroundColor;
         this.parsedText = parsedText;
         rootList = createRootList();
     }
@@ -137,6 +140,10 @@ public class ExpressionTree {
     
     public MapObservable<Integer, String> getColorMap() {
     	return colorMap;
+    }
+    
+    public ObjectObservable<String> getBackgroundColor() {
+    	return backgroundColor;
     }
 
     public List<TreeNode> getCommandsFromList() {

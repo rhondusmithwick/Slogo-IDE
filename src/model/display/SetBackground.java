@@ -3,13 +3,15 @@ package model.display;
 import controller.slogoparser.ExpressionTree;
 import model.treenode.CommandNode;
 import model.treenode.TreeNode;
+import observables.MapObservable;
 import observables.ObjectObservable;
 
 public class SetBackground extends CommandNode {
 	
-	private ObjectObservable<String> bgColor;
 	private int index;
-
+	private MapObservable<Integer, String> colorMap;
+	private ObjectObservable<String> backgroundColor;
+	
 	@Override
 	protected double execute() {
 		setBackground();
@@ -19,12 +21,13 @@ public class SetBackground extends CommandNode {
 	public void handleSpecific(ExpressionTree tree) {
 		TreeNode node = tree.createRoot();
 		this.addChild(node);
+		this.colorMap = tree.getColorMap();
+		this.backgroundColor = tree.getBackgroundColor();
 	}
 	
 	private void setBackground() {
 		index = (int) getChildren().get(0).getValue();
-		System.out.println("reached1");
-		
+		backgroundColor.set(colorMap.get(index));
 	}
 	
 	@Override
