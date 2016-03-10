@@ -30,6 +30,9 @@ public final class TurtleProperties {
     private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
+    private final SimpleDoubleProperty penSize = new SimpleDoubleProperty(this, "penSize");
+    private int penColorIndex = 0;
+    private int penShapeIndex = 0;
 
     void init(Dimension2D turtleDispDimension) {
         setImage(DEFAULT_TURTLE_IMAGE);
@@ -40,6 +43,7 @@ public final class TurtleProperties {
         setHeading(180);
         setPenDown(true);
         setPenColor("black");
+        setPenSize(10);
     }
 
     void addListeners() {
@@ -70,7 +74,7 @@ public final class TurtleProperties {
         return new Image(filePath);
     }
 
-    private void setImage(String image) {
+    public void setImage(String image) {
         this.image.set(image);
     }
 
@@ -122,8 +126,36 @@ public final class TurtleProperties {
     public void setPenColor(String penColor) {
         this.penColor.set(penColor);
     }
+    
+    public void setPenColorIndex(int index) {
+    	this.penColorIndex = index;
+    }
+    
+    public int getPenColorIndex() {
+    	return penColorIndex;
+    }
+    
+    public void setPenShapeIndex(int index) {
+    	this.penShapeIndex = index;
+    }
+    
+    public int getPenShapeIndex() {
+    	return penShapeIndex;
+    }
+    
+    public double getPenSize() {
+    	return penSize.doubleValue();
+    }
+    
+    public void setPenSize(double penSize) {
+    	this.penSize.set(penSize);
+    }
 
     public SimpleStringProperty penColorProperty() {
         return penColor;
+    }
+    
+    public SimpleDoubleProperty penSizeProperty() {
+    	return penSize;
     }
 }

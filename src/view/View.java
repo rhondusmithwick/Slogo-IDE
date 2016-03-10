@@ -243,4 +243,8 @@ public class View implements ViewInt {
 		}
 		return iMap;
 	}
+	
+	public ObjectObservable<String> getBackgroundColor() {
+		return backgroundColor;
+	}
 }

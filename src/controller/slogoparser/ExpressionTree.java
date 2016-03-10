@@ -1,7 +1,7 @@
 package controller.slogoparser;
 
 import javafx.application.Platform;
-
+import main.GlobalProperties;
 import maps.IndexMap;
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
@@ -10,6 +10,7 @@ import model.turtle.TurtleManager;
 import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Variable;
 import observables.MapObservable;
+import observables.ObjectObservable;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -34,16 +35,21 @@ public class ExpressionTree {
 
     private final MapObservable<String, Variable> variables;
     private final MapObservable<String, MakeUserInstruction> definedCommands;
-    private final IndexMap colorMap;
+    private final ObjectObservable<String> backgroundColor;
 
+    private final IndexMap imageMap;
+    private final IndexMap colorMap;
+    
     private final TurtleManager turtleManager;
 
     public ExpressionTree(TurtleManager turtleManager, MapObservable<String, Variable> variables, MapObservable<String, MakeUserInstruction> definedCommands,
-                          IndexMap colorMap, Queue<Entry<String, String>> parsedText) {
+                          GlobalProperties properties, Queue<Entry<String, String>> parsedText) {
         this.turtleManager = turtleManager;
         this.variables = variables;
         this.definedCommands = definedCommands;
-        this.colorMap = colorMap;
+        this.colorMap = properties.getColorMap();
+        this.imageMap = properties.getImageMap();
+        this.backgroundColor = properties.getBackgroundColor();
         this.parsedText = parsedText;
         rootList = createRootList();
     }
@@ -97,8 +103,6 @@ public class ExpressionTree {
         return n;
     }
 
-
-
     public TurtleManager getTurtleManager() {
         return turtleManager;
     }
@@ -149,6 +153,14 @@ public class ExpressionTree {
     
     public IndexMap getColorMap() {
     	return colorMap;
+    }
+    
+    public IndexMap getImageMap() {
+    	return imageMap;
+    }
+    
+    public ObjectObservable<String> getBackgroundColor() {
+    	return backgroundColor;
     }
 
     public List<TreeNode> getCommandsFromList() {

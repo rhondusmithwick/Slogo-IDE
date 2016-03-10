@@ -1,18 +1,17 @@
 package model.turtleboolean;
 
-public class Not extends TurtleBoolean {
+import model.treenode.CommandNode;
+
+public class Not extends CommandNode {
+	
+	@Override
+	protected double execute() {
+		double value1 = getChildren().get(0).getValue();	
+		return value1 == 0 ? 1 : 0;
+	}
 
     @Override
-    public double conditional() {
-        double value = getChildren().get(0).getValue();
-
-        System.out.println(value == 0 ? 1 : 0);
-
-        return value == 0 ? 1 : 0;
-    }
-
-    @Override
-    public int getNumChildrenRequired() {
+    protected int getNumChildrenRequired() {
         return 1;
     }
 }

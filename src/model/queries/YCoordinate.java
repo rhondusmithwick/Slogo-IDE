@@ -4,6 +4,7 @@ import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
 
 public class YCoordinate extends TurtleCommandNode {
+	
     @Override
     public double turtleExecute(Turtle turtle) {
         double y = turtle.getTurtleProperties().getLocation().getY();
