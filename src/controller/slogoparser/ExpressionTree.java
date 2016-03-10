@@ -28,7 +28,7 @@ public class ExpressionTree {
 
     private final ResourceBundle commandLocations = ResourceBundle.getBundle("model/commandLocations");
 
-    private final Queue<Entry<String, String>> parsedText;
+    private Queue<Entry<String, String>> parsedText;
 
     private final List<TreeNode> rootList;
 
@@ -70,7 +70,6 @@ public class ExpressionTree {
 
     public TreeNode createRoot() {
         TreeNode root = createNode();
-        root.setRoot(true);
         createSubTree(root);
         return root;
     }
@@ -93,10 +92,9 @@ public class ExpressionTree {
             turtleManager.populateActiveTurtles(IDs);
             n = new ConstantNode(0.0);
         } else if (variables.containsKey(curr.getValue())) {
-            n = variables.get(curr.getValue()).getConstnatnNode();
+            n = variables.get(curr.getValue()).getConstantNode();
         } else if (definedCommands.containsKey(curr.getValue())) {
-            n = definedCommands.get(curr.getValue());
-            ((MakeUserInstruction) n).setValuesForCommand(this);
+            n = definedCommands.get(curr.getValue()).getUserCommandNode(this);
         } else {
             n = createNodeInstance(curr.getKey());
         }
@@ -164,6 +162,7 @@ public class ExpressionTree {
     }
 
     public List<TreeNode> getCommandsFromList() {
+        System.out.println(parsedText);
         List<TreeNode> myRoots = new LinkedList<>();
         if (parsedText.peek().getKey().equals("ListStart")) {
         	parsedText.poll();
@@ -197,5 +196,9 @@ public class ExpressionTree {
 
     public MapObservable<String, Variable> getVariables() {
         return variables;
+    }
+
+    public void setParsedText(Queue<Entry<String, String>> parsedText) {
+        this.parsedText = parsedText;
     }
 }

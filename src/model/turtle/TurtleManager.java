@@ -8,8 +8,6 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import model.turtle.Turtle;
 
-
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;

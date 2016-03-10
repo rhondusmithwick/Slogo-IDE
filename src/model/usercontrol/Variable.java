@@ -34,7 +34,7 @@ public class Variable extends TreeNode {
         return value;
     }
 
-    public ConstantNode getConstnatnNode() {
+    public ConstantNode getConstantNode() {
         return new ConstantNode(getValue());
     }
 }

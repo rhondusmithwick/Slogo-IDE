@@ -44,7 +44,7 @@ public class Repeat extends CommandNode {
         List<TreeNode> nRoots = tree.getCommandsFromList();
         System.out.println(nRoots);
         getChildren().addAll(nRoots);
-        repcount = (Variable) tree.getVariables().get(":repcount");
+        repcount = tree.getVariables().get(":repcount");
     }
 
     public Variable getVariable() {
