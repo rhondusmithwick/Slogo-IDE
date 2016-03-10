@@ -12,16 +12,6 @@ import java.util.List;
  */
 public abstract class TreeNode {
 
-    private volatile boolean isRoot = false;
-
-    public boolean isRoot() {
-        return isRoot;
-    }
-
-    public void setRoot(boolean root) {
-        isRoot = root;
-    }
-
     private final List<TreeNode> children = new ArrayList<>();
 
     public double getValue() {

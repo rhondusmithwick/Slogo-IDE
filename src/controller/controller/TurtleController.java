@@ -7,7 +7,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import model.deprecated.Command;
-import model.treenode.TreeNode;
 import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Variable;
 import observables.MapObservable;
@@ -111,7 +110,7 @@ public class TurtleController implements Controller, Observer {
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
-        		error, turtleManager.numTurtlesProperty(),
+        		error, turtleManager.getTurtleIDsProperty(),
                 turtleManager.get(1).getTurtleProperties().imageProperty(),
                 turtleManager.get(1).getTurtleProperties().penColorProperty(),
                 variables.getStringProperty(), definedCommands.getStringProperty());

@@ -37,7 +37,6 @@ public class SlogoParser {
             mySymbols.put(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
         }
 //        mySymbols.remove("Command");
-        System.out.println(mySymbols);
     }
 
     private String getSymbol(String text) {
@@ -61,7 +60,6 @@ public class SlogoParser {
     public Queue<Entry<String, String>> parseText(String input) {
         Predicate<Entry<String, String>> containsError = (e) -> Objects.equals(e.getKey(), ERROR);
         Queue<Entry<String, String>> parsedText = createParsedText(input);
-        System.out.println(parsedText);
         if (parsedText.stream().anyMatch(containsError)) {
             return null;
         } else {
