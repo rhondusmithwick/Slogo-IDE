@@ -1,5 +1,7 @@
 package model.movement;
 
+import model.turtle.Turtle;
+
 /**
  * Created by rhondusmithwick on 2/22/16.
  *
@@ -8,8 +10,8 @@ package model.movement;
 public class Forward extends Movement {
 
     @Override
-    public double execute() {
-        return move(1);
+    public double turtleExecute(Turtle turtle) {
+        return move(turtle, 1);
     }
 
 }

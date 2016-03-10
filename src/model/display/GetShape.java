@@ -1,12 +1,13 @@
 package model.display;
 
 import model.treenode.TurtleCommandNode;
+import model.turtle.Turtle;
 
 public class GetShape extends TurtleCommandNode {
 
 	@Override
-	protected double execute() {
-		return getTurtle().getTurtleProperties().getPenShapeIndex();
+	public double turtleExecute(Turtle turtle) {
+		return turtle.getTurtleProperties().getPenShapeIndex();
 	}
 
 }

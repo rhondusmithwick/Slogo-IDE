@@ -25,7 +25,7 @@ public abstract class TwoOperatorMath extends CommandNode {
     }
 
     @Override
-    public int getNumChildrenRequired() {
+    protected int getNumChildrenRequired() {
         return 2;
     }
 }

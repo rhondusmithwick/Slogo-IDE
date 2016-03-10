@@ -7,7 +7,7 @@ public abstract class TurtleBoolean extends CommandNode {
     protected abstract double conditional();
 
     @Override
-    public int getNumChildrenRequired() {
+    protected int getNumChildrenRequired() {
         return 2;
     }
 

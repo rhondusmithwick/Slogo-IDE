@@ -50,4 +50,9 @@ public class Repeat extends CommandNode {
     public Variable getVariable() {
         return repcount;
     }
+    
+    @Override
+    protected int getNumChildrenRequired() {
+    	return 2;
+    }
 }

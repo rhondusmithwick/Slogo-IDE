@@ -3,6 +3,9 @@ package model.turtle;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Created by rhondusmithwick on 2/22/16.
  *
@@ -12,6 +15,7 @@ public class Turtle {
 
     private final Group root = new Group();
     private final TurtleProperties turtleProperties;
+    private final ExecutorService executorService = Executors.newWorkStealingPool(1);
 
     public Turtle(Dimension2D turtleDispDimension) {
         turtleProperties = new TurtleProperties();
@@ -28,5 +32,7 @@ public class Turtle {
         return root;
     }
 
-
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
 }

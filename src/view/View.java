@@ -88,7 +88,7 @@ public class View implements ViewInt {
 	}
 
 	private void setPreferences() {
-		PreferenceSetter pSet = new PreferenceSetter(penColor, pLang, cMap, iMap, backgroundColor, intCommands);
+		PreferenceSetter pSet = new PreferenceSetter(pLang, cMap, iMap, backgroundColor, intCommands);
 		pSet.setPreferences();
 
 	}

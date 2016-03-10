@@ -1,5 +1,7 @@
 package model.pen;
 
+import model.turtle.Turtle;
+
 /**
  * Created by rhondusmithwick on 2/24/16.
  *
@@ -7,7 +9,8 @@ package model.pen;
  */
 public class PenDown extends PenCommand {
 
-    public double execute() {
-        return changePen(true);
+    @Override
+    public double turtleExecute(Turtle turtle) {
+        return changePen(turtle, true);
     }
 }

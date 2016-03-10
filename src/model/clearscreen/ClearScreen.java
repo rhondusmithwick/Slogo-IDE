@@ -4,23 +4,24 @@ import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import model.treenode.TurtleCommandNode;
+import model.turtle.Turtle;
 
 
 public class ClearScreen extends TurtleCommandNode {
 
     @Override
-    protected double execute() {
-        Point2D home = getTurtle().getTurtleProperties().getHome();
-        Point2D location = getTurtle().getTurtleProperties().getLocation();
+    public double turtleExecute(Turtle turtle) {
+        Point2D home = turtle.getTurtleProperties().getHome();
+        Point2D location = turtle.getTurtleProperties().getLocation();
         double distance = location.distance(home);
-        getTurtle().getTurtleProperties().setLocation(home);
-        Platform.runLater(this::clear);
+        turtle.getTurtleProperties().setLocation(home);
+        Platform.runLater(() -> clear(turtle));
         return distance;
     }
 
-    private void clear() {
-        Group turtGroup = getTurtle().getGroup();
+    private void clear(Turtle turtle) {
+        Group turtGroup = turtle.getGroup();
         turtGroup.getChildren().clear();
-        turtGroup.getChildren().add(getTurtle().getTurtleProperties().getImageView());
+        turtGroup.getChildren().add(turtle.getTurtleProperties().getImageView());
     }
 }

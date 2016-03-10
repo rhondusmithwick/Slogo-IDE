@@ -1,7 +1,6 @@
 package view;
 
 import java.io.File;
-import javafx.beans.property.SimpleStringProperty;
 import maps.IndexMap;
 import observables.ObjectObservable;
 import view.utilities.GetCommand;
@@ -19,7 +18,6 @@ public class PreferenceSetter {
     private ObjectObservable<String> pLang;
     private ObjectObservable<String> backgroundColor;
     private ObjectObservable<String> intCommands;
-    private SimpleStringProperty penColor;
     private IndexMap cMap;
     private IndexMap iMap;
 
@@ -32,8 +30,7 @@ public class PreferenceSetter {
      * @param backgroundColor observable string for background color
      * @param intCommands observable string for passing internal commands
      */
-    public PreferenceSetter (SimpleStringProperty penColor, ObjectObservable<String> pLang, IndexMap cMap, IndexMap iMap, ObjectObservable<String> backgroundColor, ObjectObservable<String> intCommands) {
-        this.penColor = penColor;
+    public PreferenceSetter (ObjectObservable<String> pLang, IndexMap cMap, IndexMap iMap, ObjectObservable<String> backgroundColor, ObjectObservable<String> intCommands) {
         this.pLang=pLang;
         this.cMap=cMap;
         this.iMap=iMap;
@@ -63,7 +60,6 @@ public class PreferenceSetter {
 
     private void setParams (LoadWS wsLoader) {
         backgroundColor.set(wsLoader.getParam(LoadIndex.BG_COLOR.getIndex()).toLowerCase());
-        penColor.set(wsLoader.getParam(LoadIndex.P_COLOR.getIndex()).toLowerCase());
         pLang.set(Defaults.PARSELANG_LOC.getDefault()+wsLoader.getParam(LoadIndex.P_LANG.getIndex()));
         setMaps(wsLoader);
         setTurts(wsLoader);
@@ -72,8 +68,8 @@ public class PreferenceSetter {
 
     private void setTurts (LoadWS wsLoader) {
         int num= Integer.parseInt(wsLoader.getParam(LoadIndex.NUM_TURT.getIndex()));
-        String comm = GetCommand.makeCommand("Tell", pLang.get()) + " "+Integer.toString(num);
-        intCommands.set(comm);
+//        String comm = GetCommand.makeCommand("Tell", pLang.get()) + " [ "+Integer.toString(num) + " ]";
+//        intCommands.set(comm);
 
 
     }

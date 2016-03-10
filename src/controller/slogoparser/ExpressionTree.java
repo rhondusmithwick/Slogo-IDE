@@ -36,11 +36,11 @@ public class ExpressionTree {
     private final MapObservable<Integer, String> imageMap;
     private final ObjectObservable<String> backgroundColor;
 
-    private final Turtle myTurtle;
+    private final TurtleManager turtleManager;
 
-    public ExpressionTree(Turtle myTurtle, MapObservable<String, TreeNode> variables, MapObservable<String, MakeUserInstruction> definedCommands,
+    public ExpressionTree(TurtleManager turtleManager, MapObservable<String, TreeNode> variables, MapObservable<String, MakeUserInstruction> definedCommands,
                           MapObservable<Integer, String> colorMap, MapObservable<Integer, String> imageMap, ObjectObservable<String> backgroundColor, Queue<Entry<String, String>> parsedText) {
-        this.myTurtle = myTurtle;
+        this.turtleManager = turtleManager;
         this.variables = variables;
         this.definedCommands = definedCommands;
         this.colorMap = colorMap;
@@ -68,6 +68,7 @@ public class ExpressionTree {
 
     public TreeNode createRoot() {
         TreeNode root = createNode();
+        root.setRoot(true);
         createSubTree(root);
         return root;
     }
@@ -85,6 +86,9 @@ public class ExpressionTree {
         Entry<String, String> curr = parsedText.poll();
         if (isConstant(curr.getKey())) {
             n = getConstant(curr);
+        } else if (curr.getKey().equals("Tell")) {
+            turtleManager.doTell(parsedText);
+            n = new ConstantNode(0.0);
         } else if (variables.containsKey(curr.getValue())) {
             n = variables.get(curr.getValue());
         } else if (definedCommands.containsKey(curr.getValue())) {
@@ -94,6 +98,10 @@ public class ExpressionTree {
             n = createNodeInstance(curr.getKey());
         }
         return n;
+    }
+
+    public TurtleManager getTurtleManager() {
+        return turtleManager;
     }
 
     private ConstantNode getConstant(Entry<String, String> curr) {
@@ -170,22 +178,9 @@ public class ExpressionTree {
     
     public List<List<TreeNode>> getMultipleCommandsList(int children) {
     	List<List<TreeNode>> myRoots = new LinkedList<>();
-    	while (children > 0) {
-    		if (parsedText.peek().getKey().equals("ListStart")) {
-    			List<TreeNode> tempRoots = new LinkedList<>();
-    			parsedText.poll();
-    			while (true) {
-    				if (parsedText.peek().getKey().equals("ListEnd")) {
-    					parsedText.poll();
-    					break;
-    				}
-    				TreeNode root = createRoot();
-    				tempRoots.add(root);
-    			}
-    			myRoots.add(tempRoots);
-    		}
-    		children--;
-    	}
+    	for (int i = 0; i < children; i++) {
+            myRoots.add(getCommandsFromList());
+        }
     	return myRoots;
     }
     	
@@ -194,7 +189,7 @@ public class ExpressionTree {
     }
 
     public Turtle getMyTurtle() {
-        return myTurtle;
+        return turtleManager.get(1);
     }
 
     public MapObservable<String, TreeNode> getVariables() {

@@ -27,8 +27,8 @@ public class MakeVariable extends TreeNode {
     }
 
     @Override
-    public int getNumChildrenRequired() {
-        return 1;
+    protected int getNumChildrenRequired() {
+        return 2;
     }
 
     @Override

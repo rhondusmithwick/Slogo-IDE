@@ -34,7 +34,11 @@ public class MakeUserInstruction extends CommandNode {
         variableNames.put(index, name);
         variableMap.put(name, new UserCommandVariable());
     }
-
+    
+    @Override
+    protected int getNumChildrenRequired() {
+    	return 3;
+    }
 
     private int numVariables() {
         return variableMap.size();

@@ -1,6 +1,7 @@
 package model.turn;
 
 import model.treenode.TurtleCommandNode;
+import model.turtle.Turtle;
 
 /**
  * Created by rhondusmithwick on 2/27/16.
@@ -9,16 +10,16 @@ import model.treenode.TurtleCommandNode;
  */
 public abstract class Turn extends TurtleCommandNode {
 
-    protected double turn(int direction) {
+    protected double turn(Turtle turtle, int direction) {
         double degrees = getChildren().get(0).getValue();
-        double currAngle = getTurtle().getTurtleProperties().getHeading();
+        double currAngle = turtle.getTurtleProperties().getHeading();
         double newAngle = (direction == 0) ? degrees : (currAngle + (direction * degrees));
-        getTurtle().getTurtleProperties().setHeading(newAngle);
+        turtle.getTurtleProperties().setHeading(newAngle);
         return degrees;
     }
 
     @Override
-    public int getNumChildrenRequired() {
+    protected int getNumChildrenRequired() {
         return 1;
     }
 }

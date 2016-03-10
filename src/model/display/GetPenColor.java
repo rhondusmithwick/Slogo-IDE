@@ -1,12 +1,13 @@
 package model.display;
 
 import model.treenode.TurtleCommandNode;
+import model.turtle.Turtle;
 
 public class GetPenColor extends TurtleCommandNode {
 
 	@Override
-	protected double execute() {
-		return getTurtle().getTurtleProperties().getPenColorIndex();
+	public double turtleExecute(Turtle turtle) {
+		return turtle.getTurtleProperties().getPenColorIndex();
 	}
 	
 }

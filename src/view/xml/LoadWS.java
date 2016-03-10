@@ -19,7 +19,6 @@ public class LoadWS extends XMLParser {
 
 
     private static List<String> paramDefaults = Arrays.asList(Defaults.TURT_BACKGROUND.getDefault(), 
-                                                              Defaults.PEN_COLOR.getDefault(), 
                                                               Defaults.LANG.getDefault(), 
                                                               Defaults.DEFAULT.getDefault(), 
                                                               Defaults.DEFAULT.getDefault(), 

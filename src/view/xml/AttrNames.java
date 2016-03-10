@@ -11,7 +11,7 @@ import java.util.List;
 
 public enum AttrNames {
 	
-	WORKSPACE(Arrays.asList("BGColor", "PenColor", "PLang", "CFile", "IFile", "NumTurts")),
+	WORKSPACE(Arrays.asList("BGColor", "PLang", "CFile", "IFile", "NumTurts")),
 	INDEX_MAP(Arrays.asList("index", "name"));
 	
 	private List<String> names;

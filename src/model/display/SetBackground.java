@@ -31,7 +31,7 @@ public class SetBackground extends CommandNode {
 	}
 	
 	@Override
-	public int getNumChildrenRequired() {
+	protected int getNumChildrenRequired() {
 		return 1;
 	}
 

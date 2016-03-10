@@ -1,6 +1,7 @@
 package model.pen;
 
 import model.treenode.TurtleCommandNode;
+import model.turtle.Turtle;
 
 /**
  * Created by rhondusmithwick on 2/24/16.
@@ -9,8 +10,8 @@ import model.treenode.TurtleCommandNode;
  */
 abstract class PenCommand extends TurtleCommandNode {
 
-    double changePen(boolean b) {
-        getTurtle().getTurtleProperties().setPenDown(b);
+    double changePen(Turtle turtle, boolean b) {
+        turtle.getTurtleProperties().setPenDown(b);
         return b ? 1 : 0;
     }
 }
