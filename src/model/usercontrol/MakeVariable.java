@@ -1,7 +1,6 @@
 package model.usercontrol;
 
 import controller.slogoparser.ExpressionTree;
-import model.treenode.TreeNode;
 
 import java.util.Map.Entry;
 
@@ -21,8 +20,8 @@ public class MakeVariable extends Variable {
     }
 
     @Override
-    public int getNumChildrenRequired() {
-        return 1;
+    protected int getNumChildrenRequired() {
+        return 2;
     }
 
     @Override

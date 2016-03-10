@@ -25,7 +25,7 @@ public class ColorMap extends IndexMap {
      * Constructor for new color map with default index, color values
      * @throws Exception
      */
-    public ColorMap() throws Exception{
+    public ColorMap() {
         super();
     }
 

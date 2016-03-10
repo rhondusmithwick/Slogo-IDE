@@ -1,0 +1,4 @@
+We chose to refactor all of the classes in the turtleboolean package. This is to follow the already set convention set by other packages
+where the function that is applied to the inputed variables is passed from each subclass to the super class, which then handles any subsequent
+actions. This streamlines the code a bit more and allows for more flexibility and ease if we ever wanted to add more turtleboolean classes. 
+This also follows a better hierarchical design. 

@@ -15,7 +15,7 @@ public abstract class Position extends TurtleCommandNode {
     }
 
     @Override
-    public int getNumChildrenRequired() {
+    protected int getNumChildrenRequired() {
         return 2;
     }
 

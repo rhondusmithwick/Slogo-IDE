@@ -2,6 +2,7 @@ package controller.controller;
 
 import controller.slogoparser.ExpressionTree;
 import controller.slogoparser.SlogoParser;
+import main.GlobalProperties;
 import model.turtle.TurtleManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
@@ -32,19 +33,22 @@ public class TurtleController implements Controller, Observer {
 
     private final Group group = new Group();
     private final TurtleManager turtleManager;
-    private final ObjectObservable<String> language = new ObjectObservable<>();
-    private final ObjectObservable<String> input = new ObjectObservable<>();
+
+    private final ObjectObservable<String> language;
+    private final ObjectObservable<String> input;
+    private final GlobalProperties properties;
     
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
 
     private final MapObservable<String, Variable> variables = new MapObservable<>("variables");
 
     private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedCommands");
-    
-    private MapObservable<Integer, String> colorMap = new MapObservable<>("colorMap");
 
-    public TurtleController(Dimension2D turtleDispDimension) {
+    public TurtleController(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
         turtleManager = new TurtleManager(turtleDispDimension);
+        this.language = globalProperties.getLanguage();
+        this.input = globalProperties.getInput();
+        this.properties = globalProperties;
         language.addObserver(this);
         input.addObserver(this);
         language.set(DEFAULT_LANGUAGE);
@@ -73,7 +77,7 @@ public class TurtleController implements Controller, Observer {
             error.set("Command not recognized: " + input);
         } else {
             try {
-                ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables, definedCommands, colorMap, parsedText);
+                ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables, definedCommands, properties, parsedText);
                 new Thread(expressionTree::executeAll).start();
             } catch (Exception es) {
                 error.set("");
@@ -90,11 +94,6 @@ public class TurtleController implements Controller, Observer {
     @Override
     public Group getGroup() {
         return group;
-    }
-    
-    public void setMap(MapObservable<Integer, String> map) {
-    	System.out.println("set map from controller");
-    	this.colorMap = map;
     }
 
     @Override

@@ -35,15 +35,15 @@ public abstract class Movement extends TurtleCommandNode {
         return distance;
     }
 
-
     private Line setUp(Turtle turtle) {
         Line penLine = new Line();
+        penLine.strokeWidthProperty().bind(turtle.getTurtleProperties().penSizeProperty());
         Platform.runLater(() -> turtle.getGroup().getChildren().add(penLine));
         return penLine;
     }
 
     @Override
-    public int getNumChildrenRequired() {
+    protected int getNumChildrenRequired() {
         return 1;
     }
 

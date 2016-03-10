@@ -19,7 +19,7 @@ public abstract class Turn extends TurtleCommandNode {
     }
 
     @Override
-    public int getNumChildrenRequired() {
+    protected int getNumChildrenRequired() {
         return 1;
     }
 }

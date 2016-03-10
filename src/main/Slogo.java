@@ -22,9 +22,10 @@ class Slogo {
 
     private static final Dimension2D turtleDispDimension = new Dimension2D(3000, 3000);
 
-    private final Controller controller = new TurtleController(turtleDispDimension);
+    private final GlobalProperties globalProperties = new GlobalProperties();
+    private final Controller controller = new TurtleController(globalProperties, turtleDispDimension);
 
-    private final ViewInt view = new View(turtleDispDimension, controller.getInput(), controller.getLanguage());
+    private final ViewInt view = new View(globalProperties, turtleDispDimension);
 
     Slogo() {
         view.getInnerGroup().getChildren().add(controller.getGroup());
@@ -41,7 +42,6 @@ class Slogo {
         List<SimpleStringProperty> controllerProperties = controller.getProperties();
         controllerProperties.parallelStream()
                 .forEach(this::findTwin);
-        ((TurtleController) controller).setMap(view.getMap(true).getIndexMap());
     }
 
     private void findTwin(SimpleStringProperty cProp) {

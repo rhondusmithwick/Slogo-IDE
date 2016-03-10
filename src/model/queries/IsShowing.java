@@ -5,7 +5,6 @@ import model.turtle.Turtle;
 
 public class IsShowing extends TurtleCommandNode {
 
-
     @Override
     public double turtleExecute(Turtle turtle) {
         boolean isShowing = turtle.getTurtleProperties().getVisible();
