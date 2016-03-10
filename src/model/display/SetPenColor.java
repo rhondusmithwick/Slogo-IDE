@@ -1,13 +1,13 @@
 package model.display;
 
+import maps.IndexMap;
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
-import observables.MapObservable;
 
 public class SetPenColor extends TurtleCommandNode {
 	
 	private int index;
-	private MapObservable<Integer, String> colorMap;
+	private IndexMap colorMap;
 
 	@Override
 	public double turtleExecute(Turtle turtle) {
@@ -19,7 +19,7 @@ public class SetPenColor extends TurtleCommandNode {
 	protected int getNumChildrenRequired() {
 		return 1;
 	}
-	
+
 	private void setPenColor(Turtle turtle) {
 		this.colorMap = getTree().getColorMap();
 		index = (int) getChildren().get(0).getValue();

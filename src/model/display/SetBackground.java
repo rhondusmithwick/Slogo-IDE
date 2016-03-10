@@ -1,15 +1,15 @@
 package model.display;
 
 import controller.slogoparser.ExpressionTree;
+import maps.IndexMap;
 import model.treenode.CommandNode;
 import model.treenode.TreeNode;
-import observables.MapObservable;
 import observables.ObjectObservable;
 
 public class SetBackground extends CommandNode {
 	
 	private int index;
-	private MapObservable<Integer, String> colorMap;
+	private IndexMap colorMap;
 	private ObjectObservable<String> backgroundColor;
 	
 	@Override

@@ -1,5 +1,6 @@
 package view;
 
+import main.GlobalProperties;
 import view.commentry.CommandEntry;
 import view.commhistory.CommandHistoryDisplay;
 import view.envdisplay.DefinedObjectsDisplay;
@@ -49,6 +50,7 @@ public class View implements ViewInt {
 	private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
 	private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
 	private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
+    private final IndexMap cMap, iMap;
 	private BorderPane UI;
 	private ResourceBundle myResources;
 	private Group root;
@@ -61,7 +63,6 @@ public class View implements ViewInt {
 	private TurtleParams turtPar;
 	private HBox bottom;
 	private VBox left, right, top;
-	private IndexMap cMap, iMap;
 	private SubBar topBar, botBar;
 
 	/**
@@ -74,12 +75,14 @@ public class View implements ViewInt {
 	 * @param pLang
 	 *            observable string used to set parsing language on backend
 	 */
-	public View(Dimension2D turtleDispDimension, ObjectObservable<String> input, ObjectObservable<String> pLang) {
-		this.pLang = pLang;
-		this.input = input;
+	public View(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
+		this.pLang = globalProperties.getLanguage();
+		this.input = globalProperties.getInput();
+        this.iMap = globalProperties.getImageMap();
+        this.cMap = globalProperties.getColorMap();
 		this.turtleDispDimension = turtleDispDimension;
 		this.intCommands = new ObjectObservable<>();
-		this.backgroundColor = new ObjectObservable<>();
+		this.backgroundColor = globalProperties.getBackgroundColor();
 		this.commHistory = new ObjectObservable<>();
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		createAppview();
@@ -158,20 +161,8 @@ public class View implements ViewInt {
 
 	}
 
-	private void createMaps() {
-
-		try {
-			iMap = new ImageMap();
-			cMap = new ColorMap();
-		} catch (Exception e) {
-			error.set("");
-			error.set("colorError");
-		}
-
-	}
 
 	private void createToolBar() {
-		createMaps();
 		top = new VBox(Size.TB_PADDING.getSize());
 		topBar = new TopBar(pLang, backgroundColor, image, intCommands, (ColorMap) cMap, (ImageMap) iMap);
 		botBar = new BottomBar(pLang, intCommands, (ColorMap) cMap, (ImageMap) iMap);

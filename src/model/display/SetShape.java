@@ -1,13 +1,13 @@
 package model.display;
 
+import maps.IndexMap;
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
-import observables.MapObservable;
 
 public class SetShape extends TurtleCommandNode {
 	
 	private int index;
-	private MapObservable<Integer, String> imageMap;
+	private IndexMap imageMap;
 
 	@Override
 	public double turtleExecute(Turtle turtle) {
