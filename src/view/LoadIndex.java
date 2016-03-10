@@ -9,11 +9,10 @@ package view;
  */
 public enum LoadIndex {
     BG_COLOR(0),
-    P_COLOR(1),
-    P_LANG(2),
-    C_FILE(3),
-    I_FILE(4),
-    NUM_TURT(5);
+    P_LANG(1),
+    C_FILE(2),
+    I_FILE(3),
+    NUM_TURT(4);
     
     private int index;
     

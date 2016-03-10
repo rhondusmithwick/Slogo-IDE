@@ -30,7 +30,8 @@ public enum Defaults {
 	XML(".xml"),
 	IM_DOC_EL("IndexedMap"),
 	IM_CHILD_ELEMENT("Element"),
-	WS_PREF_LOC("WorkSpacePreferences/");
+	WS_PREF_LOC("WorkSpacePreferences/"),
+	REP_VAR(":repcount");
 	
 	
 	

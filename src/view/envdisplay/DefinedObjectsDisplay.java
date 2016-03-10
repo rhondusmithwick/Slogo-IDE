@@ -123,7 +123,9 @@ public abstract class DefinedObjectsDisplay {
 
 	private void populateVBox() {
 		for (String defObject : definedObjectsArray) {
-			setLabel(defObject);
+			if(!defObject.startsWith(Defaults.REP_VAR.getDefault())){
+				setLabel(defObject);
+			}
 		}
 	}
 

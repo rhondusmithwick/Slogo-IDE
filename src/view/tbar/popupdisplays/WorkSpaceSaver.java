@@ -30,7 +30,7 @@ public class WorkSpaceSaver extends PopUp{
     private ResourceBundle myResources;
     private TextField tField;
     private ArrayList<String> colors, langs;
-    private ComboBox<String> bColor,pColor, pLangs, colorFile, imageFile;
+    private ComboBox<String> bColor, pLangs, colorFile, imageFile;
 
     /**
      * creates new workspace saver instance
@@ -83,7 +83,6 @@ public class WorkSpaceSaver extends PopUp{
     
     private List<String> getAllInput () {
         return Arrays.asList(getInput(bColor.getSelectionModel().getSelectedItem()),
-                             getInput(pColor.getSelectionModel().getSelectedItem()),
                              getInput(pLangs.getSelectionModel().getSelectedItem()),
                              getInput(colorFile.getSelectionModel().getSelectedItem()),
                              getInput(imageFile.getSelectionModel().getSelectedItem()),
@@ -118,7 +117,6 @@ public class WorkSpaceSaver extends PopUp{
     private void createComboBoxes() {
 
         bColor = ComboFactory.createBox(myResources.getString("bColor"), colors, null);
-        pColor = ComboFactory.createBox(myResources.getString("pColor"), colors, null);
         pLangs = ComboFactory.createBox(myResources.getString("selLang"), langs, null);
         colorFile = ComboFactory.createBox(myResources.getString("colorFile"), 
                                            FileGetter.getAllFromDirectory(Defaults.COLORLIST_LOC.getDefault()), null);
@@ -126,7 +124,7 @@ public class WorkSpaceSaver extends PopUp{
         imageFile = ComboFactory.createBox(myResources.getString("imageFile"), 
                                            FileGetter.getAllFromDirectory(Defaults.IMAGELIST_LOC.getDefault()), null);
         imageFile.getItems().add(Defaults.DEFAULT.getDefault());
-        addNodes(Arrays.asList(bColor, pColor, pLangs, colorFile, imageFile));
+        addNodes(Arrays.asList(bColor, pLangs, colorFile, imageFile));
 
     }
 
