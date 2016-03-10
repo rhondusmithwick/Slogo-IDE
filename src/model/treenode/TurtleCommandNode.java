@@ -5,6 +5,8 @@ import model.turtle.Turtle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -15,24 +17,25 @@ public abstract class TurtleCommandNode extends TreeNode {
 
     private Double value = 0.0;
 
+    private Future<Double> future;
+
     private final List<Turtle> myTurtles = new ArrayList<>();
 
     public abstract double turtleExecute(Turtle turtle);
 
-    private void execute(Turtle turtle) {
-        value = turtleExecute(turtle);
-    }
-
     @Override
     public double getValue() {
-        System.out.print(myTurtles);
-        myTurtles.parallelStream().map(this::createThread).forEach(Thread::start);
+        myTurtles.parallelStream().forEach(this::submit);
+        try {
+            value = future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
         return value;
     }
 
-
-    private Thread createThread(Turtle turtle) {
-        return new Thread(() -> execute(turtle));
+    private void submit(Turtle turtle) {
+        future = turtle.getExecutorService().submit(() -> turtleExecute(turtle));
     }
 
     @Override

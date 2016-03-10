@@ -63,6 +63,7 @@ public class ExpressionTree {
 
     public TreeNode createRoot() {
         TreeNode root = createNode();
+        root.setRoot(true);
         createSubTree(root);
         return root;
     }
@@ -114,7 +115,6 @@ public class ExpressionTree {
         } catch (Exception e) {
             n = new ConstantNode(0);
         }
-        System.out.println(turtleManager.getActiveTurtles());
         n.handleSpecific(this);
         return n;
     }
@@ -167,22 +167,9 @@ public class ExpressionTree {
     
     public List<List<TreeNode>> getMultipleCommandsList(int children) {
     	List<List<TreeNode>> myRoots = new LinkedList<>();
-    	while (children > 0) {
-    		if (parsedText.peek().getKey().equals("ListStart")) {
-    			List<TreeNode> tempRoots = new LinkedList<>();
-    			parsedText.poll();
-    			while (true) {
-    				if (parsedText.peek().getKey().equals("ListEnd")) {
-    					parsedText.poll();
-    					break;
-    				}
-    				TreeNode root = createRoot();
-    				tempRoots.add(root);
-    			}
-    			myRoots.add(tempRoots);
-    		}
-    		children--;
-    	}
+    	for (int i = 0; i < children; i++) {
+            myRoots.add(getCommandsFromList());
+        }
     	return myRoots;
     }
     	

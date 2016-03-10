@@ -30,6 +30,7 @@ public abstract class Movement extends TurtleCommandNode {
         Transition transition = createTransition(turtle, pointToMoveTo);
         transition.onFinishedProperty().set(t -> cleanUpMove(turtle, penLine, pointToMoveTo, isDone));
         new Thread(transition::play).start();
+        transition.play();
         keepGoing(isDone);
         return distance;
     }

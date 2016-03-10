@@ -11,7 +11,6 @@ public class Forward extends Movement {
 
     @Override
     public double turtleExecute(Turtle turtle) {
-        System.out.println("here");
         return move(turtle, 1);
     }
 
