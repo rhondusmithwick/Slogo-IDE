@@ -43,7 +43,7 @@ public final class TurtleProperties {
         setHeading(180);
         setPenDown(true);
         setPenColor("black");
-        setPenSize(10);
+        setPenSize(1);
     }
 
     void addListeners() {
