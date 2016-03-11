@@ -12,6 +12,13 @@ import view.Size;
 import view.utilities.ComboFactory;
 import view.utilities.PopUp;
 
+/**
+ * This class is responsible for allowing the user to select the turtle whose properties they want to disply
+ * in the turtle params display. It extends the abstract class popup.
+ * @author calinelson
+ *
+ */
+
 public class TurtlePropSelect extends PopUp {
 	
 	private ResourceBundle myResources;
@@ -19,6 +26,11 @@ public class TurtlePropSelect extends PopUp {
 	private SimpleStringProperty turtleIds;
 	private ComboBox<String> turtleSelect;
 
+	/**
+	 * Creates an new turtlePropSelect instance
+	 * @param selectedTurtle object observable integer of the selected turtle
+	 * @param turtleIds string list of current turtle ids
+	 */
 	public TurtlePropSelect(ObjectObservable<Integer> selectedTurtle, SimpleStringProperty turtleIds){
 		super(Size.TURTLE_UPDATE_POPUP_WIDTH.getSize(), Size.PROP_SEL_HEIGHT.getSize(), 
 				Defaults.BACKGROUND_COLOR.getDefault());

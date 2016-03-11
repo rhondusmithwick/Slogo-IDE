@@ -14,7 +14,12 @@ import observables.ObjectObservable;
 
 public class TurtleSelector extends TurtlePropertyUpdater {
 	
-
+	/**
+	 * creates a new turtleselector instance
+	 * @param turtleIDs SimpleStringProperty list of turtle ids
+	 * @param internalCommand object observable used to pass commands to command entry 
+	 * @param parsingLanguage simplestringproperty of current parsing language
+	 */
 	public TurtleSelector(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage) {
 		super(turtleIDs, internalCommand, parsingLanguage, "turtleSelectTitle");
