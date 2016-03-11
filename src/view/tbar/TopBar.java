@@ -91,18 +91,11 @@ public class TopBar extends SubBar {
 	@Override
 	protected void createButtons() {
 		makeButton("image", e -> chooseTurtIm());
-		makeButton("colorDisp", e -> showColorPalette());
-		makeButton("imageDisp", e -> showImagePalette());
+		makeButton("colorDisp", e -> cDisp.show());
+		makeButton("imageDisp", e -> iDisp.show());
 		makeButton("selectTurtleButtonTitle", e -> selectTurtle());
 	}
 
-	private void showImagePalette() {
-		iDisp.show();
-	}
-
-	private void showColorPalette() {
-		cDisp.show();
-	}
 
 	private void selectTurtle() {
 		turtleSelector = new TurtleSelector(turtleIDs, intCommand);
