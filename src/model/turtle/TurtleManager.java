@@ -47,7 +47,7 @@ public class TurtleManager {
         IDs.stream().forEach(this::addToActive);
     }
 
-    public void replaceActiveTurtles(List<Turtle> newActives) {
+    public void replaceActiveTurtles(Collection<Turtle> newActives) {
         activeTurtles.clear();
         activeTurtles.addAll(newActives);
     }
