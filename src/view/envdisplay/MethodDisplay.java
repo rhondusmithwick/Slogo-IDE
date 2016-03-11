@@ -30,8 +30,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
                           SimpleStringProperty methods,
                           SimpleStringProperty error) {
         super(methods, parsingLanguage, internalCommand, error,
-              Defaults.METHOD_SPLITTER.getDefault());
-        setDisplayTitle("methodDisplayTitle");
+              Defaults.METHOD_SPLITTER.getDefault(), "methodDisplayTitle");
         createCurrEnvDisp();
     }
 

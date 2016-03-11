@@ -43,13 +43,14 @@ public abstract class DefinedObjectsDisplay {
 	 * @param error simplestring property used to show error messages
 	 */
 	protected DefinedObjectsDisplay(SimpleStringProperty definedObjects, ObjectObservable<String> parsingLanguage,
-			ObjectObservable<String> internalCommand, SimpleStringProperty error, String splitter) {
+			ObjectObservable<String> internalCommand, SimpleStringProperty error, String splitter, String title) {
 		this.internalCommand = internalCommand;
 		this.error = error;
 		this.parsingLanguage = parsingLanguage;
 		this.definedObjects = definedObjects;
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		this.splitter = splitter;
+		this.displayTitle = myResources.getString(title);
 		setScrollPane();
 		setListners();
 	}
@@ -147,12 +148,5 @@ public abstract class DefinedObjectsDisplay {
 			error.set(myResources.getString("envUpdate"));
 		}
 	}
-	
-	/**
-	 * sets the displays title
-	 * @param displayTitle string of title to set
-	 */
-	public void setDisplayTitle(String displayTitle) {
-		this.displayTitle = myResources.getString(displayTitle);
-	}
+
 }

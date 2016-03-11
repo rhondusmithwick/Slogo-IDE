@@ -73,7 +73,6 @@ public class PreferenceSetter {
         	turtList = turtList + Integer.toString(i) + " ";
         }
         String comm = GetCommand.makeCommand("Tell", pLang.get()) + " [ " + turtList + "]";
-        System.out.println(comm);
         intCommands.set(comm);
 
 

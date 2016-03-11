@@ -26,8 +26,7 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 	 */
 	public VariableDisplay(ObjectObservable<String> parsingLanguage, ObjectObservable<String> internalCommand,
 			SimpleStringProperty variables, SimpleStringProperty error) {
-		super(variables, parsingLanguage, internalCommand, error, Defaults.VAR_SPLITTER.getDefault());
-		setDisplayTitle("varTitle");
+		super(variables, parsingLanguage, internalCommand, error, Defaults.VAR_SPLITTER.getDefault(), "varTitle");
 		createCurrEnvDisp();
 	}
 

@@ -31,7 +31,6 @@ public class MethodExec extends EnvActor {
     public MethodExec(ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, Label label){
         super(internalCommand, parsingLanguage);
         this.text=label.getText();
-        System.out.println(text);
 
 
 
