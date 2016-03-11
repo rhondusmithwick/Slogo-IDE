@@ -229,21 +229,6 @@ public class View implements ViewInt {
 		return Arrays.asList(error, image, penColor, variables, definedCommands, turtleIDs);
 	}
 
-	/**
-	 * returns the index maps responsible for mapping index numbers to colors or
-	 * images to define the pallets
-	 * 
-	 * @param boolean
-	 *            for which map to choose
-	 * @return chosen index map
-	 */
-	@Override
-	public IndexMap getMap(boolean colors) {
-		if (colors) {
-			return cMap;
-		}
-		return iMap;
-	}
 	
 	public ObjectObservable<String> getBackgroundColor() {
 		return backgroundColor;

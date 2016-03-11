@@ -38,8 +38,8 @@ public class TurtleSelector extends PopUp {
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		this.intCommand = intCommand;
 		this.turtleIDs = turtleIDs;
-		nodeList = new ArrayList<Node>();
-		checkBoxList = new ArrayList<CheckBox>();
+		nodeList = new ArrayList<>();
+		checkBoxList = new ArrayList<>();
 		activateTurtlesButton = ButtonFactory.createButton(myResources.getString("activateTurtles"),
 				e -> activateTurtles());
 	}
