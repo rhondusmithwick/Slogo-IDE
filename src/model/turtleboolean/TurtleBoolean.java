@@ -1,17 +1,17 @@
 package model.turtleboolean;
 
-import java.util.function.DoubleBinaryOperator;
-
 import model.treenode.CommandNode;
 
+import java.util.function.DoubleBinaryOperator;
+
 public abstract class TurtleBoolean extends CommandNode {
-	
-	private final DoubleBinaryOperator func;
-	
-	protected TurtleBoolean(DoubleBinaryOperator func) {
-		this.func = func;
-	}
-	
+
+    private final DoubleBinaryOperator func;
+
+    protected TurtleBoolean(DoubleBinaryOperator func) {
+        this.func = func;
+    }
+
     @Override
     protected int getNumChildrenRequired() {
         return 2;

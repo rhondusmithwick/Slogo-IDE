@@ -7,7 +7,6 @@ import javafx.collections.ObservableMap;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -88,10 +87,8 @@ public class TurtleManager {
     }
 
     private void formatActiveTurtles() {
-        allTurtles.addListener((MapChangeListener<Integer, Turtle>) change -> {
-            turtleIDs.set(allTurtles.keySet().toString());
-            System.out.println("TURTLE IDS "+ turtleIDs.get());
-        });
+        allTurtles.addListener((MapChangeListener<Integer, Turtle>) change ->
+                turtleIDs.set(allTurtles.keySet().toString()));
     }
 
     public int numTurtles() {

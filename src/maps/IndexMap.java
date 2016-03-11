@@ -1,6 +1,8 @@
 package maps;
 
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import observables.MapObservable;
@@ -42,10 +44,10 @@ public abstract class IndexMap {
     }
     
     public int getIndex(String value){
-    	Stream<Entry<Integer, String>>  filt= this.getIndexMap().getEntrySet().stream().filter(e-> e.getValue().equals(value));
-    	Entry<Integer, String> first =filt.findFirst().get();
-    	return first.getKey();
-
+        Predicate<Entry<Integer, String>> isValue= (e) -> (Objects.equals(value, e.getValue()));
+        return getIndexMap().getEntrySet().parallelStream()
+                .filter(isValue)
+                .map(Entry::getKey).findFirst().orElse(0);
     }
     
     /**

@@ -45,6 +45,6 @@ public abstract class TreeNode {
     }
 
     protected Double runChildren() {
-       return getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
+        return getChildren().stream().map(TreeNode::getValue).reduce((a, b) -> b).orElse(null);
     }
 }

@@ -11,7 +11,8 @@ public enum TurtleDefaults {
     HEADING("180"),
     PEN_DOWN("true"),
     PEN_SIZE("1"),
-    PEN_COLOR("black");
+    PEN_COLOR("black"),
+    IMG_DIM("30");
 
     private String content;
 

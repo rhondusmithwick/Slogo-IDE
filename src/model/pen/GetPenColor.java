@@ -5,9 +5,9 @@ import model.turtle.Turtle;
 
 public class GetPenColor extends TurtleCommandNode {
 
-	@Override
-	public double turtleExecute(Turtle turtle) {
-		return turtle.getTurtleProperties().getPenColorIndex();
-	}
-	
+    @Override
+    public double turtleExecute(Turtle turtle) {
+        return turtle.getTurtleProperties().getPenColorIndex();
+    }
+
 }
