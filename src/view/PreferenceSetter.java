@@ -1,6 +1,8 @@
 package view;
 
 import java.io.File;
+
+import main.GlobalProperties;
 import maps.IndexMap;
 import observables.ObjectObservable;
 import view.utilities.GetCommand;
@@ -30,11 +32,11 @@ public class PreferenceSetter {
      * @param backgroundColor observable string for background color
      * @param intCommands observable string for passing internal commands
      */
-    public PreferenceSetter (ObjectObservable<String> pLang, IndexMap cMap, IndexMap iMap, ObjectObservable<String> backgroundColor, ObjectObservable<String> intCommands) {
-        this.pLang=pLang;
-        this.cMap=cMap;
-        this.iMap=iMap;
-        this.backgroundColor=backgroundColor;
+    public PreferenceSetter (GlobalProperties globalProperties, ObjectObservable<String> intCommands) {
+        this.pLang = globalProperties.getLanguage();
+        this.cMap=globalProperties.getColorMap();
+        this.iMap=globalProperties.getImageMap();
+        this.backgroundColor= globalProperties.getBackgroundColor();
         this.intCommands=intCommands;
     }
 

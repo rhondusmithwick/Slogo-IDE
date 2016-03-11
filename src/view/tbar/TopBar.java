@@ -2,7 +2,6 @@ package view.tbar;
 
 import javafx.beans.property.SimpleStringProperty;
 import maps.ColorMap;
-import maps.ImageMap;
 import maps.IndexMap;
 import observables.ObjectObservable;
 import view.tbar.popupdisplays.ColorDisplay;
@@ -17,6 +16,7 @@ import view.tbar.popupdisplays.pen.PenDownUpdater;
 import view.tbar.popupdisplays.pen.PenSizeUpdater;
 import view.tbar.popupdisplays.pen.PenUpUpdater;
 import view.utilities.PopUp;
+import main.GlobalProperties;
 import main.Slogo;
 
 /**
@@ -42,9 +42,6 @@ public class TopBar extends SubBar{
 	/**
 	 * creates a new top bar instance.
 	 * 
-	 * @param language
-	 *            language string observable for setting and storing parsing
-	 *            language
 	 * @param intCommand
 	 *            string observable for passing commands to command entry
 	 *            instance
@@ -59,14 +56,13 @@ public class TopBar extends SubBar{
 	 * @param penColor
 	 *            simplestringproperty to set turtles pen color
 	 */
-	public TopBar(ObjectObservable<String> language,  
-			SimpleStringProperty turtleIDs, ObjectObservable<String> internalCommand, ColorMap colorMap, ImageMap imageMap, Slogo slogo, ObjectObservable<Integer> selectedTurtle) {
-		super(language, internalCommand, colorMap);
-		this.parsingLanguage = language;
+	public TopBar(GlobalProperties globalProperties, SimpleStringProperty turtleIDs, ObjectObservable<String> internalCommand, Slogo slogo, ObjectObservable<Integer> selectedTurtle) {
+		super(globalProperties.getLanguage(), internalCommand, globalProperties.getColorMap());
+		this.parsingLanguage = globalProperties.getLanguage();
 		this.internalCommand = internalCommand;
 		this.turtleIDs = turtleIDs;
-		this.colorMap = colorMap;
-		this.imageMap = imageMap;
+		this.colorMap = globalProperties.getColorMap();
+		this.imageMap = globalProperties.getImageMap();
 		this.selectedTurtle=selectedTurtle;
 		colorDisplay = new ColorDisplay("colorTitle");
 		imageDisplay = new ImageDisplay("imageTitle");

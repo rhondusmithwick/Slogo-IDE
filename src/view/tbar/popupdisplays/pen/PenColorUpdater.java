@@ -9,12 +9,27 @@ import observables.ObjectObservable;
 import view.tbar.popupdisplays.TurtlePropertyUpdater;
 import view.utilities.ComboFactory;
 
+/**
+ * This class is responsible for updating the pen color for the turtles a user selects.
+ * It extends the abstract TurtlePropertyUpdater class.
+ * @author calinelson
+ *
+ */
+
 public class PenColorUpdater extends TurtlePropertyUpdater {
 
 	private ColorMap colorMap;
 	private List<String> colors;
 	private ComboBox<String> colorBox;
 	
+	/**
+	 * creates a new penColor Updater instance
+	 * @param turtleIDs simplestring property list of created turtle ids
+	 * @param internalCommand object observable string to pass commands to command entry instance
+	 * @param parsingLanguage object observable of current parsing language
+	 * @param colorMap ColorMap instance
+	 * @param colors ArrayList of strings of all currently defined colors
+	 */
 	public PenColorUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, ColorMap colorMap, List<String> colors){
 		super(turtleIDs, internalCommand, parsingLanguage, "pColor");

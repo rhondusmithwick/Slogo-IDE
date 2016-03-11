@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import main.GlobalProperties;
 import observables.ObjectObservable;
 
 /**
@@ -30,8 +31,8 @@ public class TurtleDisplay implements Observer {
      * @param bgColor string observable that allows background color to be set 
      * @param turtleDispDimension 2D dimension object that specifies size of turtle area
      */
-    public TurtleDisplay(ObjectObservable<String> backgroundColor, Dimension2D turtleDispDimension) {
-        this.backgroundColor=backgroundColor;
+    public TurtleDisplay(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
+        this.backgroundColor=globalProperties.getBackgroundColor();
         backgroundColor.addObserver(this);
         background = new Rectangle(turtleDispDimension.getWidth(), turtleDispDimension.getHeight());
         displayArea = new Group();

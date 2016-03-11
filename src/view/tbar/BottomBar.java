@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
+import main.GlobalProperties;
 import maps.ColorMap;
 import maps.ImageMap;
 import observables.ObjectObservable;
@@ -33,6 +34,7 @@ public class BottomBar extends SubBar implements Observer {
 
 	/**
 	 * Creates a new bottom bar instance
+	 * @param globalProperties 
 	 * 
 	 * @param language
 	 *            language string observable for setting and storing parsing
@@ -45,15 +47,15 @@ public class BottomBar extends SubBar implements Observer {
 	 * @param iMap
 	 *            Index map object for mapping images to integer indexes
 	 */
-	public BottomBar(ObjectObservable<String> language, ObjectObservable<String> internalCommand, ColorMap colorMap,
-			ImageMap imageMap, SimpleStringProperty image, ObjectObservable<String> backgroundColor) {
-		super(language, internalCommand, colorMap);
-		this.imageMap = imageMap;
-		this.colorMap = colorMap;
+	public BottomBar( GlobalProperties globalProperties, ObjectObservable<String> internalCommand, 
+			 SimpleStringProperty image ) {
+		super(globalProperties.getLanguage(), internalCommand, globalProperties.getColorMap());
+		this.imageMap =(ImageMap) globalProperties.getImageMap();
+		this.colorMap = (ColorMap) globalProperties.getColorMap();
 		this.colorMap.getIndexMap().addObserver(this);
 		this.image =image;
 		
-		this.backgroundColor = backgroundColor;
+		this.backgroundColor = globalProperties.getBackgroundColor();
 		
 	}
 

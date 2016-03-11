@@ -13,6 +13,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import main.GlobalProperties;
 import observables.ObjectObservable;
 
 /**
@@ -36,13 +37,13 @@ public class CommandEntry implements Observer {
     
     /**
      * creates new command entry object
-     * @param input observable string to pass input to backend 
+     * @param globalProperties observable string to pass input to backend 
      * @param intCommands observable string used to pass input from other view components to command entry
      * @param commHistory observable string used to pass entered commands to be entered into history
      */
-    public CommandEntry(ObjectObservable<String> input, ObjectObservable<String> intCommands, ObjectObservable<String> commHistory) {
+    public CommandEntry(GlobalProperties globalProperties, ObjectObservable<String> intCommands, ObjectObservable<String> commHistory) {
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-        this.input = input;
+        this.input = globalProperties.getInput();
         this.commandHistory = commHistory;
         this.internalCommand = intCommands;
         intCommands.addObserver(this);

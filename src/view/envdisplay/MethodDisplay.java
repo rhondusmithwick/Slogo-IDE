@@ -2,6 +2,7 @@ package view.envdisplay;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
+import main.GlobalProperties;
 import observables.ObjectObservable;
 import view.Defaults;
 
@@ -25,11 +26,11 @@ public class MethodDisplay extends DefinedObjectsDisplay {
      * @param methods simplestring property storing user defined methods
      * @param error simplestringproperty to pass errors to be shown
      */
-    public MethodDisplay (ObjectObservable<String> parsingLanguage,
+    public MethodDisplay (GlobalProperties globalProperties,
                           ObjectObservable<String> internalCommand,
                           SimpleStringProperty methods,
                           SimpleStringProperty error) {
-        super(methods, parsingLanguage, internalCommand, error,
+        super(methods, globalProperties.getLanguage(), internalCommand, error,
               Defaults.METHOD_SPLITTER.getDefault(), "methodDisplayTitle");
         createCurrEnvDisp();
     }

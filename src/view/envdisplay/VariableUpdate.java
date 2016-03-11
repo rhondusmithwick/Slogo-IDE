@@ -3,6 +3,7 @@ package view.envdisplay;
 import java.util.Arrays;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import main.GlobalProperties;
 import observables.ObjectObservable;
 
 /**
@@ -24,8 +25,8 @@ public class VariableUpdate extends EnvActor {
      * @param pLang string observable to store and set parsing language
      * @param text text for method needing to be updated
      */
-    public VariableUpdate (ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, Label label) {
-        super(internalCommand, parsingLanguage);
+    public VariableUpdate (GlobalProperties globalProperties, ObjectObservable<String> internalCommand, Label label) {
+        super(internalCommand, globalProperties.getLanguage());
         this.label=label;
         this.text = label.getText();
         

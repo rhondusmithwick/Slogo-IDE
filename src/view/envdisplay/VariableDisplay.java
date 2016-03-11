@@ -2,6 +2,7 @@ package view.envdisplay;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
+import main.GlobalProperties;
 import observables.ObjectObservable;
 import view.Defaults;
 
@@ -24,9 +25,9 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 	 * @param variables simplestring property storing user defined variables
 	 * @param error simplestring property to display error
 	 */
-	public VariableDisplay(ObjectObservable<String> parsingLanguage, ObjectObservable<String> internalCommand,
+	public VariableDisplay(GlobalProperties globalProperties, ObjectObservable<String> internalCommand,
 			SimpleStringProperty variables, SimpleStringProperty error) {
-		super(variables, parsingLanguage, internalCommand, error, Defaults.VAR_SPLITTER.getDefault(), "varTitle");
+		super(variables, globalProperties.getLanguage(), internalCommand, error, Defaults.VAR_SPLITTER.getDefault(), "varTitle");
 		createCurrEnvDisp();
 	}
 
