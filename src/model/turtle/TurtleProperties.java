@@ -113,6 +113,11 @@ public final class TurtleProperties {
         this.heading.set(heading);
     }
 
+
+    public SimpleBooleanProperty penDownProperty() {
+        return penDown;
+    }
+
     public boolean getPenDown() {
         return penDown.get();
     }
