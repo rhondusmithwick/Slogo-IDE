@@ -37,12 +37,16 @@ public abstract class PaletteDisp extends PopUp {
      * @param title String title of the display
      * @param map MapObservable that the contents of the display will be pulled from
      */
-    public PaletteDisp(String title, MapObservable<Integer,String> map){
+    public PaletteDisp(String title){
     	super(Size.PALETTE.getSize(), Size.PALETTE.getSize(), Defaults.BACKGROUND_WHITE.getDefault());
         this.title=title;
-        this.map = map;
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 
+    }
+    
+    public void show(MapObservable<Integer, String> map){
+        this.map = map;
+        super.show();
     }
     
     /**
@@ -62,11 +66,12 @@ public abstract class PaletteDisp extends PopUp {
      */
     @Override
     protected void createScene(){
-    	setStageTitle(title);
+    	setStageTitle(myResources.getString(title));
     	createScroll();
     	setVBox();
         scroll.setContent(vBox);
         addNodes(Arrays.asList(scroll));
+        System.out.println(map.getEntrySet().toString());
         map.getEntrySet().stream().forEach(e->addToPalette(e));
     }
     

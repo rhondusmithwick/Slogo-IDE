@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
  */
 public class Repeat extends CommandNode {
 
-    private Variable repcount;
+    private Variable repcount = new Variable();
     private Double value = null;
     private TreeNode numTimesNode;
     private Integer numTimes = null;
@@ -40,12 +40,12 @@ public class Repeat extends CommandNode {
     }
 
     public void handleSpecific(ExpressionTree tree) {
+        tree.getVariables().put(":repcount", repcount);
         numTimesNode = tree.createRoot();
         System.out.println(tree.getParsedText());
         List<TreeNode> nRoots = tree.getCommandsFromList();
-        System.out.println(nRoots);
         getChildren().addAll(nRoots);
-        repcount = tree.getVariables().get(":repcount");
+        tree.getVariables().remove(":repcount");
     }
 
     public Variable getVariable() {

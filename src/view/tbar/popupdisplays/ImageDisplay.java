@@ -23,7 +23,7 @@ public class ImageDisplay extends PaletteDisp{
      * @param map MapObservable that the contents of the display will be pulled from
      */
     public ImageDisplay (String title,  MapObservable<Integer, String> imageMap) {
-        super(title,  imageMap);
+        super(title);
    
        
         

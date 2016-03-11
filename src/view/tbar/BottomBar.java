@@ -1,8 +1,5 @@
 package view.tbar;
 
-
-import java.util.Observable;
-
 import view.Defaults;
 import view.envdisplay.EnvActor;
 import view.tbar.popupdisplays.HelpScreen;
@@ -13,7 +10,6 @@ import view.utilities.PopUp;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
-
 import observables.ObjectObservable;
 
 /**
@@ -49,11 +45,6 @@ public class BottomBar extends SubBar {
     }
 
 
-    /**
-     * Called on update to any observable. Not used for this class.
-     */
-    @Override
-    public void update(Observable o, Object arg){}
 
     /**
      * creates all comboboxes needed for sub bar

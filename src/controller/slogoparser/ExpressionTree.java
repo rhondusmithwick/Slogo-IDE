@@ -60,7 +60,6 @@ public class ExpressionTree {
     }
 
     private List<TreeNode> createRootList() {
-        variables.put(":repcount", new Variable());
         List<TreeNode> rootList = new LinkedList<>();
         while (inBounds()) {
             TreeNode root = createRoot();
@@ -93,7 +92,7 @@ public class ExpressionTree {
             turtleManager.populateActiveTurtles(IDs);
             n = new ConstantNode(0.0);
         } else if (variables.containsKey(curr.getValue())) {
-            n = variables.get(curr.getValue()).getConstantNode();
+            n = variableHandle(curr);
         } else if (definedCommands.containsCommand(curr.getValue())) {
             n = definedCommands.getNode(curr.getValue()).getUserCommandNode(this);
         } else {
@@ -102,6 +101,13 @@ public class ExpressionTree {
         return n;
     }
 
+    private TreeNode variableHandle(Entry<String, String> curr) {
+        if (curr.getValue().equals(":repcount")) {
+            return variables.get(":repcount");
+        }
+        return variables.get(curr.getValue()).getConstantNode();
+
+    }
     public TurtleManager getTurtleManager() {
         return turtleManager;
     }

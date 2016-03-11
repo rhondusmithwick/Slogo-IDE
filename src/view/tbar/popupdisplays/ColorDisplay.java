@@ -23,7 +23,7 @@ public class ColorDisplay extends PaletteDisp {
      * @param map MapObservable that the contents of the display will be pulled from
      */
     public ColorDisplay (String title, MapObservable<Integer, String> colorMap) {
-        super(title, colorMap);
+        super(title);
         
     }
 
