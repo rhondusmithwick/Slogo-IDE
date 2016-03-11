@@ -87,7 +87,7 @@ public class View implements ViewInt {
 		this.commandHistInput = new ObjectObservable<>();
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		createAppview();
-		//setPreferences();
+		setPreferences();
 
 	}
 
