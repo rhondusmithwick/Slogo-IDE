@@ -42,6 +42,7 @@ public class Repeat extends CommandNode {
     public void handleSpecific(ExpressionTree tree) {
         tree.getVariables().put(":repcount", repcount);
         numTimesNode = tree.createRoot();
+        System.out.println(tree.getParsedText());
         List<TreeNode> nRoots = tree.getCommandsFromList();
         getChildren().addAll(nRoots);
         tree.getVariables().remove(":repcount");

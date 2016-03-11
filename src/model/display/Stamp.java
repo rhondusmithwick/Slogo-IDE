@@ -10,7 +10,6 @@ import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
 import model.turtle.TurtleDefaults;
 
-
 public class Stamp extends TurtleCommandNode {
 
     private IndexMap imageMap;
