@@ -94,6 +94,9 @@ public class TurtleManager {
         });
     }
 
+    public int numTurtles() {
+        return allTurtles.size();
+    }
 
     public SimpleStringProperty getTurtleIDsProperty() {
         return turtleIDs;
