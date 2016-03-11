@@ -226,6 +226,10 @@ public class View implements ViewInt {
         return Arrays.asList(error, image, variables, definedCommands, turtleIDs);
     }
   
+    /**
+     * gets the title of the view for the workspace tab
+     * @return string title of view
+     */
     @Override
     public String getTitle(){
     	return myResources.getString("WSTitle");

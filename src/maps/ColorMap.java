@@ -1,7 +1,6 @@
 package maps;
 
 import java.lang.reflect.Field;
-import java.util.Observer;
 import view.Defaults;
 import javafx.scene.paint.Color;
 import observables.MapObservable;
@@ -97,9 +96,6 @@ public class ColorMap extends IndexMap {
     protected String getDirectory() {
        return Defaults.COLORLIST_LOC.getDefault();
     }
-    
-    public void addObserver(Observer obs){
-        colors.addObserver(obs);
-    }
+
 
 }
