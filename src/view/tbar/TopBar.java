@@ -7,8 +7,6 @@ import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
 import observables.ObjectObservable;
-import view.Defaults;
-import view.Size;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.ImageChooser;
 import view.tbar.popupdisplays.ImageDisplay;
@@ -107,10 +105,7 @@ public class TopBar extends SubBar {
 	}
 
 	private void selectTurtle() {
-		int width = Size.TURT_SELECT_WIDTH.getSize();
-		int height = Size.TURT_SELECT_HEIGHT.getSize();
-		String backgroundColor = Defaults.BACKGROUND_COLOR.getDefault();
-		turtleSelector = new TurtleSelector(width, height, backgroundColor, turtleIDs, intCommand);
+		turtleSelector = new TurtleSelector(turtleIDs, intCommand);
 		turtleSelector.show();
 	}
 
