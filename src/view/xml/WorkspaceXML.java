@@ -15,9 +15,9 @@ import view.Defaults;
  */
 
 public class WorkspaceXML extends XMLWriter {
-	private Document doc;
+	private Document document;
 	private Element config;
-	private List<String> params;
+	private List<String> parameters;
 	
 	/**
 	 * Saves set workspace preferences to a chosen XML file
@@ -26,8 +26,8 @@ public class WorkspaceXML extends XMLWriter {
 	 * @throws Exception
 	 */
 	public void saveConfig(File file, List<String> params) throws Exception{
-		doc = buildDom(Defaults.WS_DOC_EL.getDefault());
-		this.params=  params;
+		document = buildDom(Defaults.WS_DOC_EL.getDefault());
+		this.parameters=  params;
 		addElements();
 		writeToFile(file);
 	}
@@ -38,10 +38,10 @@ public class WorkspaceXML extends XMLWriter {
 	 */
 	@Override
 	protected void addElements () {
-		config = doc.createElement(Defaults.WS_CHILD_EL.getDefault());
-		doc.getDocumentElement().appendChild(config);
-		for(int i=0; i<params.size();i++){
-			config.setAttribute(AttrNames.WORKSPACE.getNames().get(i), params.get(i));
+		config = document.createElement(Defaults.WS_CHILD_EL.getDefault());
+		document.getDocumentElement().appendChild(config);
+		for(int i=0; i<parameters.size();i++){
+			config.setAttribute(AttrNames.WORKSPACE.getNames().get(i), parameters.get(i));
 
 		}
 

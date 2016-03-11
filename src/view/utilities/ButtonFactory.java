@@ -22,8 +22,8 @@ public class ButtonFactory {
          * @return created button
          */
 	public static Button createButton(String title, EventHandler<ActionEvent> handler){
-		Button newButt = new Button(title);
-        newButt.setOnAction(handler);
-        return newButt;
+		Button newButton = new Button(title);
+        newButton.setOnAction(handler);
+        return newButton;
 	}
 }

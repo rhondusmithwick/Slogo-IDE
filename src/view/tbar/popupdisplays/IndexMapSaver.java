@@ -23,8 +23,8 @@ import maps.IndexMap;
 public class IndexMapSaver extends PopUp{
 
     private ResourceBundle myResources;
-    private TextField tField;
-    private IndexMap inMap;
+    private TextField textField;
+    private IndexMap indexMap;
 
 
 
@@ -32,9 +32,9 @@ public class IndexMapSaver extends PopUp{
      * creates new indexmap save instance
      * @param inMap index map to be saved
      */
-    public IndexMapSaver(IndexMap inMap){
+    public IndexMapSaver(IndexMap indexMap){
         super(Size.MAP_SAVER.getSize(), Size.MAP_SAVER.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
-        this.inMap = inMap;
+        this.indexMap = indexMap;
         this.myResources =  ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     }
 
@@ -42,12 +42,12 @@ public class IndexMapSaver extends PopUp{
 
         closeScene();
         try {
-            String text = tField.getText();
+            String text = textField.getText();
             if(text.equals("")){
                 return;
             }else{
                 MapToXML mapper = new MapToXML();
-                mapper.saveMap(text, inMap);
+                mapper.saveMap(text, indexMap);
             }
         }
         catch (Exception e) {
@@ -64,10 +64,10 @@ public class IndexMapSaver extends PopUp{
     @Override
     protected void createScene() {
         Label title = new Label(myResources.getString("saverTitle"));
-        tField = new TextField();
-        tField.prefWidthProperty().bind(getSize(false));
+        textField = new TextField();
+        textField.prefWidthProperty().bind(getSize(false));
         Button set = ButtonFactory.createButton(myResources.getString("save"), e->saveList());
-        addNodes(Arrays.asList(title, tField, set));
+        addNodes(Arrays.asList(title, textField, set));
 
     }
 

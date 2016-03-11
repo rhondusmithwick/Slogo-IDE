@@ -22,9 +22,9 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 	 * @param methods simplestring property storing user defined methods
 	 * @param error simplestringproperty to pass errors to be shown
 	 */
-	public MethodDisplay(ObjectObservable<String> parsingLanguage, ObjectObservable<String> intCommand,
+	public MethodDisplay(ObjectObservable<String> parsingLanguage, ObjectObservable<String> internalCommand,
 			SimpleStringProperty methods, SimpleStringProperty error) {
-		super(methods, parsingLanguage, intCommand, error);
+		super(methods, parsingLanguage, internalCommand, error);
 		setDisplayTitle("methodDisplayTitle");
 		createCurrEnvDisp();
 	}
