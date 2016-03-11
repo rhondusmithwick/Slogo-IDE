@@ -6,9 +6,9 @@ import observables.ObjectObservable;
 
 public class PenUpUpdater extends PenUpDownUpdater {
 
-	public PenUpUpdater(int height, int width, String backgroundColor, SimpleStringProperty turtleIDs,
+	public PenUpUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage) {
-		super(height, width, backgroundColor, turtleIDs, internalCommand, parsingLanguage);
+		super(turtleIDs, internalCommand, parsingLanguage);
 		setTitle("penUpUpdaterTitle");
 	}
 

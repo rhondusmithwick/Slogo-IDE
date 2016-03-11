@@ -12,6 +12,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import observables.ObjectObservable;
 import view.Defaults;
+import view.Size;
 import view.utilities.ButtonFactory;
 import view.utilities.GetCommand;
 import view.utilities.PopUp;
@@ -35,9 +36,9 @@ public abstract class TurtlePropertyUpdater extends PopUp {
 	private final ObjectObservable<String> internalCommand;
 	private ObjectObservable<String> parsingLanguage;
 
-	public TurtlePropertyUpdater(int height, int width, String backgroundColor, SimpleStringProperty turtleIDs,
+	public TurtlePropertyUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage ) {
-		super(height, width, backgroundColor);
+		super(Size.TURTLE_UPDATE_POPUP_HEIGHT.getSize(), Size.TURTLE_UPDATE_POPUP_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		this.parsingLanguage = parsingLanguage;
 		this.internalCommand = internalCommand;

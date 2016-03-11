@@ -25,9 +25,9 @@ public class PenSizeUpdater extends TurtlePropertyUpdater{
      * @param intCommand string observable to pass commands to command entry instance to pass to backend
      */
     
-    public PenSizeUpdater(int height, int width, String backgroundColor, SimpleStringProperty turtleIDs,
+    public PenSizeUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage){
-        super(height, width, backgroundColor, turtleIDs, internalCommand, parsingLanguage);
+        super( turtleIDs, internalCommand, parsingLanguage);
         setTitle("penSizeUpdateTitle");
     }
 

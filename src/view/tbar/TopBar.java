@@ -7,7 +7,6 @@ import maps.ImageMap;
 import maps.IndexMap;
 import observables.ObjectObservable;
 import view.Defaults;
-import view.Size;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.HelpScreen;
 import view.tbar.popupdisplays.ImageDisplay;
@@ -31,10 +30,7 @@ import main.Slogo;
 
 public class TopBar extends SubBar{
 
-	private final int width = Size.TURTLE_UPDATE_POPUP_WIDTH.getSize();
-	private final int height = Size.TURTLE_UPDATE_POPUP_HEIGHT.getSize();
-	private final String popUpColor = Defaults.BACKGROUND_COLOR.getDefault();
-	private final SimpleStringProperty turtleIDs;
+	private SimpleStringProperty turtleIDs;
 	private PopUp colorDisplay, imageDisplay, turtPropSelect;
 	private ObjectObservable<Integer> selectedTurtle;
 	private ComboBox<String> languageBox;
@@ -120,22 +116,22 @@ public class TopBar extends SubBar{
 	}
 
 	private void selectTurtle() {
-		turtleSelector = new TurtleSelector(width, height, popUpColor, turtleIDs, internalCommand, parsingLanguage);
+		turtleSelector = new TurtleSelector( turtleIDs, internalCommand, parsingLanguage);
 		turtleSelector.show();
 	}
 
 	private void setPenSize() {
-		penSizeUpdater = new PenSizeUpdater(width, height, popUpColor, turtleIDs, internalCommand, parsingLanguage);
+		penSizeUpdater = new PenSizeUpdater(turtleIDs, internalCommand, parsingLanguage);
 		penSizeUpdater.show();
 	}
 
 	private void setPenUp() {
-		penUpUpdater = new PenUpUpdater(width, height, popUpColor, turtleIDs, internalCommand, parsingLanguage);
+		penUpUpdater = new PenUpUpdater(turtleIDs, internalCommand, parsingLanguage);
 		penUpUpdater.show();
 	}
 
 	private void setPenDown() {
-		penDownUpdater = new PenDownUpdater(width, height, popUpColor, turtleIDs, internalCommand, parsingLanguage);
+		penDownUpdater = new PenDownUpdater( turtleIDs, internalCommand, parsingLanguage);
 		penDownUpdater.show();
 	}
 

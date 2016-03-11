@@ -5,9 +5,9 @@ import observables.ObjectObservable;
 
 public abstract class PenUpDownUpdater extends TurtlePropertyUpdater {
 
-	public PenUpDownUpdater(int height, int width, String backgroundColor, SimpleStringProperty turtleIDs,
+	public PenUpDownUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage) {
-		super(height, width, backgroundColor, turtleIDs, internalCommand, parsingLanguage);
+		super(turtleIDs, internalCommand, parsingLanguage);
 	}
 
 	@Override
