@@ -2,7 +2,6 @@ package view.tbar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 import java.util.ResourceBundle;
 import view.Defaults;
 import view.Size;
@@ -28,7 +27,7 @@ import observables.ObjectObservable;
  *
  */
 
-public abstract class SubBar implements Observer{
+public abstract class SubBar{
 
     private ResourceBundle myResources;
     private HBox container;
