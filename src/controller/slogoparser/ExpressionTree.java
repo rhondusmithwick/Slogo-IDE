@@ -105,7 +105,7 @@ public class ExpressionTree {
         if (curr.getValue().equals(":repcount")) {
             return variables.get(":repcount");
         }
-        return variables.get(curr.getValue()).getConstantNode();
+        return variables.get(curr.getValue());
 
     }
     public TurtleManager getTurtleManager() {

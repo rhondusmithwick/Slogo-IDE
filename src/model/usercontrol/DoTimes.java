@@ -15,7 +15,6 @@ public class DoTimes extends CommandNode {
 	private String variableName;
 	private int numTimes;
 	private double value;
-	private ExpressionTree tree;
 
     @Override
     protected double execute() {
@@ -25,20 +24,16 @@ public class DoTimes extends CommandNode {
     }
     
     private void doIteration() {
-    	variable.setValue(variable.getValue() + 1);
-//    	tree.getVariables().put(variableName, variable);
-    	System.out.println(tree.getVariables().get(":count").getValue());
-    	
+    	variable.setValue(variable.getValue() + 1);  	
     	value = runChildren();
     }
     
     public void handleSpecific(ExpressionTree tree) {
-    	this.tree = tree;
     	Queue<Entry<String, String>> parsedText = tree.getParsedText();
     	makeVariable(parsedText);
+    	tree.getVariables().put(variableName, variable);
     	List<TreeNode> commands = tree.getCommandsFromList();
     	getChildren().addAll(commands);
-    	tree.getVariables().put(variableName, variable);
     }
     
     private void makeVariable(Queue<Entry<String, String>> parsedText) {

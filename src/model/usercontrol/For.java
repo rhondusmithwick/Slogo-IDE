@@ -34,9 +34,9 @@ public class For extends CommandNode {
     public void handleSpecific(ExpressionTree tree) {
     	Queue<Entry<String, String>> parsedText = tree.getParsedText();
     	makeVariable(parsedText);
+    	tree.getVariables().put(variableName, variable);
     	List<TreeNode> commands = tree.getCommandsFromList();
     	getChildren().addAll(commands);
-    	tree.getVariables().put(variableName, variable);
     }
     
     private void makeVariable(Queue<Entry<String, String>> parsedText) {
