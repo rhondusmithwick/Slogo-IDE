@@ -16,9 +16,15 @@ import javafx.stage.Stage;
 import view.View;
 import view.ViewInt;
 
+/**
+ * 
+ * @author Rhondu Smithwick and Cali Nelson
+ *
+ */
+
 public class Slogo {
 	
-	   private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1200, 718);
+	private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1200, 718);
 	private static final Dimension2D turtleDispDimension = new Dimension2D(3000, 3000);
 
 	private Controller currController;
@@ -27,6 +33,10 @@ public class Slogo {
 	private Group root;
 	private Stage stage;
 
+	/**
+	 * creates a new slogo objcet
+	 * @param stage stage the visuals will be shown on
+	 */
 	public Slogo(Stage stage){
 		this.stage=stage;
 		root = new Group();
@@ -37,6 +47,9 @@ public class Slogo {
 		root.getChildren().add(tabPane);
 	}
 
+	/**
+	 * creates a new workspace and adds it as a tab to tab pane
+	 */
 	public void newView() {
 		Tab tab = new Tab();
 		GlobalProperties globalProperties = new GlobalProperties();
@@ -48,8 +61,6 @@ public class Slogo {
 		tab.setContent(currView.getGroup());
 		bindProperties();
 		tabPane.getTabs().add(tab);
-		
-		
 	}
 	
 	
@@ -71,6 +82,9 @@ public class Slogo {
     }
     
 
+    /**
+     * Initializes the Slogo object and sets the stage to show it
+     */
     protected void init() {
         Scene scene = new Scene(root, APP_DIMENSIONS.getWidth(), APP_DIMENSIONS.getHeight());
         stage.setScene(scene);

@@ -231,11 +231,6 @@ public class View implements ViewInt {
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(error, image, penColor, variables, definedCommands, turtleIDs);
     }
-
-
-    public ObjectObservable<String> getBackgroundColor() {
-        return backgroundColor;
-    }
   
     @Override
     public String getTitle(){
