@@ -38,12 +38,13 @@ public class Slogo {
 	}
 
 	public void newView() {
-		Tab tab = new Tab("workspace");
+		Tab tab = new Tab();
 		GlobalProperties globalProperties = new GlobalProperties();
 		currView = new View(globalProperties, turtleDispDimension, this);
 		currView.bindSize(tabPane.heightProperty(), tabPane.widthProperty());
 		currController = new TurtleController(globalProperties, turtleDispDimension);
 		currView.getInnerGroup().getChildren().add(currController.getGroup());
+		tab.setText(currView.getTitle());
 		tab.setContent(currView.getGroup());
 		bindProperties();
 		tabPane.getTabs().add(tab);
