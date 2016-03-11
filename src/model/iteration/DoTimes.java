@@ -1,14 +1,9 @@
 package model.iteration;
 
 import java.util.Queue;
-import java.util.stream.IntStream;
-import java.util.List;
 import java.util.Map.Entry;
 
 import controller.slogoparser.ExpressionTree;
-import model.treenode.CommandNode;
-import model.treenode.TreeNode;
-import model.usercontrol.Variable;
 
 public class DoTimes extends Iteration {
 

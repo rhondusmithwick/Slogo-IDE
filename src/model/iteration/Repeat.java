@@ -1,13 +1,7 @@
 package model.iteration;
 
 import controller.slogoparser.ExpressionTree;
-import model.treenode.CommandNode;
 import model.treenode.TreeNode;
-import model.usercontrol.Variable;
-
-import java.util.List;
-import java.util.stream.IntStream;
-
 
 /**
  * Created by rhondusmithwick on 3/1/16.
