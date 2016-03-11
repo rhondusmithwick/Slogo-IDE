@@ -28,7 +28,8 @@ public enum Size {
 	ENV_HEIGHT(600), 
 	ENV_WIDTH(300),
 	TURT_SELECT_WIDTH(200),
-	TURT_SELECT_HEIGHT(300);
+	TURT_SELECT_HEIGHT(300),
+	TOP_TAB(25);
 	
 	private int size;
 	

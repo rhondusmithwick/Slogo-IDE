@@ -7,6 +7,7 @@ import model.turtle.Turtle;
 import model.turtle.TurtleManager;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class Ask extends CommandNode {
     @Override
     public void handleSpecific(ExpressionTree tree) {
         TurtleManager manager = tree.getTurtleManager();
-        List<Turtle> oldActives = manager.getActiveTurtles();
+        Collection<Turtle> oldActives = new LinkedList<>(manager.getActiveTurtles());
         Collection<Integer> newActives = manager.doTell(tree.getParsedText());
         manager.populateActiveTurtles(newActives);
         List<TreeNode> myRoots = tree.getCommandsFromList();

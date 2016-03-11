@@ -1,6 +1,7 @@
 package view;
 
 import main.GlobalProperties;
+import main.Slogo;
 import view.commentry.CommandEntry;
 import view.commhistory.CommandHistoryDisplay;
 import view.envdisplay.DefinedObjectsDisplay;
@@ -13,6 +14,7 @@ import view.tbar.TopBar;
 import view.turtdisplay.TurtleDisplay;
 import view.turtparams.TurtleParams;
 import view.utilities.ButtonFactory;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -20,7 +22,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -65,6 +66,7 @@ public class View implements ViewInt {
     private HBox bottom;
     private VBox left, right, top;
     private SubBar topBar, bottomBar;
+	private Slogo multView;
 
     /**
      * creates a new view object
@@ -76,8 +78,9 @@ public class View implements ViewInt {
      * @param pLang
      *            observable string used to set parsing language on backend
      */
-    public View(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
+    public View(GlobalProperties globalProperties, Dimension2D turtleDispDimension, Slogo multView) {
         this.parsingLanguage = globalProperties.getLanguage();
+        this.multView = multView;
         this.input = globalProperties.getInput();
         this.iMap = globalProperties.getImageMap();
         this.cMap = globalProperties.getColorMap();
@@ -111,9 +114,9 @@ public class View implements ViewInt {
      *            to bind the panes size to
      */
     @Override
-    public void bindSize(Scene scene) {
-        UI.prefHeightProperty().bind(scene.heightProperty());
-        UI.prefWidthProperty().bind(scene.widthProperty());
+    public void bindSize(ReadOnlyDoubleProperty height, ReadOnlyDoubleProperty width) {
+        UI.prefHeightProperty().bind(height.subtract(Size.TOP_TAB.getSize()));
+        UI.prefWidthProperty().bind(width);
     }
 
     private void createScene() {
@@ -166,7 +169,7 @@ public class View implements ViewInt {
     private void createToolBar() {
         top = new VBox(Size.TB_PADDING.getSize());
         topBar = new TopBar(parsingLanguage, backgroundColor, image, turtleIDs, internalCommand, (ColorMap) cMap, (ImageMap) iMap);
-        bottomBar = new BottomBar(parsingLanguage, internalCommand, (ColorMap) cMap, (ImageMap) iMap);
+        bottomBar = new BottomBar(parsingLanguage, internalCommand, (ColorMap) cMap, (ImageMap) iMap, multView);
         top.getChildren().addAll(topBar.getContainer(), bottomBar.getContainer());
         BorderPane.setMargin(top, ViewInsets.TOP.getInset());
 
@@ -228,9 +231,9 @@ public class View implements ViewInt {
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(error, image, penColor, variables, definedCommands, turtleIDs);
     }
-
-
-    public ObjectObservable<String> getBackgroundColor() {
-        return backgroundColor;
+  
+    @Override
+    public String getTitle(){
+    	return myResources.getString("WSTitle");
     }
 }
