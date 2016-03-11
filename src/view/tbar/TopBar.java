@@ -15,6 +15,7 @@ import view.tbar.popupdisplays.PaletteDisp;
 import view.tbar.popupdisplays.PenDownUpdater;
 import view.tbar.popupdisplays.PenSizeUpdater;
 import view.tbar.popupdisplays.PenUpUpdater;
+import view.tbar.popupdisplays.TurtlePropSelect;
 import view.tbar.popupdisplays.TurtlePropertyUpdater;
 import view.tbar.popupdisplays.TurtleSelector;
 import view.utilities.PopUp;
@@ -34,7 +35,8 @@ public class TopBar extends SubBar{
 	private final int height = Size.TURTLE_UPDATE_POPUP_HEIGHT.getSize();
 	private final String popUpColor = Defaults.BACKGROUND_COLOR.getDefault();
 	private final SimpleStringProperty turtleIDs;
-	private PopUp colorDisplay, imageDisplay;
+	private PopUp colorDisplay, imageDisplay, turtPropSelect;
+	private ObjectObservable<Integer> selectedTurtle;
 	private ComboBox<String> languageBox;
 	private ObjectObservable<String> internalCommand, parsingLanguage;
 	private TurtlePropertyUpdater turtleSelector, penSizeUpdater, penUpUpdater, penDownUpdater;
@@ -63,13 +65,14 @@ public class TopBar extends SubBar{
 	 *            simplestringproperty to set turtles pen color
 	 */
 	public TopBar(ObjectObservable<String> language,  
-			SimpleStringProperty turtleIDs, ObjectObservable<String> internalCommand, ColorMap colorMap, ImageMap imageMap, Slogo slogo) {
+			SimpleStringProperty turtleIDs, ObjectObservable<String> internalCommand, ColorMap colorMap, ImageMap imageMap, Slogo slogo, ObjectObservable<Integer> selectedTurtle) {
 		super(language, internalCommand, colorMap);
 		this.parsingLanguage = language;
 		this.internalCommand = internalCommand;
 		this.turtleIDs = turtleIDs;
 		this.colorMap = colorMap;
 		this.imageMap = imageMap;
+		this.selectedTurtle=selectedTurtle;
 		colorDisplay = new ColorDisplay("colorTitle");
 		imageDisplay = new ImageDisplay("imageTitle");
 		helpScreen = new HelpScreen();
@@ -108,6 +111,12 @@ public class TopBar extends SubBar{
 		makeButton("penDown", e -> setPenDown());
 		makeButton("help", e -> helpScreen.show());
 		makeButton("newWS", e -> slogo.newView());
+		makeButton("chPropTurtle", e-> changePropertiesTurtle());
+	}
+
+	private void changePropertiesTurtle() {
+		turtPropSelect = new TurtlePropSelect(selectedTurtle, turtleIDs);
+		turtPropSelect.show();
 	}
 
 	private void selectTurtle() {

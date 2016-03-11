@@ -1,5 +1,7 @@
 package view.turtparams;
 
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 import view.Defaults;
@@ -11,6 +13,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import observables.ObjectObservable;
 
 /**
  * Class is responsible for displaying certain turtle parameters and properties to the user such as location, 
@@ -19,13 +22,13 @@ import javafx.scene.layout.VBox;
  *
  */
 
-public class TurtleParams {
+public class TurtleParams implements Observer {
 
 
 
     private ResourceBundle myResources;
     private ScrollPane scroll;
-
+    private ObjectObservable<Integer> turtleId;
     private Label title;
     private VBox box;
 
@@ -36,17 +39,21 @@ public class TurtleParams {
      * @param penDown SimpleBooleanProperty showing whether turtle's pen is down
      * @param penColor SimpleStringProperty displaying turtle's pen color
      */
-    public TurtleParams() {
-
-
+    public TurtleParams(ObjectObservable<Integer> turtleId) {
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         setScroll();
-
-        box = new VBox();
-        box.prefWidthProperty().bind(scroll.widthProperty());
-        scroll.setContent(box);
-        addTitle();
-        addParams();
+        this.turtleId = turtleId;
+        turtleId.addObserver(this);
+        setParams(1);
+       
+    }
+    
+    private void setParams(int id){
+    	 box = new VBox();
+         box.prefWidthProperty().bind(scroll.widthProperty());
+         scroll.setContent(box);
+         addTitle(id);
+         addParams();
     }
 
     private void addParams () {
@@ -65,8 +72,8 @@ public class TurtleParams {
     }
 
 
-    private void addTitle() {
-        title = createLabel(myResources.getString("TurtlePropertiesTitle"));
+    private void addTitle(int id) {
+        title = createLabel(myResources.getString("TurtlePropertiesTitle") + Integer.toString(id));
         box.getChildren().add(title);
     }
 
@@ -86,5 +93,11 @@ public class TurtleParams {
     public Node getTurtleParams() {
         return scroll;
     }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		setParams(turtleId.get());
+		
+	}
 
 }

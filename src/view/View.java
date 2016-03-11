@@ -39,6 +39,7 @@ public class View implements ViewInt {
 
     private final Dimension2D turtleDispDimension;
     private final ObjectObservable<String> parsingLanguage, input, backgroundColor, internalCommand, commandHistInput;
+    private final ObjectObservable<Integer> selectedTurtle;
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
     private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
     private final SimpleStringProperty definedCommands = new SimpleStringProperty(this, "definedCommands");
@@ -78,6 +79,7 @@ public class View implements ViewInt {
         this.cMap = globalProperties.getColorMap();
         this.turtleDispDimension = turtleDispDimension;
         this.internalCommand = new ObjectObservable<>();
+        this.selectedTurtle = new ObjectObservable<>();
         this.backgroundColor = globalProperties.getBackgroundColor();
         this.commandHistInput = new ObjectObservable<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
@@ -149,7 +151,7 @@ public class View implements ViewInt {
         bottom = new HBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
 
-        turtleParameters = new TurtleParams();
+        turtleParameters = new TurtleParams(selectedTurtle);
         bottom.getChildren().add(turtleParameters.getTurtleParams());
 
         commandHistory = new CommandHistoryDisplay(internalCommand, commandHistInput);
@@ -160,7 +162,7 @@ public class View implements ViewInt {
 
     private void createToolBar() {
         top = new VBox(Size.TB_PADDING.getSize());
-        topBar = new TopBar(parsingLanguage,  turtleIDs, internalCommand, (ColorMap) cMap, (ImageMap) iMap, slogo);
+        topBar = new TopBar(parsingLanguage,  turtleIDs, internalCommand, (ColorMap) cMap, (ImageMap) iMap, slogo, selectedTurtle);
         bottomBar = new BottomBar(parsingLanguage, internalCommand, (ColorMap) cMap, (ImageMap) iMap, image, backgroundColor);
         top.getChildren().addAll(topBar.getContainer(), bottomBar.getContainer());
         BorderPane.setMargin(top, ViewInsets.TOP.getInset());
