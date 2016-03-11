@@ -8,7 +8,7 @@ import view.Size;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import observables.MapObservable;
+
 
 /**
  * sub class of palette display responsible for displaying color palette
@@ -22,7 +22,7 @@ public class ColorDisplay extends PaletteDisp {
      * @param title String title of the display
      * @param map MapObservable that the contents of the display will be pulled from
      */
-    public ColorDisplay (String title, MapObservable<Integer, String> colorMap) {
+    public ColorDisplay (String title) {
         super(title);
         
     }

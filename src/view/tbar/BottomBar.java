@@ -110,4 +110,5 @@ public class BottomBar extends SubBar {
     private void setPen(String key) {
         passCommand(getCommand(key));
     }
+
 }

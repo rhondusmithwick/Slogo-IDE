@@ -7,7 +7,7 @@ import view.Size;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import observables.MapObservable;
+
 
 /**
  * sub class of palette display responsible for displaying image palette
@@ -22,7 +22,7 @@ public class ImageDisplay extends PaletteDisp{
      * @param title String title of the display
      * @param map MapObservable that the contents of the display will be pulled from
      */
-    public ImageDisplay (String title,  MapObservable<Integer, String> imageMap) {
+    public ImageDisplay (String title) {
         super(title);
    
        

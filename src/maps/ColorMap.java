@@ -22,7 +22,6 @@ public class ColorMap extends IndexMap {
 
     /**
      * Constructor for new color map with default index, color values
-     * @throws Exception
      */
     public ColorMap() {
         super();
@@ -48,6 +47,7 @@ public class ColorMap extends IndexMap {
         String[] rgb = toSet.split(" ");
         String value = "rgb(" + rgb[R] + "," + rgb[G]+ ","+rgb[B]+")";
         colors.put(index, value);
+        System.out.println(colors.countObservers());
         colors.notifyObservers();
     }
 
