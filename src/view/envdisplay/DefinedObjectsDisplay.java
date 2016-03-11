@@ -127,8 +127,6 @@ public abstract class DefinedObjectsDisplay {
 		vBox.getChildren().add(title);
 	}
 
-
-
 	protected void setLabel(String definedObject) {
 		Label label = new Label(definedObject);
 		if (definedObject.length() == 0){

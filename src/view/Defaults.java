@@ -32,7 +32,6 @@ public enum Defaults {
 	IM_CHILD_ELEMENT("Element"),
 	WS_PREF_LOC("WorkSpacePreferences/"),
 	REP_VAR(":repcount"),
-	ACTIVATE_TURTLES_COMMAND("tell [ %s]"),
 	METHOD_SPLITTER("]"),
 	VAR_SPLITTER(",");
 	
