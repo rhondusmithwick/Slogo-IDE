@@ -40,6 +40,7 @@ public class SlogoParser {
     }
 
     private String getSymbol(String text) {
+    	System.out.println(text);
         Predicate<Entry<String, Pattern>> matched = (e) -> match(text, e.getValue());
         List<String> symbols = mySymbols.entrySet()
                 .parallelStream().filter(matched)
