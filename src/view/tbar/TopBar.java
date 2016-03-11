@@ -6,10 +6,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
+import maps.IndexMap;
 import observables.ObjectObservable;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.ImageChooser;
 import view.tbar.popupdisplays.ImageDisplay;
+import view.tbar.popupdisplays.PaletteDisp;
 import view.tbar.popupdisplays.TurtleSelector;
 import view.utilities.PopUp;
 
@@ -28,7 +30,7 @@ public class TopBar extends SubBar implements Observer{
     private ComboBox<String> penColorBox;
     private ObjectObservable<String> backgroundColor, internalCommand;
     private TurtleSelector turtleSelector;
-    private ColorMap colorMap;
+    private IndexMap colorMap, imageMap;
 
     /**
      * creates a new top bar instance.
@@ -58,8 +60,9 @@ public class TopBar extends SubBar implements Observer{
         this.image = image;
         this.backgroundColor = backgroundColor;
         this.colorMap = colorMap;
-        colorDisplay = new ColorDisplay("colorTitle", colorMap.getIndexMap());
-        imageDisplay = new ImageDisplay("imageTitle", imageMap.getIndexMap());
+        this.imageMap=imageMap;
+        colorDisplay = new ColorDisplay("colorTitle");
+        imageDisplay = new ImageDisplay("imageTitle");
 
     }
 
@@ -93,15 +96,11 @@ public class TopBar extends SubBar implements Observer{
     @Override
     protected void createButtons() {
         makeButton("image", e -> chooseTurtIm());
-        makeButton("colorDisp", e -> showColors());
-        makeButton("imageDisp", e -> imageDisplay.show());
+        makeButton("colorDisp", e -> ((PaletteDisp) colorDisplay).show(colorMap.getIndexMap()));
+        makeButton("imageDisp", e -> ((PaletteDisp) imageDisplay).show(imageMap.getIndexMap()));
         makeButton("selectTurtleButtonTitle", e -> selectTurtle());
     }
 
-
-    private void showColors () {
-        ((ColorDisplay) colorDisplay).show(colorMap.getIndexMap());
-    }
 
     private void selectTurtle() {
         turtleSelector = new TurtleSelector(turtleIDs, internalCommand);

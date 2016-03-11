@@ -71,7 +71,6 @@ public abstract class PaletteDisp extends PopUp {
     	setVBox();
         scroll.setContent(vBox);
         addNodes(Arrays.asList(scroll));
-        System.out.println(map.getEntrySet().toString());
         map.getEntrySet().stream().forEach(e->addToPalette(e));
     }
     

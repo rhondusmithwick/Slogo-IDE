@@ -7,6 +7,7 @@ import view.tbar.popupdisplays.IndexMapSaver;
 import view.tbar.popupdisplays.PenSizeUpdater;
 import view.tbar.popupdisplays.WorkSpaceSaver;
 import view.utilities.PopUp;
+import java.util.Observable;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
@@ -109,5 +110,13 @@ public class BottomBar extends SubBar {
 
     private void setPen(String key) {
         passCommand(getCommand(key));
+    }
+
+
+
+    @Override
+    public void update (Observable o, Object arg) {
+        // TODO Auto-generated method stub
+        
     }
 }
