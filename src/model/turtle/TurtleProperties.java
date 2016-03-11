@@ -72,12 +72,12 @@ public final class TurtleProperties {
         return new Image(filePath);
     }
 
-    public void setImage(String image) {
-        this.image.set(image);
-    }
-
     public String getImage() {
         return image.get();
+    }
+
+    public void setImage(String image) {
+        this.image.set(image);
     }
 
     public boolean getVisible() {
@@ -128,36 +128,36 @@ public final class TurtleProperties {
     public void setPenColor(String penColor) {
         this.penColor.set(penColor);
     }
-    
-    public void setPenColorIndex(int index) {
-    	this.penColorIndex = index;
-    }
-    
+
     public int getPenColorIndex() {
-    	return penColorIndex;
+        return penColorIndex;
     }
-    
-    public void setPenShapeIndex(int index) {
-    	this.penShapeIndex = index;
+
+    public void setPenColorIndex(int index) {
+        this.penColorIndex = index;
     }
-    
+
     public int getPenShapeIndex() {
-    	return penShapeIndex;
+        return penShapeIndex;
     }
-    
+
+    public void setPenShapeIndex(int index) {
+        this.penShapeIndex = index;
+    }
+
     public double getPenSize() {
-    	return penSize.doubleValue();
+        return penSize.doubleValue();
     }
-    
+
     public void setPenSize(double penSize) {
-    	this.penSize.set(penSize);
+        this.penSize.set(penSize);
     }
 
     public SimpleStringProperty penColorProperty() {
         return penColor;
     }
-    
+
     public SimpleDoubleProperty penSizeProperty() {
-    	return penSize;
+        return penSize;
     }
 }

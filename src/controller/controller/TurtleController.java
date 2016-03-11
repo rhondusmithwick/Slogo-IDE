@@ -2,13 +2,12 @@ package controller.controller;
 
 import controller.slogoparser.ExpressionTree;
 import controller.slogoparser.SlogoParser;
-import main.GlobalProperties;
-import model.turtle.TurtleManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
+import main.GlobalProperties;
 import model.deprecated.Command;
-import model.usercontrol.MakeUserInstruction;
+import model.turtle.TurtleManager;
 import model.usercontrol.Variable;
 import observables.MapObservable;
 import observables.ObjectObservable;
@@ -37,12 +36,11 @@ public class TurtleController implements Controller, Observer {
     private final ObjectObservable<String> language;
     private final ObjectObservable<String> input;
     private final GlobalProperties properties;
-    
+
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
 
     private final MapObservable<String, Variable> variables = new MapObservable<>("variables");
-
-    private final MapObservable<String, MakeUserInstruction> definedCommands = new MapObservable<>("definedCommands");
+    private final DefinedCommands definedCommands = new DefinedCommands();
 
     public TurtleController(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
         turtleManager = new TurtleManager(turtleDispDimension);
@@ -53,7 +51,6 @@ public class TurtleController implements Controller, Observer {
         input.addObserver(this);
         language.set(DEFAULT_LANGUAGE);
         variables.addObserver(this);
-        definedCommands.addObserver(this);
         group.getChildren().add(turtleManager.getGroup());
     }
 
@@ -70,7 +67,7 @@ public class TurtleController implements Controller, Observer {
         Queue<Entry<String, String>> parsedText = parser.parseText(input);
         runCommands(parsedText);
     }
-    
+
     private void runCommands(Queue<Entry<String, String>> parsedText) {
         if (parsedText == null) {
             error.set("");
@@ -85,7 +82,7 @@ public class TurtleController implements Controller, Observer {
             }
         }
     }
-    
+
     @Override
     public List<Command> getCommands() {
         return null;
@@ -109,9 +106,9 @@ public class TurtleController implements Controller, Observer {
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
-        		error, turtleManager.getTurtleIDsProperty(),
+                error, turtleManager.getTurtleIDsProperty(),
                 turtleManager.get(1).getTurtleProperties().imageProperty(),
                 turtleManager.get(1).getTurtleProperties().penColorProperty(),
-                variables.getStringProperty(), definedCommands.getStringProperty());
+                variables.getStringProperty(), definedCommands.frontEndTextProperty());
     }
 }

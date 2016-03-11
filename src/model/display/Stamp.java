@@ -6,10 +6,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import maps.IndexMap;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.function.Predicate;
-
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
 import model.turtle.TurtleDefaults;
@@ -38,6 +34,7 @@ public class Stamp extends TurtleCommandNode {
         imageView.setFitWidth(imageDim);
         return imageView;
     }
+
     @Override
     public void handleSpecific(ExpressionTree tree) {
         super.handleSpecific(tree);

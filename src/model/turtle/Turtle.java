@@ -14,12 +14,12 @@ import java.util.concurrent.Executors;
  */
 public class Turtle {
 
-    private int numStamps = 0;
     private final Group root = new Group();
     private final Group stamps = new Group();
     private final int ID;
     private final TurtleProperties turtleProperties;
     private final ExecutorService executorService = Executors.newWorkStealingPool(1);
+    private int numStamps = 0;
 
     public Turtle(int ID, Dimension2D turtleDispDimension) {
         this.ID = ID;

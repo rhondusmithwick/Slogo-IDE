@@ -1,5 +1,6 @@
 package controller.slogoparser;
 
+import controller.controller.DefinedCommands;
 import javafx.application.Platform;
 import main.GlobalProperties;
 import maps.IndexMap;
@@ -7,7 +8,6 @@ import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
 import model.turtle.TurtleManager;
-import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Variable;
 import observables.MapObservable;
 import observables.ObjectObservable;
@@ -34,15 +34,15 @@ public class ExpressionTree {
     private final List<TreeNode> rootList;
 
     private final MapObservable<String, Variable> variables;
-    private final MapObservable<String, MakeUserInstruction> definedCommands;
+    private final DefinedCommands definedCommands;
     private final ObjectObservable<String> backgroundColor;
 
     private final IndexMap imageMap;
     private final IndexMap colorMap;
-    
+
     private final TurtleManager turtleManager;
 
-    public ExpressionTree(TurtleManager turtleManager, MapObservable<String, Variable> variables, MapObservable<String, MakeUserInstruction> definedCommands,
+    public ExpressionTree(TurtleManager turtleManager, MapObservable<String, Variable> variables, DefinedCommands definedCommands,
                           GlobalProperties properties, Queue<Entry<String, String>> parsedText) {
         this.turtleManager = turtleManager;
         this.variables = variables;
@@ -57,7 +57,6 @@ public class ExpressionTree {
     public void executeAll() {
         rootList.stream().forEach(TreeNode::getValue);
         Platform.runLater(variables::modifyIfShould);
-        Platform.runLater(definedCommands::modifyIfShould);
     }
 
     private List<TreeNode> createRootList() {
@@ -95,8 +94,8 @@ public class ExpressionTree {
             n = new ConstantNode(0.0);
         } else if (variables.containsKey(curr.getValue())) {
             n = variables.get(curr.getValue()).getConstantNode();
-        } else if (definedCommands.containsKey(curr.getValue())) {
-            n = definedCommands.get(curr.getValue()).getUserCommandNode(this);
+        } else if (definedCommands.containsCommand(curr.getValue())) {
+            n = definedCommands.getNode(curr.getValue()).getUserCommandNode(this);
         } else {
             n = createNodeInstance(curr.getKey());
         }
@@ -147,46 +146,46 @@ public class ExpressionTree {
         return sb.toString();
     }
 
-    public MapObservable<String, MakeUserInstruction> getDefinedCommands() {
+    public DefinedCommands getDefinedCommands() {
         return definedCommands;
     }
-    
+
     public IndexMap getColorMap() {
-    	return colorMap;
+        return colorMap;
     }
-    
+
     public IndexMap getImageMap() {
-    	return imageMap;
+        return imageMap;
     }
-    
+
     public ObjectObservable<String> getBackgroundColor() {
-    	return backgroundColor;
+        return backgroundColor;
     }
 
     public List<TreeNode> getCommandsFromList() {
         List<TreeNode> myRoots = new LinkedList<>();
         if (parsedText.peek().getKey().equals("ListStart")) {
-        	parsedText.poll();
-        	while (true) {
-        		if (parsedText.peek().getKey().equals("ListEnd")) {
-        			parsedText.poll();
-        			break;
-        		}
-        		TreeNode root = createRoot();
-        		myRoots.add(root);
-        	}
-        }   
+            parsedText.poll();
+            while (true) {
+                if (parsedText.peek().getKey().equals("ListEnd")) {
+                    parsedText.poll();
+                    break;
+                }
+                TreeNode root = createRoot();
+                myRoots.add(root);
+            }
+        }
         return myRoots;
     }
-    
+
     public List<List<TreeNode>> getMultipleCommandsList(int children) {
-    	List<List<TreeNode>> myRoots = new LinkedList<>();
-    	for (int i = 0; i < children; i++) {
+        List<List<TreeNode>> myRoots = new LinkedList<>();
+        for (int i = 0; i < children; i++) {
             myRoots.add(getCommandsFromList());
         }
-    	return myRoots;
+        return myRoots;
     }
-    	
+
     public Queue<Entry<String, String>> getParsedText() {
         return parsedText;
     }
