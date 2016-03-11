@@ -1,8 +1,8 @@
 package view;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import java.util.List;
 
 /**
@@ -38,9 +38,11 @@ public interface ViewInt {
     
     /**
      * binds the size of the border pane to the size of the application
-     * @param scene to bind the panes size to
+     * @param height height to bind to
+     * @param width width to bind to
      */
-    void bindSize (Scene scene);
+
+	void bindSize(ReadOnlyDoubleProperty height, ReadOnlyDoubleProperty Width);
     
 
 

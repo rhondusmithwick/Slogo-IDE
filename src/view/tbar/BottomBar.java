@@ -8,6 +8,7 @@ import view.tbar.popupdisplays.PenSizeUpdater;
 import view.tbar.popupdisplays.WorkSpaceSaver;
 import view.utilities.PopUp;
 import javafx.scene.control.ComboBox;
+import main.Slogo;
 import maps.ColorMap;
 import maps.ImageMap;
 import observables.ObjectObservable;
@@ -27,6 +28,8 @@ public class BottomBar extends SubBar {
     private ColorMap colorMap;
     private ImageMap imageMap;
 
+	private Slogo multView;
+
     /**
      * Creates a new bottom bar instance
      * @param language language string observable for setting and storing parsing language
@@ -35,11 +38,12 @@ public class BottomBar extends SubBar {
      * @param iMap Index map object for mapping images to integer indexes
      */
     public BottomBar(ObjectObservable<String> language, 
-                     ObjectObservable<String> internalCommand, ColorMap colorMap, ImageMap imageMap) {
+                     ObjectObservable<String> internalCommand, ColorMap colorMap, ImageMap imageMap, Slogo multView) {
         super(language, internalCommand, colorMap);
         this.imageMap = imageMap;
         this.colorMap = colorMap;
         this.internalCommand=internalCommand;
+        this.multView = multView;
         helpScreen = new HelpScreen();
 
     }
@@ -75,6 +79,8 @@ public class BottomBar extends SubBar {
         makeButton("saveColor", e-> saveMap(true));
         makeButton("saveImage", e->saveMap(false));
         makeButton("help", e -> helpScreen.show());
+        makeButton("newWS", e-> multView.newView());
+        
 
     }
 
