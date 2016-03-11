@@ -1,17 +1,20 @@
 package view.tbar;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
+import maps.IndexMap;
 import observables.ObjectObservable;
 import view.Defaults;
 import view.Size;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.ImageChooser;
 import view.tbar.popupdisplays.ImageDisplay;
+import view.tbar.popupdisplays.PaletteDisp;
 import view.tbar.popupdisplays.PenDownUpdater;
 import view.tbar.popupdisplays.PenSizeUpdater;
 import view.tbar.popupdisplays.PenUpUpdater;
@@ -26,17 +29,19 @@ import view.utilities.PopUp;
  * @author calisnelson and Stephen Kwok
  *
  */
-public class TopBar extends SubBar {
+
+public class TopBar extends SubBar implements Observer{
 
 	private final int width = Size.TURTLE_UPDATE_POPUP_WIDTH.getSize();
 	private final int height = Size.TURTLE_UPDATE_POPUP_HEIGHT.getSize();
 	private final String popUpColor = Defaults.BACKGROUND_COLOR.getDefault();
 	private final SimpleStringProperty image, turtleIDs;
-	private PopUp cDisp, iDisp;
-	private ComboBox<String> bColorBox;
-	private ComboBox<String> pColorBox;
-	private ObjectObservable<String> bgColor, intCommand, parsingLanguage;
+	private PopUp colorDisplay, imageDisplay;
+	private ComboBox<String> backgroundColorBox;
+	private ComboBox<String> penColorBox;
+	private ObjectObservable<String> backgroundColor, internalCommand, parsingLanguage;
 	private TurtlePropertyUpdater turtleSelector, penSizeUpdater, penUpUpdater, penDownUpdater;
+	private IndexMap colorMap, imageMap;
 
 	/**
 	 * creates a new top bar instance.
@@ -58,16 +63,16 @@ public class TopBar extends SubBar {
 	 * @param penColor
 	 *            simplestringproperty to set turtles pen color
 	 */
-	public TopBar(ObjectObservable<String> language, ObjectObservable<String> bgColor, SimpleStringProperty image,
-			SimpleStringProperty turtleIDs, ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
-		super(language, intCommand, cMap);
+	public TopBar(ObjectObservable<String> language, ObjectObservable<String> backgroundColor, SimpleStringProperty image,
+			SimpleStringProperty turtleIDs, ObjectObservable<String> internalCommand, ColorMap colorMap, ImageMap imageMap) {
+		super(language, internalCommand, colorMap);
 		this.parsingLanguage = language;
-		this.intCommand = intCommand;
+		this.internalCommand = internalCommand;
 		this.turtleIDs = turtleIDs;
 		this.image = image;
-		this.bgColor = bgColor;
-		cDisp = new ColorDisplay("colorTitle", cMap.getIndexMap());
-		iDisp = new ImageDisplay("imageTitle", iMap.getIndexMap());
+		this.backgroundColor = backgroundColor;
+		colorDisplay = new ColorDisplay("colorTitle");
+		imageDisplay = new ImageDisplay("imageTitle");
 
 	}
 
@@ -76,13 +81,13 @@ public class TopBar extends SubBar {
 	 */
 	@Override
 	protected void createComboBoxes() {
-		bColorBox = createComboBox("bColor", getColors(), e -> setBackground());
-		pColorBox = createComboBox("pColor", getColors(), e -> setPColor());
+		backgroundColorBox = createComboBox("bColor", getColors(), e -> setBackground());
+		penColorBox = createComboBox("pColor", getColors(), e -> setPColor());
 
 	}
 
 	private void setPColor() {
-		String pColor = pColorBox.getSelectionModel().getSelectedItem();
+		String pColor = penColorBox.getSelectionModel().getSelectedItem();
 		String command = getCommand("SetPenColor");
 		int index = getColorIndex(pColor);
 		passCommand(command + " " + index);
@@ -90,8 +95,8 @@ public class TopBar extends SubBar {
 	}
 
 	private void setBackground() {
-		String bColor = bColorBox.getSelectionModel().getSelectedItem();
-		bgColor.set(bColor.toLowerCase());
+		String bColor = backgroundColorBox.getSelectionModel().getSelectedItem();
+		backgroundColor.set(bColor.toLowerCase());
 
 	}
 
@@ -101,39 +106,31 @@ public class TopBar extends SubBar {
 	@Override
 	protected void createButtons() {
 		makeButton("image", e -> chooseTurtIm());
-		makeButton("colorDisp", e -> showColorPalette());
-		makeButton("imageDisp", e -> showImagePalette());
+        makeButton("colorDisp", e -> ((PaletteDisp) colorDisplay).show(colorMap.getIndexMap()));
+        makeButton("imageDisp", e -> ((PaletteDisp) imageDisplay).show(imageMap.getIndexMap()));
 		makeButton("selectTurtleButtonTitle", e -> selectTurtle());
 		makeButton("setPenSize", e -> setPenSize());
 		makeButton("penUp", e -> setPenUp());
 		makeButton("penDown", e -> setPenDown());
 	}
 
-	private void showImagePalette() {
-		iDisp.show();
-	}
-
-	private void showColorPalette() {
-		cDisp.show();
-	}
-
 	private void selectTurtle() {
-		turtleSelector = new TurtleSelector(width, height, popUpColor, turtleIDs, intCommand, parsingLanguage);
+		turtleSelector = new TurtleSelector(width, height, popUpColor, turtleIDs, internalCommand, parsingLanguage);
 		turtleSelector.show();
 	}
 
 	private void setPenSize() {
-		penSizeUpdater = new PenSizeUpdater(width, height, popUpColor, turtleIDs, intCommand, parsingLanguage);
+		penSizeUpdater = new PenSizeUpdater(width, height, popUpColor, turtleIDs, internalCommand, parsingLanguage);
 		penSizeUpdater.show();
 	}
 
 	private void setPenUp() {
-		penUpUpdater = new PenUpUpdater(width, height, popUpColor, turtleIDs, intCommand, parsingLanguage);
+		penUpUpdater = new PenUpUpdater(width, height, popUpColor, turtleIDs, internalCommand, parsingLanguage);
 		penUpUpdater.show();
 	}
 
 	private void setPenDown() {
-		penDownUpdater = new PenDownUpdater(width, height, popUpColor, turtleIDs, intCommand, parsingLanguage);
+		penDownUpdater = new PenDownUpdater(width, height, popUpColor, turtleIDs, internalCommand, parsingLanguage);
 		penDownUpdater.show();
 	}
 
@@ -159,8 +156,7 @@ public class TopBar extends SubBar {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		getContainer().getChildren().removeAll(bColorBox, pColorBox);
+		getContainer().getChildren().removeAll(backgroundColorBox, penColorBox);
 		createComboBoxes();
 	}
-
 }

@@ -17,7 +17,6 @@ public class Variable extends TreeNode {
         return (value != null) ? value : 0.0;
     }
 
-
     public void setValue(double value) {
         this.value = value;
     }

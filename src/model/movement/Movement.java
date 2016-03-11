@@ -50,6 +50,7 @@ public abstract class Movement extends TurtleCommandNode {
     private void cleanUpMove(Turtle turtle, Line penLine, Point2D pointToMoveTo, SimpleBooleanProperty isDone) {
         penLine.endXProperty().unbind();
         penLine.endYProperty().unbind();
+        penLine.strokeWidthProperty().unbind();
         turtle.getTurtleProperties().setLocation(pointToMoveTo);
         isDone.set(true);
     }

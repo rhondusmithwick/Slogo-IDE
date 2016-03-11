@@ -1,9 +1,8 @@
 package view;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import maps.IndexMap;
 import java.util.List;
 
 /**
@@ -39,17 +38,17 @@ public interface ViewInt {
     
     /**
      * binds the size of the border pane to the size of the application
-     * @param scene to bind the panes size to
+     * @param height height to bind to
+     * @param width width to bind to
      */
-    void bindSize (Scene scene);
+
+	void bindSize(ReadOnlyDoubleProperty height, ReadOnlyDoubleProperty Width);
     
-    /**
-     * returns the index maps responsible for mapping index numbers to colors
-     * or images to define the pallets
-     * @param boolean for which map to choose
-     * @return chosen index map
-     */
-    IndexMap getMap(boolean colors);
+	/**
+	 * gets the title of the view to be displayed
+	 * @return string title of view
+	 */
+	String getTitle();
 
 
 }

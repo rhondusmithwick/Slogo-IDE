@@ -24,11 +24,11 @@ public class ComboFactory {
 	 * @return created combobox
 	 */
 	public static ComboBox<String> createBox(String title, List<String> choices, EventHandler<ActionEvent> handler){
-		ComboBox<String> comBox = new ComboBox<>();
-        comBox.setPromptText(title);
-        choices.forEach(e -> comBox.getItems().add(e));
-        comBox.setOnAction(handler);
-        return comBox;
+		ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.setPromptText(title);
+        choices.forEach(e -> comboBox.getItems().add(e));
+        comboBox.setOnAction(handler);
+        return comboBox;
 	}
 
 }

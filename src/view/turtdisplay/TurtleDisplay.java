@@ -21,22 +21,22 @@ import observables.ObjectObservable;
 public class TurtleDisplay implements Observer {
     private static final double SCROLL_BAR_INITIAL = .5;
     private Rectangle background;
-    private Group dispArea;
+    private Group displayArea;
     private ScrollPane scroll;
-    private ObjectObservable<String> bgColor;
+    private ObjectObservable<String> backgroundColor;
 
     /**
      * creates new turtle display instance
      * @param bgColor string observable that allows background color to be set 
      * @param turtleDispDimension 2D dimension object that specifies size of turtle area
      */
-    public TurtleDisplay(ObjectObservable<String> bgColor, Dimension2D turtleDispDimension) {
-        this.bgColor=bgColor;
-        bgColor.addObserver(this);
+    public TurtleDisplay(ObjectObservable<String> backgroundColor, Dimension2D turtleDispDimension) {
+        this.backgroundColor=backgroundColor;
+        backgroundColor.addObserver(this);
         background = new Rectangle(turtleDispDimension.getWidth(), turtleDispDimension.getHeight());
-        dispArea = new Group();
+        displayArea = new Group();
         setBackground(Defaults.TURT_BACKGROUND.getDefault());
-        dispArea.getChildren().add(background);
+        displayArea.getChildren().add(background);
         setScrollPane();
 
     }
@@ -46,13 +46,12 @@ public class TurtleDisplay implements Observer {
         scroll = new ScrollPane();
         scroll.setVvalue(SCROLL_BAR_INITIAL);
         scroll.setHvalue(SCROLL_BAR_INITIAL);
-        scroll.setContent(dispArea);
+        scroll.setContent(displayArea);
 
        
     }
 
     private void setBackground(String color) {
-    	System.out.println(color);
         background.setFill(Color.web(color));
 
     }
@@ -70,7 +69,7 @@ public class TurtleDisplay implements Observer {
      * @return group turtle and its lines can be added to
      */
     public Group getTurtleArea() {
-        return dispArea;
+        return displayArea;
     }
 
     /**
@@ -81,7 +80,7 @@ public class TurtleDisplay implements Observer {
      */
     @Override
     public void update (Observable o, Object arg1) {
-        String color = bgColor.get();
+        String color = backgroundColor.get();
         setBackground(color);
         
     }

@@ -8,7 +8,7 @@ import view.Size;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import observables.MapObservable;
+
 
 /**
  * sub class of palette display responsible for displaying color palette
@@ -22,8 +22,8 @@ public class ColorDisplay extends PaletteDisp {
      * @param title String title of the display
      * @param map MapObservable that the contents of the display will be pulled from
      */
-    public ColorDisplay (String title, MapObservable<Integer, String> cMap) {
-        super(title, cMap);
+    public ColorDisplay (String title) {
+        super(title);
         
     }
 
@@ -36,8 +36,8 @@ public class ColorDisplay extends PaletteDisp {
         setHBox();
         Label title = createLabel("index", e.getKey().toString() );
         Label name = createLabel("colorName",  e.getValue());
-        Rectangle rect = new Rectangle(Size.PALETTE_DIM.getSize(), Size.PALETTE_DIM.getSize(), Color.web(e.getValue()));
-        addNodesToHBox(Arrays.asList(title,name,rect));
+        Rectangle rectangle = new Rectangle(Size.PALETTE_DIM.getSize(), Size.PALETTE_DIM.getSize(), Color.web(e.getValue()));
+        addNodesToHBox(Arrays.asList(title,name,rectangle));
     }
 
 }

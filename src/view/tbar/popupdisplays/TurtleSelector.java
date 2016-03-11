@@ -6,7 +6,7 @@ import observables.ObjectObservable;
 
 /**
  * This class provides a platform that allows users to select a turtle and make
- * it active
+ * it active. It is a subclass of the abstract popup class
  * 
  * @author Stephen Kwok
  *
@@ -31,5 +31,5 @@ public class TurtleSelector extends TurtlePropertyUpdater {
 		String tellCommand = translateCommand("Tell");
 		return tellCommand + " [ " + turtleIDs + "]";
 	}
-	
+
 }

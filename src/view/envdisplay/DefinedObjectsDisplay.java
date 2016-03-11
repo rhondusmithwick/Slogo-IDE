@@ -1,6 +1,7 @@
 package view.envdisplay;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import view.Defaults;
@@ -32,6 +33,7 @@ public abstract class DefinedObjectsDisplay {
 	private final ObjectObservable<String> internalCommand;
 
 	private String displayTitle;
+    private String splitter;
 
 	/**
 	 * Serves as the super constructor for any DefinedObjectsDisplay subclass
@@ -41,12 +43,13 @@ public abstract class DefinedObjectsDisplay {
 	 * @param error simplestring property used to show error messages
 	 */
 	protected DefinedObjectsDisplay(SimpleStringProperty definedObjects, ObjectObservable<String> parsingLanguage,
-			ObjectObservable<String> intCommand, SimpleStringProperty error) {
-		this.internalCommand = intCommand;
+			ObjectObservable<String> internalCommand, SimpleStringProperty error, String splitter) {
+		this.internalCommand = internalCommand;
 		this.error = error;
 		this.parsingLanguage = parsingLanguage;
 		this.definedObjects = definedObjects;
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
+		this.splitter = splitter;
 		setScrollPane();
 		setListners();
 	}
@@ -106,12 +109,15 @@ public abstract class DefinedObjectsDisplay {
 		vBox = new VBox();
 		setTitle();
 		String definedObjectsString = definedObjects.get();
+		System.out.println(definedObjectsString);
 		if (definedObjectsString != null) {
-			definedObjectsArray = definedObjectsString.split(",");
-			populateVBox();
+			definedObjectsArray = definedObjectsString.split(splitter);
+			Arrays.asList(definedObjectsArray).stream().forEach(e->parseString(e));
 		}
 		myScrollPane.setContent(vBox);
 	}
+	
+	protected abstract void parseString(String text);
 
 	private void setTitle() {
 		Label title = new Label(displayTitle);
@@ -121,15 +127,7 @@ public abstract class DefinedObjectsDisplay {
 		vBox.getChildren().add(title);
 	}
 
-	private void populateVBox() {
-		for (String definedObject : definedObjectsArray) {
-			if(!definedObject.startsWith(Defaults.REP_VAR.getDefault())){
-				setLabel(definedObject);
-			}
-		}
-	}
-
-	private void setLabel(String definedObject) {
+	protected void setLabel(String definedObject) {
 		Label label = new Label(definedObject);
 		if (definedObject.length() == 0){
 		    return;

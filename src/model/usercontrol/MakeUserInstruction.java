@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Created by rhondusmithwick on 3/6/16.
@@ -26,17 +27,17 @@ public class MakeUserInstruction extends CommandNode {
 
     @Override
     protected double execute() {
-       return value;
+        return value;
     }
 
     private void putInMap(int index, String name) {
         variableNames.put(index, name);
         variableMap.put(name, new UserCommandVariable());
     }
-    
+
     @Override
     protected int getNumChildrenRequired() {
-    	return 3;
+        return 3;
     }
 
     private int numVariables() {
@@ -68,9 +69,9 @@ public class MakeUserInstruction extends CommandNode {
     public void handleSpecific(ExpressionTree tree) {
         Queue<Entry<String, String>> parsedText = tree.getParsedText();
         String name = parsedText.poll().getValue();
-        tree.getDefinedCommands().put(name, this);
         makeVariables(parsedText);
         makeCommands(parsedText);
+        tree.getDefinedCommands().put(name, this);
         value = 1;
     }
 
@@ -91,7 +92,8 @@ public class MakeUserInstruction extends CommandNode {
     private boolean isAlreadyVariable(ExpressionTree tree, String value) {
         return tree.getVariables().containsKey(value);
     }
-    private void  makeCommands(Queue<Entry<String, String>> parsedText) {
+
+    private void makeCommands(Queue<Entry<String, String>> parsedText) {
         if (parsedText.peek().getKey().equals("ListStart")) {
             int numEnds = 1;
             myComamnds.add(parsedText.poll());
@@ -126,5 +128,10 @@ public class MakeUserInstruction extends CommandNode {
         List<TreeNode> commandRoots = tree.getCommandsFromList();
         tree.setParsedText(oldParsed);
         commandRoots.stream().forEach(userCommand::addChild);
+    }
+
+    public List<String> getVariableList() {
+        return variableNames.keySet().parallelStream()
+                .sorted().map(variableNames::get).collect(Collectors.toList());
     }
 }

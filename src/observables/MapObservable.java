@@ -26,6 +26,7 @@ public class MapObservable<K, V> extends Observable {
     public void put(K key, V value) {
         map.put(key, value);
         setChanged();
+
     }
 
     public V remove(K key) {

@@ -14,7 +14,7 @@ public class MakeVariable extends Variable {
     @Override
     public double getValue() {
         if (getVal() == null) {
-           setValue(getChildren().get(0).getValue());
+            setValue(getChildren().get(0).getValue());
         }
         return super.getValue();
     }

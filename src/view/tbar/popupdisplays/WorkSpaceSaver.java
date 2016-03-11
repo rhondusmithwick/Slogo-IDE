@@ -28,9 +28,9 @@ public class WorkSpaceSaver extends PopUp{
 
 
     private ResourceBundle myResources;
-    private TextField tField;
-    private ArrayList<String> colors, langs;
-    private ComboBox<String> bColor, pLangs, colorFile, imageFile;
+    private TextField textField;
+    private ArrayList<String> colors, languages;
+    private ComboBox<String> backgroundColor, parsingLanguage, colorFile, imageFile;
 
     /**
      * creates new workspace saver instance
@@ -39,7 +39,7 @@ public class WorkSpaceSaver extends PopUp{
      */
     public WorkSpaceSaver(List<String> colors, List<String> langs){
     	super(Size.HTML_HEIGHT.getSize(), Size.HTML_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
-        this.langs = (ArrayList<String>) langs;
+        this.languages = (ArrayList<String>) langs;
         this.colors=(ArrayList<String>) colors;
         this.myResources= ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     }
@@ -68,10 +68,10 @@ public class WorkSpaceSaver extends PopUp{
         	closeScene();
             return;
         }
-        WorkspaceXML wXML = new WorkspaceXML();
+        WorkspaceXML workspaceXML = new WorkspaceXML();
         
         try {
-            wXML.saveConfig(file,getAllInput());
+            workspaceXML.saveConfig(file,getAllInput());
         }
         catch (Exception e) {
 
@@ -82,11 +82,11 @@ public class WorkSpaceSaver extends PopUp{
     
     
     private List<String> getAllInput () {
-        return Arrays.asList(getInput(bColor.getSelectionModel().getSelectedItem()),
-                             getInput(pLangs.getSelectionModel().getSelectedItem()),
+        return Arrays.asList(getInput(backgroundColor.getSelectionModel().getSelectedItem()),
+                             getInput(parsingLanguage.getSelectionModel().getSelectedItem()),
                              getInput(colorFile.getSelectionModel().getSelectedItem()),
                              getInput(imageFile.getSelectionModel().getSelectedItem()),
-                             checkInput(tField.getText()));
+                             checkInput(textField.getText()));
                 
     }
     private String checkInput (String text) {
@@ -107,32 +107,32 @@ public class WorkSpaceSaver extends PopUp{
     }
     
     
-    private String getInput(String str) {
-        if(str==null || str.length()==0){
-            str = Defaults.DEFAULT.getDefault();
+    private String getInput(String input) {
+        if(input==null || input.length()==0){
+            input = Defaults.DEFAULT.getDefault();
         }
-        return str;
+        return input;
     }
     
     private void createComboBoxes() {
 
-        bColor = ComboFactory.createBox(myResources.getString("bColor"), colors, null);
-        pLangs = ComboFactory.createBox(myResources.getString("selLang"), langs, null);
+        backgroundColor = ComboFactory.createBox(myResources.getString("bColor"), colors, null);
+        parsingLanguage = ComboFactory.createBox(myResources.getString("selLang"), languages, null);
         colorFile = ComboFactory.createBox(myResources.getString("colorFile"), 
                                            FileGetter.getAllFromDirectory(Defaults.COLORLIST_LOC.getDefault()), null);
         colorFile.getItems().add(Defaults.DEFAULT.getDefault());
         imageFile = ComboFactory.createBox(myResources.getString("imageFile"), 
                                            FileGetter.getAllFromDirectory(Defaults.IMAGELIST_LOC.getDefault()), null);
         imageFile.getItems().add(Defaults.DEFAULT.getDefault());
-        addNodes(Arrays.asList(bColor, pLangs, colorFile, imageFile));
+        addNodes(Arrays.asList(backgroundColor, parsingLanguage, colorFile, imageFile));
 
     }
 
 
     private void numTurtleField(){
-        tField = new TextField();
-        tField.setPromptText(myResources.getString("numTurtles"));
-        addNodes(Arrays.asList(tField));
+        textField = new TextField();
+        textField.setPromptText(myResources.getString("numTurtles"));
+        addNodes(Arrays.asList(textField));
     }
 
 

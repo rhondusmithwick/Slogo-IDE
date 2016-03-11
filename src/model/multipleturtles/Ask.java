@@ -1,10 +1,10 @@
-package model.usercontrol;
+package model.multipleturtles;
 
 import controller.slogoparser.ExpressionTree;
-import model.treenode.TreeNode;
-import model.turtle.TurtleManager;
 import model.treenode.CommandNode;
+import model.treenode.TreeNode;
 import model.turtle.Turtle;
+import model.turtle.TurtleManager;
 
 import java.util.Collection;
 import java.util.List;

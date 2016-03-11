@@ -5,9 +5,9 @@ import model.turtle.Turtle;
 
 public class GetShape extends TurtleCommandNode {
 
-	@Override
-	public double turtleExecute(Turtle turtle) {
-		return turtle.getTurtleProperties().getPenShapeIndex();
-	}
+    @Override
+    public double turtleExecute(Turtle turtle) {
+        return turtle.getTurtleProperties().getPenShapeIndex();
+    }
 
 }

@@ -7,7 +7,7 @@ import view.Size;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import observables.MapObservable;
+
 
 /**
  * sub class of palette display responsible for displaying image palette
@@ -22,8 +22,8 @@ public class ImageDisplay extends PaletteDisp{
      * @param title String title of the display
      * @param map MapObservable that the contents of the display will be pulled from
      */
-    public ImageDisplay (String title,  MapObservable<Integer, String> iMap) {
-        super(title,  iMap);
+    public ImageDisplay (String title) {
+        super(title);
    
        
         
@@ -38,11 +38,11 @@ public class ImageDisplay extends PaletteDisp{
         setHBox();
         Label title = createLabel("index", e.getKey().toString() );
         Image image = new Image(e.getValue());
-        ImageView disp = new ImageView();
-        disp.setFitHeight(Size.PALETTE_DIM.getSize());
-        disp.setFitWidth(Size.PALETTE_DIM.getSize());
-        disp.setImage(image);
-        addNodesToHBox(Arrays.asList(title, disp));
+        ImageView display = new ImageView();
+        display.setFitHeight(Size.PALETTE_DIM.getSize());
+        display.setFitWidth(Size.PALETTE_DIM.getSize());
+        display.setImage(image);
+        addNodesToHBox(Arrays.asList(title, display));
         
         
     }

@@ -16,10 +16,7 @@ import javafx.scene.image.ImageView;
  */
 public final class TurtleProperties {
 
-    private static final int IMAGE_DIM = 30;
 //    private static final double baseAngle = 180;
-
-    private static final String DEFAULT_TURTLE_IMAGE = "resources/images/blackarrow.png";
 
     private final ImageView imageView = new ImageView();
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
@@ -35,15 +32,15 @@ public final class TurtleProperties {
     private int penShapeIndex = 0;
 
     void init(Dimension2D turtleDispDimension) {
-        setImage(DEFAULT_TURTLE_IMAGE);
-        setVisible(true);
+        setImage(TurtleDefaults.TURTLE_IMAGE.getString());
+        setVisible(TurtleDefaults.VISIBLE.getBoolean());
         home.set(new Point2D(turtleDispDimension.getWidth() / 2 - imageDimensions.get().getWidth() / 2,
                 turtleDispDimension.getHeight() / 2 - imageDimensions.get().getHeight() / 2));
         setLocation(getHome());
-        setHeading(180);
-        setPenDown(true);
-        setPenColor("black");
-        setPenSize(1);
+        setHeading(TurtleDefaults.HEADING.getDouble());
+        setPenDown(TurtleDefaults.PEN_DOWN.getBoolean());
+        setPenColor(TurtleDefaults.PEN_COLOR.getString());
+        setPenSize(TurtleDefaults.PEN_SIZE.getDouble());
     }
 
     void addListeners() {
@@ -56,9 +53,10 @@ public final class TurtleProperties {
         image.addListener((ov, oldVal, newVal) -> {
             Image theImage = createImage(newVal);
             imageView.setImage(theImage);
-            imageView.setFitHeight(IMAGE_DIM);
-            imageView.setFitWidth(IMAGE_DIM);
-            imageDimensions.set(new Dimension2D(IMAGE_DIM, IMAGE_DIM));
+            double imageDim = TurtleDefaults.IMG_DIM.getDouble();
+            imageView.setFitHeight(imageDim);
+            imageView.setFitWidth(imageDim);
+            imageDimensions.set(new Dimension2D(imageDim, imageDim));
         });
     }
 
@@ -72,6 +70,10 @@ public final class TurtleProperties {
 
     private Image createImage(String filePath) {
         return new Image(filePath);
+    }
+
+    public String getImage() {
+        return image.get();
     }
 
     public void setImage(String image) {
@@ -126,36 +128,36 @@ public final class TurtleProperties {
     public void setPenColor(String penColor) {
         this.penColor.set(penColor);
     }
-    
-    public void setPenColorIndex(int index) {
-    	this.penColorIndex = index;
-    }
-    
+
     public int getPenColorIndex() {
-    	return penColorIndex;
+        return penColorIndex;
     }
-    
-    public void setPenShapeIndex(int index) {
-    	this.penShapeIndex = index;
+
+    public void setPenColorIndex(int index) {
+        this.penColorIndex = index;
     }
-    
+
     public int getPenShapeIndex() {
-    	return penShapeIndex;
+        return penShapeIndex;
     }
-    
+
+    public void setPenShapeIndex(int index) {
+        this.penShapeIndex = index;
+    }
+
     public double getPenSize() {
-    	return penSize.doubleValue();
+        return penSize.doubleValue();
     }
-    
+
     public void setPenSize(double penSize) {
-    	this.penSize.set(penSize);
+        this.penSize.set(penSize);
     }
 
     public SimpleStringProperty penColorProperty() {
         return penColor;
     }
-    
+
     public SimpleDoubleProperty penSizeProperty() {
-    	return penSize;
+        return penSize;
     }
 }

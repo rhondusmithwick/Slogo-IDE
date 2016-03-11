@@ -1,8 +1,7 @@
 package maps;
 
 import java.lang.reflect.Field;
-
-
+import java.util.Observer;
 import view.Defaults;
 import javafx.scene.paint.Color;
 import observables.MapObservable;
@@ -23,7 +22,6 @@ public class ColorMap extends IndexMap {
 
     /**
      * Constructor for new color map with default index, color values
-     * @throws Exception
      */
     public ColorMap() {
         super();
@@ -45,10 +43,11 @@ public class ColorMap extends IndexMap {
      *@param toSet rgb value to set at index
      */
     @Override
-    public void setAtIndex(int index, String toSet) throws Exception{
+    public void setAtIndex(int index, String toSet) {
         String[] rgb = toSet.split(" ");
         String value = "rgb(" + rgb[R] + "," + rgb[G]+ ","+rgb[B]+")";
         colors.put(index, value);
+        System.out.println(colors.countObservers());
         colors.notifyObservers();
     }
 
@@ -97,6 +96,10 @@ public class ColorMap extends IndexMap {
     @Override
     protected String getDirectory() {
        return Defaults.COLORLIST_LOC.getDefault();
+    }
+    
+    public void addObserver(Observer obs){
+        colors.addObserver(obs);
     }
 
 }

@@ -16,8 +16,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Slogo");
-        Slogo slogo = new Slogo();
-        slogo.init(primaryStage);
+        Slogo slogo = new Slogo(primaryStage);
+        slogo.init();
         primaryStage.show();
     }
 }

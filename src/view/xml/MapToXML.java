@@ -20,7 +20,7 @@ public class MapToXML extends XMLWriter {
     private String saveLocation;
     private MapObservable<Integer, String> map;
     private File file;
-    private Document doc;
+    private Document document;
 
     /**
      * Saves contents of the given indexMap as an XML file with the given name
@@ -28,13 +28,13 @@ public class MapToXML extends XMLWriter {
      * @param inMap IndexMap object to be saved
      * @throws Exception
      */
-    public void saveMap(String fileName, IndexMap inMap) throws Exception{
-        this.map = inMap.getIndexMap();
+    public void saveMap(String fileName, IndexMap indexMap) throws Exception{
+        this.map = indexMap.getIndexMap();
        
-        getSaveLocation(inMap);
+        getSaveLocation(indexMap);
         this.file = new File(saveLocation +fileName+ Defaults.XML.getDefault());
         file.createNewFile();
-        doc = buildDom(Defaults.IM_DOC_EL.getDefault());
+        document = buildDom(Defaults.IM_DOC_EL.getDefault());
         addElements();
         writeToFile(file);
     }
@@ -50,14 +50,14 @@ public class MapToXML extends XMLWriter {
     }
 
     private void addToDoc (Entry<Integer, String> e) {
-        Element color = doc.createElement(Defaults.IM_CHILD_ELEMENT.getDefault());
+        Element color = document.createElement(Defaults.IM_CHILD_ELEMENT.getDefault());
         color.setAttribute(AttrNames.INDEX_MAP.getNames().get(0), e.getKey().toString());
         color.setAttribute(AttrNames.INDEX_MAP.getNames().get(1), e.getValue());
-        doc.getDocumentElement().appendChild(color);
+        document.getDocumentElement().appendChild(color);
     }
 
-    private void getSaveLocation (IndexMap inMap) {
-        if(inMap instanceof ColorMap){
+    private void getSaveLocation (IndexMap indexMap) {
+        if(indexMap instanceof ColorMap){
             saveLocation = Defaults.COLORLIST_LOC.getDefault();
         }else{
             saveLocation = Defaults.IMAGELIST_LOC.getDefault();
