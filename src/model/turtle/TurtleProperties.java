@@ -16,7 +16,6 @@ import javafx.scene.image.ImageView;
  */
 public final class TurtleProperties {
 
-    private static final int IMAGE_DIM = 30;
 //    private static final double baseAngle = 180;
 
     private final ImageView imageView = new ImageView();
@@ -54,9 +53,10 @@ public final class TurtleProperties {
         image.addListener((ov, oldVal, newVal) -> {
             Image theImage = createImage(newVal);
             imageView.setImage(theImage);
-            imageView.setFitHeight(IMAGE_DIM);
-            imageView.setFitWidth(IMAGE_DIM);
-            imageDimensions.set(new Dimension2D(IMAGE_DIM, IMAGE_DIM));
+            double imageDim = TurtleDefaults.IMG_DIM.getDouble();
+            imageView.setFitHeight(imageDim);
+            imageView.setFitWidth(imageDim);
+            imageDimensions.set(new Dimension2D(imageDim, imageDim));
         });
     }
 
@@ -74,6 +74,10 @@ public final class TurtleProperties {
 
     public void setImage(String image) {
         this.image.set(image);
+    }
+
+    public String getImage() {
+        return image.get();
     }
 
     public boolean getVisible() {

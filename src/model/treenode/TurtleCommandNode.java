@@ -19,7 +19,6 @@ public abstract class TurtleCommandNode extends TreeNode {
 
     private final List<Turtle> myTurtles = new LinkedList<>();
     private final Map<Turtle, Future<Double>> turtleFutureMap = new HashMap<>();
-    private ExpressionTree tree;
 
     public abstract double turtleExecute(Turtle turtle);
 
@@ -41,14 +40,9 @@ public abstract class TurtleCommandNode extends TreeNode {
         Future<Double> future = turtle.getExecutorService().submit(() -> turtleExecute(turtle));
         turtleFutureMap.put(turtle, future);
     }
-    
-    public ExpressionTree getTree() {
-    	return tree;
-    }
 
     @Override
     public void handleSpecific(ExpressionTree tree) {
-    	this.tree = tree;
         myTurtles.clear();
         turtleFutureMap.clear();
         myTurtles.addAll(tree.getTurtleManager().getActiveTurtles());

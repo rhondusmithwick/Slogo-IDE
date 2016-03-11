@@ -1,5 +1,6 @@
 package model.pen;
 
+import controller.slogoparser.ExpressionTree;
 import maps.IndexMap;
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
@@ -20,8 +21,13 @@ public class SetPenColor extends TurtleCommandNode {
 		return 1;
 	}
 
+	@Override
+	public void handleSpecific(ExpressionTree tree) {
+		super.handleSpecific(tree);
+		this.colorMap = tree.getColorMap();
+	}
+
 	private void setPenColor(Turtle turtle) {
-		this.colorMap = getTree().getColorMap();
 		index = (int) getChildren().get(0).getValue();
 		turtle.getTurtleProperties().setPenColorIndex(index);
 		turtle.getTurtleProperties().setPenColor(colorMap.get(index));
