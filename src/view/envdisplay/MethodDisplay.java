@@ -38,4 +38,18 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 		updater = getUpdater(Defaults.METH_ACT_LOC.getDefault(), label);
 		updater.show();
 	}
+	
+	protected void parseString(String text){
+		String[] split = text.split("=");
+		split[0] = split[0].substring(1);
+		//System.out.println("this is text " + text);
+		//System.out.println("this is split 1 " + split[0]);
+		//System.out.println("this is split 2 " + split[1]);
+		if(split[1].endsWith("}")){
+			split[1] = split[1].substring(0, split[1].length()-1);
+		}
+		setLabel(split[0] + " " + split[1]);
+	}
+	
+	
 }

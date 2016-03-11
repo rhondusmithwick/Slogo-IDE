@@ -1,6 +1,7 @@
 package view.envdisplay;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import view.Defaults;
@@ -106,12 +107,15 @@ public abstract class DefinedObjectsDisplay {
 		vBox = new VBox();
 		setTitle();
 		String definedObjectsString = definedObjects.get();
+		System.out.println(definedObjectsString);
 		if (definedObjectsString != null) {
 			definedObjectsArray = definedObjectsString.split(",");
-			populateVBox();
+			Arrays.asList(definedObjectsArray).stream().forEach(e->parseString(e));
 		}
 		myScrollPane.setContent(vBox);
 	}
+	
+	protected abstract void parseString(String text);
 
 	private void setTitle() {
 		Label title = new Label(displayTitle);
@@ -121,15 +125,9 @@ public abstract class DefinedObjectsDisplay {
 		vBox.getChildren().add(title);
 	}
 
-	private void populateVBox() {
-		for (String defObject : definedObjectsArray) {
-			if(!defObject.startsWith(Defaults.REP_VAR.getDefault())){
-				setLabel(defObject);
-			}
-		}
-	}
 
-	private void setLabel(String definedObject) {
+
+	protected void setLabel(String definedObject) {
 		Label label = new Label(definedObject);
 		if (definedObject.length() == 0){
 		    return;

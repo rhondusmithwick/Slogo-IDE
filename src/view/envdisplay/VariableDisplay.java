@@ -40,4 +40,13 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 		updater = getUpdater(Defaults.VAR_UP_LOC.getDefault(), label);
 		updater.show();
 	}
+	
+	
+	protected void parseString(String text) {
+			if(!text.startsWith(Defaults.REP_VAR.getDefault())){
+				setLabel(text);
+			}
+		}
+	
+	
 }

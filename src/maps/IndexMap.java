@@ -3,7 +3,6 @@ package maps;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import observables.MapObservable;
 import view.Defaults;
