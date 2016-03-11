@@ -68,6 +68,8 @@ public class TopBar extends SubBar{
 		this.parsingLanguage = language;
 		this.internalCommand = internalCommand;
 		this.turtleIDs = turtleIDs;
+		this.colorMap = colorMap;
+		this.imageMap = imageMap;
 		colorDisplay = new ColorDisplay("colorTitle");
 		imageDisplay = new ImageDisplay("imageTitle");
 		helpScreen = new HelpScreen();

@@ -15,12 +15,8 @@ import view.turtdisplay.TurtleDisplay;
 import view.turtparams.TurtleParams;
 import view.utilities.ButtonFactory;
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -44,13 +40,9 @@ public class View implements ViewInt {
     private final Dimension2D turtleDispDimension;
     private final ObjectObservable<String> parsingLanguage, input, backgroundColor, internalCommand, commandHistInput;
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
-    private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
     private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
     private final SimpleStringProperty definedCommands = new SimpleStringProperty(this, "definedCommands");
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
-    private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
-    private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
-    private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
     private final SimpleStringProperty turtleIDs = new SimpleStringProperty(this, "turtleIDs");
     private final IndexMap cMap, iMap;
     private BorderPane UI;
@@ -157,7 +149,7 @@ public class View implements ViewInt {
         bottom = new HBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
 
-        turtleParameters = new TurtleParams(location, heading, penDown, penColor);
+        turtleParameters = new TurtleParams();
         bottom.getChildren().add(turtleParameters.getTurtleParams());
 
         commandHistory = new CommandHistoryDisplay(internalCommand, commandHistInput);
@@ -229,7 +221,7 @@ public class View implements ViewInt {
      */
     @Override
     public List<SimpleStringProperty> getProperties() {
-        return Arrays.asList(error, image, penColor, variables, definedCommands, turtleIDs);
+        return Arrays.asList(error, image, variables, definedCommands, turtleIDs);
     }
   
     @Override

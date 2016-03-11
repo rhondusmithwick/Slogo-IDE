@@ -4,11 +4,6 @@ import java.util.ResourceBundle;
 
 import view.Defaults;
 import view.Size;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -26,10 +21,6 @@ import javafx.scene.layout.VBox;
 
 public class TurtleParams {
 
-    private final SimpleObjectProperty<Point2D> location;
-    private final SimpleDoubleProperty heading;
-    private final SimpleBooleanProperty penDown;
-    private final SimpleStringProperty penColor;
 
 
     private ResourceBundle myResources;
@@ -45,13 +36,8 @@ public class TurtleParams {
      * @param penDown SimpleBooleanProperty showing whether turtle's pen is down
      * @param penColor SimpleStringProperty displaying turtle's pen color
      */
-    public TurtleParams(SimpleObjectProperty<Point2D> location,
-                        SimpleDoubleProperty heading, SimpleBooleanProperty penDown, SimpleStringProperty penColor) {
+    public TurtleParams() {
 
-        this.location = location;
-        this.heading = heading;
-        this.penDown = penDown;
-        this.penColor = penColor;
 
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         setScroll();
@@ -64,10 +50,10 @@ public class TurtleParams {
     }
 
     private void addParams () {
-        box.getChildren().add(createLabel(myResources.getString("penLoc") + location.get()));
-        box.getChildren().add(createLabel(myResources.getString("penHead") + heading.get()));
-        box.getChildren().add(createLabel(myResources.getString("penStat") + penDown.get()));
-        box.getChildren().add(createLabel(myResources.getString("penColor") + penColor.get()));
+        box.getChildren().add(createLabel(myResources.getString("penLoc")));
+        box.getChildren().add(createLabel(myResources.getString("penHead")));
+        box.getChildren().add(createLabel(myResources.getString("penStat")));
+        box.getChildren().add(createLabel(myResources.getString("penColor")));
     }
 
     private void setScroll() {
