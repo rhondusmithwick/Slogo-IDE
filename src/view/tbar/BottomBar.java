@@ -27,7 +27,6 @@ public class BottomBar extends SubBar implements Observer {
 	private ColorMap colorMap;
 	private ImageMap imageMap;
 	private ComboBox<String> backgroundColorBox;
-	private ComboBox<String> penColorBox;
 	private ComboBox<String> languageBox;
 
 	private SimpleStringProperty image;
@@ -65,16 +64,7 @@ public class BottomBar extends SubBar implements Observer {
 	protected void createComboBoxes() {
 		
 		backgroundColorBox = createComboBox("bColor", getColors(), e -> setBackground());
-		penColorBox = createComboBox("pColor", getColors(), e -> setPColor());
 		languageBox = createComboBox("selLang", getLanguages(), e -> setLang());
-
-	}
-	
-	private void setPColor() {
-		String pColor = penColorBox.getSelectionModel().getSelectedItem();
-		String command = getCommand("SetPenColor");
-		int index = getColorIndex(pColor);
-		passCommand(command + " " + index);
 
 	}
 
@@ -147,7 +137,7 @@ public class BottomBar extends SubBar implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		getContainer().getChildren().removeAll(backgroundColorBox, penColorBox);
+		getContainer().getChildren().remove(backgroundColorBox);
 		createComboBoxes();
 	}
 

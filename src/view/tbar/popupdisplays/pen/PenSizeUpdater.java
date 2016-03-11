@@ -28,8 +28,7 @@ public class PenSizeUpdater extends TurtlePropertyUpdater{
     
     public PenSizeUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage){
-        super( turtleIDs, internalCommand, parsingLanguage);
-        setTitle("penSizeUpdateTitle");
+        super( turtleIDs, internalCommand, parsingLanguage, "penSizeUpdateTitle");
     }
 
 	@Override

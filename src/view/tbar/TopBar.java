@@ -12,6 +12,7 @@ import view.tbar.popupdisplays.PaletteDisp;
 import view.tbar.popupdisplays.TurtlePropSelect;
 import view.tbar.popupdisplays.TurtlePropertyUpdater;
 import view.tbar.popupdisplays.TurtleSelector;
+import view.tbar.popupdisplays.pen.PenColorUpdater;
 import view.tbar.popupdisplays.pen.PenDownUpdater;
 import view.tbar.popupdisplays.pen.PenSizeUpdater;
 import view.tbar.popupdisplays.pen.PenUpUpdater;
@@ -33,7 +34,7 @@ public class TopBar extends SubBar{
 	private ObjectObservable<Integer> selectedTurtle;
 
 	private ObjectObservable<String> internalCommand, parsingLanguage;
-	private TurtlePropertyUpdater turtleSelector, penSizeUpdater, penUpUpdater, penDownUpdater;
+	private TurtlePropertyUpdater turtleSelector, penSizeUpdater, penUpUpdater, penDownUpdater, penColorUpdater;
 	private IndexMap colorMap, imageMap;
 	private HelpScreen helpScreen;
 	private Slogo slogo;
@@ -92,9 +93,15 @@ public class TopBar extends SubBar{
 		makeButton("setPenSize", e -> setPenSize());
 		makeButton("penUp", e -> setPenUp());
 		makeButton("penDown", e -> setPenDown());
+		makeButton("pColor", e->setPenColor());
 		makeButton("help", e -> helpScreen.show());
 		makeButton("newWS", e -> slogo.newView());
 		makeButton("chPropTurtle", e-> changePropertiesTurtle());
+	}
+
+	private void setPenColor() {
+		penColorUpdater = new PenColorUpdater(turtleIDs, internalCommand, parsingLanguage, (ColorMap) colorMap, getColors());
+		penColorUpdater.show();
 	}
 
 	private void changePropertiesTurtle() {

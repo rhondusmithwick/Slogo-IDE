@@ -17,8 +17,7 @@ public class TurtleSelector extends TurtlePropertyUpdater {
 
 	public TurtleSelector(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage) {
-		super(turtleIDs, internalCommand, parsingLanguage);
-		setTitle("turtleSelectTitle");
+		super(turtleIDs, internalCommand, parsingLanguage, "turtleSelectTitle");
 	}
 
 	@Override

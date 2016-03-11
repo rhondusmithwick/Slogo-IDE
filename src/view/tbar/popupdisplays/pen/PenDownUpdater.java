@@ -8,8 +8,8 @@ public class PenDownUpdater extends PenUpDownUpdater {
 
 	public PenDownUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage) {
-		super(turtleIDs, internalCommand, parsingLanguage);
-		setTitle("penDownUpdaterTitle");
+		super(turtleIDs, internalCommand, parsingLanguage, "penDownUpdaterTitle");
+
 	}
 
 	@Override

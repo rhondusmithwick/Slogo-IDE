@@ -7,8 +7,8 @@ import view.tbar.popupdisplays.TurtlePropertyUpdater;
 public abstract class PenUpDownUpdater extends TurtlePropertyUpdater {
 
 	public PenUpDownUpdater(SimpleStringProperty turtleIDs,
-			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage) {
-		super(turtleIDs, internalCommand, parsingLanguage);
+			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, String titleText) {
+		super(turtleIDs, internalCommand, parsingLanguage, titleText);
 	}
 
 	@Override

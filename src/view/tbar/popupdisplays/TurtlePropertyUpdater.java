@@ -37,13 +37,13 @@ public abstract class TurtlePropertyUpdater extends PopUp {
 	private ObjectObservable<String> parsingLanguage;
 
 	public TurtlePropertyUpdater(SimpleStringProperty turtleIDs,
-			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage ) {
+			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, String titleText ) {
 		super(Size.TURTLE_UPDATE_POPUP_HEIGHT.getSize(), Size.TURTLE_UPDATE_POPUP_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		this.parsingLanguage = parsingLanguage;
 		this.internalCommand = internalCommand;
 		this.turtleIDs = turtleIDs;
-		this.title = new Label();
+		this.title = new Label(myResources.getString(titleText));
 		nodeList = new ArrayList<>();
 		checkBoxList = new ArrayList<>();
 		applyChangesButton = ButtonFactory.createButton(myResources.getString("applyChanges"),
@@ -63,9 +63,6 @@ public abstract class TurtlePropertyUpdater extends PopUp {
 	
 	protected abstract String makeCommand(String property);
 	
-	protected void setTitle(String titleName) {
-		title.setText(myResources.getString(titleName));
-	}
 	
 	protected void configureTitleLabel() {
 		title.prefWidthProperty().bind(getSize(false));
