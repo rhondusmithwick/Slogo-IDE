@@ -30,7 +30,7 @@ public class TurtlePropSelect extends PopUp {
 	@Override
 	protected void createScene() {
 		String IDS = turtleIds.get().substring(1, turtleIds.get().length()-1);
-		Label title = new Label(myResources.getString("turtleParamSel"));
+		Label title = new Label(myResources.getString("turtleSelect"));
 		turtleSelect = ComboFactory.createBox(myResources.getString("turtleParamSel"), 
 				Arrays.asList(IDS.split(", ")), e->updateSelected());
 		addNodes(Arrays.asList(title, turtleSelect));

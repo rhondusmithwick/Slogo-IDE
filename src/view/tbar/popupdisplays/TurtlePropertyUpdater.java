@@ -44,8 +44,8 @@ public abstract class TurtlePropertyUpdater extends PopUp {
 		this.internalCommand = internalCommand;
 		this.turtleIDs = turtleIDs;
 		this.title = new Label();
-		nodeList = new ArrayList<Node>();
-		checkBoxList = new ArrayList<CheckBox>();
+		nodeList = new ArrayList<>();
+		checkBoxList = new ArrayList<>();
 		applyChangesButton = ButtonFactory.createButton(myResources.getString("applyChanges"),
 				e -> applyChanges());
 	}
@@ -76,7 +76,7 @@ public abstract class TurtlePropertyUpdater extends PopUp {
 	protected void createCheckBoxes() {
 		String turtleIDString = turtleIDs.get();
 		turtleIDString = turtleIDString.substring(1, turtleIDString.length() - 1);
-		String[] turtleIDS = turtleIDString.split(",");
+		String[] turtleIDS = turtleIDString.split(", ");
 		for (String ID : turtleIDS) {
 			createCheckBox(ID.trim());
 		}
