@@ -1,4 +1,4 @@
-package view.tbar.popupdisplays;
+package view.tbar.popupdisplays.pen;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
+import view.tbar.popupdisplays.TurtlePropertyUpdater;
 
 /**
  * Class responsible for creating popup that allows user to select certain turtles

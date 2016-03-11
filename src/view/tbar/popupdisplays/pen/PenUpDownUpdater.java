@@ -1,7 +1,8 @@
-package view.tbar.popupdisplays;
+package view.tbar.popupdisplays.pen;
 
 import javafx.beans.property.SimpleStringProperty;
 import observables.ObjectObservable;
+import view.tbar.popupdisplays.TurtlePropertyUpdater;
 
 public abstract class PenUpDownUpdater extends TurtlePropertyUpdater {
 

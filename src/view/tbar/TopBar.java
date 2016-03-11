@@ -11,12 +11,12 @@ import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.HelpScreen;
 import view.tbar.popupdisplays.ImageDisplay;
 import view.tbar.popupdisplays.PaletteDisp;
-import view.tbar.popupdisplays.PenDownUpdater;
-import view.tbar.popupdisplays.PenSizeUpdater;
-import view.tbar.popupdisplays.PenUpUpdater;
 import view.tbar.popupdisplays.TurtlePropSelect;
 import view.tbar.popupdisplays.TurtlePropertyUpdater;
 import view.tbar.popupdisplays.TurtleSelector;
+import view.tbar.popupdisplays.pen.PenDownUpdater;
+import view.tbar.popupdisplays.pen.PenSizeUpdater;
+import view.tbar.popupdisplays.pen.PenUpUpdater;
 import view.utilities.PopUp;
 import main.Slogo;
 

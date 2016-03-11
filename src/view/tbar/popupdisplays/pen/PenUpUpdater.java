@@ -1,25 +1,25 @@
-package view.tbar.popupdisplays;
+package view.tbar.popupdisplays.pen;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import observables.ObjectObservable;
 
-public class PenDownUpdater extends PenUpDownUpdater {
+public class PenUpUpdater extends PenUpDownUpdater {
 
-	public PenDownUpdater(SimpleStringProperty turtleIDs,
+	public PenUpUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage) {
 		super(turtleIDs, internalCommand, parsingLanguage);
-		setTitle("penDownUpdaterTitle");
+		setTitle("penUpUpdaterTitle");
 	}
 
 	@Override
 	protected String makeCommand(String turtleIDs) {
-		return generatePenUpDownCommand(turtleIDs, "PenDown");
+		return generatePenUpDownCommand(turtleIDs, "PenUp");
 	}
-
+	
 	@Override
 	protected void createElementsBelowCheckBoxes() {
-		addToScene(new Label(getStringFromResources("penDownButtonPrompt")));
+		addToScene(new Label(getStringFromResources("penUpButtonPrompt")));
 	}
 
 }
