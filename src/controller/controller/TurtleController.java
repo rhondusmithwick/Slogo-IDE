@@ -71,14 +71,14 @@ public class TurtleController implements Controller, Observer {
     private void runCommands(Queue<Entry<String, String>> parsedText) {
         if (parsedText == null) {
             error.set("");
-            error.set("Command not recognized: " + input);
+            error.set("Command not recognized: " + input.get());
         } else {
             try {
                 ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables, definedCommands, properties, parsedText);
                 new Thread(expressionTree::executeAll).start();
             } catch (Exception es) {
                 error.set("");
-                error.set("Exception in command argument: " + input);
+                error.set("Exception in command argument: " + input.get());
             }
         }
     }

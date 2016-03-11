@@ -42,6 +42,7 @@ public class ErrorDisplay{
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(myResources.getString("errorTitle"));
         alert.setHeaderText(myResources.getString("errorHeader"));
+        
         alert.setContentText(errorText);
         alert.show();
 
