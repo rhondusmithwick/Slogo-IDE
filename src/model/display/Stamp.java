@@ -24,10 +24,7 @@ public class Stamp extends TurtleCommandNode {
         String imageFilePath = turtle.getTurtleProperties().getImage();
         ImageView imageView = makeImageView(turtle);
         Platform.runLater(() -> turtle.addStamp(imageView));
-        Predicate<Entry<Integer, String>> isImage = (e) -> (Objects.equals(imageFilePath, e.getValue()));
-        return imageMap.getIndexMap().getEntrySet().parallelStream()
-                .filter(isImage)
-                .map(Entry::getKey).findFirst().orElse(0);
+        return imageMap.getIndex(imageFilePath);
     }
 
     private ImageView makeImageView(Turtle turtle) {
