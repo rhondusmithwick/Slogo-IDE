@@ -44,6 +44,10 @@ public abstract class PaletteDisp extends PopUp {
 
     }
     
+    /**
+     * Shows the palette display for the given map observable object
+     * @param map map obsevable to create display with
+     */
     public void show(MapObservable<Integer, String> map){
         this.map = map;
         super.show();

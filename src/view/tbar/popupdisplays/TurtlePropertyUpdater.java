@@ -36,6 +36,13 @@ public abstract class TurtlePropertyUpdater extends PopUp {
 	private final ObjectObservable<String> internalCommand;
 	private ObjectObservable<String> parsingLanguage;
 
+	/**
+	 * Creates new turtleproperty updater instace
+	 * @param turtleIDs list of ids of all created turtles
+	 * @param internalCommand simplestring property to pass input to command entry instance
+	 * @param parsingLanguage current parsing language in simplestring property form
+	 * @param titleText String text to show as title
+	 */
 	public TurtlePropertyUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, String titleText ) {
 		super(Size.TURTLE_UPDATE_POPUP_HEIGHT.getSize(), Size.TURTLE_UPDATE_POPUP_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());

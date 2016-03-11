@@ -42,6 +42,11 @@ public abstract class IndexMap {
         }
     }
     
+    /**
+     * Gets the index of an element when given its string value
+     * @param value String value whose index to find
+     * @return integer index of string value
+     */
     public int getIndex(String value){
         Predicate<Entry<Integer, String>> isValue= (e) -> (Objects.equals(value, e.getValue()));
         return getIndexMap().getEntrySet().parallelStream()
