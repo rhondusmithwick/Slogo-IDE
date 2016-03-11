@@ -44,14 +44,14 @@ public class TurtleSelector extends TurtlePropertyUpdater {
 		String askCommand = translateCommand("Ask");
 		String hideCommand = translateCommand("HideTurtle");
 		String inactive = getInactive(turtleIDs);
-		String comm = tellCommand + " [ " + turtleIDs + "]\n" + askCommand 
+		return tellCommand + " [ " + turtleIDs + "]\n" + askCommand 
 				+ " [ " + inactive + " ] [ " + hideCommand + " ]\n" + translateCommand("ShowTurtle");
-		return comm;
+
 	}
 
 	private String getInactive(String turtles) {
-		ArrayList<String> active = new ArrayList<String>( Arrays.asList(turtles.split(" ")));
-		ArrayList<String> allTurtles = new ArrayList<String> (Arrays.asList(turtleIDs.get().split(", ")));
+		ArrayList<String> active = new ArrayList<>( Arrays.asList(turtles.split(" ")));
+		ArrayList<String> allTurtles = new ArrayList<> (Arrays.asList(turtleIDs.get().split(", ")));
 		Predicate<String> isIn = (e) -> (!active.contains(e));
 		Object[] inActive =   allTurtles.parallelStream().filter(isIn).toArray();
 		StringBuilder toHide = new StringBuilder();
