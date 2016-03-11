@@ -4,6 +4,7 @@ import java.util.Arrays;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import observables.ObjectObservable;
+import view.Defaults;
 
 /**
  * Sub class of EnvUpdate that is responsible for taking user input and executing a user defined method.
@@ -12,12 +13,13 @@ import observables.ObjectObservable;
  */
 
 public class MethodExec extends EnvActor {
-   
+
     private static final String SPACE = " ";
-    private String name, value, text;
+    private String name, text;
+    private String[] values;
     private TextField variableField;
     private Label variableTitle;
-    
+
 
 
     /**
@@ -29,20 +31,21 @@ public class MethodExec extends EnvActor {
     public MethodExec(ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, Label label){
         super(internalCommand, parsingLanguage);
         this.text=label.getText();
- 
+        System.out.println(text);
 
-       
+
+
     }
-    
+
     /**
      * creates textfields needed for updater
      */
     @Override
     public void createTextFields() {
         variableField = createTextArea();
-        
+
     }
-    
+
     /**
      * gets the user input for the updated method and creates and passes a command to set the methods
      * new value
@@ -50,20 +53,20 @@ public class MethodExec extends EnvActor {
     @Override
     protected void setNewValues() {
         setValues();
-        String toPass = getCommand(new String[]{value});
+        String toPass = getCommand(values);
         if(toPass!=null){
-        	passCommand(toPass);
+            passCommand(toPass);
         }
         closeScene();
-        
+
 
     }
 
 
     private void setValues(){
-    	value = variableField.getText();
-        if(value.length()==0){
-        	value = null;
+        values = variableField.getText().split(Defaults.VAR_SPLITTER.getDefault());
+        if(values.length==0){
+            values = null;
         }
     }
 
@@ -76,15 +79,15 @@ public class MethodExec extends EnvActor {
      */
     @Override
     protected String getCommand(String[] newVals) {
-    	if(newVals[0]==null){
-    		return null;
-    	}
+        if(newVals[0]==null){
+            return null;
+        }
         StringBuilder command = new StringBuilder();
         command.append(name+ " ");
         Arrays.asList(newVals).stream().forEach(e-> command.append(e + " ") );
         return command.toString();
     }
-    
+
     /**
      * creates and adds needed components to scene
      */
@@ -95,10 +98,10 @@ public class MethodExec extends EnvActor {
         addToScene(Arrays.asList(variableTitle,variableField));
     }
 
-	private void getName(String content) {
-		String[] spaceSplit = content.split(SPACE);
-		this.name = spaceSplit[0];
+    private void getName(String content) {
+        String[] spaceSplit = content.split(SPACE);
+        this.name = spaceSplit[0];
 
-	}
+    }
 
 }

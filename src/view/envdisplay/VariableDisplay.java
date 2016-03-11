@@ -26,7 +26,7 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 	 */
 	public VariableDisplay(ObjectObservable<String> parsingLanguage, ObjectObservable<String> internalCommand,
 			SimpleStringProperty variables, SimpleStringProperty error) {
-		super(variables, parsingLanguage, internalCommand, error);
+		super(variables, parsingLanguage, internalCommand, error, Defaults.VAR_SPLITTER.getDefault());
 		setDisplayTitle("varTitle");
 		createCurrEnvDisp();
 	}
@@ -40,4 +40,13 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 		updater = getUpdater(Defaults.VAR_UP_LOC.getDefault(), label);
 		updater.show();
 	}
+	
+	
+	protected void parseString(String text) {
+			if(!text.startsWith(Defaults.REP_VAR.getDefault())){
+				setLabel(text);
+			}
+		}
+	
+	
 }
