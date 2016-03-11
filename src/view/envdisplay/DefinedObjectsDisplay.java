@@ -29,7 +29,7 @@ public abstract class DefinedObjectsDisplay {
 	private VBox vBox;
 	private String[] definedObjectsArray;
 	private final ObjectObservable<String> parsingLanguage;
-	private final ObjectObservable<String> intCommand;
+	private final ObjectObservable<String> internalCommand;
 
 	private String displayTitle;
 
@@ -42,7 +42,7 @@ public abstract class DefinedObjectsDisplay {
 	 */
 	protected DefinedObjectsDisplay(SimpleStringProperty definedObjects, ObjectObservable<String> parsingLanguage,
 			ObjectObservable<String> intCommand, SimpleStringProperty error) {
-		this.intCommand = intCommand;
+		this.internalCommand = intCommand;
 		this.error = error;
 		this.parsingLanguage = parsingLanguage;
 		this.definedObjects = definedObjects;
@@ -89,7 +89,7 @@ public abstract class DefinedObjectsDisplay {
 			Class<?> classTemp = Class.forName(className);
 			Constructor<?> constructor = classTemp.getConstructor(ObjectObservable.class,
 					ObjectObservable.class, Label.class);
-			Object obj = constructor.newInstance(intCommand, parsingLanguage, label);
+			Object obj = constructor.newInstance(internalCommand, parsingLanguage, label);
 			return (EnvActor) obj;
 		} catch (Exception e) {
 			error.set("");
@@ -122,9 +122,9 @@ public abstract class DefinedObjectsDisplay {
 	}
 
 	private void populateVBox() {
-		for (String defObject : definedObjectsArray) {
-			if(!defObject.startsWith(Defaults.REP_VAR.getDefault())){
-				setLabel(defObject);
+		for (String definedObject : definedObjectsArray) {
+			if(!definedObject.startsWith(Defaults.REP_VAR.getDefault())){
+				setLabel(definedObject);
 			}
 		}
 	}

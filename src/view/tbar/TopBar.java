@@ -12,6 +12,10 @@ import view.Size;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.ImageChooser;
 import view.tbar.popupdisplays.ImageDisplay;
+import view.tbar.popupdisplays.PenDownUpdater;
+import view.tbar.popupdisplays.PenSizeUpdater;
+import view.tbar.popupdisplays.PenUpUpdater;
+import view.tbar.popupdisplays.TurtlePropertyUpdater;
 import view.tbar.popupdisplays.TurtleSelector;
 import view.utilities.PopUp;
 
@@ -24,12 +28,15 @@ import view.utilities.PopUp;
  */
 public class TopBar extends SubBar {
 
-	private SimpleStringProperty image, turtleIDs;
+	private final int width = Size.TURTLE_UPDATE_POPUP_WIDTH.getSize();
+	private final int height = Size.TURTLE_UPDATE_POPUP_HEIGHT.getSize();
+	private final String popUpColor = Defaults.BACKGROUND_COLOR.getDefault();
+	private final SimpleStringProperty image, turtleIDs;
 	private PopUp cDisp, iDisp;
 	private ComboBox<String> bColorBox;
 	private ComboBox<String> pColorBox;
-	private ObjectObservable<String> bgColor, intCommand;
-	private TurtleSelector turtleSelector;
+	private ObjectObservable<String> bgColor, intCommand, parsingLanguage;
+	private TurtlePropertyUpdater turtleSelector, penSizeUpdater, penUpUpdater, penDownUpdater;
 
 	/**
 	 * creates a new top bar instance.
@@ -54,6 +61,7 @@ public class TopBar extends SubBar {
 	public TopBar(ObjectObservable<String> language, ObjectObservable<String> bgColor, SimpleStringProperty image,
 			SimpleStringProperty turtleIDs, ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
 		super(language, intCommand, cMap);
+		this.parsingLanguage = language;
 		this.intCommand = intCommand;
 		this.turtleIDs = turtleIDs;
 		this.image = image;
@@ -96,6 +104,9 @@ public class TopBar extends SubBar {
 		makeButton("colorDisp", e -> showColorPalette());
 		makeButton("imageDisp", e -> showImagePalette());
 		makeButton("selectTurtleButtonTitle", e -> selectTurtle());
+		makeButton("setPenSize", e -> setPenSize());
+		makeButton("penUp", e -> setPenUp());
+		makeButton("penDown", e -> setPenDown());
 	}
 
 	private void showImagePalette() {
@@ -107,11 +118,23 @@ public class TopBar extends SubBar {
 	}
 
 	private void selectTurtle() {
-		int width = Size.TURT_SELECT_WIDTH.getSize();
-		int height = Size.TURT_SELECT_HEIGHT.getSize();
-		String backgroundColor = Defaults.BACKGROUND_COLOR.getDefault();
-		turtleSelector = new TurtleSelector(width, height, backgroundColor, turtleIDs, intCommand);
+		turtleSelector = new TurtleSelector(width, height, popUpColor, turtleIDs, intCommand, parsingLanguage);
 		turtleSelector.show();
+	}
+
+	private void setPenSize() {
+		penSizeUpdater = new PenSizeUpdater(width, height, popUpColor, turtleIDs, intCommand, parsingLanguage);
+		penSizeUpdater.show();
+	}
+
+	private void setPenUp() {
+		penUpUpdater = new PenUpUpdater(width, height, popUpColor, turtleIDs, intCommand, parsingLanguage);
+		penUpUpdater.show();
+	}
+
+	private void setPenDown() {
+		penDownUpdater = new PenDownUpdater(width, height, popUpColor, turtleIDs, intCommand, parsingLanguage);
+		penDownUpdater.show();
 	}
 
 	private void chooseTurtIm() {

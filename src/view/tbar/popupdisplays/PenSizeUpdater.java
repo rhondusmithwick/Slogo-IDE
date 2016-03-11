@@ -1,80 +1,50 @@
 package view.tbar.popupdisplays;
 
-import java.util.Arrays;
-
-import view.envdisplay.EnvActor;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
 
 /**
- * Class responsible for creating popup to allow user to modify pen size.
- * Is a subclass of the envupdate abstract class.
+ * Class responsible for creating popup that allows user to select certain turtles
+ * and change their pen sizes to a given value
  * 
  * @author Stephen
  *
  */
 
-public class PenSizeUpdater extends EnvActor{
-
-
-    private static final String SPACE = " ";
-    private TextField tField;
+public class PenSizeUpdater extends TurtlePropertyUpdater{
+	
+    private TextField userInput;
     
     /**
-     * creates new pensizeupdater instance
+     * creates new PenSizeUpdater instance
      * @param language string observable for setting and getting parsing language
      * @param intCommand string observable to pass commands to command entry instance to pass to backend
      */
-    public PenSizeUpdater(ObjectObservable<String> language, ObjectObservable<String> intCommand){
-        super(intCommand, language);
+    public PenSizeUpdater(int height, int width, String backgroundColor, SimpleStringProperty turtleIDs,
+			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage){
+        super(height, width, backgroundColor, turtleIDs, internalCommand, parsingLanguage);
+        setTitle("penSizeUpdateTitle");
     }
+
+	@Override
+	protected void createElementsBelowCheckBoxes() {
+		userInput = new TextField();
+		userInput.prefWidthProperty().bind(getSize(false));
+        VBox.setVgrow(userInput, Priority.ALWAYS);
+        addToScene(new Label(getStringFromResources("penSizeInputPrompt")));
+        addToScene(userInput);
+	}
+
+	@Override
+	protected String makeCommand(String turtleIDs) {
+		String askCommand = translateCommand("Ask");
+		String penSizeCommand = translateCommand("SetPenSize");
+		String newPenSize = userInput.getText().trim();
+		return askCommand + " [ " + turtleIDs + "] [ " + penSizeCommand + " " + newPenSize + " ]";
+	}
     
-    /**
-     * creates text fields needed for updating the pen size 
-     */
-    @Override
-    protected void createTextFields() {
-        tField = createTextArea();
-
-    }
-
-    /**
-     * creates command to update pensize with new value
-     * @param newVals string[] with new value for pensize at 0th index
-     * @return created command to update pensize that can be passed to backend by command entry instance
-     */
-    @Override
-    protected String getCommand(String[] newVals) {
-        String command = makeCommand("SetPenSize");
-        return command + SPACE + newVals[0];
-
-    }
-
-    /**
-     * Gets new values that the user set. If no value set no changes are made, but
-     * if new value is set it creates a command to set pen size and passes it to 
-     * the backend via the command entry instance
-     */
-    @Override
-    protected void setNewValues() {
-        closeScene();
-        String newVal = tField.getText();
-        if (newVal.length() == 0){
-            return;
-        }
-        passCommand(getCommand(new String[] {newVal}));
-
-    }
-    
-    /**
-     * creates needed elements for updater and then adds them to the popups scene
-     */
-    @Override
-    public void updateEnv() {
-        Label title = createTitle("setPenSize", "");
-        createTextFields();
-        addToScene(Arrays.asList(title, tField));
-    }
-
 }

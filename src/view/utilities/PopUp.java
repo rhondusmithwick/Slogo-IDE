@@ -19,13 +19,13 @@ import view.Size;
  *
  */
 public abstract class PopUp {
-	private int height;
-	private int width; 
+	private final String backgroundColor;
+	private final int height;
+	private final int width; 
 	private Stage s;
 	private Scene myScene;
 	private Group root;
 	private VBox vBox;
-	private String backgroundColor;
 	
 	/**
 	 * Super constructor for a popup subclass instance

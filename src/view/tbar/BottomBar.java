@@ -4,10 +4,8 @@ package view.tbar;
 import java.util.Observable;
 
 import view.Defaults;
-import view.envdisplay.EnvActor;
 import view.tbar.popupdisplays.HelpScreen;
 import view.tbar.popupdisplays.IndexMapSaver;
-import view.tbar.popupdisplays.PenSizeUpdater;
 import view.tbar.popupdisplays.WorkSpaceSaver;
 import view.utilities.PopUp;
 import javafx.scene.control.ComboBox;
@@ -25,9 +23,8 @@ public class BottomBar extends SubBar {
 
     private PopUp hScreen;
 
-    ObjectObservable<String> intCommand;
+    ObjectObservable<String> internalCommand;
     private ComboBox<String> langBox;
-    private EnvActor penSizeUpdater;
     private ColorMap cMap;
     private ImageMap iMap;
 
@@ -43,9 +40,8 @@ public class BottomBar extends SubBar {
         super(language, intCommand, cMap);
         this.iMap = iMap;
         this.cMap = cMap;
-        this.intCommand=intCommand;
+        this.internalCommand=intCommand;
         hScreen = new HelpScreen();
-
     }
 
 
@@ -78,13 +74,9 @@ public class BottomBar extends SubBar {
     @Override
     protected void createButtons() {
         makeButton("workSaver", e->saveWorkSpace());
-        makeButton("penUp", e -> setPen("PenUp"));
-        makeButton("penDown", e -> setPen("PenDown"));
-        makeButton("setPenSize", e -> setPenSize());
         makeButton("saveColor", e-> saveMap(true));
         makeButton("saveImage", e->saveMap(false));
         makeButton("help", e -> hScreen.show());
-
     }
 
 
@@ -93,7 +85,6 @@ public class BottomBar extends SubBar {
             PopUp mSave;
             if(colors){
                 mSave = new IndexMapSaver(cMap);
-
             }else{
                 mSave = new IndexMapSaver(iMap);
             }
@@ -104,19 +95,9 @@ public class BottomBar extends SubBar {
         }
     }
 
-
-
     private void saveWorkSpace() {
         PopUp wSaver = new WorkSpaceSaver(getColors(), getLanguages());
         wSaver.show();
     }
 
-    private void setPenSize() {
-        penSizeUpdater = new PenSizeUpdater(getLanguage(), intCommand);
-        penSizeUpdater.show();
-    }
-
-    private void setPen(String key) {
-        passCommand(getCommand(key));
-    }
 }
