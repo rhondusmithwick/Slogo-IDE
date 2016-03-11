@@ -48,7 +48,6 @@ public abstract class Iteration extends CommandNode {
         tree.getVariables().remove(variableName);
     }
 
-
     protected void setStartValue(int startValue) {
         this.startValue = startValue;
     }
@@ -67,5 +66,10 @@ public abstract class Iteration extends CommandNode {
 
     protected void setIncrement(int increment) {
         this.increment = increment;
+    }
+    
+    @Override
+    protected int getNumChildrenRequired() {
+    	return 2;
     }
 }
