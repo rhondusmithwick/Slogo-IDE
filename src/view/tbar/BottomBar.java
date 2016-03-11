@@ -1,5 +1,6 @@
 package view.tbar;
 
+import view.Defaults;
 import view.tbar.popupdisplays.ImageChooser;
 import view.tbar.popupdisplays.IndexMapSaver;
 import view.tbar.popupdisplays.WorkSpaceSaver;
@@ -27,6 +28,7 @@ public class BottomBar extends SubBar implements Observer {
 	private ImageMap imageMap;
 	private ComboBox<String> backgroundColorBox;
 	private ComboBox<String> penColorBox;
+	private ComboBox<String> languageBox;
 
 	private SimpleStringProperty image;
 
@@ -64,6 +66,7 @@ public class BottomBar extends SubBar implements Observer {
 		
 		backgroundColorBox = createComboBox("bColor", getColors(), e -> setBackground());
 		penColorBox = createComboBox("pColor", getColors(), e -> setPColor());
+		languageBox = createComboBox("selLang", getLanguages(), e -> setLang());
 
 	}
 	
@@ -78,6 +81,13 @@ public class BottomBar extends SubBar implements Observer {
 	private void setBackground() {
 		String bColor = backgroundColorBox.getSelectionModel().getSelectedItem();
 		backgroundColor.set(bColor.toLowerCase());
+
+	}
+	
+	private void setLang() {
+		String parsingLanguage = Defaults.PARSELANG_LOC.getDefault()
+				+ languageBox.getSelectionModel().getSelectedItem();
+		setParsingLanguage(parsingLanguage);
 
 	}
 	

@@ -1,12 +1,10 @@
 package view.tbar;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
 import maps.IndexMap;
 import observables.ObjectObservable;
-import view.Defaults;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.HelpScreen;
 import view.tbar.popupdisplays.ImageDisplay;
@@ -33,7 +31,7 @@ public class TopBar extends SubBar{
 	private SimpleStringProperty turtleIDs;
 	private PopUp colorDisplay, imageDisplay, turtPropSelect;
 	private ObjectObservable<Integer> selectedTurtle;
-	private ComboBox<String> languageBox;
+
 	private ObjectObservable<String> internalCommand, parsingLanguage;
 	private TurtlePropertyUpdater turtleSelector, penSizeUpdater, penUpUpdater, penDownUpdater;
 	private IndexMap colorMap, imageMap;
@@ -80,18 +78,7 @@ public class TopBar extends SubBar{
 	 * creates all comboboxes needed for sub bar
 	 */
 	@Override
-	protected void createComboBoxes() {
-		languageBox = createComboBox("selLang", getLanguages(), e -> setLang());
-
-	}
-
-	private void setLang() {
-		String parsingLanguage = Defaults.PARSELANG_LOC.getDefault()
-				+ languageBox.getSelectionModel().getSelectedItem();
-		setParsingLanguage(parsingLanguage);
-
-	}
-
+	protected void createComboBoxes() {}
 
 	/**
 	 * creates all buttons needed for sub bar
