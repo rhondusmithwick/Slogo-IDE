@@ -5,6 +5,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
+import model.turtle.TurtleDefaults;
 
 
 public class ClearScreen extends TurtleCommandNode {
@@ -15,6 +16,7 @@ public class ClearScreen extends TurtleCommandNode {
         Point2D location = turtle.getTurtleProperties().getLocation();
         double distance = location.distance(home);
         turtle.getTurtleProperties().setLocation(home);
+        turtle.getTurtleProperties().setHeading(TurtleDefaults.HEADING.getDouble());
         Platform.runLater(() -> clear(turtle));
         return distance;
     }
