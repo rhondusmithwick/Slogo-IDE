@@ -44,6 +44,11 @@ public interface ViewInt {
 
 	void bindSize(ReadOnlyDoubleProperty height, ReadOnlyDoubleProperty Width);
     
+	/**
+	 * gets the title of the view to be displayed
+	 * @return string title of view
+	 */
+	String getTitle();
 
 
 }

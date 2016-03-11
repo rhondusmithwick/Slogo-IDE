@@ -236,4 +236,9 @@ public class View implements ViewInt {
     public ObjectObservable<String> getBackgroundColor() {
         return backgroundColor;
     }
+  
+    @Override
+    public String getTitle(){
+    	return myResources.getString("WSTitle");
+    }
 }
