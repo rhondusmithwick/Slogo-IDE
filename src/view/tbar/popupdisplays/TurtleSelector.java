@@ -15,9 +15,9 @@ import observables.ObjectObservable;
 public class TurtleSelector extends TurtlePropertyUpdater {
 	
 
-	public TurtleSelector(int height, int width, String backgroundColor, SimpleStringProperty turtleIDs,
+	public TurtleSelector(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage) {
-		super(height, width, backgroundColor, turtleIDs, internalCommand, parsingLanguage);
+		super(turtleIDs, internalCommand, parsingLanguage);
 		setTitle("turtleSelectTitle");
 	}
 

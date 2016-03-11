@@ -1,4 +1,4 @@
-package view.tbar.popupdisplays;
+package view.tbar.popupdisplays.pen;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
+import view.tbar.popupdisplays.TurtlePropertyUpdater;
 
 /**
  * Class responsible for creating popup that allows user to select certain turtles
@@ -25,9 +26,9 @@ public class PenSizeUpdater extends TurtlePropertyUpdater{
      * @param intCommand string observable to pass commands to command entry instance to pass to backend
      */
     
-    public PenSizeUpdater(int height, int width, String backgroundColor, SimpleStringProperty turtleIDs,
+    public PenSizeUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage){
-        super(height, width, backgroundColor, turtleIDs, internalCommand, parsingLanguage);
+        super( turtleIDs, internalCommand, parsingLanguage);
         setTitle("penSizeUpdateTitle");
     }
 

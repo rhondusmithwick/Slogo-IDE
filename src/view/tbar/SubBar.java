@@ -110,7 +110,6 @@ public abstract class SubBar{
      */
     protected ComboBox<String> createComboBox(String key, List<String> choices, EventHandler<ActionEvent> handler){
     	ComboBox<String> comboBox = ComboFactory.createBox(myResources.getString(key), choices, handler);
-    	HBox.setHgrow(comboBox, Priority.ALWAYS);
     	container.getChildren().add(comboBox);
     	return comboBox;
     	

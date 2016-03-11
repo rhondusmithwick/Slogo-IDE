@@ -15,12 +15,8 @@ import view.turtdisplay.TurtleDisplay;
 import view.turtparams.TurtleParams;
 import view.utilities.ButtonFactory;
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -43,14 +39,11 @@ public class View implements ViewInt {
 
     private final Dimension2D turtleDispDimension;
     private final ObjectObservable<String> parsingLanguage, input, backgroundColor, internalCommand, commandHistInput;
+    private final ObjectObservable<Integer> selectedTurtle;
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
-    private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
     private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
     private final SimpleStringProperty definedCommands = new SimpleStringProperty(this, "definedCommands");
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
-    private final SimpleObjectProperty<Point2D> location = new SimpleObjectProperty<>(this, "location");
-    private final SimpleDoubleProperty heading = new SimpleDoubleProperty(this, "heading");
-    private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
     private final SimpleStringProperty turtleIDs = new SimpleStringProperty(this, "turtleIDs");
     private final IndexMap cMap, iMap;
     private BorderPane UI;
@@ -66,7 +59,7 @@ public class View implements ViewInt {
     private HBox bottom;
     private VBox left, right, top;
     private SubBar topBar, bottomBar;
-	private Slogo multView;
+	private Slogo slogo;
 
     /**
      * creates a new view object
@@ -78,14 +71,15 @@ public class View implements ViewInt {
      * @param pLang
      *            observable string used to set parsing language on backend
      */
-    public View(GlobalProperties globalProperties, Dimension2D turtleDispDimension, Slogo multView) {
+    public View(GlobalProperties globalProperties, Dimension2D turtleDispDimension, Slogo slogo) {
         this.parsingLanguage = globalProperties.getLanguage();
-        this.multView = multView;
+        this.slogo = slogo;
         this.input = globalProperties.getInput();
         this.iMap = globalProperties.getImageMap();
         this.cMap = globalProperties.getColorMap();
         this.turtleDispDimension = turtleDispDimension;
         this.internalCommand = new ObjectObservable<>();
+        this.selectedTurtle = new ObjectObservable<>();
         this.backgroundColor = globalProperties.getBackgroundColor();
         this.commandHistInput = new ObjectObservable<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
@@ -157,7 +151,7 @@ public class View implements ViewInt {
         bottom = new HBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
 
-        turtleParameters = new TurtleParams(location, heading, penDown, penColor);
+        turtleParameters = new TurtleParams(selectedTurtle);
         bottom.getChildren().add(turtleParameters.getTurtleParams());
 
         commandHistory = new CommandHistoryDisplay(internalCommand, commandHistInput);
@@ -168,8 +162,8 @@ public class View implements ViewInt {
 
     private void createToolBar() {
         top = new VBox(Size.TB_PADDING.getSize());
-        topBar = new TopBar(parsingLanguage, backgroundColor, image, turtleIDs, internalCommand, (ColorMap) cMap, (ImageMap) iMap);
-        bottomBar = new BottomBar(parsingLanguage, internalCommand, (ColorMap) cMap, (ImageMap) iMap, multView);
+        topBar = new TopBar(parsingLanguage,  turtleIDs, internalCommand, (ColorMap) cMap, (ImageMap) iMap, slogo, selectedTurtle);
+        bottomBar = new BottomBar(parsingLanguage, internalCommand, (ColorMap) cMap, (ImageMap) iMap, image, backgroundColor);
         top.getChildren().addAll(topBar.getContainer(), bottomBar.getContainer());
         BorderPane.setMargin(top, ViewInsets.TOP.getInset());
 
@@ -229,7 +223,7 @@ public class View implements ViewInt {
      */
     @Override
     public List<SimpleStringProperty> getProperties() {
-        return Arrays.asList(error, image, penColor, variables, definedCommands, turtleIDs);
+        return Arrays.asList(error, image, variables, definedCommands, turtleIDs);
     }
   
     @Override

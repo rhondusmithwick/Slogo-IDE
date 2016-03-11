@@ -1,4 +1,4 @@
-package view.tbar.popupdisplays;
+package view.tbar.popupdisplays.pen;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
@@ -6,9 +6,9 @@ import observables.ObjectObservable;
 
 public class PenDownUpdater extends PenUpDownUpdater {
 
-	public PenDownUpdater(int height, int width, String backgroundColor, SimpleStringProperty turtleIDs,
+	public PenDownUpdater(SimpleStringProperty turtleIDs,
 			ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage) {
-		super(height, width, backgroundColor, turtleIDs, internalCommand, parsingLanguage);
+		super(turtleIDs, internalCommand, parsingLanguage);
 		setTitle("penDownUpdaterTitle");
 	}
 

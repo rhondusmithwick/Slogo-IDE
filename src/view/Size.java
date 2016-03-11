@@ -29,7 +29,8 @@ public enum Size {
 	ENV_WIDTH(300),
 	TURTLE_UPDATE_POPUP_WIDTH(500),
 	TURTLE_UPDATE_POPUP_HEIGHT(300),
-	TOP_TAB(25);
+	TOP_TAB(25),
+	PROP_SEL_HEIGHT(200);
 	
 	private int size;
 	
