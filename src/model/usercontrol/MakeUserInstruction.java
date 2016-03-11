@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class MakeUserInstruction extends CommandNode {
     private final Map<Integer, String> variableNames = new HashMap<>();
     private final Map<String, Variable> variableMap = new HashMap<>();
-    private final Queue<Entry<String, String>> myComamnds = new LinkedList<>();
+    private final Queue<Entry<String, String>> myCommands = new LinkedList<>();
     private double value = 0;
 
     @Override
@@ -96,7 +96,7 @@ public class MakeUserInstruction extends CommandNode {
     private void makeCommands(Queue<Entry<String, String>> parsedText) {
         if (parsedText.peek().getKey().equals("ListStart")) {
             int numEnds = 1;
-            myComamnds.add(parsedText.poll());
+            myCommands.add(parsedText.poll());
             while (true) {
                 if (numEnds == 0) break;
                 if (parsedText.peek().getKey().equals("ListEnd")) {
@@ -105,7 +105,7 @@ public class MakeUserInstruction extends CommandNode {
                 if (parsedText.peek().getKey().equals("ListStart")) {
                     numEnds++;
                 }
-                myComamnds.add(parsedText.poll());
+                myCommands.add(parsedText.poll());
             }
         }
     }
@@ -122,7 +122,7 @@ public class MakeUserInstruction extends CommandNode {
     }
 
     private void addChildrenToUserCommand(UserCommand userCommand, ExpressionTree tree) {
-        Queue<Entry<String, String>> myCommandsCopy = new LinkedList<>(myComamnds);
+        Queue<Entry<String, String>> myCommandsCopy = new LinkedList<>(myCommands);
         Queue<Entry<String, String>> oldParsed = tree.getParsedText();
         tree.setParsedText(myCommandsCopy);
         List<TreeNode> commandRoots = tree.getCommandsFromList();
