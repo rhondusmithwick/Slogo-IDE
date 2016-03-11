@@ -66,7 +66,7 @@ public class View implements ViewInt {
     private HBox bottom;
     private VBox left, right, top;
     private SubBar topBar, bottomBar;
-	private Slogo multView;
+	private Slogo slogo;
 
     /**
      * creates a new view object
@@ -78,9 +78,9 @@ public class View implements ViewInt {
      * @param pLang
      *            observable string used to set parsing language on backend
      */
-    public View(GlobalProperties globalProperties, Dimension2D turtleDispDimension, Slogo multView) {
+    public View(GlobalProperties globalProperties, Dimension2D turtleDispDimension, Slogo slogo) {
         this.parsingLanguage = globalProperties.getLanguage();
-        this.multView = multView;
+        this.slogo = slogo;
         this.input = globalProperties.getInput();
         this.iMap = globalProperties.getImageMap();
         this.cMap = globalProperties.getColorMap();
@@ -168,8 +168,8 @@ public class View implements ViewInt {
 
     private void createToolBar() {
         top = new VBox(Size.TB_PADDING.getSize());
-        topBar = new TopBar(parsingLanguage, backgroundColor, image, turtleIDs, internalCommand, (ColorMap) cMap, (ImageMap) iMap);
-        bottomBar = new BottomBar(parsingLanguage, internalCommand, (ColorMap) cMap, (ImageMap) iMap, multView);
+        topBar = new TopBar(parsingLanguage,  turtleIDs, internalCommand, (ColorMap) cMap, (ImageMap) iMap, slogo);
+        bottomBar = new BottomBar(parsingLanguage, internalCommand, (ColorMap) cMap, (ImageMap) iMap, image, backgroundColor);
         top.getChildren().addAll(topBar.getContainer(), bottomBar.getContainer());
         BorderPane.setMargin(top, ViewInsets.TOP.getInset());
 
