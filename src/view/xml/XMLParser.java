@@ -15,7 +15,7 @@ import org.w3c.dom.Document;
 
 public abstract class XMLParser {
 	
-	private Document doc;
+	private Document document;
 
 	/**
 	 * Creates a new dom tree based on the elements and attributes of the passed XML file
@@ -24,10 +24,10 @@ public abstract class XMLParser {
 	 * @throws Exception
 	 */
 	 protected Document createDocBuilder (File file) throws Exception {
-	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder dBuild = dbFactory.newDocumentBuilder();
-	        doc = dBuild.parse(file);
-	        return doc;
+	        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuild = documentBuilderFactory.newDocumentBuilder();
+	        document = dBuild.parse(file);
+	        return document;
 	        
 	 }
 	 

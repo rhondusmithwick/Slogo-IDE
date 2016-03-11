@@ -28,13 +28,13 @@ public class GetCommand {
      */
     public static String makeCommand(String key, String pLang){
         ResourceBundle myCommands = ResourceBundle.getBundle(pLang);
-        String posCommands = myCommands.getString(key);
+        String possibleCommands = myCommands.getString(key);
         String command;
-        int multCommands = posCommands.indexOf(Defaults.COMM_SPLITER.getDefault());
-        if(multCommands >0){
-            command = posCommands.substring(0, multCommands);
+        int multiCommands = possibleCommands.indexOf(Defaults.COMM_SPLITER.getDefault());
+        if(multiCommands >0){
+            command = possibleCommands.substring(0, multiCommands);
         }else{
-            command = posCommands;
+            command = possibleCommands;
         }
         return command;
     }

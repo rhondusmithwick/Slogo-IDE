@@ -24,9 +24,9 @@ public class VariableDisplay extends DefinedObjectsDisplay {
 	 * @param variables simplestring property storing user defined variables
 	 * @param error simplestring property to display error
 	 */
-	public VariableDisplay(ObjectObservable<String> pLang, ObjectObservable<String> intCommand,
+	public VariableDisplay(ObjectObservable<String> parsingLanguage, ObjectObservable<String> internalCommand,
 			SimpleStringProperty variables, SimpleStringProperty error) {
-		super(variables, pLang, intCommand, error);
+		super(variables, parsingLanguage, internalCommand, error);
 		setDisplayTitle("varTitle");
 		createCurrEnvDisp();
 	}

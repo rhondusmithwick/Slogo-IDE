@@ -18,14 +18,14 @@ import view.Defaults;
 public class LoadWS extends XMLParser {
 
 
-    private static List<String> paramDefaults = Arrays.asList(Defaults.TURT_BACKGROUND.getDefault(), 
+    private static List<String> parameterDefaults = Arrays.asList(Defaults.TURT_BACKGROUND.getDefault(), 
                                                               Defaults.LANG.getDefault(), 
                                                               Defaults.DEFAULT.getDefault(), 
                                                               Defaults.DEFAULT.getDefault(), 
                                                               Defaults.NUM_TURTS.getDefault());
 
-    private Document doc;
-    private ArrayList<String> params;
+    private Document document;
+    private ArrayList<String> parameters;
 
     /**
      * Gets user workspace preference parameters from an XML file.
@@ -35,11 +35,11 @@ public class LoadWS extends XMLParser {
     public void load(File file) {
 
         try {
-            doc = createDocBuilder(file);
+            document = createDocBuilder(file);
             getElements();
         }
         catch (Exception e) {
-            params = new ArrayList<>(paramDefaults);
+            parameters = new ArrayList<>(parameterDefaults);
         }
 
 
@@ -51,9 +51,9 @@ public class LoadWS extends XMLParser {
      */
     @Override
     protected void getElements () {
-        params = new ArrayList<>();
-        Node config = doc.getDocumentElement().getChildNodes().item(0);
-        AttrNames.WORKSPACE.getNames().stream().forEach(e->params.add(config.getAttributes().getNamedItem(e).getTextContent()));
+        parameters = new ArrayList<>();
+        Node config = document.getDocumentElement().getChildNodes().item(0);
+        AttrNames.WORKSPACE.getNames().stream().forEach(e->parameters.add(config.getAttributes().getNamedItem(e).getTextContent()));
 
 
     }
@@ -65,10 +65,10 @@ public class LoadWS extends XMLParser {
      * @return String representing user preference for given integer index
      */
     public String getParam(int index){
-        if(params.get(index).equals(Defaults.DEFAULT.getDefault())){
-            return paramDefaults.get(index);
+        if(parameters.get(index).equals(Defaults.DEFAULT.getDefault())){
+            return parameterDefaults.get(index);
         }
-        return params.get(index);
+        return parameters.get(index);
     }
 
 }

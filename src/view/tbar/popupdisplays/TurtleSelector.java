@@ -31,17 +31,17 @@ public class TurtleSelector extends PopUp {
 	private final ResourceBundle myResources;
 	private final SimpleStringProperty turtleIDs;
 	private Button activateTurtlesButton;
-	private ObjectObservable<String> intCommand;
+	private ObjectObservable<String> internalCommand;
 
 	/**
 	 * Creates a new turtle selector object
 	 * @param turtleIDs list of all current turtle IDS	
 	 * @param intCommand Object observable string to pass commands to the command entry instance
 	 */
-	public TurtleSelector(SimpleStringProperty turtleIDs, ObjectObservable<String> intCommand) {
+	public TurtleSelector(SimpleStringProperty turtleIDs, ObjectObservable<String> internalCommand) {
 		super(Size.TURT_SELECT_HEIGHT.getSize(), Size.TURT_SELECT_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-		this.intCommand = intCommand;
+		this.internalCommand = internalCommand;
 		this.turtleIDs = turtleIDs;
 		nodeList = new ArrayList<>();
 		checkBoxList = new ArrayList<>();
@@ -104,7 +104,7 @@ public class TurtleSelector extends PopUp {
 	
 	private void activateSelectedTurtles(String turtleIDs) {
 		String command = String.format(Defaults.ACTIVATE_TURTLES_COMMAND.getDefault(), turtleIDs);
-		intCommand.set(command);
+		internalCommand.set(command);
 	}
 
 }

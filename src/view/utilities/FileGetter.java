@@ -27,8 +27,8 @@ public class FileGetter {
 
         ArrayList<String> files = new ArrayList<>();
         File directory = new File(directoryLocation);
-        File[] fList = directory.listFiles();
-        for (File file : fList) {
+        File[] fileList = directory.listFiles();
+        for (File file : fileList) {
             String name = file.getName();
             files.add(name.substring(0, name.lastIndexOf('.')));
         }
