@@ -19,8 +19,6 @@ public final class TurtleProperties {
     private static final int IMAGE_DIM = 30;
 //    private static final double baseAngle = 180;
 
-    private static final String DEFAULT_TURTLE_IMAGE = "resources/images/blackarrow.png";
-
     private final ImageView imageView = new ImageView();
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
     private final SimpleObjectProperty<Dimension2D> imageDimensions = new SimpleObjectProperty<>(this, "imageDimensions");
@@ -35,15 +33,15 @@ public final class TurtleProperties {
     private int penShapeIndex = 0;
 
     void init(Dimension2D turtleDispDimension) {
-        setImage(DEFAULT_TURTLE_IMAGE);
-        setVisible(true);
+        setImage(TurtleDefaults.TURTLE_IMAGE.getString());
+        setVisible(TurtleDefaults.VISIBLE.getBoolean());
         home.set(new Point2D(turtleDispDimension.getWidth() / 2 - imageDimensions.get().getWidth() / 2,
                 turtleDispDimension.getHeight() / 2 - imageDimensions.get().getHeight() / 2));
         setLocation(getHome());
-        setHeading(180);
-        setPenDown(true);
-        setPenColor("black");
-        setPenSize(1);
+        setHeading(TurtleDefaults.HEADING.getDouble());
+        setPenDown(TurtleDefaults.PEN_DOWN.getBoolean());
+        setPenColor(TurtleDefaults.PEN_COLOR.getString());
+        setPenSize(TurtleDefaults.PEN_SIZE.getDouble());
     }
 
     void addListeners() {

@@ -15,8 +15,8 @@ public class MethodExec extends EnvActor {
    
     private static final String SPACE = " ";
     private String name, value, text;
-    private TextField vField;
-    private Label vTitle;
+    private TextField variableField;
+    private Label variableTitle;
     
 
 
@@ -26,8 +26,8 @@ public class MethodExec extends EnvActor {
      * @param pLang string observable to store and set parsing language
      * @param text text for method needing to be updated
      */
-    public MethodExec(ObjectObservable<String> intCommand, ObjectObservable<String> pLang, Label label){
-        super(intCommand, pLang);
+    public MethodExec(ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, Label label){
+        super(internalCommand, parsingLanguage);
         this.text=label.getText();
  
 
@@ -39,7 +39,7 @@ public class MethodExec extends EnvActor {
      */
     @Override
     public void createTextFields() {
-        vField = createTextArea();
+        variableField = createTextArea();
         
     }
     
@@ -61,7 +61,7 @@ public class MethodExec extends EnvActor {
 
 
     private void setValues(){
-    	value = vField.getText();
+    	value = variableField.getText();
         if(value.length()==0){
         	value = null;
         }
@@ -91,8 +91,8 @@ public class MethodExec extends EnvActor {
     @Override
     public void updateEnv(){
         getName(text);
-        vTitle = createTitle("methVarTitle", name); 
-        addToScene(Arrays.asList(vTitle,vField));
+        variableTitle = createTitle("methVarTitle", name); 
+        addToScene(Arrays.asList(variableTitle,variableField));
     }
 
 	private void getName(String content) {

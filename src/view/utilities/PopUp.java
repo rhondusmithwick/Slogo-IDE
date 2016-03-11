@@ -21,7 +21,7 @@ import view.Size;
 public abstract class PopUp {
 	private int height;
 	private int width; 
-	private Stage s;
+	private Stage stage;
 	private Scene myScene;
 	private Group root;
 	private VBox vBox;
@@ -43,7 +43,7 @@ public abstract class PopUp {
 	 * creates the popup and its various components then shows the window
 	 */
 	public void show(){
-		s = new Stage();
+		stage = new Stage();
 		root = new Group();
 		myScene = new Scene(root, height, width);
 		createContainer();
@@ -71,8 +71,8 @@ public abstract class PopUp {
 	 * shows the scene to the user
 	 */
 	private void showScene() {
-		s.setScene(myScene);
-		s.show();
+		stage.setScene(myScene);
+		stage.show();
 		
 	}
 	
@@ -85,9 +85,9 @@ public abstract class PopUp {
 	protected File showFChooser(FileChooser fChoose, boolean save){
 		File file;
 		if(save){
-			file= fChoose.showSaveDialog(s);
+			file= fChoose.showSaveDialog(stage);
 		}else{
-			file = fChoose.showOpenDialog(s);
+			file = fChoose.showOpenDialog(stage);
 		}
 		return file;
 		
@@ -97,7 +97,7 @@ public abstract class PopUp {
 	 * closes the popup
 	 */
 	protected void closeScene(){
-		s.close();
+		stage.close();
 	}
 	
 	/**
@@ -125,14 +125,14 @@ public abstract class PopUp {
 	 * @param title string title to set
 	 */
 	protected void setStageTitle(String title){
-		s.setTitle(title);
+		stage.setTitle(title);
 	}
 	
 	/**
 	 * hides the popups stage from the user
 	 */
 	protected void hideScene(){
-	    s.hide();
+	    stage.hide();
 	}
 	
 	

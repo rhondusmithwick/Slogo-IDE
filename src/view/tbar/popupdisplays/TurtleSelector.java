@@ -12,12 +12,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import observables.ObjectObservable;
 import view.Defaults;
+import view.Size;
 import view.utilities.ButtonFactory;
 import view.utilities.PopUp;
 
 /**
  * This class provides a platform that allows users to select a turtle and make
- * it active
+ * it active. It is a subclass of the abstract popup class
  * 
  * @author Stephen Kwok
  *
@@ -29,27 +30,34 @@ public class TurtleSelector extends PopUp {
 	private final List<CheckBox> checkBoxList;
 	private final ResourceBundle myResources;
 	private final SimpleStringProperty turtleIDs;
-	private final Button activateTurtlesButton;
-	private ObjectObservable<String> intCommand;
+	private Button activateTurtlesButton;
+	private ObjectObservable<String> internalCommand;
 
-	public TurtleSelector(int height, int width, String backgroundColor, SimpleStringProperty turtleIDs,
-			ObjectObservable<String> intCommand) {
-		super(height, width, backgroundColor);
+	/**
+	 * Creates a new turtle selector object
+	 * @param turtleIDs list of all current turtle IDS	
+	 * @param intCommand Object observable string to pass commands to the command entry instance
+	 */
+	public TurtleSelector(SimpleStringProperty turtleIDs, ObjectObservable<String> internalCommand) {
+		super(Size.TURT_SELECT_HEIGHT.getSize(), Size.TURT_SELECT_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-		this.intCommand = intCommand;
+		this.internalCommand = internalCommand;
 		this.turtleIDs = turtleIDs;
-		nodeList = new ArrayList<Node>();
-		checkBoxList = new ArrayList<CheckBox>();
-		activateTurtlesButton = ButtonFactory.createButton(myResources.getString("activateTurtles"),
-				e -> activateTurtles());
+		nodeList = new ArrayList<>();
+		checkBoxList = new ArrayList<>();
+		
 	}
 
+	/**
+	 * creates the graphical scene for the turtle selector by setting up the title,
+	 * checkboxes, and the button to set the active turtles
+	 */
 	@Override
 	protected void createScene() {
 		createTitle(myResources.getString("turtleSelectTitle"));
 		createCheckBoxes();
 		addButtonToDisplay();
-		displayElements();
+		addNodes(nodeList);
 	}
 
 	private void createTitle(String titleName) {
@@ -75,6 +83,8 @@ public class TurtleSelector extends PopUp {
 	}
 
 	private void addButtonToDisplay() {
+		activateTurtlesButton = ButtonFactory.createButton(myResources.getString("activateTurtles"),
+				e -> activateTurtles());
 		nodeList.add(activateTurtlesButton);
 	}
 
@@ -90,18 +100,11 @@ public class TurtleSelector extends PopUp {
 		activateSelectedTurtles(activeTurtles.toString());
 		closeScene();
 	}
-
-	private void displayElements() {
-		addNodes(nodeList);
-	}
 	
-	private String generateTellCommand(String turtleIDs) {
-		return String.format(Defaults.ACTIVATE_TURTLES_COMMAND.getDefault(), turtleIDs);
-	}
 	
 	private void activateSelectedTurtles(String turtleIDs) {
-		String command = generateTellCommand(turtleIDs);
-		intCommand.set(command);
+		String command = String.format(Defaults.ACTIVATE_TURTLES_COMMAND.getDefault(), turtleIDs);
+		internalCommand.set(command);
 	}
 
 }

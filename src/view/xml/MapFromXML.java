@@ -6,6 +6,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import observables.MapObservable;
+import view.Defaults;
 
 /**
  * Creates IndexMap object from preferences written in XML file.
@@ -17,7 +18,7 @@ import observables.MapObservable;
 public class MapFromXML extends XMLParser {
     
     private File file;
-    private Document doc;
+    private Document document;
     
     private MapObservable<Integer, String> map;
 
@@ -35,8 +36,8 @@ public class MapFromXML extends XMLParser {
      * @throws Exception
      */
     public void populateMap(String fileName) throws Exception{
-        file = new File(fileName + ".xml");
-        doc =createDocBuilder(file);
+        file = new File(fileName + Defaults.XML.getDefault());
+        document =createDocBuilder(file);
         getElements();
         
     }
@@ -46,7 +47,7 @@ public class MapFromXML extends XMLParser {
      */
     @Override
     protected void getElements () {
-        NodeList elements = doc.getDocumentElement().getChildNodes();
+        NodeList elements = document.getDocumentElement().getChildNodes();
         Node curr;
         for(int i=0; i<elements.getLength(); i++){
             curr = elements.item(i);

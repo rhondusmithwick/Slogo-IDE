@@ -24,7 +24,7 @@ import observables.ObjectObservable;
 
 public class CommandEntry implements Observer {
 
-    private final ObjectObservable<String> input, intCommands, commHistory;
+    private final ObjectObservable<String> input, internalCommand, commandHistory;
 
 
     private TextArea myEntryBox;
@@ -43,8 +43,8 @@ public class CommandEntry implements Observer {
     public CommandEntry(ObjectObservable<String> input, ObjectObservable<String> intCommands, ObjectObservable<String> commHistory) {
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         this.input = input;
-        this.commHistory = commHistory;
-        this.intCommands = intCommands;
+        this.commandHistory = commHistory;
+        this.internalCommand = intCommands;
         intCommands.addObserver(this);
         setScrollPane();
         container = new VBox();
@@ -103,7 +103,7 @@ public class CommandEntry implements Observer {
     */
     public void processCommands() {
         String text = myEntryBox.getText();
-        commHistory.set(text);
+        commandHistory.set(text);
         input.set(text);
         myEntryBox.clear();
     }
@@ -111,7 +111,7 @@ public class CommandEntry implements Observer {
     @Override
     public void update (Observable o, Object arg) {
 
-        String command = intCommands.get();
+        String command = internalCommand.get();
         boolean show =command.startsWith(Defaults.COMMAND_TO_TEXT_BOX.getDefault());
         if(show){  
             command = command.substring(Defaults.COMMAND_TO_TEXT_BOX.getDefault().length());

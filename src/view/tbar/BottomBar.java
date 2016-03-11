@@ -23,13 +23,13 @@ import observables.ObjectObservable;
  */
 public class BottomBar extends SubBar {
 
-    private PopUp hScreen;
+    private PopUp helpScreen;
 
-    ObjectObservable<String> intCommand;
-    private ComboBox<String> langBox;
+    ObjectObservable<String> internalCommand;
+    private ComboBox<String> languageBox;
     private EnvActor penSizeUpdater;
-    private ColorMap cMap;
-    private ImageMap iMap;
+    private ColorMap colorMap;
+    private ImageMap imageMap;
 
     /**
      * Creates a new bottom bar instance
@@ -39,12 +39,12 @@ public class BottomBar extends SubBar {
      * @param iMap Index map object for mapping images to integer indexes
      */
     public BottomBar(ObjectObservable<String> language, 
-                     ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
-        super(language, intCommand, cMap);
-        this.iMap = iMap;
-        this.cMap = cMap;
-        this.intCommand=intCommand;
-        hScreen = new HelpScreen();
+                     ObjectObservable<String> internalCommand, ColorMap colorMap, ImageMap imageMap) {
+        super(language, internalCommand, colorMap);
+        this.imageMap = imageMap;
+        this.colorMap = colorMap;
+        this.internalCommand=internalCommand;
+        helpScreen = new HelpScreen();
 
     }
 
@@ -60,13 +60,13 @@ public class BottomBar extends SubBar {
      */
     @Override
     protected void createComboBoxes() {
-        langBox = createComboBox("selLang", getLanguages(), e -> setLang() );
+        languageBox = createComboBox("selLang", getLanguages(), e -> setLang() );
 
     }
 
     private void setLang() {
-        String pLanguage = Defaults.PARSELANG_LOC.getDefault() + langBox.getSelectionModel().getSelectedItem();
-        setParsingLanguage(pLanguage);
+        String parsingLanguage = Defaults.PARSELANG_LOC.getDefault() + languageBox.getSelectionModel().getSelectedItem();
+        setParsingLanguage(parsingLanguage);
 
     }
 
@@ -83,21 +83,21 @@ public class BottomBar extends SubBar {
         makeButton("setPenSize", e -> setPenSize());
         makeButton("saveColor", e-> saveMap(true));
         makeButton("saveImage", e->saveMap(false));
-        makeButton("help", e -> hScreen.show());
+        makeButton("help", e -> helpScreen.show());
 
     }
 
 
     private void saveMap (boolean colors) {
         try {
-            PopUp mSave;
+            PopUp mapSave;
             if(colors){
-                mSave = new IndexMapSaver(cMap);
+                mapSave = new IndexMapSaver(colorMap);
 
             }else{
-                mSave = new IndexMapSaver(iMap);
+                mapSave = new IndexMapSaver(imageMap);
             }
-            mSave.show();
+            mapSave.show();
         }
         catch (Exception e) {
             return;
@@ -107,12 +107,12 @@ public class BottomBar extends SubBar {
 
 
     private void saveWorkSpace() {
-        PopUp wSaver = new WorkSpaceSaver(getColors(), getLanguages());
-        wSaver.show();
+        PopUp workspaceSaver = new WorkSpaceSaver(getColors(), getLanguages());
+        workspaceSaver.show();
     }
 
     private void setPenSize() {
-        penSizeUpdater = new PenSizeUpdater(getLanguage(), intCommand);
+        penSizeUpdater = new PenSizeUpdater(getLanguage(), internalCommand);
         penSizeUpdater.show();
     }
 

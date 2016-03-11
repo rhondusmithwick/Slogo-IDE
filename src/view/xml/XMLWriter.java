@@ -21,7 +21,7 @@ import org.w3c.dom.Element;
  */
 
 public abstract class XMLWriter {
-	private Document doc;
+	private Document document;
 	private Element root;
 	
 	/**
@@ -31,12 +31,12 @@ public abstract class XMLWriter {
 	 * @throws Exception
 	 */
 	protected Document buildDom(String title) throws Exception{
-		DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
-		DocumentBuilder build = fact.newDocumentBuilder();
-		doc = build.newDocument();
-		root = doc.createElement(title);
-		doc.appendChild(root);
-		return doc;
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder build = documentBuilderFactory.newDocumentBuilder();
+		document = build.newDocument();
+		root = document.createElement(title);
+		document.appendChild(root);
+		return document;
 	}
 	
 	/**
@@ -45,11 +45,11 @@ public abstract class XMLWriter {
 	 * @throws Exception
 	 */
 	protected void writeToFile (File file) throws Exception {
-		TransformerFactory trans = TransformerFactory.newInstance();
-		Transformer tForm = trans.newTransformer();
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
 		Result res = new StreamResult(file);
-		Source sour = new DOMSource(doc);
-		tForm.transform(sour, res);
+		Source sour = new DOMSource(document);
+		transformer.transform(sour, res);
 
 	}
 	

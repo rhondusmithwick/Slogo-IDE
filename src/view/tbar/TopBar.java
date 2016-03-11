@@ -7,8 +7,6 @@ import javafx.scene.control.ComboBox;
 import maps.ColorMap;
 import maps.ImageMap;
 import observables.ObjectObservable;
-import view.Defaults;
-import view.Size;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.ImageChooser;
 import view.tbar.popupdisplays.ImageDisplay;
@@ -25,10 +23,10 @@ import view.utilities.PopUp;
 public class TopBar extends SubBar {
 
 	private SimpleStringProperty image, turtleIDs;
-	private PopUp cDisp, iDisp;
-	private ComboBox<String> bColorBox;
-	private ComboBox<String> pColorBox;
-	private ObjectObservable<String> bgColor, intCommand;
+	private PopUp colorDisplay, imageDisplay;
+	private ComboBox<String> backgroundColorBox;
+	private ComboBox<String> penColorBox;
+	private ObjectObservable<String> backgroundColor, internalCommand;
 	private TurtleSelector turtleSelector;
 
 	/**
@@ -51,15 +49,15 @@ public class TopBar extends SubBar {
 	 * @param penColor
 	 *            simplestringproperty to set turtles pen color
 	 */
-	public TopBar(ObjectObservable<String> language, ObjectObservable<String> bgColor, SimpleStringProperty image,
-			SimpleStringProperty turtleIDs, ObjectObservable<String> intCommand, ColorMap cMap, ImageMap iMap) {
-		super(language, intCommand, cMap);
-		this.intCommand = intCommand;
+	public TopBar(ObjectObservable<String> language, ObjectObservable<String> backgroundColor, SimpleStringProperty image,
+			SimpleStringProperty turtleIDs, ObjectObservable<String> internalCommand, ColorMap colorMap, ImageMap imageMap) {
+		super(language, internalCommand, colorMap);
+		this.internalCommand = internalCommand;
 		this.turtleIDs = turtleIDs;
 		this.image = image;
-		this.bgColor = bgColor;
-		cDisp = new ColorDisplay("colorTitle", cMap.getIndexMap());
-		iDisp = new ImageDisplay("imageTitle", iMap.getIndexMap());
+		this.backgroundColor = backgroundColor;
+		colorDisplay = new ColorDisplay("colorTitle", colorMap.getIndexMap());
+		imageDisplay = new ImageDisplay("imageTitle", imageMap.getIndexMap());
 
 	}
 
@@ -68,22 +66,22 @@ public class TopBar extends SubBar {
 	 */
 	@Override
 	protected void createComboBoxes() {
-		bColorBox = createComboBox("bColor", getColors(), e -> setBackground());
-		pColorBox = createComboBox("pColor", getColors(), e -> setPColor());
+		backgroundColorBox = createComboBox("bColor", getColors(), e -> setBackground());
+		penColorBox = createComboBox("pColor", getColors(), e -> setPColor());
 
 	}
 
 	private void setPColor() {
-		String pColor = pColorBox.getSelectionModel().getSelectedItem();
+		String selectedPenColor = penColorBox.getSelectionModel().getSelectedItem();
 		String command = getCommand("SetPenColor");
-		int index = getColorIndex(pColor);
+		int index = getColorIndex(selectedPenColor);
 		passCommand(command + " " + index);
 
 	}
 
 	private void setBackground() {
-		String bColor = bColorBox.getSelectionModel().getSelectedItem();
-		bgColor.set(bColor.toLowerCase());
+		String selectedBackgroundColor = backgroundColorBox.getSelectionModel().getSelectedItem();
+		backgroundColor.set(selectedBackgroundColor.toLowerCase());
 
 	}
 
@@ -93,34 +91,24 @@ public class TopBar extends SubBar {
 	@Override
 	protected void createButtons() {
 		makeButton("image", e -> chooseTurtIm());
-		makeButton("colorDisp", e -> showColorPalette());
-		makeButton("imageDisp", e -> showImagePalette());
+		makeButton("colorDisp", e -> colorDisplay.show());
+		makeButton("imageDisp", e -> imageDisplay.show());
 		makeButton("selectTurtleButtonTitle", e -> selectTurtle());
 	}
 
-	private void showImagePalette() {
-		iDisp.show();
-	}
-
-	private void showColorPalette() {
-		cDisp.show();
-	}
 
 	private void selectTurtle() {
-		int width = Size.TURT_SELECT_WIDTH.getSize();
-		int height = Size.TURT_SELECT_HEIGHT.getSize();
-		String backgroundColor = Defaults.BACKGROUND_COLOR.getDefault();
-		turtleSelector = new TurtleSelector(width, height, backgroundColor, turtleIDs, intCommand);
+		turtleSelector = new TurtleSelector(turtleIDs, internalCommand);
 		turtleSelector.show();
 	}
 
 	private void chooseTurtIm() {
 
-		ImageChooser imChoose = new ImageChooser();
-		imChoose.show();
+		ImageChooser imageChoose = new ImageChooser();
+		imageChoose.show();
 		String newImage;
 		try {
-			newImage = imChoose.getChosen();
+			newImage = imageChoose.getChosen();
 			if (newImage != null) {
 				image.set(newImage);
 			}
@@ -136,7 +124,7 @@ public class TopBar extends SubBar {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		getContainer().getChildren().removeAll(bColorBox, pColorBox);
+		getContainer().getChildren().removeAll(backgroundColorBox, penColorBox);
 		createComboBoxes();
 	}
 

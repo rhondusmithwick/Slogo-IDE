@@ -30,6 +30,10 @@ public class Turtle {
         return turtleProperties;
     }
 
+    public int getID() {
+        return ID;
+    }
+
     public Group getGroup() {
         return root;
     }

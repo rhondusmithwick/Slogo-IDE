@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import view.Defaults;
 import view.Size;
+import view.utilities.ButtonFactory;
 import view.utilities.GetCommand;
 import view.utilities.PopUp;
 import javafx.geometry.Pos;
@@ -24,21 +25,21 @@ import observables.ObjectObservable;
  */
 public abstract class EnvActor extends PopUp{
 
-    private ObjectObservable<String> intCommand;
+    private ObjectObservable<String> internalCommand;
     private ResourceBundle myResources;
-    private Button setB;
-    private ObjectObservable<String> pLang;
+    private Button setButton;
+    private ObjectObservable<String> parsingLanguage;
 
     /**
      * Super constructor for any envupdate subclass instance
      * @param intCommand string observable for passing commands to command entry instance
      * @param pLang string observable that stores the current parsing language
      */
-    public EnvActor(ObjectObservable<String> intCommand, ObjectObservable<String> pLang){
+    public EnvActor(ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage){
     	super(Size.ENV_WIDTH.getSize(), Size.ENV_HEIGHT.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-        this.intCommand=intCommand;
-        this.pLang = pLang;
+        this.internalCommand=internalCommand;
+        this.parsingLanguage = parsingLanguage;
         
     }
 
@@ -66,9 +67,8 @@ public abstract class EnvActor extends PopUp{
 
 
     private void createSetButton() {
-        setB = new Button(myResources.getString("upButton"));
-        setB.setAlignment(Pos.TOP_CENTER);
-        setB.setOnAction(e->setNewValues());
+        setButton = ButtonFactory.createButton(myResources.getString("upButton"), e->setNewValues());
+        setButton.setAlignment(Pos.TOP_CENTER);
 
     }
 
@@ -77,10 +77,10 @@ public abstract class EnvActor extends PopUp{
      * @return created textField instance
      */
     protected TextField createTextArea() {
-        TextField tField = new TextField();
-        tField.prefWidthProperty().bind(getSize(false));
-        VBox.setVgrow(tField, Priority.ALWAYS);
-        return tField;
+        TextField textField = new TextField();
+        textField.prefWidthProperty().bind(getSize(false));
+        VBox.setVgrow(textField, Priority.ALWAYS);
+        return textField;
     }
     
 
@@ -123,7 +123,7 @@ public abstract class EnvActor extends PopUp{
      */
     protected void addToScene(List<Node> nodeList){
         addNodes(nodeList);
-        addNodes(Arrays.asList(setB));
+        addNodes(Arrays.asList(setButton));
     }
     	
     /**
@@ -132,7 +132,7 @@ public abstract class EnvActor extends PopUp{
      * @param command command to be passed
      */
     protected void passCommand(String command){
-        intCommand.set(command);
+        internalCommand.set(command);
     }
     
     /**
@@ -142,7 +142,7 @@ public abstract class EnvActor extends PopUp{
      * @return String command in correct parsing language
      */
     protected String makeCommand (String key) {
-        return GetCommand.makeCommand(key,pLang.get() );
+        return GetCommand.makeCommand(key,parsingLanguage.get() );
     }
 
 

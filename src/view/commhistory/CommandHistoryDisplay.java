@@ -33,17 +33,17 @@ public class CommandHistoryDisplay implements Observer {
     private VBox myCommHistory;
     private ResourceBundle myResources;
 
-    private ObjectObservable<String> intCommand, commHistory;
+    private ObjectObservable<String> internalCommand, commandHistInput;
 
     /**
      * Creates a new command history object.
      * @param intCommand string observable used to pass commands from view components to command entry
      * @param commHistory string observable observed by this to add commands to history display
      */
-    public CommandHistoryDisplay(ObjectObservable<String> intCommand, ObjectObservable<String> commHistory) {
-        this.intCommand = intCommand;
-        this.commHistory=commHistory;
-        commHistory.addObserver(this);
+    public CommandHistoryDisplay(ObjectObservable<String> internalCommand, ObjectObservable<String> commandHistInput) {
+        this.internalCommand = internalCommand;
+        this.commandHistInput=commandHistInput;
+        this.commandHistInput.addObserver(this);
         this.commands = new ArrayList<>();
         this.commandLabels = new ArrayList<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
@@ -89,7 +89,7 @@ public class CommandHistoryDisplay implements Observer {
 
     private void labelClicked(Label label) {
         String command = Defaults.COMMAND_TO_TEXT_BOX.getDefault()+label.getText();
-        intCommand.set(command);
+        internalCommand.set(command);
     }
 
     /**
@@ -103,7 +103,7 @@ public class CommandHistoryDisplay implements Observer {
 
     @Override
     public void update (Observable o, Object arg) {
-        addCommand(commHistory.get());
+        addCommand(commandHistInput.get());
     }
 
 

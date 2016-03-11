@@ -19,15 +19,15 @@ public class PenSizeUpdater extends EnvActor{
 
 
     private static final String SPACE = " ";
-    private TextField tField;
+    private TextField textField;
     
     /**
      * creates new pensizeupdater instance
      * @param language string observable for setting and getting parsing language
      * @param intCommand string observable to pass commands to command entry instance to pass to backend
      */
-    public PenSizeUpdater(ObjectObservable<String> language, ObjectObservable<String> intCommand){
-        super(intCommand, language);
+    public PenSizeUpdater(ObjectObservable<String> language, ObjectObservable<String> internalCommand){
+        super(internalCommand, language);
     }
     
     /**
@@ -35,7 +35,7 @@ public class PenSizeUpdater extends EnvActor{
      */
     @Override
     protected void createTextFields() {
-        tField = createTextArea();
+        textField = createTextArea();
 
     }
 
@@ -45,9 +45,9 @@ public class PenSizeUpdater extends EnvActor{
      * @return created command to update pensize that can be passed to backend by command entry instance
      */
     @Override
-    protected String getCommand(String[] newVals) {
+    protected String getCommand(String[] newValues) {
         String command = makeCommand("SetPenSize");
-        return command + SPACE + newVals[0];
+        return command + SPACE + newValues[0];
 
     }
 
@@ -59,11 +59,11 @@ public class PenSizeUpdater extends EnvActor{
     @Override
     protected void setNewValues() {
         closeScene();
-        String newVal = tField.getText();
-        if (newVal.length() == 0){
+        String newValue = textField.getText();
+        if (newValue.length() == 0){
             return;
         }
-        passCommand(getCommand(new String[] {newVal}));
+        passCommand(getCommand(new String[] {newValue}));
 
     }
     
@@ -74,7 +74,7 @@ public class PenSizeUpdater extends EnvActor{
     public void updateEnv() {
         Label title = createTitle("setPenSize", "");
         createTextFields();
-        addToScene(Arrays.asList(title, tField));
+        addToScene(Arrays.asList(title, textField));
     }
 
 }

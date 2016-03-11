@@ -41,7 +41,7 @@ import java.util.ResourceBundle;
 public class View implements ViewInt {
 
 	private final Dimension2D turtleDispDimension;
-	private final ObjectObservable<String> pLang, input, backgroundColor, intCommands, commHistory;
+	private final ObjectObservable<String> parsingLanguage, input, backgroundColor, internalCommand, commandHistInput;
 	private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
 	private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
 	private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
@@ -56,15 +56,15 @@ public class View implements ViewInt {
 	private ResourceBundle myResources;
 	private Group root;
 	private Button executeButton;
-	private TurtleDisplay turtDisp;
+	private TurtleDisplay turtleDisplay;
 	private CommandHistoryDisplay commandHistory;
 	private CommandEntry commandEntry;
 	private ErrorDisplay errorDisplay;
-	private DefinedObjectsDisplay vDisplay, methodsDisplay;
-	private TurtleParams turtPar;
+	private DefinedObjectsDisplay variableDisplay, methodsDisplay;
+	private TurtleParams turtleParameters;
 	private HBox bottom;
 	private VBox left, right, top;
-	private SubBar topBar, botBar;
+	private SubBar topBar, bottomBar;
 
 	/**
 	 * creates a new view object
@@ -77,14 +77,14 @@ public class View implements ViewInt {
 	 *            observable string used to set parsing language on backend
 	 */
 	public View(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
-		this.pLang = globalProperties.getLanguage();
+		this.parsingLanguage = globalProperties.getLanguage();
 		this.input = globalProperties.getInput();
         this.iMap = globalProperties.getImageMap();
         this.cMap = globalProperties.getColorMap();
 		this.turtleDispDimension = turtleDispDimension;
-		this.intCommands = new ObjectObservable<>();
+		this.internalCommand = new ObjectObservable<>();
 		this.backgroundColor = globalProperties.getBackgroundColor();
-		this.commHistory = new ObjectObservable<>();
+		this.commandHistInput = new ObjectObservable<>();
 		this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		createAppview();
 		setPreferences();
@@ -92,7 +92,7 @@ public class View implements ViewInt {
 	}
 
 	private void setPreferences() {
-		PreferenceSetter pSet = new PreferenceSetter(pLang, cMap, iMap, backgroundColor, intCommands);
+		PreferenceSetter pSet = new PreferenceSetter(parsingLanguage, cMap, iMap, backgroundColor, internalCommand);
 		pSet.setPreferences();
 
 	}
@@ -133,7 +133,7 @@ public class View implements ViewInt {
 	}
 
 	private void addComponents() {
-		UI.setCenter(turtDisp.getTurtlePane());
+		UI.setCenter(turtleDisplay.getTurtlePane());
 		UI.setRight(right);
 		UI.setLeft(left);
 		UI.setBottom(bottom);
@@ -143,9 +143,9 @@ public class View implements ViewInt {
 	private void createLeftPane() {
 		left = new VBox(Size.VIEW_PADDING.getSize());
 		BorderPane.setMargin(left, ViewInsets.LEFT.getInset());
-		vDisplay = new VariableDisplay(pLang, intCommands, variables, error);
-		left.getChildren().add(vDisplay.getEnvDisplay());
-		methodsDisplay = new MethodDisplay(pLang, intCommands, definedCommands, error);
+		variableDisplay = new VariableDisplay(parsingLanguage, internalCommand, variables, error);
+		left.getChildren().add(variableDisplay.getEnvDisplay());
+		methodsDisplay = new MethodDisplay(parsingLanguage, internalCommand, definedCommands, error);
 		left.getChildren().add(methodsDisplay.getEnvDisplay());
 
 	}
@@ -154,10 +154,10 @@ public class View implements ViewInt {
 		bottom = new HBox(Size.VIEW_PADDING.getSize());
 		BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
 
-		turtPar = new TurtleParams(location, heading, penDown, penColor);
-		bottom.getChildren().add(turtPar.getTurtleParams());
+		turtleParameters = new TurtleParams(location, heading, penDown, penColor);
+		bottom.getChildren().add(turtleParameters.getTurtleParams());
 
-		commandHistory = new CommandHistoryDisplay(intCommands, commHistory);
+		commandHistory = new CommandHistoryDisplay(internalCommand, commandHistInput);
 		bottom.getChildren().add(commandHistory.getHistoryGraphic());
 
 	}
@@ -165,24 +165,24 @@ public class View implements ViewInt {
 
 	private void createToolBar() {
 		top = new VBox(Size.TB_PADDING.getSize());
-		topBar = new TopBar(pLang, backgroundColor, image, turtleIDs, intCommands, (ColorMap) cMap, (ImageMap) iMap);
-		botBar = new BottomBar(pLang, intCommands, (ColorMap) cMap, (ImageMap) iMap);
-		top.getChildren().addAll(topBar.getContainer(), botBar.getContainer());
+		topBar = new TopBar(parsingLanguage, backgroundColor, image, turtleIDs, internalCommand, (ColorMap) cMap, (ImageMap) iMap);
+		bottomBar = new BottomBar(parsingLanguage, internalCommand, (ColorMap) cMap, (ImageMap) iMap);
+		top.getChildren().addAll(topBar.getContainer(), bottomBar.getContainer());
 		BorderPane.setMargin(top, ViewInsets.TOP.getInset());
 
 	}
 
 	private void createTurtleDisplay() {
 
-		turtDisp = new TurtleDisplay(backgroundColor, turtleDispDimension);
-		BorderPane.setMargin(turtDisp.getTurtlePane(), ViewInsets.TURTLE.getInset());
+		turtleDisplay = new TurtleDisplay(backgroundColor, turtleDispDimension);
+		BorderPane.setMargin(turtleDisplay.getTurtlePane(), ViewInsets.TURTLE.getInset());
 
 	}
 
 	private void createRightPane() {
 		right = new VBox();
 		BorderPane.setMargin(right, ViewInsets.RIGHT.getInset());
-		commandEntry = new CommandEntry(input, intCommands, commHistory);
+		commandEntry = new CommandEntry(input, internalCommand, commandHistInput);
 		right.getChildren().add(commandEntry.getNode());
 		createExecute();
 	}
@@ -215,7 +215,7 @@ public class View implements ViewInt {
 	 */
 	@Override
 	public Group getInnerGroup() {
-		return turtDisp.getTurtleArea();
+		return turtleDisplay.getTurtleArea();
 	}
 
 	/**
@@ -229,21 +229,6 @@ public class View implements ViewInt {
 		return Arrays.asList(error, image, penColor, variables, definedCommands, turtleIDs);
 	}
 
-	/**
-	 * returns the index maps responsible for mapping index numbers to colors or
-	 * images to define the pallets
-	 * 
-	 * @param boolean
-	 *            for which map to choose
-	 * @return chosen index map
-	 */
-	@Override
-	public IndexMap getMap(boolean colors) {
-		if (colors) {
-			return cMap;
-		}
-		return iMap;
-	}
 	
 	public ObjectObservable<String> getBackgroundColor() {
 		return backgroundColor;

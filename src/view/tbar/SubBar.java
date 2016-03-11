@@ -9,6 +9,7 @@ import view.Size;
 import view.utilities.ButtonFactory;
 import view.utilities.ComboFactory;
 import view.utilities.FileGetter;
+import view.utilities.GetCommand;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -29,10 +30,10 @@ import observables.ObjectObservable;
 
 public abstract class SubBar implements Observer {
 
-    private ResourceBundle myResources, myCommands;
+    private ResourceBundle myResources;
     private HBox container;
-    private ObjectObservable<String> language, intCommand;
-    private ColorMap colors;
+    private ObjectObservable<String> language, internalCommand;
+    private ColorMap colorMap;
 
     /**
      * Super constructor for subbar sub classes.
@@ -40,11 +41,11 @@ public abstract class SubBar implements Observer {
      * @param intCommand string observable for passing commands to command entry instance
      * @param cMap Index map object for mapping colors to integer indexes
      */
-    public SubBar(ObjectObservable<String> language, ObjectObservable<String> intCommand, 
-    		IndexMap cMap){
+    public SubBar(ObjectObservable<String> language, ObjectObservable<String> internalCommand, 
+    		IndexMap colorMap){
         this.language=language;
-        this.intCommand=intCommand;
-        this.colors = (ColorMap) cMap;
+        this.internalCommand=internalCommand;
+        this.colorMap = (ColorMap) colorMap;
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         initHBox();
         setParsingLanguage(language.get());
@@ -58,8 +59,6 @@ public abstract class SubBar implements Observer {
      */
     protected void setParsingLanguage(String pLang){
 
-        myCommands = ResourceBundle.getBundle( pLang);
-
         language.set(pLang);
     }
     
@@ -68,7 +67,7 @@ public abstract class SubBar implements Observer {
      * @param command command string to be passed
      */
     protected void passCommand(String command){
-        intCommand.set(command);
+        internalCommand.set(command);
     }
     
     /**
@@ -87,10 +86,10 @@ public abstract class SubBar implements Observer {
      * @return newly created button
      */
     public Button makeButton(String key, EventHandler<ActionEvent> handler) {
-        Button newButt = ButtonFactory.createButton(myResources.getString(key), handler);
-        container.getChildren().add(newButt);
-        HBox.setHgrow(newButt, Priority.ALWAYS);
-        return newButt;
+        Button newButton = ButtonFactory.createButton(myResources.getString(key), handler);
+        container.getChildren().add(newButton);
+        HBox.setHgrow(newButton, Priority.ALWAYS);
+        return newButton;
     }
     
     /**
@@ -100,13 +99,7 @@ public abstract class SubBar implements Observer {
      * @return user command related to key
      */
     protected String getCommand(String key) {
-        String retrievedString = myCommands.getString(key);
-        int splitterPos = retrievedString.indexOf(Defaults.COMM_SPLITER.getDefault());
-        if (splitterPos > 0) {
-            return retrievedString.substring(0, splitterPos);
-        } else {
-            return retrievedString;
-        }
+        return GetCommand.makeCommand(key, language.get());
     }
     
     /**
@@ -117,10 +110,10 @@ public abstract class SubBar implements Observer {
      * @return created combobox
      */
     protected ComboBox<String> createComboBox(String key, List<String> choices, EventHandler<ActionEvent> handler){
-    	ComboBox<String> cBox = ComboFactory.createBox(myResources.getString(key), choices, handler);
-    	HBox.setHgrow(cBox, Priority.ALWAYS);
-    	container.getChildren().add(cBox);
-    	return cBox;
+    	ComboBox<String> comboBox = ComboFactory.createBox(myResources.getString(key), choices, handler);
+    	HBox.setHgrow(comboBox, Priority.ALWAYS);
+    	container.getChildren().add(comboBox);
+    	return comboBox;
     	
     }
     
@@ -137,11 +130,11 @@ public abstract class SubBar implements Observer {
      * @return list of all colors
      */
     protected List<String> getColors(){
-            return new ArrayList<>(colors.getIndexMap().getValues());
+            return new ArrayList<>(colorMap.getIndexMap().getValues());
     }
     
     protected int getColorIndex(String value){
-    	return colors.getIndex(value);
+    	return colorMap.getIndex(value);
     }
     
     

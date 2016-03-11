@@ -23,10 +23,10 @@ import observables.MapObservable;
 public abstract class PaletteDisp extends PopUp {
     
     private ScrollPane scroll;
-    private VBox vbox;
+    private VBox vBox;
     private ResourceBundle myResources;
     private String title;
-    private HBox h;
+    private HBox hBox;
 
 	private MapObservable<Integer, String> map;
 
@@ -65,7 +65,7 @@ public abstract class PaletteDisp extends PopUp {
     	setStageTitle(title);
     	createScroll();
     	setVBox();
-        scroll.setContent(vbox);
+        scroll.setContent(vBox);
         addNodes(Arrays.asList(scroll));
         map.getEntrySet().stream().forEach(e->addToPalette(e));
     }
@@ -74,10 +74,10 @@ public abstract class PaletteDisp extends PopUp {
 
     
     private void setVBox(){
-        vbox = new VBox(Size.PALETTE_PADDING.getSize());
-        vbox.setStyle(Defaults.BACKGROUND_WHITE.getDefault());
-        vbox.prefHeightProperty().bind(scroll.heightProperty());
-        vbox.prefWidthProperty().bind(scroll.widthProperty());
+        vBox = new VBox(Size.PALETTE_PADDING.getSize());
+        vBox.setStyle(Defaults.BACKGROUND_WHITE.getDefault());
+        vBox.prefHeightProperty().bind(scroll.heightProperty());
+        vBox.prefWidthProperty().bind(scroll.widthProperty());
     }
 
 
@@ -92,18 +92,18 @@ public abstract class PaletteDisp extends PopUp {
      * sets up the hBox used to display one map entry 
      */
     protected void setHBox(){
-        h = new HBox(Size.PALETTE_ENT_PADDING.getSize());
-        h.setAlignment(Pos.CENTER_LEFT);
-        h.prefWidthProperty().bind(scroll.widthProperty());
-        vbox.getChildren().add(h);
+        hBox = new HBox(Size.PALETTE_ENT_PADDING.getSize());
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        hBox.prefWidthProperty().bind(scroll.widthProperty());
+        vBox.getChildren().add(hBox);
     }
     
     /**
      * adds nodes to the HBox used to display an entry
      * @param nList list of nodes to add
      */
-    protected void addNodesToHBox(List<Node> nList){
-        h.getChildren().addAll(nList);
+    protected void addNodesToHBox(List<Node> nodeList){
+        hBox.getChildren().addAll(nodeList);
 
     }
    

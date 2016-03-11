@@ -14,8 +14,8 @@ public class VariableUpdate extends EnvActor {
     
     private static final String SPACE = " ";
 
-    private String variable, newVal, text;
-    private TextField tField;
+    private String variable, newValue, text;
+    private TextField textField;
     private Label title, label;
 
     /**
@@ -24,8 +24,8 @@ public class VariableUpdate extends EnvActor {
      * @param pLang string observable to store and set parsing language
      * @param text text for method needing to be updated
      */
-    public VariableUpdate (ObjectObservable<String> intCommand, ObjectObservable<String> pLang, Label label) {
-        super(intCommand, pLang);
+    public VariableUpdate (ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, Label label) {
+        super(internalCommand, parsingLanguage);
         this.label=label;
         this.text = label.getText();
         
@@ -36,7 +36,7 @@ public class VariableUpdate extends EnvActor {
      */
     @Override
     protected void createTextFields(){
-        tField = createTextArea();
+        textField = createTextArea();
     }
 
     /**
@@ -45,14 +45,14 @@ public class VariableUpdate extends EnvActor {
      */
     @Override
     protected void setNewValues() {
-        newVal = tField.getText();
-        if(newVal.length()==0){
+        newValue = textField.getText();
+        if(newValue.length()==0){
             return;
         }
-        String toPass = getCommand(new String[]{newVal});
-        newVal = variable+SPACE+newVal;
+        String toPass = getCommand(new String[]{newValue});
+        newValue = variable+SPACE+newValue;
         passCommand(toPass);
-        label.setText(newVal);
+        label.setText(newValue);
         closeScene();
         
     }
@@ -81,7 +81,7 @@ public class VariableUpdate extends EnvActor {
         String[] splitUp = text.split(SPACE);
         this.variable = splitUp[0];
         title = createTitle("varUpdate" , this.variable);
-        addToScene(Arrays.asList(title,tField));
+        addToScene(Arrays.asList(title,textField));
         
     }
     
