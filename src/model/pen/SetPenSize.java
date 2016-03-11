@@ -1,4 +1,4 @@
-package model.display;
+package model.pen;
 
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;

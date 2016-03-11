@@ -101,6 +101,4 @@ public class ImageMap extends IndexMap{
     protected String getDirectory () {
         return Defaults.IMAGELIST_LOC.getDefault();
     }
-
-
 }

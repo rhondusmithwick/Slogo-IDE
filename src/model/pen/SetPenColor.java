@@ -1,4 +1,4 @@
-package model.display;
+package model.pen;
 
 import maps.IndexMap;
 import model.treenode.TurtleCommandNode;
