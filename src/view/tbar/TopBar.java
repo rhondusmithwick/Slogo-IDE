@@ -60,6 +60,7 @@ public class TopBar extends SubBar implements Observer{
         this.image = image;
         this.backgroundColor = backgroundColor;
         this.colorMap = colorMap;
+        this.colorMap.getIndexMap().addObserver(this);
         this.imageMap=imageMap;
         colorDisplay = new ColorDisplay("colorTitle");
         imageDisplay = new ImageDisplay("imageTitle");
@@ -124,7 +125,8 @@ public class TopBar extends SubBar implements Observer{
 
     @Override
     public void update (Observable o, Object arg) {
-        System.out.println("hi");
+        getContainer().getChildren().removeAll(backgroundColorBox, penColorBox);
+        createComboBoxes();
         
     }
 
