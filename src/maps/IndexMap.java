@@ -92,7 +92,7 @@ public abstract class IndexMap {
      * @param value value to be set for the index
      * @throws Exception
      */
-    public abstract void setAtIndex(int index, String value) throws Exception;
+    public abstract void setAtIndex(int index, String value);
     
     /**
      * returns a value string based on the given index key

@@ -45,7 +45,7 @@ public class ColorMap extends IndexMap {
      *@param toSet rgb value to set at index
      */
     @Override
-    public void setAtIndex(int index, String toSet) throws Exception{
+    public void setAtIndex(int index, String toSet) {
         String[] rgb = toSet.split(" ");
         String value = "rgb(" + rgb[R] + "," + rgb[G]+ ","+rgb[B]+")";
         colors.put(index, value);
