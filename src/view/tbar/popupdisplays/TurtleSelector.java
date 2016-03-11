@@ -18,6 +18,7 @@ import observables.ObjectObservable;
 
 public class TurtleSelector extends TurtlePropertyUpdater {
 	
+	private static final int END_STRING = 2;
 	private SimpleStringProperty turtleIDs;
 	
 	/**
@@ -43,19 +44,19 @@ public class TurtleSelector extends TurtlePropertyUpdater {
 		String askCommand = translateCommand("Ask");
 		String hideCommand = translateCommand("HideTurtle");
 		String inactive = getInactive(turtleIDs);
-		String comm = tellCommand + " [ " + turtleIDs + "]\n" + askCommand + " [" + inactive + "] [ " + hideCommand + " ]";
-		System.out.println(comm);
+		String comm = tellCommand + " [ " + turtleIDs + "]\n" + askCommand 
+				+ " [ " + inactive + " ] [ " + hideCommand + " ]\n" + translateCommand("ShowTurtle");
 		return comm;
 	}
 
 	private String getInactive(String turtles) {
 		ArrayList<String> active = new ArrayList<String>( Arrays.asList(turtles.split(" ")));
 		ArrayList<String> allTurtles = new ArrayList<String> (Arrays.asList(turtleIDs.get().split(", ")));
-		Predicate<String> isIn = (e) -> (active.contains(e));
+		Predicate<String> isIn = (e) -> (!active.contains(e));
 		Object[] inActive =   allTurtles.parallelStream().filter(isIn).toArray();
 		StringBuilder toHide = new StringBuilder();
 		Arrays.asList(inActive).stream().forEach(e-> toHide.append(((String) e) + " "));
-		return toHide.toString();
+		return toHide.toString().substring(1, toHide.length()-END_STRING);
 	}
 
 }
