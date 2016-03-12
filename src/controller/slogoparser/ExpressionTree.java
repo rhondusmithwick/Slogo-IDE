@@ -59,6 +59,78 @@ public class ExpressionTree {
         Platform.runLater(variables::modifyIfShould);
     }
 
+    public TreeNode createRoot() {
+        TreeNode root = createNode();
+        createSubTree(root);
+        return root;
+    }
+    
+    public TurtleManager getTurtleManager() {
+        return turtleManager;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        IntStream.range(0, rootList.size()).forEach(i ->
+                sb.append(i).append("th Node:\n").append(rootList.get(i)).append("\n")
+        );
+        return sb.toString();
+    }
+
+    public List<TreeNode> getCommandsFromList() {
+        List<TreeNode> myRoots = new LinkedList<>();
+        if (parsedText.peek().getKey().equals("ListStart")) {
+            parsedText.poll();
+            while (!parsedText.peek().getKey().equals("ListEnd")) {
+                TreeNode root = createRoot();
+                myRoots.add(root);
+            }
+            parsedText.poll();
+        }
+        return myRoots;
+    }
+
+    public List<List<TreeNode>> getMultipleCommandsList(int children) {
+        List<List<TreeNode>> myRoots = new LinkedList<>();
+        for (int i = 0; i < children; i++) {
+            myRoots.add(getCommandsFromList());
+        }
+        return myRoots;
+    }
+    
+    public DefinedCommands getDefinedCommands() {
+        return definedCommands;
+    }
+
+    public IndexMap getColorMap() {
+        return colorMap;
+    }
+
+    public IndexMap getImageMap() {
+        return imageMap;
+    }
+
+    public ObjectObservable<String> getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public Queue<Entry<String, String>> getParsedText() {
+        return parsedText;
+    }
+
+    public Turtle getMyTurtle() {
+        return turtleManager.get(1);
+    }
+
+    public MapObservable<String, Variable> getVariables() {
+        return variables;
+    }
+
+    public void setParsedText(Queue<Entry<String, String>> parsedText) {
+        this.parsedText = parsedText;
+    }
+    
     private List<TreeNode> createRootList() {
         List<TreeNode> rootList = new LinkedList<>();
         while (inBounds()) {
@@ -66,13 +138,38 @@ public class ExpressionTree {
             rootList.add(root);
         }
         return rootList;
+    }    
+
+    private ConstantNode getConstant(Entry<String, String> curr) {
+        String doubleText = curr.getValue();
+        double constant = Double.parseDouble(doubleText);
+        return new ConstantNode(constant);
     }
 
-    public TreeNode createRoot() {
-        TreeNode root = createNode();
-        createSubTree(root);
-        return root;
+    private TreeNode createNodeInstance(String className) {
+        TreeNode n;
+        try {
+            Class<?> theClass = Class.forName(commandLocations.getString(className));
+            n = (TreeNode) theClass.newInstance();
+        } catch (Exception e) {
+            n = new ConstantNode(0);
+        }
+        n.handleSpecific(this);
+        return n;
     }
+
+    private boolean stillRoot(TreeNode root) {
+        return inBounds() && root.needsMoreChildren();
+    }
+
+    private boolean inBounds() {
+        return !parsedText.isEmpty();
+    }
+
+    private boolean isConstant(String className) {
+        return className.equals("Constant");
+    }
+    
 
     private void createSubTree(TreeNode root) {
         while (stillRoot(root)) {
@@ -108,99 +205,4 @@ public class ExpressionTree {
         return variables.get(curr.getValue());
     }
     
-    public TurtleManager getTurtleManager() {
-        return turtleManager;
-    }
-
-    private ConstantNode getConstant(Entry<String, String> curr) {
-        String doubleText = curr.getValue();
-        double constant = Double.parseDouble(doubleText);
-        return new ConstantNode(constant);
-    }
-
-    private TreeNode createNodeInstance(String className) {
-        TreeNode n;
-        try {
-            Class<?> theClass = Class.forName(commandLocations.getString(className));
-            n = (TreeNode) theClass.newInstance();
-        } catch (Exception e) {
-            n = new ConstantNode(0);
-        }
-        n.handleSpecific(this);
-        return n;
-    }
-
-    private boolean stillRoot(TreeNode root) {
-        return inBounds() && root.needsMoreChildren();
-    }
-
-    private boolean inBounds() {
-        return !parsedText.isEmpty();
-    }
-
-    private boolean isConstant(String className) {
-        return className.equals("Constant");
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        IntStream.range(0, rootList.size()).forEach(i ->
-                sb.append(i).append("th Node:\n").append(rootList.get(i)).append("\n")
-        );
-        return sb.toString();
-    }
-
-    public DefinedCommands getDefinedCommands() {
-        return definedCommands;
-    }
-
-    public IndexMap getColorMap() {
-        return colorMap;
-    }
-
-    public IndexMap getImageMap() {
-        return imageMap;
-    }
-
-    public ObjectObservable<String> getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public List<TreeNode> getCommandsFromList() {
-        List<TreeNode> myRoots = new LinkedList<>();
-        if (parsedText.peek().getKey().equals("ListStart")) {
-            parsedText.poll();
-            while (!parsedText.peek().getKey().equals("ListEnd")) {
-                TreeNode root = createRoot();
-                myRoots.add(root);
-            }
-            parsedText.poll();
-        }
-        return myRoots;
-    }
-
-    public List<List<TreeNode>> getMultipleCommandsList(int children) {
-        List<List<TreeNode>> myRoots = new LinkedList<>();
-        for (int i = 0; i < children; i++) {
-            myRoots.add(getCommandsFromList());
-        }
-        return myRoots;
-    }
-
-    public Queue<Entry<String, String>> getParsedText() {
-        return parsedText;
-    }
-
-    public Turtle getMyTurtle() {
-        return turtleManager.get(1);
-    }
-
-    public MapObservable<String, Variable> getVariables() {
-        return variables;
-    }
-
-    public void setParsedText(Queue<Entry<String, String>> parsedText) {
-        this.parsedText = parsedText;
-    }
 }
