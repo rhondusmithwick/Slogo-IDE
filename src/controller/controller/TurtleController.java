@@ -27,18 +27,26 @@ public class TurtleController implements Controller {
 
     private final SlogoParser parser = new SlogoParser("resources/languages/Syntax");
 
-    private final Group group = new Group();
+    private final Group group;
     private final TurtleManager turtleManager;
     private final GlobalProperties properties;
 
-    private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
+    private final SimpleStringProperty error;
 
-    private final MapObservable<String, Variable> variables = new MapObservable<>("variables");
-    private final DefinedCommands definedCommands = new DefinedCommands();
+    private final MapObservable<String, Variable> variables;
+    private final DefinedCommands definedCommands;
 
     public TurtleController(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
-        turtleManager = new TurtleManager(turtleDispDimension);
+    	this.group = new Group();
+        this.turtleManager = new TurtleManager(turtleDispDimension);
         this.properties = globalProperties;
+        this.error = new SimpleStringProperty(this, "error");
+        this.definedCommands = new DefinedCommands();
+        this.variables = new MapObservable<>("variables");
+        setProperties();
+    }
+    
+    private void setProperties() {
         properties.getLanguage().addObserver(this);
         properties.getInput().addObserver(this);
         properties.getLanguage().set(DEFAULT_LANGUAGE);

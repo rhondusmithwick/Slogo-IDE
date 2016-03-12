@@ -106,8 +106,8 @@ public class ExpressionTree {
             return variables.get(":repcount");
         }
         return variables.get(curr.getValue());
-
     }
+    
     public TurtleManager getTurtleManager() {
         return turtleManager;
     }
@@ -131,8 +131,7 @@ public class ExpressionTree {
     }
 
     private boolean stillRoot(TreeNode root) {
-        return inBounds()
-                && (root.needsMoreChildren());
+        return inBounds() && root.needsMoreChildren();
     }
 
     private boolean inBounds() {
@@ -140,7 +139,7 @@ public class ExpressionTree {
     }
 
     private boolean isConstant(String className) {
-        return (className.equals("Constant"));
+        return className.equals("Constant");
     }
 
     @Override
@@ -172,14 +171,11 @@ public class ExpressionTree {
         List<TreeNode> myRoots = new LinkedList<>();
         if (parsedText.peek().getKey().equals("ListStart")) {
             parsedText.poll();
-            while (true) {
-                if (parsedText.peek().getKey().equals("ListEnd")) {
-                    parsedText.poll();
-                    break;
-                }
+            while (!parsedText.peek().getKey().equals("ListEnd")) {
                 TreeNode root = createRoot();
                 myRoots.add(root);
             }
+            parsedText.poll();
         }
         return myRoots;
     }
