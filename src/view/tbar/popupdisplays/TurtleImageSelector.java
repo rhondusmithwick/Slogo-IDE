@@ -19,6 +19,7 @@ import view.utilities.ButtonFactory;
 
 public class TurtleImageSelector extends TurtlePropertyUpdater {
     
+    private static final String TITLE = "image";
     private String newImage;
     private ImageMap imageMap;
     
@@ -31,14 +32,14 @@ public class TurtleImageSelector extends TurtlePropertyUpdater {
      */
     public TurtleImageSelector(SimpleStringProperty turtleIDs,
                                ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, IndexMap imageMap){
-        super(turtleIDs, internalCommand, parsingLanguage, "image");
+        super(turtleIDs, internalCommand, parsingLanguage, TITLE);
         this.imageMap=(ImageMap) imageMap;
     }
     
     
     @Override
     protected void createElementsBelowCheckBoxes () {
-        Button chooseFile = ButtonFactory.createButton(getStringFromResources("image"), e->openImageChooser());
+        Button chooseFile = ButtonFactory.createButton(getStringFromResources(TITLE), e->openImageChooser());
         addToScene(chooseFile);
     }
 
