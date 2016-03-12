@@ -18,10 +18,11 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class SlogoParser {
+	
+	private static final String COMMAND_NAME = "command";
+    private static final String ERROR = "NO MATCH";
 
     private final Map<String, Pattern> mySymbols;
-
-    private final String ERROR = "NO MATCH";
 
     public SlogoParser(String... bundles) {
         mySymbols = new HashMap<>();
@@ -49,7 +50,7 @@ public class SlogoParser {
                 .collect(Collectors.toList());
         if (symbols.size() == 0) return ERROR;
         if (symbols.size() == 1) return symbols.get(0);
-        Predicate<String> getRidOfCommand = (e -> !e.equals("Command"));
+        Predicate<String> getRidOfCommand = (e -> !e.equals(COMMAND_NAME));
         return symbols.parallelStream()
                 .filter(getRidOfCommand)
                 .findFirst().orElse(ERROR);
@@ -71,7 +72,7 @@ public class SlogoParser {
 
     private boolean isInvalidCommand(DefinedCommands definedCommands, Entry<String, String> e) {
         boolean isError = Objects.equals(e.getKey(), ERROR);
-        boolean inValidCommand = Objects.equals("Command", e.getKey())
+        boolean inValidCommand = Objects.equals(COMMAND_NAME, e.getKey())
                 && !definedCommands.containsCommand(e.getValue());
         return isError ||  inValidCommand;
     }

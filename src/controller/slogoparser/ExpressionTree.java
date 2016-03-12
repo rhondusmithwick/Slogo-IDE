@@ -26,10 +26,13 @@ import java.util.stream.IntStream;
  * @author Rhondu Smithwick
  */
 public class ExpressionTree {
+	
+	private static final String START_COMMANDS = "ListStart";
+	private static final String END_COMMANDS = "ListEnd";
+	private static final String REPCOUNT_COMMAND = ":repcount";
+	private static final String COMMANDS_LIST = "model/commandLocations";
 
-    private final ResourceBundle commandLocations = ResourceBundle.getBundle("model/commandLocations");
-
-    private Queue<Entry<String, String>> parsedText;
+    private final ResourceBundle commandLocations;
 
     private final List<TreeNode> rootList;
 
@@ -41,9 +44,12 @@ public class ExpressionTree {
     private final IndexMap colorMap;
 
     private final TurtleManager turtleManager;
-
+    
+    private Queue<Entry<String, String>> parsedText;
+    
     public ExpressionTree(TurtleManager turtleManager, MapObservable<String, Variable> variables, DefinedCommands definedCommands,
                           GlobalProperties properties, Queue<Entry<String, String>> parsedText) {
+    	this.commandLocations = ResourceBundle.getBundle(COMMANDS_LIST);
         this.turtleManager = turtleManager;
         this.variables = variables;
         this.definedCommands = definedCommands;
@@ -80,9 +86,9 @@ public class ExpressionTree {
 
     public List<TreeNode> getCommandsFromList() {
         List<TreeNode> myRoots = new LinkedList<>();
-        if (parsedText.peek().getKey().equals("ListStart")) {
+        if (parsedText.peek().getKey().equals(START_COMMANDS)) {
             parsedText.poll();
-            while (!parsedText.peek().getKey().equals("ListEnd")) {
+            while (!parsedText.peek().getKey().equals(END_COMMANDS)) {
                 TreeNode root = createRoot();
                 myRoots.add(root);
             }
@@ -199,8 +205,8 @@ public class ExpressionTree {
     }
 
     private TreeNode variableHandle(Entry<String, String> curr) {
-        if (curr.getValue().equals(":repcount")) {
-            return variables.get(":repcount");
+        if (curr.getValue().equals(REPCOUNT_COMMAND)) {
+            return variables.get(REPCOUNT_COMMAND);
         }
         return variables.get(curr.getValue());
     }

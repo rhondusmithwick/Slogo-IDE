@@ -1,12 +1,13 @@
 package model.display;
 
 import controller.slogoparser.ExpressionTree;
+import maps.IndexMap;
 import model.treenode.CommandNode;
 import model.treenode.TreeNode;
 
 public class SetPalette extends CommandNode {
 
-    private ExpressionTree tree;
+    private IndexMap colorMap;
     private int index;
 
     @Override
@@ -19,7 +20,7 @@ public class SetPalette extends CommandNode {
     public void handleSpecific(ExpressionTree tree) {
         TreeNode node = tree.createRoot();
         this.addChild(node);
-        this.tree = tree;
+        this.colorMap = tree.getColorMap();
     }
 
     private void setPalette() {
@@ -28,7 +29,7 @@ public class SetPalette extends CommandNode {
         int g = (int) getChildren().get(2).getValue();
         int b = (int) getChildren().get(3).getValue();
         String value = r + " " + g + " " + b;
-        tree.getColorMap().setAtIndex(index, value);
+        colorMap.setAtIndex(index, value);
     }
 
     @Override

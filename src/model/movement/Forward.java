@@ -13,5 +13,4 @@ public class Forward extends Movement {
     public double turtleExecute(Turtle turtle) {
         return move(turtle, 1);
     }
-
 }

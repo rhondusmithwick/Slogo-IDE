@@ -22,15 +22,14 @@ public class SetShape extends TurtleCommandNode {
         this.imageMap = tree.getImageMap();
     }
 
-    @Override
-    protected int getNumChildrenRequired() {
-        return 1;
-    }
-
     private void setShape(Turtle turtle) {
         index = (int) getChildren().get(0).getValue();
         turtle.getTurtleProperties().setPenShapeIndex(index);
         turtle.getTurtleProperties().setImage(imageMap.get(index));
     }
 
+    @Override
+    protected int getNumChildrenRequired() {
+        return 1;
+    }
 }

@@ -35,18 +35,4 @@ public class SaveFile {
 		print.printf("%s" + "\n", text);
 		print.close();
 	}
-	
-	public static void main(String[] args) throws IOException {
-		MapObservable<String, Variable> variables = new MapObservable<>("variables");
-		String[] names = {"var1", "var2", "var3", "var4", "var5"};
-		for (int i = 0; i < 5; i++) {
-			Variable var = new Variable();
-			var.setValue(i);
-			variables.put(names[i], var);
-		}
-		
-		SaveFile save = new SaveFile("C:/Users/Jonathan/Desktop/test.txt");
-		String text = save.variablesToText(variables);
-		save.writeToFile(text);
-	}
 }
