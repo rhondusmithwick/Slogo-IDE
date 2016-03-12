@@ -6,10 +6,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import main.GlobalProperties;
+import maps.MapContainer;
 import model.turtle.TurtleManager;
 import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Variable;
-import observables.MapObservable;
 
 import java.util.Arrays;
 import java.util.List;

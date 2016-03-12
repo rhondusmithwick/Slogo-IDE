@@ -1,10 +1,9 @@
 package model.usercontrol;
 
-import controller.controller.MapContainer;
+import maps.MapContainer;
 import controller.slogoparser.ExpressionTree;
 import model.treenode.CommandNode;
 import model.treenode.TreeNode;
-import observables.MapObservable;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class MakeUserInstruction extends CommandNode {
 	private static final String START_COMMANDS = "ListStart";
 	private static final String END_COMMANDS = "ListEnd";
 	
-    private final Map<Integer, String> variableNames = new HashMap<>();
+    private final Map<Integer, String> variableNames = new TreeMap<>();
     private final Map<String, Variable> variableMap = new HashMap<>();
     private final Queue<Entry<String, String>> myCommands = new LinkedList<>();
     private double value = 0;
@@ -39,11 +40,6 @@ public class MakeUserInstruction extends CommandNode {
         variableNames.put(index, name);
         variableMap.put(name, new UserCommandVariable());
     }
-
-//    @Override
-//    protected int getNumChildrenRequired() {
-//        return 3;
-//    }
 
     private int numVariables() {
         return variableMap.size();
@@ -81,15 +77,21 @@ public class MakeUserInstruction extends CommandNode {
         UserCommand userCommand = new UserCommand();
         setValuesForCommand(tree);
         MapContainer<Variable> treeVariables = tree.getVariables();
-        Predicate<Entry<String, Variable>> notAlreadyVariable = (e) -> (!isAlreadyVariable(tree, e.getKey()));
-        variableMap.entrySet().parallelStream().filter(notAlreadyVariable)
-                .forEach(e -> treeVariables.put(e.getKey(), e.getValue()));
+        Set<String> alreadyVariables = getAlreadyInTreeVariables(tree);
+        Predicate<Entry<String, Variable>> inAlreadyVariables = (e) -> (alreadyVariables.contains(e.getKey()));
+        variableMap.entrySet().parallelStream().filter(inAlreadyVariables.negate())
+                .forEach(treeVariables::putEntry);
         addChildrenToUserCommand(userCommand, tree);
-        variableMap.entrySet().parallelStream().filter(notAlreadyVariable)
-                .map(Entry::getKey).forEach(treeVariables::remove);
+        variableMap.entrySet().parallelStream().filter(inAlreadyVariables.negate()).map(Entry::getKey)
+                .forEach(treeVariables::remove);
         return userCommand;
     }
 
+    private Set<String> getAlreadyInTreeVariables(ExpressionTree tree) {
+        Predicate<String> isAlreadyVariable = (k) -> (isAlreadyVariable(tree, k));
+        return variableMap.keySet().parallelStream().filter(isAlreadyVariable)
+                .collect(Collectors.toSet());
+    }
 
     private boolean isAlreadyVariable(ExpressionTree tree, String value) {
         return tree.getVariables().contains(value);
@@ -132,8 +134,8 @@ public class MakeUserInstruction extends CommandNode {
     }
 
     public List<String> getVariableList() {
-        return variableNames.keySet().parallelStream()
-                .sorted().map(variableNames::get).collect(Collectors.toList());
+        return variableNames.entrySet().stream()
+                .map(Entry::getValue).collect(Collectors.toList());
     }
 
     @Override

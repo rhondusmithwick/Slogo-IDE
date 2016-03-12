@@ -1,4 +1,4 @@
-package controller.controller;
+package maps;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -58,5 +58,11 @@ public class MapContainer<T> {
         map.entrySet().parallelStream().forEach(this::addString);
         frontEndText.set(theStrings.toString());
     }
+
+    public void putEntry(Entry<String, T> e) {
+        map.put(e.getKey(), e.getValue());
+    }
+
+
 
 }

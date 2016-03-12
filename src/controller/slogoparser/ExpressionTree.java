@@ -1,6 +1,6 @@
 package controller.slogoparser;
 
-import controller.controller.MapContainer;
+import maps.MapContainer;
 import javafx.application.Platform;
 import main.GlobalProperties;
 import maps.IndexMap;
