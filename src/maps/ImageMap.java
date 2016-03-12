@@ -2,7 +2,8 @@ package maps;
 
 import java.io.File;
 
-import observables.MapObservable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import view.Defaults;
 
 
@@ -15,7 +16,7 @@ import view.Defaults;
 
 public class ImageMap extends IndexMap{
 
-    private MapObservable<Integer, String> images;
+    private ObservableMap<Integer, String> images;
     private int count;
 
     /**
@@ -32,7 +33,7 @@ public class ImageMap extends IndexMap{
      * @return mapObservable backing the image map
      */
     @Override
-    public MapObservable<Integer, String> getIndexMap () {
+    public ObservableMap<Integer, String> getIndexMap () {
         return images;
     }
 
@@ -45,7 +46,7 @@ public class ImageMap extends IndexMap{
     @Override
     public void setAtIndex (int index, String value) {
         images.put(index, value);
-        images.notifyObservers();
+   
 
     }
 
@@ -75,7 +76,7 @@ public class ImageMap extends IndexMap{
      */
     @Override
     protected void newMap () {
-        images = new MapObservable<>("images");
+        images = FXCollections.observableHashMap();
         
     }
 

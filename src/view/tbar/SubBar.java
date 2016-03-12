@@ -132,7 +132,7 @@ public abstract class SubBar{
      * @return list of all colors
      */
     protected List<String> getColors(){
-            return new ArrayList<>(colorMap.getIndexMap().getValues());
+            return new ArrayList<>(colorMap.getIndexMap().values());
     }
     
     protected int getColorIndex(String value){

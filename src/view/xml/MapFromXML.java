@@ -5,7 +5,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import observables.MapObservable;
+import javafx.collections.ObservableMap;
 import view.Defaults;
 
 /**
@@ -20,13 +20,13 @@ public class MapFromXML extends XMLParser {
     private File file;
     private Document document;
     
-    private MapObservable<Integer, String> map;
+    private ObservableMap<Integer, String> map;
 
     /**
      * creates new MapFromXML instance
      * @param map MapObservable object to be populated by file data
      */
-    public MapFromXML(MapObservable<Integer, String> map){
+    public MapFromXML(ObservableMap<Integer, String> map){
         this.map = map;
     }
     

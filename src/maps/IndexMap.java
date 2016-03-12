@@ -4,7 +4,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-import observables.MapObservable;
+import javafx.collections.ObservableMap;
 import view.Defaults;
 import view.xml.MapFromXML;
 
@@ -49,7 +49,7 @@ public abstract class IndexMap {
      */
     public int getIndex(String value){
         Predicate<Entry<Integer, String>> isValue= (e) -> (Objects.equals(value, e.getValue()));
-        return getIndexMap().getEntrySet().parallelStream()
+        return getIndexMap().entrySet().parallelStream()
                 .filter(isValue)
                 .map(Entry::getKey).findFirst().orElse(0);
     }
@@ -90,7 +90,7 @@ public abstract class IndexMap {
      * returns the MapObservable object that backs the index map
      * @return MapObservable backing index map
      */
-    public abstract MapObservable<Integer, String> getIndexMap();
+    public abstract ObservableMap<Integer, String> getIndexMap();
     
     /**
      * adds a key, value pair to the index map

@@ -4,9 +4,10 @@ import java.io.File;
 import java.util.Map.Entry;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import javafx.collections.ObservableMap;
 import maps.ColorMap;
 import maps.IndexMap;
-import observables.MapObservable;
 import view.Defaults;
 
 /**
@@ -18,7 +19,7 @@ import view.Defaults;
 
 public class MapToXML extends XMLWriter {
     private String saveLocation;
-    private MapObservable<Integer, String> map;
+    private ObservableMap<Integer, String> map;
     private File file;
     private Document document;
 
@@ -45,7 +46,7 @@ public class MapToXML extends XMLWriter {
      */
     @Override
     protected void addElements () {
-        map.getEntrySet().stream().forEach(e->addToDoc(e));
+        map.entrySet().stream().forEach(e->addToDoc(e));
         
     }
 

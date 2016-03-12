@@ -5,9 +5,8 @@ import view.tbar.popupdisplays.HelpScreen;
 import view.tbar.popupdisplays.IndexMapSaver;
 import view.tbar.popupdisplays.WorkSpaceSaver;
 import view.utilities.PopUp;
-import java.util.Observable;
-import java.util.Observer;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.MapChangeListener;
 import javafx.scene.control.ComboBox;
 import main.GlobalProperties;
 import main.Slogo;
@@ -22,7 +21,7 @@ import observables.ObjectObservable;
  * @author calisnelson and Stephen Kwok
  *
  */
-public class BottomBar extends SubBar implements Observer {
+public class BottomBar extends SubBar {
 
 
 	private ObjectObservable<String> backgroundColor;
@@ -53,22 +52,30 @@ public class BottomBar extends SubBar implements Observer {
 		super(globalProperties.getLanguage(), internalCommand, globalProperties.getColorMap(), error);
 		this.imageMap =(ImageMap) globalProperties.getImageMap();
 		this.colorMap = (ColorMap) globalProperties.getColorMap();
-		this.colorMap.getIndexMap().addObserver(this);
+		this.colorMap.getIndexMap().addListener((MapChangeListener<Integer, String>) change -> updateColors());
 		 helpScreen = new HelpScreen();
 		 this.slogo = slogo;
 		this.backgroundColor = globalProperties.getBackgroundColor();
 		
 	}
 
+	private void updateColors() {
+		getContainer().getChildren().remove(backgroundColorBox);
+		createColorBox();
+	}
+
 	/**
 	 * creates all comboboxes needed for sub bar
 	 */
 	@Override
-	protected void createComboBoxes() {
-		
-		backgroundColorBox = createComboBox("bColor", getColors(), e -> setBackground());
+	protected void createComboBoxes() {	
+		createColorBox();
 		languageBox = createComboBox("selLang", getLanguages(), e -> setLang());
 
+	}
+
+	private void createColorBox() {
+		backgroundColorBox = createComboBox("bColor", getColors(), e -> setBackground());
 	}
 
 	private void setBackground() {
@@ -120,15 +127,5 @@ public class BottomBar extends SubBar implements Observer {
 		workspaceSaver.show();
 	}
 	
-	/**
-	 * called whenever color map is updated with new option. Removes and
-	 * recreates background color box and pen color box so that that they
-	 * include the new option.
-	 */
-	@Override
-	public void update(Observable o, Object arg) {
-		getContainer().getChildren().remove(backgroundColorBox);
-		createComboBoxes();
-	}
 
 }

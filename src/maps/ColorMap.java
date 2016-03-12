@@ -2,8 +2,9 @@ package maps;
 
 import java.lang.reflect.Field;
 import view.Defaults;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import javafx.scene.paint.Color;
-import observables.MapObservable;
 
 /**
  * this class is a map between an integer index and a string representing a valid
@@ -16,7 +17,7 @@ public class ColorMap extends IndexMap {
     private static final int B = 2;
     private static final int G = 1;
     private static final int R = 0;
-    private MapObservable<Integer,String> colors;
+    private ObservableMap<Integer,String> colors;
     private int count;
 
     /**
@@ -31,7 +32,7 @@ public class ColorMap extends IndexMap {
      * @return map observable<String,Integer> that backs the color map
      */
     @Override
-    public MapObservable<Integer, String> getIndexMap(){
+    public ObservableMap<Integer, String> getIndexMap(){
         return colors;
     }
     
@@ -46,8 +47,6 @@ public class ColorMap extends IndexMap {
         String[] rgb = toSet.split(" ");
         String value = "rgb(" + rgb[R] + "," + rgb[G]+ ","+rgb[B]+")";
         colors.put(index, value);
-        System.out.println(colors.countObservers());
-        colors.notifyObservers();
     }
 
     /**
@@ -75,7 +74,7 @@ public class ColorMap extends IndexMap {
      */
     @Override
     protected void newMap() {
-        colors = new MapObservable<>("colors");
+        colors = FXCollections.observableHashMap();
     }
 
     /**

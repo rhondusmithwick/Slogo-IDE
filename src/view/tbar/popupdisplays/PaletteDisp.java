@@ -6,13 +6,13 @@ import java.util.ResourceBundle;
 import view.Defaults;
 import view.Size;
 import view.utilities.PopUp;
+import javafx.collections.ObservableMap;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import observables.MapObservable;
 
 /**
  * This abstract class acts as a base for subclasses that display palettes to the user such 
@@ -28,7 +28,7 @@ public abstract class PaletteDisp extends PopUp {
     private String title;
     private HBox hBox;
 
-	private MapObservable<Integer, String> map;
+	private ObservableMap<Integer, String> map;
 
     
     
@@ -48,7 +48,7 @@ public abstract class PaletteDisp extends PopUp {
      * Shows the palette display for the given map observable object
      * @param map map obsevable to create display with
      */
-    public void show(MapObservable<Integer, String> map){
+    public void show(ObservableMap<Integer, String> map){
         this.map = map;
         super.show();
     }
@@ -75,7 +75,7 @@ public abstract class PaletteDisp extends PopUp {
     	setVBox();
         scroll.setContent(vBox);
         addNodes(Arrays.asList(scroll));
-        map.getEntrySet().stream().forEach(e->addToPalette(e));
+        map.entrySet().stream().forEach(e->addToPalette(e));
     }
     
 
