@@ -12,6 +12,7 @@ import observables.ObjectObservable;
  * @author Stephen
  *
  */
+
 public class PenUpUpdater extends PenUpDownUpdater {
 
 	/**

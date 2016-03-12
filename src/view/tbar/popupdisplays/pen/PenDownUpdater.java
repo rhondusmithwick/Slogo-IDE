@@ -6,10 +6,12 @@ import observables.ObjectObservable;
 
 
 /**
- * 
- * @author Stephen
+ * Class Responsible for setting the pen down for all user selected turtles.
+ * Extends the abstract PenUpDownUpdater class.
+ * @author Stephen Kwok
  *
  */
+
 public class PenDownUpdater extends PenUpDownUpdater {
 
 	/**
