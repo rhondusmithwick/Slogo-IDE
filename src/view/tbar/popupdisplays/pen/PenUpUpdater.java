@@ -4,6 +4,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import observables.ObjectObservable;
 
+/**
+ * Class Responsible for setting the pen up for all user selected turtles.
+ * Extends the abstract PenUpDownUpdater class.
+ * @author Stephen Kwok
+ *
+ */
+
 public class PenUpUpdater extends PenUpDownUpdater {
 
 	/**
