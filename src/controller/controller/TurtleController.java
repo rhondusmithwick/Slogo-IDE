@@ -59,21 +59,21 @@ public class TurtleController implements Controller {
     @Override
     public void takeInput(String input) {
         Queue<Entry<String, String>> parsedText = parser.parseText(definedCommands, input);
-        runCommands(parsedText);
-    }
-
-    private void runCommands(Queue<Entry<String, String>> parsedText) {
         if (parsedText == null) {
             error.set("");
             error.set("Command not recognized: " + properties.getInput().get());
         } else {
-            try {
-                ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables, definedCommands, properties, parsedText);
-                new Thread(expressionTree::executeAll).start();
-            } catch (Exception es) {
-                error.set("");
-                error.set("Exception in command argument: " + properties.getInput().get());
-            }
+            runCommands(parsedText);
+        }
+    }
+
+    private void runCommands(Queue<Entry<String, String>> parsedText) {
+        try {
+            ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables, definedCommands, properties, parsedText);
+            new Thread(expressionTree::executeAll).start();
+        } catch (Exception es) {
+            error.set("");
+            error.set("Exception in command argument: " + properties.getInput().get());
         }
     }
 

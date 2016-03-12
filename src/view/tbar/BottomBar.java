@@ -1,7 +1,7 @@
 package view.tbar;
 
 import view.Defaults;
-import view.tbar.popupdisplays.ImageChooser;
+import view.tbar.popupdisplays.HelpScreen;
 import view.tbar.popupdisplays.IndexMapSaver;
 import view.tbar.popupdisplays.WorkSpaceSaver;
 import view.utilities.PopUp;
@@ -10,6 +10,7 @@ import java.util.Observer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.ComboBox;
 import main.GlobalProperties;
+import main.Slogo;
 import maps.ColorMap;
 import maps.ImageMap;
 import observables.ObjectObservable;
@@ -29,8 +30,8 @@ public class BottomBar extends SubBar implements Observer {
 	private ImageMap imageMap;
 	private ComboBox<String> backgroundColorBox;
 	private ComboBox<String> languageBox;
-
-	private SimpleStringProperty image;
+	    private HelpScreen helpScreen;
+	    private Slogo slogo;
 
 	/**
 	 * Creates a new bottom bar instance
@@ -48,13 +49,13 @@ public class BottomBar extends SubBar implements Observer {
 	 *            Index map object for mapping images to integer indexes
 	 */
 	public BottomBar( GlobalProperties globalProperties, ObjectObservable<String> internalCommand, 
-			 SimpleStringProperty image, SimpleStringProperty error) {
+	                  SimpleStringProperty error, Slogo slogo) {
 		super(globalProperties.getLanguage(), internalCommand, globalProperties.getColorMap(), error);
 		this.imageMap =(ImageMap) globalProperties.getImageMap();
 		this.colorMap = (ColorMap) globalProperties.getColorMap();
 		this.colorMap.getIndexMap().addObserver(this);
-		this.image =image;
-		
+		 helpScreen = new HelpScreen();
+		 this.slogo = slogo;
 		this.backgroundColor = globalProperties.getBackgroundColor();
 		
 	}
@@ -91,10 +92,11 @@ public class BottomBar extends SubBar implements Observer {
 	 */
 	@Override
 	protected void createButtons() {
-		makeButton("image", e -> chooseTurtIm());
 		makeButton("workSaver", e -> saveWorkSpace());
 		makeButton("saveColor", e -> saveMap(true));
 		makeButton("saveImage", e -> saveMap(false));
+		makeButton("help", e -> helpScreen.show());
+	        makeButton("newWS", e -> slogo.newView());
 
 	}
 
@@ -112,20 +114,6 @@ public class BottomBar extends SubBar implements Observer {
 		}
 	}
 	
-	private void chooseTurtIm() {
-
-		ImageChooser imChoose = new ImageChooser();
-		imChoose.show();
-		String newImage;
-		try {
-			newImage = imChoose.getChosen();
-			if (newImage != null) {
-				image.set(newImage);
-			}
-		} catch (Exception e) {
-			return;
-		}
-	}
 
 	private void saveWorkSpace() {
 		PopUp workspaceSaver = new WorkSpaceSaver(getColors(), getLanguages());

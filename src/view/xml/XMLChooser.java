@@ -2,6 +2,7 @@ package view.xml;
 
 import java.io.File;
 import java.util.Arrays;
+import view.Defaults;
 import view.FileExtensions;
 import view.utilities.SlogoFileChooser;
 
@@ -17,7 +18,7 @@ public class XMLChooser extends SlogoFileChooser{
      * @param save boolean whether to save or open file
      */
     public XMLChooser(boolean save){
-    	super("xmlSelect", Arrays.asList(FileExtensions.XML.getFilter()), save);
+    	super("xmlSelect", Arrays.asList(FileExtensions.XML.getFilter()), save, Defaults.WS_PREF_LOC.getDefault());
     }
 
     /**

@@ -3,6 +3,7 @@ package view.tbar.popupdisplays;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Arrays;
+import view.Defaults;
 import view.FileExtensions;
 import view.utilities.SlogoFileChooser;
 
@@ -23,7 +24,7 @@ public class ImageChooser extends SlogoFileChooser {
     	
         super("image", Arrays.asList(FileExtensions.JPG.getFilter(), 
                 FileExtensions.PNG.getFilter(),
-                FileExtensions.GIF.getFilter() ), false);
+                FileExtensions.GIF.getFilter() ), false, Defaults.IMAGE_LOC.getDefault());
     }
 	/**
 	 * returns the string file path of the file the user chose, or null if no file was chosen
