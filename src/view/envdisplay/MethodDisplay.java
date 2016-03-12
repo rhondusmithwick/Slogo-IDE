@@ -6,56 +6,59 @@ import main.GlobalProperties;
 import observables.ObjectObservable;
 import view.Defaults;
 
-
 /**
- * sub class of defined objects display responsible for showing user defined methods
- * and for starting the updating process when user methods are clicked
+ * sub class of defined objects display responsible for showing user defined
+ * methods and for starting the updating process when user methods are clicked
  * 
  * @author calinelson and stephen kwok
  *
  */
 public class MethodDisplay extends DefinedObjectsDisplay {
 
-    private EnvActor updater;
+	private EnvActor updater;
 
-    /**
-     * Creates new Method display instance
-     * 
-     * @param parsingLanguage observable string containing parsing language
-     * @param intCommand observable string to pass commands to command entry instance
-     * @param methods simplestring property storing user defined methods
-     * @param error simplestringproperty to pass errors to be shown
-     */
-    public MethodDisplay (GlobalProperties globalProperties,
-                          ObjectObservable<String> internalCommand,
-                          SimpleStringProperty methods,
-                          SimpleStringProperty error) {
-        super(methods, globalProperties.getLanguage(), internalCommand, error,
-              Defaults.METHOD_SPLITTER.getDefault(), "methodDisplayTitle");
-        createCurrEnvDisp();
-    }
+	/**
+	 * Creates new Method display instance
+	 * 
+	 * @param parsingLanguage
+	 *            observable string containing parsing language
+	 * @param intCommand
+	 *            observable string to pass commands to command entry instance
+	 * @param methods
+	 *            simplestring property storing user defined methods
+	 * @param error
+	 *            simplestringproperty to pass errors to be shown
+	 */
+	public MethodDisplay(GlobalProperties globalProperties, ObjectObservable<String> internalCommand,
+			SimpleStringProperty methods, SimpleStringProperty error) {
+		super(methods, globalProperties.getLanguage(), internalCommand, error, Defaults.METHOD_SPLITTER.getDefault(),
+				"methodDisplayTitle");
+		createCurrEnvDisp();
+	}
 
-    /**
-     * creates a new updater object that updates a label's text based on user input
-     * 
-     * @param Label label whose text is to be updated
-     */
-    @Override
-    protected void updateDefinedObject (Label label) {
-        updater = getUpdater(Defaults.METH_ACT_LOC.getDefault(), label);
-        updater.show();
-    }
+	/**
+	 * creates a new updater object that updates a label's text based on user
+	 * input
+	 * 
+	 * @param Label
+	 *            label whose text is to be updated
+	 */
+	@Override
+	protected void updateDefinedObject(Label label) {
+		updater = getUpdater(Defaults.METH_ACT_LOC.getDefault(), label);
+		updater.show();
+	}
 
-    protected void parseString (String text) {
-        if(text.endsWith("}")){
-            return;
-        }
-        String[] split = text.split("=");
-        split[0] = split[0].substring(1);
-        if(split[0].startsWith(" ")){
-            split[0]=split[0].substring(1);
-        }
-        setLabel(split[0] + " " + split[1] + "]");
-    }
+	protected void parseString(String text) {
+		if (text.endsWith("}")) {
+			return;
+		}
+		String[] split = text.split("=");
+		split[0] = split[0].substring(1);
+		if (split[0].startsWith(" ")) {
+			split[0] = split[0].substring(1);
+		}
+		setLabel(split[0] + " " + split[1] + "]");
+	}
 
 }

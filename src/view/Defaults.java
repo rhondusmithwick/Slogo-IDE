@@ -33,7 +33,14 @@ public enum Defaults {
 	WS_PREF_LOC("WorkSpacePreferences/"),
 	REP_VAR(":repcount"),
 	METHOD_SPLITTER("]"),
-	VAR_SPLITTER(",");
+	VAR_SPLITTER(","),
+	TURTLE_SELECTOR("view.tbar.popupdisplays.TurtleSelector"),
+	PEN_UP("view.tbar.popupdisplays.pen.PenUpUpdater"),
+	PEN_DOWN("view.tbar.popupdisplays.pen.PenDownUpdater"),
+	PEN_COLOR_UPDATER("view.tbar.popupdisplays.pen.PenColorUpdater"),
+	PEN_SIZE_UPDATER("view.tbar.popupdisplays.pen.PenSizeUpdater");
+	
+	
 	
 	private String content;
 	

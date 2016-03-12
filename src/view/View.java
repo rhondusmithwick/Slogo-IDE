@@ -155,8 +155,8 @@ public class View implements ViewInt {
 
     private void createToolBar() {
         top = new VBox(Size.TB_PADDING.getSize());
-        topBar = new TopBar(globalProperties, turtleIDs, internalCommand, slogo, selectedTurtle);
-        bottomBar = new BottomBar( globalProperties, internalCommand, image);
+        topBar = new TopBar(globalProperties, turtleIDs, internalCommand, slogo, selectedTurtle, error);
+        bottomBar = new BottomBar( globalProperties, internalCommand, image, error);
         top.getChildren().addAll(topBar.getContainer(), bottomBar.getContainer());
         BorderPane.setMargin(top, ViewInsets.TOP.getInset());
 
