@@ -45,7 +45,7 @@ public abstract class TurtlePropertyUpdater extends PopUp {
      */
     protected TurtlePropertyUpdater(SimpleStringProperty turtleIDs,
                                     ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, String titleText) {
-        super(Size.TURTLE_UPDATE_POPUP_HEIGHT.getSize(), Size.TURTLE_UPDATE_POPUP_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
+        super(Size.TURTLE_UPDATE_POPUP_WIDTH.getSize(), Size.TURTLE_UPDATE_POPUP_HEIGHT.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         this.parsingLanguage = parsingLanguage;
         this.internalCommand = internalCommand;

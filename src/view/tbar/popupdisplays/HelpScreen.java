@@ -5,9 +5,7 @@ import javafx.scene.web.WebView;
 import view.Defaults;
 import view.Size;
 import view.utilities.PopUp;
-
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.ResourceBundle;
 

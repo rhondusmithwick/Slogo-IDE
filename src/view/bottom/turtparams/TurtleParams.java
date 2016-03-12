@@ -1,16 +1,13 @@
-package view.turtparams;
+package view.bottom.turtparams;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
 import view.Defaults;
-import view.Size;
-
+import view.utilities.BottomDisplay;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -22,7 +19,7 @@ import java.util.ResourceBundle;
  * @author Stephen Kwok
  */
 
-public class TurtleParams implements Observer {
+public class TurtleParams extends BottomDisplay implements Observer {
 
 
     private final ResourceBundle myResources;
@@ -40,7 +37,7 @@ public class TurtleParams implements Observer {
      */
     public TurtleParams(ObjectObservable<Integer> turtleId) {
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-        setScroll();
+        scroll = setScroll();
         this.turtleId = turtleId;
         turtleId.addObserver(this);
         setParams(1);
@@ -60,15 +57,6 @@ public class TurtleParams implements Observer {
         box.getChildren().add(createLabel(myResources.getString("penHead")));
         box.getChildren().add(createLabel(myResources.getString("penStat")));
         box.getChildren().add(createLabel(myResources.getString("penColor")));
-    }
-
-    private void setScroll()
-    {
-        scroll = new ScrollPane();
-        scroll.setMinViewportHeight(Size.BOTTOM_HEIGHT.getSize());
-        scroll.setPrefViewportHeight(Size.BOTTOM_HEIGHT.getSize());
-        scroll.setMaxHeight(Size.BOTTOM_HEIGHT.getSize());
-        HBox.setHgrow(scroll, Priority.ALWAYS);
     }
 
 

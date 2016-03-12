@@ -3,9 +3,7 @@ package view.xml;
 import view.Defaults;
 import view.FileExtensions;
 import view.utilities.SlogoFileChooser;
-
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**

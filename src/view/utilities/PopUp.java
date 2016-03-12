@@ -35,7 +35,7 @@ public abstract class PopUp {
      * @param width           int width of window
      * @param backgroundColor css string for window background color
      */
-    protected PopUp(int height, int width, String backgroundColor) {
+    protected PopUp(int width, int height, String backgroundColor) {
         this.height = height;
         this.width = width;
         this.backgroundColor = backgroundColor;
@@ -47,7 +47,7 @@ public abstract class PopUp {
     public void show() {
         stage = new Stage();
         root = new Group();
-        myScene = new Scene(root, height, width);
+        myScene = new Scene(root, width, height);
         createContainer();
         createScene();
         showScene();

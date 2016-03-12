@@ -13,8 +13,6 @@ import view.Size;
 import view.utilities.ButtonFactory;
 import view.utilities.GetCommand;
 import view.utilities.PopUp;
-
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;

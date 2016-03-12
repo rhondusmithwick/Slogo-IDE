@@ -10,8 +10,6 @@ import javafx.scene.layout.VBox;
 import view.Defaults;
 import view.Size;
 import view.utilities.PopUp;
-
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;

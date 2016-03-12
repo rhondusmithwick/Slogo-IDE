@@ -1,16 +1,13 @@
-package view.commhistory;
+package view.bottom.commhistory;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import observables.ObjectObservable;
 import view.Defaults;
-import view.Size;
-
+import view.utilities.BottomDisplay;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -24,7 +21,7 @@ import java.util.ResourceBundle;
  * @author Stephen
  */
 
-public class CommandHistoryDisplay implements Observer {
+public class CommandHistoryDisplay extends BottomDisplay implements Observer {
     private ScrollPane myScrollPane;
     private final List<Label> commandLabels;
     private final List<String> commands;
@@ -47,7 +44,7 @@ public class CommandHistoryDisplay implements Observer {
         this.commands = new ArrayList<>();
         this.commandLabels = new ArrayList<>();
         this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-        createScrollPane();
+        myScrollPane = setScroll();
         createVBox();
         createTitle();
         myScrollPane.setContent(myCommHistory);
@@ -58,13 +55,6 @@ public class CommandHistoryDisplay implements Observer {
         myCommHistory.prefWidthProperty().bind(myScrollPane.widthProperty());
     }
 
-    private void createScrollPane() {
-        myScrollPane = new ScrollPane();
-        myScrollPane.setMinViewportHeight(Size.BOTTOM_HEIGHT.getSize());
-        myScrollPane.setPrefViewportHeight(Size.BOTTOM_HEIGHT.getSize());
-        myScrollPane.setMaxHeight(Size.BOTTOM_HEIGHT.getSize());
-        HBox.setHgrow(myScrollPane, Priority.ALWAYS);
-    }
 
     private void createTitle() {
         Label title = addCommand(myResources.getString("commBTitle"));

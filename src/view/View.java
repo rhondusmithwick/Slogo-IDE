@@ -11,8 +11,9 @@ import javafx.scene.layout.VBox;
 import main.GlobalProperties;
 import main.Slogo;
 import observables.ObjectObservable;
+import view.bottom.commhistory.CommandHistoryDisplay;
+import view.bottom.turtparams.TurtleParams;
 import view.commentry.CommandEntry;
-import view.commhistory.CommandHistoryDisplay;
 import view.envdisplay.DefinedObjectsDisplay;
 import view.envdisplay.MethodDisplay;
 import view.envdisplay.VariableDisplay;
@@ -21,7 +22,6 @@ import view.tbar.BottomBar;
 import view.tbar.SubBar;
 import view.tbar.TopBar;
 import view.turtdisplay.TurtleDisplay;
-import view.turtparams.TurtleParams;
 import view.utilities.ButtonFactory;
 
 import java.util.Arrays;
