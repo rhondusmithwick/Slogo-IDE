@@ -20,7 +20,7 @@ Keys/Mouse input: textfield to enter commands, buttons to control everything els
 
 Cheat Keys: none
  
-Known bugs:  if the user adds a color to the palette, the dropdown menu to select a color won't show the new color, as for somereason the observable used to store the colors and integers refuses to notify observers correctly. Sometimes using the turtle selector causes an array out of bounds exception, especially with a large number of turtles
+Known bugs:  if the user adds a color to the palette, the dropdown menu to select a color won't show the new color, as for somereason the observable used to store the colors and integers refuses to notify observers correctly. Sometimes using the turtle selector causes an array out of bounds exception, especially with a large number of turtles, this happens especially on pcs. Also on pc, creating a user defined command sometimes causes quite a few exceptions and the command won't run properly.
 
 Extra features:
 
