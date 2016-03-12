@@ -110,7 +110,6 @@ public abstract class DefinedObjectsDisplay {
 		vBox = new VBox();
 		setTitle();
 		String definedObjectsString = definedObjects.get();
-		System.out.println(definedObjectsString);
 		if (definedObjectsString != null) {
 			definedObjectsArray = definedObjectsString.split(splitter);
 			Arrays.asList(definedObjectsArray).stream().forEach(e->parseString(e));

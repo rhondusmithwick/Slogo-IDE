@@ -48,8 +48,8 @@ public class BottomBar extends SubBar implements Observer {
 	 *            Index map object for mapping images to integer indexes
 	 */
 	public BottomBar( GlobalProperties globalProperties, ObjectObservable<String> internalCommand, 
-			 SimpleStringProperty image ) {
-		super(globalProperties.getLanguage(), internalCommand, globalProperties.getColorMap());
+			 SimpleStringProperty image, SimpleStringProperty error) {
+		super(globalProperties.getLanguage(), internalCommand, globalProperties.getColorMap(), error);
 		this.imageMap =(ImageMap) globalProperties.getImageMap();
 		this.colorMap = (ColorMap) globalProperties.getColorMap();
 		this.colorMap.getIndexMap().addObserver(this);

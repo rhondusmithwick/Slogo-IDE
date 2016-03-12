@@ -1,23 +1,22 @@
 package view.tbar;
 
+import java.lang.reflect.Constructor;
+
 import javafx.beans.property.SimpleStringProperty;
+import main.GlobalProperties;
+import main.Slogo;
 import maps.ColorMap;
 import maps.IndexMap;
 import observables.ObjectObservable;
+import view.Defaults;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.HelpScreen;
 import view.tbar.popupdisplays.ImageDisplay;
 import view.tbar.popupdisplays.PaletteDisp;
 import view.tbar.popupdisplays.TurtlePropSelect;
 import view.tbar.popupdisplays.TurtlePropertyUpdater;
-import view.tbar.popupdisplays.TurtleSelector;
 import view.tbar.popupdisplays.pen.PenColorUpdater;
-import view.tbar.popupdisplays.pen.PenDownUpdater;
-import view.tbar.popupdisplays.pen.PenSizeUpdater;
-import view.tbar.popupdisplays.pen.PenUpUpdater;
 import view.utilities.PopUp;
-import main.GlobalProperties;
-import main.Slogo;
 
 /**
  * class represents the top sub bar of the tool bar. it is a sub class of the
@@ -27,14 +26,14 @@ import main.Slogo;
  *
  */
 
-public class TopBar extends SubBar{
+public class TopBar extends SubBar {
 
 	private SimpleStringProperty turtleIDs;
 	private PopUp colorDisplay, imageDisplay, turtPropSelect;
 	private ObjectObservable<Integer> selectedTurtle;
 
 	private ObjectObservable<String> internalCommand, parsingLanguage;
-	private TurtlePropertyUpdater turtleSelector, penSizeUpdater, penUpUpdater, penDownUpdater, penColorUpdater;
+	private TurtlePropertyUpdater turtlePropertyUpdater, penColorUpdater;
 	private IndexMap colorMap, imageMap;
 	private HelpScreen helpScreen;
 	private Slogo slogo;
@@ -56,18 +55,20 @@ public class TopBar extends SubBar{
 	 * @param penColor
 	 *            simplestringproperty to set turtles pen color
 	 */
-	public TopBar(GlobalProperties globalProperties, SimpleStringProperty turtleIDs, ObjectObservable<String> internalCommand, Slogo slogo, ObjectObservable<Integer> selectedTurtle) {
-		super(globalProperties.getLanguage(), internalCommand, globalProperties.getColorMap());
+	public TopBar(GlobalProperties globalProperties, SimpleStringProperty turtleIDs,
+			ObjectObservable<String> internalCommand, Slogo slogo, ObjectObservable<Integer> selectedTurtle,
+			SimpleStringProperty error) {
+		super(globalProperties.getLanguage(), internalCommand, globalProperties.getColorMap(), error);
 		this.parsingLanguage = globalProperties.getLanguage();
 		this.internalCommand = internalCommand;
 		this.turtleIDs = turtleIDs;
 		this.colorMap = globalProperties.getColorMap();
 		this.imageMap = globalProperties.getImageMap();
-		this.selectedTurtle=selectedTurtle;
+		this.selectedTurtle = selectedTurtle;
 		colorDisplay = new ColorDisplay("colorTitle");
 		imageDisplay = new ImageDisplay("imageTitle");
 		helpScreen = new HelpScreen();
-		this.slogo= slogo;
+		this.slogo = slogo;
 
 	}
 
@@ -75,57 +76,48 @@ public class TopBar extends SubBar{
 	 * creates all comboboxes needed for sub bar
 	 */
 	@Override
-	protected void createComboBoxes() {}
+	protected void createComboBoxes() {
+	}
 
 	/**
 	 * creates all buttons needed for sub bar
 	 */
 	@Override
 	protected void createButtons() {
-		
-        makeButton("colorDisp", e -> ((PaletteDisp) colorDisplay).show(colorMap.getIndexMap()));
-        makeButton("imageDisp", e -> ((PaletteDisp) imageDisplay).show(imageMap.getIndexMap()));
-		makeButton("selectTurtleButtonTitle", e -> selectTurtle());
-		makeButton("setPenSize", e -> setPenSize());
-		makeButton("penUp", e -> setPenUp());
-		makeButton("penDown", e -> setPenDown());
+		makeButton("colorDisp", e -> ((PaletteDisp) colorDisplay).show(colorMap.getIndexMap()));
+		makeButton("imageDisp", e -> ((PaletteDisp) imageDisplay).show(imageMap.getIndexMap()));
+		makeButton("selectTurtleButtonTitle", e -> createTurtlePropertyUpdater(Defaults.TURTLE_SELECTOR.getDefault()));
+		makeButton("setPenSize", e -> createTurtlePropertyUpdater(Defaults.PEN_SIZE_UPDATER.getDefault()));
+		makeButton("penUp", e -> createTurtlePropertyUpdater(Defaults.PEN_UP.getDefault()));
+		makeButton("penDown", e -> createTurtlePropertyUpdater(Defaults.PEN_DOWN.getDefault()));
 		makeButton("pColor", e->setPenColor());
 		makeButton("help", e -> helpScreen.show());
 		makeButton("newWS", e -> slogo.newView());
-		makeButton("chPropTurtle", e-> changePropertiesTurtle());
+		makeButton("chPropTurtle", e -> changePropertiesTurtle());
 	}
 
-	private void setPenColor() {
-		penColorUpdater = new PenColorUpdater(turtleIDs, internalCommand, parsingLanguage, (ColorMap) colorMap, getColors());
-		penColorUpdater.show();
+	private void createTurtlePropertyUpdater(String className) {
+		try {
+			Class<?> classToCreate = Class.forName(className);
+			Constructor<?> constructor = classToCreate.getConstructor(SimpleStringProperty.class,
+					ObjectObservable.class, ObjectObservable.class);
+			turtlePropertyUpdater = (TurtlePropertyUpdater) constructor.newInstance(turtleIDs, internalCommand,
+					parsingLanguage);
+			turtlePropertyUpdater.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+			setError("createTurtlePropertyUpdateError");
+		}
 	}
 
 	private void changePropertiesTurtle() {
 		turtPropSelect = new TurtlePropSelect(selectedTurtle, turtleIDs);
 		turtPropSelect.show();
 	}
-
-	private void selectTurtle() {
-		turtleSelector = new TurtleSelector( turtleIDs, internalCommand, parsingLanguage);
-		turtleSelector.show();
+	
+	private void setPenColor() {
+		penColorUpdater = new PenColorUpdater(turtleIDs, internalCommand, parsingLanguage, (ColorMap) colorMap, getColors());
+		penColorUpdater.show();
 	}
-
-	private void setPenSize() {
-		penSizeUpdater = new PenSizeUpdater(turtleIDs, internalCommand, parsingLanguage);
-		penSizeUpdater.show();
-	}
-
-	private void setPenUp() {
-		penUpUpdater = new PenUpUpdater(turtleIDs, internalCommand, parsingLanguage);
-		penUpUpdater.show();
-	}
-
-	private void setPenDown() {
-		penDownUpdater = new PenDownUpdater( turtleIDs, internalCommand, parsingLanguage);
-		penDownUpdater.show();
-	}
-
-
-
 
 }

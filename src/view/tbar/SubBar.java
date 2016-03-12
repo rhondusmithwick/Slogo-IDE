@@ -3,12 +3,8 @@ package view.tbar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import view.Defaults;
-import view.Size;
-import view.utilities.ButtonFactory;
-import view.utilities.ComboFactory;
-import view.utilities.FileGetter;
-import view.utilities.GetCommand;
+
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -19,6 +15,12 @@ import javafx.scene.layout.Priority;
 import maps.ColorMap;
 import maps.IndexMap;
 import observables.ObjectObservable;
+import view.Defaults;
+import view.Size;
+import view.utilities.ButtonFactory;
+import view.utilities.ComboFactory;
+import view.utilities.FileGetter;
+import view.utilities.GetCommand;
 
 /**
  * This is an abstract class that provides a base for creating the different bar objects displayed in the
@@ -33,6 +35,7 @@ public abstract class SubBar{
     private HBox container;
     private ObjectObservable<String> language, internalCommand;
     private ColorMap colorMap;
+    private final SimpleStringProperty error;
 
     /**
      * Super constructor for subbar sub classes.
@@ -41,10 +44,11 @@ public abstract class SubBar{
      * @param cMap Index map object for mapping colors to integer indexes
      */
     public SubBar(ObjectObservable<String> language, ObjectObservable<String> internalCommand, 
-    		IndexMap colorMap){
+    		IndexMap colorMap, SimpleStringProperty error){
         this.language=language;
         this.internalCommand=internalCommand;
         this.colorMap = (ColorMap) colorMap;
+        this.error = error;
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
         initHBox();
         setParsingLanguage(language.get());
@@ -163,6 +167,9 @@ public abstract class SubBar{
      */
     protected abstract void createButtons();
 
-
+    protected void setError(String errorKey) {
+		error.set("");
+		error.set(myResources.getString(errorKey));
+    }
 
 }
