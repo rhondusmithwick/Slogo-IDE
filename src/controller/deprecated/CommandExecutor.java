@@ -41,7 +41,7 @@ public class CommandExecutor {
         parsingResult.stream().map(Entry::getKey).forEach(this::createCommand);
 
 //        parsingResult.stream()
-//                .filter(c -> myContainer.getCommandStringList().contains(c.getKey()))
+//                .filter(c -> myContainer.getCommandStringList().containsKey(c.getKey()))
 //                .forEach(c-> createCommand(c.getKey()));
     }
 

@@ -30,8 +30,8 @@ public class TurtleController implements Controller {
     private final Group group = new Group();;
     private final SlogoParser parser = new SlogoParser(DEFAULT_SYNTAX);;
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");;
-    private final MapContainer<Variable> variables = new MapContainer<>("variables");;
-    private final MapContainer<MakeUserInstruction> definedCommands = new MapContainer<>("definedCommands");
+    private final MapContainer<String, Variable> variables = new MapContainer<>("variables");;
+    private final MapContainer<String, MakeUserInstruction> definedCommands = new MapContainer<>("definedCommands");
 
     private final TurtleManager turtleManager;
     private final GlobalProperties properties;
