@@ -46,6 +46,7 @@ public class TurtleSelector extends TurtlePropertyUpdater {
 		String inactive = getInactive(turtleIDs);
 		return tellCommand + " [ " + turtleIDs + "]\n" + askCommand 
 				+ " [ " + inactive + " ] [ " + hideCommand + " ]\n" + translateCommand("ShowTurtle");
+		
 
 	}
 

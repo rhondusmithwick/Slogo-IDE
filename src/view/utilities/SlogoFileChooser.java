@@ -21,6 +21,7 @@ public abstract class SlogoFileChooser extends PopUp{
 	List<ExtensionFilter> fileExtensions;
 	private boolean save;
 	private FileChooser fileChooser;
+    private String location;
 	
 	/**
 	 * super constructor for a slogofilechooser subclass instance
@@ -28,12 +29,13 @@ public abstract class SlogoFileChooser extends PopUp{
 	 * @param fExt a list of extension filters for what files the filechooser can display
 	 * @param save boolean whether the file chooser will be used to save or open
 	 */
-	public SlogoFileChooser(String title, List<ExtensionFilter> fileExtensions , boolean save) {
+	public SlogoFileChooser(String title, List<ExtensionFilter> fileExtensions , boolean save, String location) {
 		super(Size.MINI.getSize(), Size.MINI.getSize(), Defaults.BACKGROUND_WHITE.getDefault());
 		myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
 		this.title = title;
 		this.fileExtensions = fileExtensions;
 		this.save = save;
+		this.location = location;
 	}
 	
 	/**
@@ -42,7 +44,7 @@ public abstract class SlogoFileChooser extends PopUp{
 	@Override
 	protected void createScene() {
 		 fileChooser = new FileChooser();
-		 fileChooser.setInitialDirectory(new File(Defaults.WS_PREF_LOC.getDefault()));
+		 fileChooser.setInitialDirectory(new File(location));
 		 fileChooser.setTitle(myResources.getString(title));
 	     fileChooser.getExtensionFilters().addAll(fileExtensions);
 		
