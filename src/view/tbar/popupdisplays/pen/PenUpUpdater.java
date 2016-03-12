@@ -4,9 +4,18 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import observables.ObjectObservable;
 
+/**
+ * This class creates a pop-up with check boxes for each created turtle. The user can check boxes
+ * to select multiple turtles, and when the "Apply Changes" button is clicked, all selected turtles
+ * have their pens set up
+ * 
+ * @author Stephen
+ *
+ */
 public class PenUpUpdater extends PenUpDownUpdater {
 
 	/**
+	 * Creates instance of PenUpUpdater
 	 * 
 	 * @param turtleIDs SimpleStringProperty containing String of all turtles created
 	 * @param internalCommand ObjectObservable that can be set to pass commands from front to back end

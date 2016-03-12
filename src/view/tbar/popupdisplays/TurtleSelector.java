@@ -19,7 +19,7 @@ import observables.ObjectObservable;
 public class TurtleSelector extends TurtlePropertyUpdater {
 	
 	private static final int END_STRING = 2;
-	private SimpleStringProperty turtleIDs;
+	private final SimpleStringProperty turtleIDs;
 	
 	/**
 	 * creates a new turtleselector instance

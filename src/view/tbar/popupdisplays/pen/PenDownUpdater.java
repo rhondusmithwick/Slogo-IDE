@@ -4,9 +4,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import observables.ObjectObservable;
 
+
+/**
+ * 
+ * @author Stephen
+ *
+ */
 public class PenDownUpdater extends PenUpDownUpdater {
 
 	/**
+	 * Creates an instance of the PenDownUpdater class
 	 * 
 	 * @param turtleIDs SimpleStringProperty containing IDs of all created turtles
 	 * @param internalCommand Observable that can be set to pass commands to back end
