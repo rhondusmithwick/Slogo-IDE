@@ -134,4 +134,9 @@ public class MakeUserInstruction extends CommandNode {
         return variableNames.keySet().parallelStream()
                 .sorted().map(variableNames::get).collect(Collectors.toList());
     }
+
+    @Override
+    public String toString() {
+        return getVariableList().toString();
+    }
 }

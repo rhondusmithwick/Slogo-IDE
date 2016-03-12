@@ -195,8 +195,8 @@ public class ExpressionTree {
             n = new ConstantNode(0.0);
         } else if (variables.containsKey(curr.getValue())) {
             n = variableHandle(curr);
-        } else if (definedCommands.containsCommand(curr.getValue())) {
-            n = definedCommands.getNode(curr.getValue()).getUserCommandNode(this);
+        } else if (definedCommands.contains(curr.getValue())) {
+            n = definedCommands.get(curr.getValue()).getUserCommandNode(this);
         } else {
             n = createNodeInstance(curr.getKey());
         }

@@ -3,53 +3,52 @@ package controller.controller;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import model.usercontrol.MakeUserInstruction;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by rhondusmithwick on 3/10/16.
  *
  * @author Rhondu Smithwick
  */
-public class DefinedCommands {
-    private final ObservableMap<String, MakeUserInstruction> definedCommands = FXCollections.observableHashMap();
-    private final Map<String, List<String>> commandStrings = new HashMap<>();
-    private final SimpleStringProperty frontEndText = new SimpleStringProperty(this, "definedCommands");
+public class DefinedCommands<T> {
+    private final ObservableMap<String, T> map = FXCollections.observableHashMap();
+    private final List<String> theStrings = new LinkedList<>();
+    private final SimpleStringProperty frontEndText;
 
-    public DefinedCommands() {
+    public DefinedCommands(String name) {
+        frontEndText = new SimpleStringProperty(this, name);
         addListeners();
     }
 
     private void addListeners() {
-        definedCommands.addListener((MapChangeListener<String, MakeUserInstruction>) change -> {
-            commandStrings.clear();
-            definedCommands.entrySet().parallelStream().forEach(this::addToCommandString);
-            frontEndText.set(commandStrings.toString());
+        map.addListener((MapChangeListener<String, T>) change -> {
+            frontEndText.set(theStrings.toString());
         });
     }
 
-    private void addToCommandString(Map.Entry<String, MakeUserInstruction> entry) {
-        commandStrings.put(entry.getKey(), entry.getValue().getVariableList());
-    }
 
-    public void put(String name, MakeUserInstruction makeUserInstruction) {
-        definedCommands.put(name, makeUserInstruction);
-        commandStrings.put(name, makeUserInstruction.getVariableList());
+    public void put(String name, T value) {
+        map.put(name, value);
+        theStrings.add(name + "= " + value.toString());
     }
 
     public SimpleStringProperty frontEndTextProperty() {
         return frontEndText;
     }
 
-    public MakeUserInstruction getNode(String commandName) {
-        return definedCommands.get(commandName);
+    public T get(String commandName) {
+        return map.get(commandName);
     }
 
-    public boolean containsCommand(String commandName) {
-        return definedCommands.containsKey(commandName);
+    public boolean contains(String commandName) {
+        return map.containsKey(commandName);
     }
 }

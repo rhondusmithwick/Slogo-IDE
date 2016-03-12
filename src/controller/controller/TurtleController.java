@@ -7,6 +7,7 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import main.GlobalProperties;
 import model.turtle.TurtleManager;
+import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Variable;
 import observables.MapObservable;
 
@@ -30,7 +31,7 @@ public class TurtleController implements Controller {
     private final SlogoParser parser = new SlogoParser(DEFAULT_SYNTAX);;
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");;
     private final MapObservable<String, Variable> variables = new MapObservable<>("variables");;
-    private final DefinedCommands definedCommands = new DefinedCommands();
+    private final DefinedCommands<MakeUserInstruction> definedCommands = new DefinedCommands<>("definedCommands");
 
     private final TurtleManager turtleManager;
     private final GlobalProperties properties;

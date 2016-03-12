@@ -73,7 +73,7 @@ public class SlogoParser {
     private boolean isInvalidCommand(DefinedCommands definedCommands, Entry<String, String> e) {
         boolean isError = Objects.equals(e.getKey(), ERROR);
         boolean inValidCommand = Objects.equals(COMMAND_NAME, e.getKey())
-                && !definedCommands.containsCommand(e.getValue());
+                && !definedCommands.contains(e.getValue());
         return isError ||  inValidCommand;
     }
 
