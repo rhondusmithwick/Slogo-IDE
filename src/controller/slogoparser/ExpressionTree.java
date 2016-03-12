@@ -1,6 +1,6 @@
 package controller.slogoparser;
 
-import controller.controller.DefinedCommands;
+import controller.controller.MapContainer;
 import javafx.application.Platform;
 import main.GlobalProperties;
 import maps.IndexMap;
@@ -8,8 +8,8 @@ import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
 import model.turtle.TurtleManager;
+import model.usercontrol.MakeUserInstruction;
 import model.usercontrol.Variable;
-import observables.MapObservable;
 import observables.ObjectObservable;
 
 import java.util.Collection;
@@ -36,8 +36,8 @@ public class ExpressionTree {
 
     private final List<TreeNode> rootList;
 
-    private final MapObservable<String, Variable> variables;
-    private final DefinedCommands definedCommands;
+    private final MapContainer<Variable> variables;
+    private final MapContainer<MakeUserInstruction> definedCommands;
     private final ObjectObservable<String> backgroundColor;
 
     private final IndexMap imageMap;
@@ -47,7 +47,7 @@ public class ExpressionTree {
     
     private Queue<Entry<String, String>> parsedText;
     
-    public ExpressionTree(TurtleManager turtleManager, MapObservable<String, Variable> variables, DefinedCommands definedCommands,
+    public ExpressionTree(TurtleManager turtleManager, MapContainer<Variable> variables, MapContainer<MakeUserInstruction> definedCommands,
                           GlobalProperties properties, Queue<Entry<String, String>> parsedText) {
     	this.commandLocations = ResourceBundle.getBundle(COMMANDS_LIST);
         this.turtleManager = turtleManager;
@@ -62,7 +62,7 @@ public class ExpressionTree {
 
     public void executeAll() {
         rootList.stream().forEach(TreeNode::getValue);
-        Platform.runLater(variables::modifyIfShould);
+        Platform.runLater(variables::modifyString);
     }
 
     public TreeNode createRoot() {
@@ -105,7 +105,7 @@ public class ExpressionTree {
         return myRoots;
     }
     
-    public DefinedCommands getDefinedCommands() {
+    public MapContainer<MakeUserInstruction> getDefinedCommands() {
         return definedCommands;
     }
 
@@ -129,7 +129,7 @@ public class ExpressionTree {
         return turtleManager.get(1);
     }
 
-    public MapObservable<String, Variable> getVariables() {
+    public MapContainer<Variable> getVariables() {
         return variables;
     }
 
@@ -193,7 +193,7 @@ public class ExpressionTree {
             Collection<Integer> IDs = turtleManager.doTell(parsedText);
             turtleManager.populateActiveTurtles(IDs);
             n = new ConstantNode(0.0);
-        } else if (variables.containsKey(curr.getValue())) {
+        } else if (variables.contains(curr.getValue())) {
             n = variableHandle(curr);
         } else if (definedCommands.contains(curr.getValue())) {
             n = definedCommands.get(curr.getValue()).getUserCommandNode(this);

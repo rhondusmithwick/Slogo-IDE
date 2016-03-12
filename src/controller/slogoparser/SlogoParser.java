@@ -1,7 +1,5 @@
 package controller.slogoparser;
 
-import controller.controller.DefinedCommands;
-
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -60,8 +58,8 @@ public class SlogoParser {
         return regex.matcher(text).matches();
     }
 
-    public Queue<Entry<String, String>> parseText(DefinedCommands definedCommands, String input) {
-        Predicate<Entry<String, String>> invalid = (e) -> isInvalidCommand(definedCommands, e);
+    public Queue<Entry<String, String>> parseText(String input) {
+        Predicate<Entry<String, String>> invalid = this::isInvalidCommand;
         Queue<Entry<String, String>> parsedText = createParsedText(input);
         if (parsedText.parallelStream().anyMatch(invalid)) {
             return null;
@@ -70,11 +68,8 @@ public class SlogoParser {
         }
     }
 
-    private boolean isInvalidCommand(DefinedCommands definedCommands, Entry<String, String> e) {
-        boolean isError = Objects.equals(e.getKey(), ERROR);
-        boolean inValidCommand = Objects.equals(COMMAND_NAME, e.getKey())
-                && !definedCommands.contains(e.getValue());
-        return isError ||  inValidCommand;
+    private boolean isInvalidCommand(Entry<String, String> e) {
+        return Objects.equals(e.getKey(), ERROR);
     }
 
     private Queue<Entry<String, String>> createParsedText(String input) {

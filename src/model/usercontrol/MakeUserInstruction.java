@@ -1,5 +1,6 @@
 package model.usercontrol;
 
+import controller.controller.MapContainer;
 import controller.slogoparser.ExpressionTree;
 import model.treenode.CommandNode;
 import model.treenode.TreeNode;
@@ -39,10 +40,10 @@ public class MakeUserInstruction extends CommandNode {
         variableMap.put(name, new UserCommandVariable());
     }
 
-    @Override
-    protected int getNumChildrenRequired() {
-        return 3;
-    }
+//    @Override
+//    protected int getNumChildrenRequired() {
+//        return 3;
+//    }
 
     private int numVariables() {
         return variableMap.size();
@@ -79,7 +80,7 @@ public class MakeUserInstruction extends CommandNode {
     public UserCommand getUserCommandNode(ExpressionTree tree) {
         UserCommand userCommand = new UserCommand();
         setValuesForCommand(tree);
-        MapObservable<String, Variable> treeVariables = tree.getVariables();
+        MapContainer<Variable> treeVariables = tree.getVariables();
         Predicate<Entry<String, Variable>> notAlreadyVariable = (e) -> (!isAlreadyVariable(tree, e.getKey()));
         variableMap.entrySet().parallelStream().filter(notAlreadyVariable)
                 .forEach(e -> treeVariables.put(e.getKey(), e.getValue()));
@@ -91,7 +92,7 @@ public class MakeUserInstruction extends CommandNode {
 
 
     private boolean isAlreadyVariable(ExpressionTree tree, String value) {
-        return tree.getVariables().containsKey(value);
+        return tree.getVariables().contains(value);
     }
 
     private void makeCommands(Queue<Entry<String, String>> parsedText) {

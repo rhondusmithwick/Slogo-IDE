@@ -30,8 +30,8 @@ public class TurtleController implements Controller {
     private final Group group = new Group();;
     private final SlogoParser parser = new SlogoParser(DEFAULT_SYNTAX);;
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");;
-    private final MapObservable<String, Variable> variables = new MapObservable<>("variables");;
-    private final DefinedCommands<MakeUserInstruction> definedCommands = new DefinedCommands<>("definedCommands");
+    private final MapContainer<Variable> variables = new MapContainer<>("variables");;
+    private final MapContainer<MakeUserInstruction> definedCommands = new MapContainer<>("definedCommands");
 
     private final TurtleManager turtleManager;
     private final GlobalProperties properties;
@@ -46,13 +46,12 @@ public class TurtleController implements Controller {
         properties.getLanguage().addObserver(this);
         properties.getInput().addObserver(this);
         properties.getLanguage().set(DEFAULT_LANGUAGE);
-        variables.addObserver(this);
         group.getChildren().add(turtleManager.getGroup());
     }
 
     @Override
     public void takeInput(String input) {
-        Queue<Entry<String, String>> parsedText = parser.parseText(definedCommands, input);
+        Queue<Entry<String, String>> parsedText = parser.parseText(input);
         if (parsedText == null) {
             error.set("");
             error.set("Command not recognized: " + properties.getInput().get());
@@ -91,6 +90,6 @@ public class TurtleController implements Controller {
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
                 error, turtleManager.getTurtleIDsProperty(),
-                variables.getStringProperty(), definedCommands.frontEndTextProperty());
+                variables.frontEndTextProperty(), definedCommands.frontEndTextProperty());
     }
 }

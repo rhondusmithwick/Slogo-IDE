@@ -18,8 +18,8 @@ import observables.ObjectObservable;
 
 public class TurtleSelector extends TurtlePropertyUpdater {
 
-    private static final int END_STRING = 2;
-    private SimpleStringProperty turtleIDs;
+    private static final String ST_KEY = "ShowTurtle";
+    private final SimpleStringProperty turtleIDs;
 
     /**
      * creates a new turtleselector instance
@@ -40,39 +40,32 @@ public class TurtleSelector extends TurtlePropertyUpdater {
 
     @Override
     protected String makeCommand(String turtleIDs) {
+        if(turtleIDs.length()==0){
+            return translateCommand(ST_KEY);
+        }
         String tellCommand = getTellCommand(turtleIDs);
         String inactive = getInactive(turtleIDs);
         String askCommand = getAskCommand(inactive);
-        String comm= tellCommand +  askCommand + translateCommand("ShowTurtle");
-        System.out.println(comm);
-        return comm;
-
-
+        return tellCommand +  askCommand;
     }
 
     private String getAskCommand (String inactive) {
-        String askCommand;
         if(inactive.length()==0){
-            askCommand = "";
+            return "";
         }else{
-            askCommand = translateCommand("Ask") + " [ " + inactive + " ] [ " + translateCommand("HideTurtle") + " ]\n";
+           return translateCommand("Ask") + " [ " + inactive + "] [ " + translateCommand("HideTurtle") + " ]\n";
         }
-        return askCommand;
     }
 
     private String getTellCommand (String turtleIDs) {
-        String tellCommand;
-        if(turtleIDs.length()==0){
-            tellCommand = "";
-        }else{
-            tellCommand = translateCommand("Tell") + " [ " + turtleIDs + "]\n";
-        }
-        return tellCommand;
+       return translateCommand("Tell") + " [ " + turtleIDs + "]\n" + translateCommand(ST_KEY) + "\n";
+
     }
 
     private String getInactive(String turtles) {
         List<String> active =  Arrays.asList(turtles.split(" "));
-        List<String> allTurtles =  Arrays.asList(turtleIDs.get().split(", "));
+        String totalTurtles = turtleIDs.get().substring(1, turtleIDs.get().length()-1);
+        List<String> allTurtles =  Arrays.asList(totalTurtles.split(", "));
         if(active.size() == allTurtles.size()){
             return "";
         }
@@ -80,7 +73,7 @@ public class TurtleSelector extends TurtlePropertyUpdater {
         Object[] inActive =   allTurtles.parallelStream().filter(isIn).toArray();
         StringBuilder toHide = new StringBuilder();
         Arrays.asList(inActive).stream().forEach(e-> toHide.append(((String) e) + " "));
-        return toHide.toString().substring(1, toHide.length()-END_STRING);
+        return toHide.toString();
     }
 
 }
