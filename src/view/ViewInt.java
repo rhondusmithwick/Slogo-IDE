@@ -3,6 +3,7 @@ package view;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
+
 import java.util.List;
 
 /**
@@ -35,20 +36,22 @@ public interface ViewInt {
      * @return group that defines turtles area
      */
     Group getInnerGroup();
-    
+
     /**
      * binds the size of the border pane to the size of the application
+     *
      * @param height height to bind to
-     * @param width width to bind to
+     * @param width  width to bind to
      */
 
-	void bindSize(ReadOnlyDoubleProperty height, ReadOnlyDoubleProperty Width);
-    
-	/**
-	 * gets the title of the view to be displayed
-	 * @return string title of view
-	 */
-	String getTitle();
+    void bindSize(ReadOnlyDoubleProperty height, ReadOnlyDoubleProperty Width);
+
+    /**
+     * gets the title of the view to be displayed
+     *
+     * @return string title of view
+     */
+    String getTitle();
 
 
 }

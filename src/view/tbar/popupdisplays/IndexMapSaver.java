@@ -1,56 +1,55 @@
 package view.tbar.popupdisplays;
 
 
-import java.util.Arrays;
-import java.util.ResourceBundle;
-
-import view.Defaults;
-import view.Size;
-import view.xml.MapToXML;
-import view.utilities.ButtonFactory;
-import view.utilities.PopUp;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import maps.IndexMap;
+import view.Defaults;
+import view.Size;
+import view.utilities.ButtonFactory;
+import view.utilities.PopUp;
+import view.xml.MapToXML;
+
+import java.util.Arrays;
+import java.util.ResourceBundle;
 
 /**
- *Class responsible for allowing user to save current palettes based on index maps such as color and index palettes.
- *Is a subclass of abstract popup class.
- * @author Cali
+ * Class responsible for allowing user to save current palettes based on index maps such as color and index palettes.
+ * Is a subclass of abstract popup class.
  *
+ * @author Cali
  */
-public class IndexMapSaver extends PopUp{
+public class IndexMapSaver extends PopUp {
 
-    private ResourceBundle myResources;
+    private final ResourceBundle myResources;
     private TextField textField;
-    private IndexMap indexMap;
-
+    private final IndexMap indexMap;
 
 
     /**
      * creates new indexmap save instance
+     *
      * @param inMap index map to be saved
      */
-    public IndexMapSaver(IndexMap indexMap){
+    public IndexMapSaver(IndexMap indexMap) {
         super(Size.MAP_SAVER.getSize(), Size.MAP_SAVER.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
         this.indexMap = indexMap;
-        this.myResources =  ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
+        this.myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     }
 
-    private void saveList (){
+    private void saveList() {
 
         closeScene();
         try {
             String text = textField.getText();
-            if(text.equals("")){
+            if (text.equals("")) {
                 return;
-            }else{
+            } else {
                 MapToXML mapper = new MapToXML();
                 mapper.saveMap(text, indexMap);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
             return;
 
@@ -66,7 +65,7 @@ public class IndexMapSaver extends PopUp{
         Label title = new Label(myResources.getString("saverTitle"));
         textField = new TextField();
         textField.prefWidthProperty().bind(getSize(false));
-        Button set = ButtonFactory.createButton(myResources.getString("save"), e->saveList());
+        Button set = ButtonFactory.createButton(myResources.getString("save"), e -> saveList());
         addNodes(Arrays.asList(title, textField, set));
 
     }

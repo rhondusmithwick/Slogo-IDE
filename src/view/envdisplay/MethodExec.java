@@ -1,37 +1,37 @@
 package view.envdisplay;
 
-import java.util.Arrays;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import observables.ObjectObservable;
 import view.Defaults;
 
+import java.util.Arrays;
+
 /**
  * Sub class of EnvUpdate that is responsible for taking user input and executing a user defined method.
- * @author Cali
  *
+ * @author Cali
  */
 
 public class MethodExec extends EnvActor {
 
     private static final String SPACE = " ";
-    private String name, text;
+    private String name;
+    private final String text;
     private String[] values;
     private TextField variableField;
-    private Label variableTitle;
-
 
 
     /**
      * Creates a new method update instance
+     *
      * @param intCommand string observable to pass commands to command entry instance
-     * @param pLang string observable to store and set parsing language
-     * @param text text for method needing to be updated
+     * @param pLang      string observable to store and set parsing language
+     * @param text       text for method needing to be updated
      */
-    public MethodExec(ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, Label label){
+    public MethodExec(ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, Label label) {
         super(internalCommand, parsingLanguage);
-        this.text=label.getText();
-
+        this.text = label.getText();
 
 
     }
@@ -53,7 +53,7 @@ public class MethodExec extends EnvActor {
     protected void setNewValues() {
         setValues();
         String toPass = getCommand(values);
-        if(toPass!=null){
+        if (toPass != null) {
             passCommand(toPass);
         }
         closeScene();
@@ -62,28 +62,28 @@ public class MethodExec extends EnvActor {
     }
 
 
-    private void setValues(){
+    private void setValues() {
         values = variableField.getText().split(Defaults.VAR_SPLITTER.getDefault());
-        if(values.length==0){
+        if (values.length == 0) {
             values = null;
         }
     }
 
 
-
     /**
      * creates command to pass to backend to set new values using new user input
      * values
+     *
      * @param newVals String[] of new user input values
      */
     @Override
     protected String getCommand(String[] newVals) {
-        if(newVals[0]==null){
+        if (newVals[0] == null) {
             return null;
         }
         StringBuilder command = new StringBuilder();
-        command.append(name+ " ");
-        Arrays.asList(newVals).stream().forEach(e-> command.append(e + " ") );
+        command.append(name + " ");
+        Arrays.asList(newVals).stream().forEach(e -> command.append(e + " "));
         return command.toString();
     }
 
@@ -91,10 +91,10 @@ public class MethodExec extends EnvActor {
      * creates and adds needed components to scene
      */
     @Override
-    public void updateEnv(){
+    public void updateEnv() {
         getName(text);
-        variableTitle = createTitle("methVarTitle", name); 
-        addToScene(Arrays.asList(variableTitle,variableField));
+        Label variableTitle = createTitle("methVarTitle", name);
+        addToScene(Arrays.asList(variableTitle, variableField));
     }
 
     private void getName(String content) {

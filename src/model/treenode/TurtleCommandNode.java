@@ -20,7 +20,7 @@ public abstract class TurtleCommandNode extends TreeNode {
     private final List<Turtle> myTurtles = new LinkedList<>();
     private final Map<Turtle, Future<Double>> turtleFutureMap = new HashMap<>();
 
-    public abstract double turtleExecute(Turtle turtle);
+    protected abstract double turtleExecute(Turtle turtle);
 
     @Override
     public double getValue() {

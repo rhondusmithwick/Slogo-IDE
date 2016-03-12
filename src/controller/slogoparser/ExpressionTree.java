@@ -1,9 +1,9 @@
 package controller.slogoparser;
 
-import maps.MapContainer;
 import javafx.application.Platform;
 import main.GlobalProperties;
 import maps.IndexMap;
+import maps.MapContainer;
 import model.treenode.ConstantNode;
 import model.treenode.TreeNode;
 import model.turtle.Turtle;
@@ -26,11 +26,11 @@ import java.util.stream.IntStream;
  * @author Rhondu Smithwick
  */
 public class ExpressionTree {
-	
-	private static final String START_COMMANDS = "ListStart";
-	private static final String END_COMMANDS = "ListEnd";
-	private static final String REPCOUNT_COMMAND = ":repcount";
-	private static final String COMMANDS_LIST = "model/commandLocations";
+
+    private static final String START_COMMANDS = "ListStart";
+    private static final String END_COMMANDS = "ListEnd";
+    private static final String REPCOUNT_COMMAND = ":repcount";
+    private static final String COMMANDS_LIST = "model/commandLocations";
 
     private final ResourceBundle commandLocations;
 
@@ -44,12 +44,12 @@ public class ExpressionTree {
     private final IndexMap colorMap;
 
     private final TurtleManager turtleManager;
-    
+
     private Queue<Entry<String, String>> parsedText;
-    
+
     public ExpressionTree(TurtleManager turtleManager, MapContainer<String, Variable> variables, MapContainer<String, MakeUserInstruction> definedCommands,
                           GlobalProperties properties, Queue<Entry<String, String>> parsedText) {
-    	this.commandLocations = ResourceBundle.getBundle(COMMANDS_LIST);
+        this.commandLocations = ResourceBundle.getBundle(COMMANDS_LIST);
         this.turtleManager = turtleManager;
         this.variables = variables;
         this.definedCommands = definedCommands;
@@ -70,7 +70,7 @@ public class ExpressionTree {
         createSubTree(root);
         return root;
     }
-    
+
     public TurtleManager getTurtleManager() {
         return turtleManager;
     }
@@ -104,7 +104,7 @@ public class ExpressionTree {
         }
         return myRoots;
     }
-    
+
     public MapContainer<String, MakeUserInstruction> getDefinedCommands() {
         return definedCommands;
     }
@@ -125,6 +125,10 @@ public class ExpressionTree {
         return parsedText;
     }
 
+    public void setParsedText(Queue<Entry<String, String>> parsedText) {
+        this.parsedText = parsedText;
+    }
+
     public Turtle getMyTurtle() {
         return turtleManager.get(1);
     }
@@ -133,10 +137,6 @@ public class ExpressionTree {
         return variables;
     }
 
-    public void setParsedText(Queue<Entry<String, String>> parsedText) {
-        this.parsedText = parsedText;
-    }
-    
     private List<TreeNode> createRootList() {
         List<TreeNode> rootList = new LinkedList<>();
         while (inBounds()) {
@@ -144,7 +144,7 @@ public class ExpressionTree {
             rootList.add(root);
         }
         return rootList;
-    }    
+    }
 
     private ConstantNode getConstant(Entry<String, String> curr) {
         String doubleText = curr.getValue();
@@ -175,7 +175,7 @@ public class ExpressionTree {
     private boolean isConstant(String className) {
         return className.equals("Constant");
     }
-    
+
     private void createSubTree(TreeNode root) {
         while (stillRoot(root)) {
             TreeNode n = createNode();
@@ -209,5 +209,5 @@ public class ExpressionTree {
         }
         return variables.get(curr.getValue());
     }
-    
+
 }

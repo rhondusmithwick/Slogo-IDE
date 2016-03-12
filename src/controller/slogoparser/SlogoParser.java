@@ -16,8 +16,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class SlogoParser {
-	
-	private static final String COMMAND_NAME = "Command";
+
+    private static final String COMMAND_NAME = "Command";
     private static final String ERROR = "NO MATCH";
 
     private final Map<String, Pattern> mySymbols;

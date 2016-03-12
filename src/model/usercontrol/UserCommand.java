@@ -8,7 +8,7 @@ import model.treenode.TreeNode;
  * @author Rhondu Smithwick
  */
 public class UserCommand extends TreeNode {
-	
+
     @Override
     public double getValue() {
         return runChildren();

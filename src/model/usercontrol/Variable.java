@@ -9,9 +9,9 @@ import model.treenode.TreeNode;
  * @author Rhondu Smithwick
  */
 public class Variable extends TreeNode {
-	
-	private static final String DEFAULT_STRING = "value not yet visible";
-	
+
+    private static final String DEFAULT_STRING = "value not yet visible";
+
     private Double value = null;
 
     @Override

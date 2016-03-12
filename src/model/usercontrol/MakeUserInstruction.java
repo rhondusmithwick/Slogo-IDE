@@ -1,7 +1,7 @@
 package model.usercontrol;
 
-import maps.MapContainer;
 import controller.slogoparser.ExpressionTree;
+import maps.MapContainer;
 import model.treenode.CommandNode;
 import model.treenode.TreeNode;
 
@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
  * @author Rhondu Smithwick
  */
 public class MakeUserInstruction extends CommandNode {
-	
-	private static final String START_COMMANDS = "ListStart";
-	private static final String END_COMMANDS = "ListEnd";
-	
+
+    private static final String START_COMMANDS = "ListStart";
+    private static final String END_COMMANDS = "ListEnd";
+
     private final Map<Integer, String> variableNames = new TreeMap<>();
     private final Map<String, Variable> variableMap = new HashMap<>();
     private final Queue<Entry<String, String>> myCommands = new LinkedList<>();
@@ -113,7 +113,7 @@ public class MakeUserInstruction extends CommandNode {
         }
     }
 
-    public void setValuesForCommand(ExpressionTree tree) {
+    private void setValuesForCommand(ExpressionTree tree) {
         int numAssigned = 0;
         while (numAssigned < numVariables()) {
             Entry<String, String> curr = tree.getParsedText().poll();
@@ -133,7 +133,7 @@ public class MakeUserInstruction extends CommandNode {
         commandRoots.stream().forEach(userCommand::addChild);
     }
 
-    public List<String> getVariableList() {
+    private List<String> getVariableList() {
         return variableNames.entrySet().stream()
                 .map(Entry::getValue).collect(Collectors.toList());
     }

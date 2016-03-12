@@ -1,6 +1,5 @@
 package view.tbar;
 
-import java.lang.reflect.Constructor;
 import javafx.beans.property.SimpleStringProperty;
 import main.GlobalProperties;
 import maps.ColorMap;
@@ -16,41 +15,35 @@ import view.tbar.popupdisplays.TurtlePropertyUpdater;
 import view.tbar.popupdisplays.pen.PenColorUpdater;
 import view.utilities.PopUp;
 
+import java.lang.reflect.Constructor;
+
 /**
  * class represents the top sub bar of the tool bar. it is a sub class of the
  * abstract class sub bar.
- * 
- * @author calisnelson and Stephen Kwok
  *
+ * @author calisnelson and Stephen Kwok
  */
 
 public class TopBar extends SubBar {
 
     private final SimpleStringProperty turtleIDs;
-    private PopUp colorDisplay, imageDisplay, turtPropSelect;
     private final ObjectObservable<Integer> selectedTurtle;
-
     private final ObjectObservable<String> internalCommand, parsingLanguage;
-    private TurtlePropertyUpdater turtlePropertyUpdater, penColorUpdater, turtleImageSelector;
     private final IndexMap colorMap, imageMap;
+    private final PopUp colorDisplay;
+    private final PopUp imageDisplay;
 
 
     /**
      * creates a new top bar instance.
-     * 
-     * @param intCommand
-     *            string observable for passing commands to command entry
-     *            instance
-     * @param cMap
-     *            Index map object for mapping colors to integer indexes
-     * @param iMap
-     *            Index map object for mapping images to integer indexes
-     * @param bgColor
-     *            string observable to set turtle area background color
-     * @param image
-     *            simplestring property to set turtles image
-     * @param penColor
-     *            simplestringproperty to set turtles pen color
+     *
+     * @param intCommand string observable for passing commands to command entry
+     *                   instance
+     * @param cMap       Index map object for mapping colors to integer indexes
+     * @param iMap       Index map object for mapping images to integer indexes
+     * @param bgColor    string observable to set turtle area background color
+     * @param image      simplestring property to set turtles image
+     * @param penColor   simplestringproperty to set turtles pen color
      */
     public TopBar(GlobalProperties globalProperties, SimpleStringProperty turtleIDs,
                   ObjectObservable<String> internalCommand, ObjectObservable<Integer> selectedTurtle,
@@ -62,10 +55,10 @@ public class TopBar extends SubBar {
         this.colorMap = globalProperties.getColorMap();
         this.imageMap = globalProperties.getImageMap();
         this.selectedTurtle = selectedTurtle;
-        
+
         colorDisplay = new ColorDisplay("colorTitle");
         imageDisplay = new ImageDisplay("imageTitle");
-       
+
     }
 
     /**
@@ -86,14 +79,14 @@ public class TopBar extends SubBar {
         makeButton("setPenSize", e -> createTurtlePropertyUpdater(Defaults.PEN_SIZE_UPDATER.getDefault()));
         makeButton("penUp", e -> createTurtlePropertyUpdater(Defaults.PEN_UP.getDefault()));
         makeButton("penDown", e -> createTurtlePropertyUpdater(Defaults.PEN_DOWN.getDefault()));
-        makeButton("pColor", e->setPenColor());
-        
+        makeButton("pColor", e -> setPenColor());
+
         makeButton("chPropTurtle", e -> changePropertiesTurtle());
-        makeButton("image", e-> setImage());
+        makeButton("image", e -> setImage());
     }
 
-    private void setImage () {
-        turtleImageSelector = new TurtleImageSelector(turtleIDs, internalCommand, parsingLanguage, imageMap);
+    private void setImage() {
+        TurtlePropertyUpdater turtleImageSelector = new TurtleImageSelector(turtleIDs, internalCommand, parsingLanguage, imageMap);
         turtleImageSelector.show();
     }
 
@@ -101,9 +94,9 @@ public class TopBar extends SubBar {
         try {
             Class<?> classToCreate = Class.forName(className);
             Constructor<?> constructor = classToCreate.getConstructor(SimpleStringProperty.class,
-                                                                      ObjectObservable.class, ObjectObservable.class);
-            turtlePropertyUpdater = (TurtlePropertyUpdater) constructor.newInstance(turtleIDs, internalCommand,
-                                                                                    parsingLanguage);
+                    ObjectObservable.class, ObjectObservable.class);
+            TurtlePropertyUpdater turtlePropertyUpdater = (TurtlePropertyUpdater) constructor.newInstance(turtleIDs, internalCommand,
+                    parsingLanguage);
             turtlePropertyUpdater.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,12 +105,12 @@ public class TopBar extends SubBar {
     }
 
     private void changePropertiesTurtle() {
-        turtPropSelect = new TurtlePropSelect(selectedTurtle, turtleIDs);
+        PopUp turtPropSelect = new TurtlePropSelect(selectedTurtle, turtleIDs);
         turtPropSelect.show();
     }
 
     private void setPenColor() {
-        penColorUpdater = new PenColorUpdater(turtleIDs, internalCommand, parsingLanguage, (ColorMap) colorMap, getColors());
+        TurtlePropertyUpdater penColorUpdater = new PenColorUpdater(turtleIDs, internalCommand, parsingLanguage, (ColorMap) colorMap, getColors());
         penColorUpdater.show();
     }
 

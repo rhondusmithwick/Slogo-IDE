@@ -1,7 +1,16 @@
 package view;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Dimension2D;
+import javafx.scene.Group;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import main.GlobalProperties;
 import main.Slogo;
+import observables.ObjectObservable;
 import view.commentry.CommandEntry;
 import view.commhistory.CommandHistoryDisplay;
 import view.envdisplay.DefinedObjectsDisplay;
@@ -14,15 +23,7 @@ import view.tbar.TopBar;
 import view.turtdisplay.TurtleDisplay;
 import view.turtparams.TurtleParams;
 import view.utilities.ButtonFactory;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Dimension2D;
-import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import observables.ObjectObservable;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -35,7 +36,7 @@ import java.util.ResourceBundle;
 public class View implements ViewInt {
 
     private final Dimension2D turtleDispDimension;
-    private final ObjectObservable<String>  internalCommand, commandHistInput;
+    private final ObjectObservable<String> internalCommand, commandHistInput;
     private final ObjectObservable<Integer> selectedTurtle;
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
     private final SimpleStringProperty variables = new SimpleStringProperty(this, "variables");
@@ -43,34 +44,25 @@ public class View implements ViewInt {
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
     private final SimpleStringProperty turtleIDs = new SimpleStringProperty(this, "turtleIDs");
     private BorderPane UI;
-    private ResourceBundle myResources;
+    private final ResourceBundle myResources;
     private Group root;
-    private Button executeButton;
     private TurtleDisplay turtleDisplay;
-    private CommandHistoryDisplay commandHistory;
     private CommandEntry commandEntry;
-    private ErrorDisplay errorDisplay;
-    private DefinedObjectsDisplay variableDisplay, methodsDisplay;
-    private TurtleParams turtleParameters;
     private HBox bottom;
     private VBox left, right, top;
-    private SubBar topBar, bottomBar;
-	private Slogo slogo;
-	private GlobalProperties globalProperties;
+    private final Slogo slogo;
+    private final GlobalProperties globalProperties;
 
     /**
      * creates a new view object
-     * 
-     * @param turtleDispDimension
-     *            2D dimension defining the turtle area size
-     * @param input
-     *            observable string used to pass input to back end
-     * @param pLang
-     *            observable string used to set parsing language on backend
+     *
+     * @param turtleDispDimension 2D dimension defining the turtle area size
+     * @param input               observable string used to pass input to back end
+     * @param pLang               observable string used to set parsing language on backend
      */
     public View(GlobalProperties globalProperties, Dimension2D turtleDispDimension, Slogo slogo) {
         this.slogo = slogo;
-        this.globalProperties=globalProperties;
+        this.globalProperties = globalProperties;
         this.turtleDispDimension = turtleDispDimension;
         this.internalCommand = new ObjectObservable<>();
         this.selectedTurtle = new ObjectObservable<>();
@@ -96,9 +88,8 @@ public class View implements ViewInt {
 
     /**
      * binds the size of the border pane to the size of the application
-     * 
-     * @param scene
-     *            to bind the panes size to
+     *
+     * @param scene to bind the panes size to
      */
     @Override
     public void bindSize(ReadOnlyDoubleProperty height, ReadOnlyDoubleProperty width) {
@@ -118,7 +109,7 @@ public class View implements ViewInt {
     }
 
     private void setError() {
-        errorDisplay = new ErrorDisplay(error);
+        ErrorDisplay errorDisplay = new ErrorDisplay(error);
         errorDisplay.set();
     }
 
@@ -133,9 +124,9 @@ public class View implements ViewInt {
     private void createLeftPane() {
         left = new VBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(left, ViewInsets.LEFT.getInset());
-        variableDisplay = new VariableDisplay(globalProperties, internalCommand, variables, error);
+        DefinedObjectsDisplay variableDisplay = new VariableDisplay(globalProperties, internalCommand, variables, error);
         left.getChildren().add(variableDisplay.getEnvDisplay());
-        methodsDisplay = new MethodDisplay(globalProperties, internalCommand, definedCommands, error);
+        DefinedObjectsDisplay methodsDisplay = new MethodDisplay(globalProperties, internalCommand, definedCommands, error);
         left.getChildren().add(methodsDisplay.getEnvDisplay());
 
     }
@@ -144,10 +135,10 @@ public class View implements ViewInt {
         bottom = new HBox(Size.VIEW_PADDING.getSize());
         BorderPane.setMargin(bottom, ViewInsets.BOTTOM.getInset());
 
-        turtleParameters = new TurtleParams(selectedTurtle);
+        TurtleParams turtleParameters = new TurtleParams(selectedTurtle);
         bottom.getChildren().add(turtleParameters.getTurtleParams());
 
-        commandHistory = new CommandHistoryDisplay(internalCommand, commandHistInput);
+        CommandHistoryDisplay commandHistory = new CommandHistoryDisplay(internalCommand, commandHistInput);
         bottom.getChildren().add(commandHistory.getHistoryGraphic());
 
     }
@@ -155,8 +146,8 @@ public class View implements ViewInt {
 
     private void createToolBar() {
         top = new VBox(Size.TB_PADDING.getSize());
-        topBar = new TopBar(globalProperties, turtleIDs, internalCommand, selectedTurtle, error);
-        bottomBar = new BottomBar( globalProperties, internalCommand, error, slogo);
+        SubBar topBar = new TopBar(globalProperties, turtleIDs, internalCommand, selectedTurtle, error);
+        SubBar bottomBar = new BottomBar(globalProperties, internalCommand, error, slogo);
         top.getChildren().addAll(topBar.getContainer(), bottomBar.getContainer());
         BorderPane.setMargin(top, ViewInsets.TOP.getInset());
 
@@ -178,7 +169,7 @@ public class View implements ViewInt {
     }
 
     private void createExecute() {
-        executeButton = ButtonFactory.createButton(myResources.getString("execute"), e -> processExecute());
+        Button executeButton = ButtonFactory.createButton(myResources.getString("execute"), e -> processExecute());
         executeButton.prefWidthProperty().bind(right.widthProperty());
         executeButton.setPrefHeight(Size.EX_BUTTON.getSize());
         right.getChildren().add(executeButton);
@@ -190,7 +181,7 @@ public class View implements ViewInt {
 
     /**
      * returns the root containing the border pane and all view components
-     * 
+     *
      * @return Group containing all view components
      */
     @Override
@@ -200,7 +191,7 @@ public class View implements ViewInt {
 
     /**
      * returns the group contained by the turtle area scroll pane
-     * 
+     *
      * @return turtle area group
      */
     @Override
@@ -211,20 +202,21 @@ public class View implements ViewInt {
     /**
      * returns all simplestring properties defined in the view that need to be
      * bound to their twins in the controller/model
-     * 
+     *
      * @return list of all needed simplestring properties
      */
     @Override
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(error, image, variables, definedCommands, turtleIDs);
     }
-  
+
     /**
      * gets the title of the view for the workspace tab
+     *
      * @return string title of view
      */
     @Override
-    public String getTitle(){
-    	return myResources.getString("WSTitle");
+    public String getTitle() {
+        return myResources.getString("WSTitle");
     }
 }

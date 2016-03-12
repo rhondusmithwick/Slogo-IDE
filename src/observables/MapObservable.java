@@ -1,6 +1,7 @@
 package observables;
 
 import javafx.beans.property.SimpleStringProperty;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class MapObservable<K, V> extends Observable {
     private final SimpleStringProperty myString;
 
     public MapObservable(String name) {
-    	this.map = new HashMap<>();
+        this.map = new HashMap<>();
         this.myString = new SimpleStringProperty(this, name, "");
     }
 
@@ -54,11 +55,11 @@ public class MapObservable<K, V> extends Observable {
         }
     }
 
-    public Collection<V> getValues(){
+    public Collection<V> getValues() {
         return map.values();
     }
-    
-    public Set<Entry<K, V>> getEntrySet(){
+
+    public Set<Entry<K, V>> getEntrySet() {
         return map.entrySet();
     }
 

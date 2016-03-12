@@ -14,7 +14,7 @@ import java.util.Map.Entry;
  *
  * @author Rhondu Smithwick
  */
-public class MapContainer<K, V>  {
+public class MapContainer<K, V> {
     private final ObservableMap<K, V> map = FXCollections.observableHashMap();
     private final List<String> theStrings = new LinkedList<>();
     private final SimpleStringProperty frontEndText;

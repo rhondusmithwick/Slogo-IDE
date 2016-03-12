@@ -8,15 +8,13 @@ import java.util.List;
 
 public class IfElseClause extends CommandNode {
 
-    private Double value = null;
-
     @Override
     protected double execute() {
-        runChildren();
+        Double value = runChildren();
         return (value != null) ? value : 0;
     }
 
-    public boolean getBoolean() {
+    private boolean getBoolean() {
         int expr = (int) getChildren().get(0).getValue();
         getChildren().remove(0);
         return expr == 1;

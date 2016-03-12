@@ -2,22 +2,24 @@ package view.tbar.popupdisplays;
 
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
 import view.Defaults;
 import view.Size;
 import view.utilities.PopUp;
 
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.ResourceBundle;
+
 /**
- * This class is a subclass of PopUp. It creates and displays a help screen from a html 
+ * This class is a subclass of PopUp. It creates and displays a help screen from a html
  * file.
- * @author Cali
  *
+ * @author Cali
  */
 public class HelpScreen extends PopUp {
 
-    private ResourceBundle myResources;
+    private final ResourceBundle myResources;
     private ClassLoader classLoader;
     private WebEngine webEngine;
     private WebView webView;
@@ -48,10 +50,9 @@ public class HelpScreen extends PopUp {
         createWeb();
         URL urlHello = classLoader.getResource(myResources.getString("helpFile"));
         webEngine.load(urlHello.toExternalForm());
-        addNodes(Arrays.asList(webView));
+        addNodes(Collections.singletonList(webView));
 
     }
-
 
 
 }

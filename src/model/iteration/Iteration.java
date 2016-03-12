@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
 public abstract class Iteration extends CommandNode {
 
     private Integer numTimes = null;
-    private Variable variable = new Variable();
+    private final Variable variable = new Variable();
     private String variableName;
     private Double value = null;
     private int increment;
@@ -32,7 +32,7 @@ public abstract class Iteration extends CommandNode {
         return (value != null) ? value : 0;
     }
 
-    protected void doIteration() {
+    private void doIteration() {
         double newValue = variable.getValue() + increment;
         variable.setValue(newValue);
         value = runChildren();
@@ -48,10 +48,6 @@ public abstract class Iteration extends CommandNode {
         tree.getVariables().remove(variableName);
     }
 
-    protected void setStartValue(int startValue) {
-        this.startValue = startValue;
-    }
-
     protected void setVariableName(String variableName) {
         this.variableName = variableName;
     }
@@ -60,16 +56,20 @@ public abstract class Iteration extends CommandNode {
         return increment;
     }
 
+    protected void setIncrement(int increment) {
+        this.increment = increment;
+    }
+
     protected int getStartValue() {
         return startValue;
     }
 
-    protected void setIncrement(int increment) {
-        this.increment = increment;
+    protected void setStartValue(int startValue) {
+        this.startValue = startValue;
     }
-    
+
     @Override
     protected int getNumChildrenRequired() {
-    	return 2;
+        return 2;
     }
 }

@@ -27,10 +27,10 @@ public class TurtleController implements Controller {
     private static final String DEFAULT_LANGUAGE = "resources/languages/English";
     private static final String DEFAULT_SYNTAX = "resources/languages/Syntax";
 
-    private final Group group = new Group();;
-    private final SlogoParser parser = new SlogoParser(DEFAULT_SYNTAX);;
-    private final SimpleStringProperty error = new SimpleStringProperty(this, "error");;
-    private final MapContainer<String, Variable> variables = new MapContainer<>("variables");;
+    private final Group group = new Group();
+    private final SlogoParser parser = new SlogoParser(DEFAULT_SYNTAX);
+    private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
+    private final MapContainer<String, Variable> variables = new MapContainer<>("variables");
     private final MapContainer<String, MakeUserInstruction> definedCommands = new MapContainer<>("definedCommands");
 
     private final TurtleManager turtleManager;
@@ -41,7 +41,7 @@ public class TurtleController implements Controller {
         this.properties = globalProperties;
         setProperties();
     }
-    
+
     private void setProperties() {
         properties.getLanguage().addObserver(this);
         properties.getInput().addObserver(this);

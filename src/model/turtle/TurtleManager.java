@@ -52,7 +52,7 @@ public class TurtleManager {
         activeTurtles.addAll(newActives);
     }
 
-    public void addTurtle(int ID) {
+    private void addTurtle(int ID) {
         Turtle turtle = new Turtle(ID, turtDispDimension);
         allTurtles.put(ID, turtle);
         group.getChildren().add(turtle.getGroup());
