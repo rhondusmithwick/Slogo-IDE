@@ -96,6 +96,7 @@ public abstract class DefinedObjectsDisplay {
 			Object obj = constructor.newInstance(internalCommand, parsingLanguage, label);
 			return (EnvActor) obj;
 		} catch (Exception e) {
+			e.printStackTrace();
 			error.set("");
 			error.set(myResources.getString("createUpError"));
 		}
