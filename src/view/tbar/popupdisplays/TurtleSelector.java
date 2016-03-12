@@ -18,6 +18,7 @@ import observables.ObjectObservable;
 
 public class TurtleSelector extends TurtlePropertyUpdater {
 
+    private static final String ST_KEY = "ShowTurtle";
     private final SimpleStringProperty turtleIDs;
 
     /**
@@ -40,13 +41,12 @@ public class TurtleSelector extends TurtlePropertyUpdater {
     @Override
     protected String makeCommand(String turtleIDs) {
         if(turtleIDs.length()==0){
-            return translateCommand("ShowTurtle");
+            return translateCommand(ST_KEY);
         }
         String tellCommand = getTellCommand(turtleIDs);
         String inactive = getInactive(turtleIDs);
         String askCommand = getAskCommand(inactive);
-        String comm= tellCommand +  askCommand;
-        return comm;
+        return tellCommand +  askCommand;
     }
 
     private String getAskCommand (String inactive) {
@@ -58,7 +58,7 @@ public class TurtleSelector extends TurtlePropertyUpdater {
     }
 
     private String getTellCommand (String turtleIDs) {
-       return translateCommand("Tell") + " [ " + turtleIDs + "]\n" + translateCommand("ShowTurtle") + "\n";
+       return translateCommand("Tell") + " [ " + turtleIDs + "]\n" + translateCommand(ST_KEY) + "\n";
 
     }
 

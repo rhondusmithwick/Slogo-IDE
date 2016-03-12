@@ -10,21 +10,36 @@ import observables.ObjectObservable;
 import view.Defaults;
 import view.utilities.ButtonFactory;
 
+/**
+ * This class is responsible for allowing the user to choose an image for a turtle and assigning it to the correct chosen
+ * turtles. It extends the abstract TurtlePropertyUpdater class.
+ * @author Cali
+ *
+ */
+
 public class TurtleImageSelector extends TurtlePropertyUpdater {
     
+    private static final String TITLE = "image";
     private String newImage;
     private ImageMap imageMap;
     
+    /**
+     * Creates an new TurtleImageSelector instance
+     * @param turtleIDs ids of all created turtles
+     * @param internalCommand ObjectObservable String to pass commands to command entry instance
+     * @param parsingLanguage ObjectObservable String with current parsing language
+     * @param imageMap current ImageMap
+     */
     public TurtleImageSelector(SimpleStringProperty turtleIDs,
                                ObjectObservable<String> internalCommand, ObjectObservable<String> parsingLanguage, IndexMap imageMap){
-        super(turtleIDs, internalCommand, parsingLanguage, "image");
+        super(turtleIDs, internalCommand, parsingLanguage, TITLE);
         this.imageMap=(ImageMap) imageMap;
     }
     
     
     @Override
     protected void createElementsBelowCheckBoxes () {
-        Button chooseFile = ButtonFactory.createButton(getStringFromResources("image"), e->openImageChooser());
+        Button chooseFile = ButtonFactory.createButton(getStringFromResources(TITLE), e->openImageChooser());
         addToScene(chooseFile);
     }
 
