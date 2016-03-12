@@ -42,7 +42,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
     }
 
     protected void parseString(String text) {
-        System.out.println(text);
+       
         if (text.startsWith("[")) {
             text = text.substring(1);
         }
