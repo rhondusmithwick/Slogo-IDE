@@ -1,7 +1,7 @@
 package view.tbar.popupdisplays;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -50,8 +50,8 @@ public class TurtleSelector extends TurtlePropertyUpdater {
 	}
 
 	private String getInactive(String turtles) {
-		ArrayList<String> active = new ArrayList<>( Arrays.asList(turtles.split(" ")));
-		ArrayList<String> allTurtles = new ArrayList<> (Arrays.asList(turtleIDs.get().split(", ")));
+		List<String> active =  Arrays.asList(turtles.split(" "));
+		List<String> allTurtles =  Arrays.asList(turtleIDs.get().split(", "));
 		Predicate<String> isIn = (e) -> (!active.contains(e));
 		Object[] inActive =   allTurtles.parallelStream().filter(isIn).toArray();
 		StringBuilder toHide = new StringBuilder();
