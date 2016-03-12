@@ -6,13 +6,14 @@ import model.deprecated.Command;
 import observables.ObjectObservable;
 
 import java.util.List;
+import java.util.Observer;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
  *
  * @author Rhondu Smithwick
  */
-public interface Controller {
+public interface Controller extends Observer {
     /**
      * Accept an input string.
      **/
@@ -20,14 +21,6 @@ public interface Controller {
 
     List<SimpleStringProperty> getProperties();
 
-    /**
-     * Get a list of all commands.
-     **/
-    List<Command> getCommands();
-
     Group getGroup();
 
-    ObjectObservable<String> getLanguage();
-
-    ObjectObservable<String> getInput();
 }

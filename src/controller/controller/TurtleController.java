@@ -24,7 +24,7 @@ import java.util.Queue;
  *
  * @author Rhondu Smithwick
  */
-public class TurtleController implements Controller, Observer {
+public class TurtleController implements Controller {
 
     private static final String DEFAULT_LANGUAGE = "resources/languages/English";
 
@@ -32,9 +32,6 @@ public class TurtleController implements Controller, Observer {
 
     private final Group group = new Group();
     private final TurtleManager turtleManager;
-
-    private final ObjectObservable<String> language;
-    private final ObjectObservable<String> input;
     private final GlobalProperties properties;
 
     private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
@@ -44,48 +41,33 @@ public class TurtleController implements Controller, Observer {
 
     public TurtleController(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
         turtleManager = new TurtleManager(turtleDispDimension);
-        this.language = globalProperties.getLanguage();
-        this.input = globalProperties.getInput();
         this.properties = globalProperties;
-        language.addObserver(this);
-        input.addObserver(this);
-        language.set(DEFAULT_LANGUAGE);
+        properties.getLanguage().addObserver(this);
+        properties.getInput().addObserver(this);
+        properties.getLanguage().set(DEFAULT_LANGUAGE);
         variables.addObserver(this);
         group.getChildren().add(turtleManager.getGroup());
     }
 
-    public ObjectObservable<String> getLanguage() {
-        return language;
-    }
-
-    public ObjectObservable<String> getInput() {
-        return input;
-    }
-
     @Override
     public void takeInput(String input) {
-        Queue<Entry<String, String>> parsedText = parser.parseText(input);
+        Queue<Entry<String, String>> parsedText = parser.parseText(definedCommands, input);
         runCommands(parsedText);
     }
 
     private void runCommands(Queue<Entry<String, String>> parsedText) {
         if (parsedText == null) {
             error.set("");
-            error.set("Command not recognized: " + input.get());
+            error.set("Command not recognized: " + properties.getInput().get());
         } else {
             try {
                 ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables, definedCommands, properties, parsedText);
                 new Thread(expressionTree::executeAll).start();
             } catch (Exception es) {
                 error.set("");
-                error.set("Exception in command argument: " + input.get());
+                error.set("Exception in command argument: " + properties.getInput().get());
             }
         }
-    }
-
-    @Override
-    public List<Command> getCommands() {
-        return null;
     }
 
     @Override
@@ -95,11 +77,11 @@ public class TurtleController implements Controller, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o == language) {
-            parser.addPatterns(language.get());
+        if (o == properties.getLanguage()) {
+            parser.addPatterns(properties.getLanguage().get());
         }
-        if (o == input) {
-            takeInput(input.get());
+        if (o == properties.getInput()) {
+            takeInput(properties.getInput().get());
         }
     }
 
@@ -107,8 +89,6 @@ public class TurtleController implements Controller, Observer {
     public List<SimpleStringProperty> getProperties() {
         return Arrays.asList(
                 error, turtleManager.getTurtleIDsProperty(),
-                turtleManager.get(1).getTurtleProperties().imageProperty(),
-                turtleManager.get(1).getTurtleProperties().penColorProperty(),
                 variables.getStringProperty(), definedCommands.frontEndTextProperty());
     }
 }
