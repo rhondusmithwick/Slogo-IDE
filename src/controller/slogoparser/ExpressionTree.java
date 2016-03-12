@@ -176,7 +176,6 @@ public class ExpressionTree {
         return className.equals("Constant");
     }
     
-
     private void createSubTree(TreeNode root) {
         while (stillRoot(root)) {
             TreeNode n = createNode();

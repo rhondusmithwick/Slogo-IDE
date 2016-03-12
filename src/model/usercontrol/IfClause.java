@@ -8,13 +8,11 @@ import java.util.List;
 
 public class IfClause extends CommandNode {
 
-    private boolean bool = false;
     private Double value = null;
 
     @Override
     protected double execute() {
-        getBoolean();
-        if (bool) {
+        if (getBoolean()) {
             runChildren();
         }
         return (value != null) ? value : 0;
@@ -23,8 +21,7 @@ public class IfClause extends CommandNode {
     private boolean getBoolean() {
         int expr = (int) getChildren().get(0).getValue();
         getChildren().remove(0);
-        bool = expr == 1;
-        return bool;
+        return expr == 1;
     }
 
     public void handleSpecific(ExpressionTree tree) {

@@ -24,8 +24,9 @@ import java.util.Queue;
 public class TurtleController implements Controller {
 
     private static final String DEFAULT_LANGUAGE = "resources/languages/English";
+    private static final String DEFAULT_SYNTAX = "resources/languages/Syntax";
 
-    private final SlogoParser parser = new SlogoParser("resources/languages/Syntax");
+    private final SlogoParser parser;
 
     private final Group group;
     private final TurtleManager turtleManager;
@@ -37,6 +38,7 @@ public class TurtleController implements Controller {
     private final DefinedCommands definedCommands;
 
     public TurtleController(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
+    	this.parser = new SlogoParser(DEFAULT_SYNTAX);
     	this.group = new Group();
         this.turtleManager = new TurtleManager(turtleDispDimension);
         this.properties = globalProperties;
