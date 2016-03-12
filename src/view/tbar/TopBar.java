@@ -65,11 +65,10 @@ public class TopBar extends SubBar {
 		this.colorMap = globalProperties.getColorMap();
 		this.imageMap = globalProperties.getImageMap();
 		this.selectedTurtle = selectedTurtle;
+		this.slogo = slogo;
 		colorDisplay = new ColorDisplay("colorTitle");
 		imageDisplay = new ImageDisplay("imageTitle");
 		helpScreen = new HelpScreen();
-		this.slogo = slogo;
-
 	}
 
 	/**
