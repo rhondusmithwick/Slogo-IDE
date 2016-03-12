@@ -42,26 +42,26 @@ public class MapContainer<K, V>  {
         return frontEndText;
     }
 
-    public V get(K commandName) {
-        return map.get(commandName);
+    public void putEntry(Entry<K, V> e) {
+        map.put(e.getKey(), e.getValue());
     }
 
-    public boolean contains(K commandName) {
-        return map.containsKey(commandName);
-    }
-
-    public void remove(K key) {
-        map.remove(key);
-    }
 
     public void put(K key, V value) {
         map.put(key, value);
     }
 
-    public void putEntry(Entry<K, V> e) {
-        map.put(e.getKey(), e.getValue());
+    public V get(K key) {
+        return map.get(key);
     }
 
+    public boolean containsKey(K key) {
+        return map.containsKey(key);
+    }
+
+    public void remove(K key) {
+        map.remove(key);
+    }
 
 
 }

@@ -94,7 +94,7 @@ public class MakeUserInstruction extends CommandNode {
     }
 
     private boolean isAlreadyVariable(ExpressionTree tree, String value) {
-        return tree.getVariables().contains(value);
+        return tree.getVariables().containsKey(value);
     }
 
     private void makeCommands(Queue<Entry<String, String>> parsedText) {

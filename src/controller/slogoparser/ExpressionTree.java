@@ -193,9 +193,9 @@ public class ExpressionTree {
             Collection<Integer> IDs = turtleManager.doTell(parsedText);
             turtleManager.populateActiveTurtles(IDs);
             n = new ConstantNode(0.0);
-        } else if (variables.contains(curr.getValue())) {
+        } else if (variables.containsKey(curr.getValue())) {
             n = variableHandle(curr);
-        } else if (definedCommands.contains(curr.getValue())) {
+        } else if (definedCommands.containsKey(curr.getValue())) {
             n = definedCommands.get(curr.getValue()).getUserCommandNode(this);
         } else {
             n = createNodeInstance(curr.getKey());
