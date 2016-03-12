@@ -20,7 +20,6 @@ public class SetPenSize extends TurtleCommandNode {
 
     private void setPenSize(Turtle turtle) {
         pixels = getChildren().get(0).getValue();
-        System.out.println(pixels);
         turtle.getTurtleProperties().setPenSize(pixels);
     }
 }
