@@ -32,7 +32,7 @@ public enum Defaults {
 	IM_CHILD_ELEMENT("Element"),
 	WS_PREF_LOC("WorkSpacePreferences/"),
 	REP_VAR(":repcount"),
-	METHOD_SPLITTER("]"),
+	ENV_SPLITTER(", "),
 	VAR_SPLITTER(","),
 	TURTLE_SELECTOR("view.tbar.popupdisplays.TurtleSelector"),
 	PEN_UP("view.tbar.popupdisplays.pen.PenUpUpdater"),

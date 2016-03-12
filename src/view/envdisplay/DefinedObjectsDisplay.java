@@ -107,6 +107,7 @@ public abstract class DefinedObjectsDisplay {
 	 * simplestring property
 	 */
 	public void createCurrEnvDisp() {
+	        
 		vBox = new VBox();
 		setTitle();
 		String definedObjectsString = definedObjects.get();

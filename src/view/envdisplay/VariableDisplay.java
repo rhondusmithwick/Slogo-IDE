@@ -16,44 +16,53 @@ import view.Defaults;
 
 public class VariableDisplay extends DefinedObjectsDisplay {
 
-	private EnvActor updater;
+    private EnvActor updater;
 
-	/**
-	 * creates new variable display instance
-	 * 
-	 * @param pLang
-	 *            string observable for storing and setting parsing language
-	 * @param intCommand
-	 *            string observable to pass commands to command entry instance
-	 * @param variables
-	 *            simplestring property storing user defined variables
-	 * @param error
-	 *            simplestring property to display error
-	 */
-	public VariableDisplay(GlobalProperties globalProperties, ObjectObservable<String> internalCommand,
-			SimpleStringProperty variables, SimpleStringProperty error) {
-		super(variables, globalProperties.getLanguage(), internalCommand, error, Defaults.VAR_SPLITTER.getDefault(),
-				"varTitle");
-		createCurrEnvDisp();
-	}
+    /**
+     * creates new variable display instance
+     * 
+     * @param pLang
+     *            string observable for storing and setting parsing language
+     * @param intCommand
+     *            string observable to pass commands to command entry instance
+     * @param variables
+     *            simplestring property storing user defined variables
+     * @param error
+     *            simplestring property to display error
+     */
+    public VariableDisplay(GlobalProperties globalProperties, ObjectObservable<String> internalCommand,
+                           SimpleStringProperty variables, SimpleStringProperty error) {
+        super(variables, globalProperties.getLanguage(), internalCommand, error, Defaults.ENV_SPLITTER.getDefault(),
+                "varTitle");
+        createCurrEnvDisp();
+    }
 
-	/**
-	 * creates a new updater object that updates a label's text based on user
-	 * input
-	 * 
-	 * @param Label
-	 *            label whose text is to be updated
-	 */
-	@Override
-	protected void updateDefinedObject(Label label) {
-		updater = getUpdater(Defaults.VAR_UP_LOC.getDefault(), label);
-		updater.show();
-	}
+    /**
+     * creates a new updater object that updates a label's text based on user
+     * input
+     * 
+     * @param Label
+     *            label whose text is to be updated
+     */
+    @Override
+    protected void updateDefinedObject(Label label) {
+        updater = getUpdater(Defaults.VAR_UP_LOC.getDefault(), label);
+        updater.show();
+    }
 
-	protected void parseString(String text) {
-		if (!text.startsWith(Defaults.REP_VAR.getDefault())) {
-			setLabel(text);
-		}
-	}
+    protected void parseString(String text) {
+        if(text.equals("[]")){
+            return;
+        }
+        if(text.startsWith("[")){
+            text = text.substring(1);
+        }
+        if(text.endsWith("]")){
+            text = text.substring(0, text.length()-1);
+        }
+        String[] split = text.split("=");
+        
+        setLabel(split[0] + " " + split[1]);
+    }
 
 }
