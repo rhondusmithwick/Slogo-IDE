@@ -6,17 +6,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import main.GlobalProperties;
-import model.deprecated.Command;
 import model.turtle.TurtleManager;
 import model.usercontrol.Variable;
 import observables.MapObservable;
-import observables.ObjectObservable;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.Queue;
 
 /**

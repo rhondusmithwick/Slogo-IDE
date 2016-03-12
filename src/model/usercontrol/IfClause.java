@@ -20,10 +20,11 @@ public class IfClause extends CommandNode {
         return (value != null) ? value : 0;
     }
 
-    private void getBoolean() {
+    private boolean getBoolean() {
         int expr = (int) getChildren().get(0).getValue();
         getChildren().remove(0);
-        bool = (expr == 1) ? true : false;
+        bool = expr == 1;
+        return bool;
     }
 
     public void handleSpecific(ExpressionTree tree) {

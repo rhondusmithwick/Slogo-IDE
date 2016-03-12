@@ -2,8 +2,6 @@ package controller.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
-import model.deprecated.Command;
-import observables.ObjectObservable;
 
 import java.util.List;
 import java.util.Observer;
