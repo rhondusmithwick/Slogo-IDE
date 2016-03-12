@@ -13,6 +13,4 @@ public class Backward extends Movement {
     public double turtleExecute(Turtle turtle) {
         return move(turtle, -1);
     }
-
-
 }

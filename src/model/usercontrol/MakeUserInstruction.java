@@ -20,6 +20,10 @@ import java.util.stream.Collectors;
  * @author Rhondu Smithwick
  */
 public class MakeUserInstruction extends CommandNode {
+	
+	private static final String START_COMMANDS = "ListStart";
+	private static final String END_COMMANDS = "ListEnd";
+	
     private final Map<Integer, String> variableNames = new HashMap<>();
     private final Map<String, Variable> variableMap = new HashMap<>();
     private final Queue<Entry<String, String>> myCommands = new LinkedList<>();
@@ -50,18 +54,15 @@ public class MakeUserInstruction extends CommandNode {
     }
 
     private void makeVariables(Queue<Entry<String, String>> parsedText) {
-        if (parsedText.peek().getKey().equals("ListStart")) {
+        if (parsedText.peek().getKey().equals(START_COMMANDS)) {
             parsedText.poll();
             int index = 0;
-            while (true) {
-                if (parsedText.peek().getKey().equals("ListEnd")) {
-                    parsedText.poll();
-                    break;
-                }
+            while (!parsedText.peek().getKey().equals(END_COMMANDS)) {
                 Entry<String, String> curr = parsedText.poll();
                 putInMap(index, curr.getValue());
                 index++;
             }
+            parsedText.poll();
         }
     }
 
@@ -94,15 +95,14 @@ public class MakeUserInstruction extends CommandNode {
     }
 
     private void makeCommands(Queue<Entry<String, String>> parsedText) {
-        if (parsedText.peek().getKey().equals("ListStart")) {
+        if (parsedText.peek().getKey().equals(START_COMMANDS)) {
             int numEnds = 1;
             myCommands.add(parsedText.poll());
-            while (true) {
-                if (numEnds == 0) break;
-                if (parsedText.peek().getKey().equals("ListEnd")) {
+            while (numEnds != 0) {
+                if (parsedText.peek().getKey().equals(END_COMMANDS)) {
                     numEnds--;
                 }
-                if (parsedText.peek().getKey().equals("ListStart")) {
+                if (parsedText.peek().getKey().equals(START_COMMANDS)) {
                     numEnds++;
                 }
                 myCommands.add(parsedText.poll());

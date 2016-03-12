@@ -1,6 +1,5 @@
 package main;
 
-
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -38,11 +37,11 @@ public class Slogo {
 	 * @param stage stage the visuals will be shown on
 	 */
 	public Slogo(Stage stage){
-		this.stage=stage;
-		root = new Group();
-		tabPane = new TabPane();
-		tabPane.prefHeightProperty().bind(this.stage.heightProperty());
-		tabPane.prefWidthProperty().bind(this.stage.widthProperty());
+		this.stage = stage;
+		this.root = new Group();
+		this.tabPane = new TabPane();
+		this.tabPane.prefHeightProperty().bind(this.stage.heightProperty());
+		this.tabPane.prefWidthProperty().bind(this.stage.widthProperty());
 		newView();
 		root.getChildren().add(tabPane);
 	}
@@ -64,7 +63,6 @@ public class Slogo {
 		tabPane.getTabs().add(tab);
 	}
 	
-	
     private void bindProperties() {
         List<SimpleStringProperty> controllerProperties = currController.getProperties();
         controllerProperties.parallelStream()
@@ -82,7 +80,6 @@ public class Slogo {
                 .ifPresent(vProp -> vProp.bindBidirectional(cProp));
     }
     
-
     /**
      * Initializes the Slogo object and sets the stage to show it
      */
@@ -90,7 +87,5 @@ public class Slogo {
         Scene scene = new Scene(root, APP_DIMENSIONS.getWidth(), APP_DIMENSIONS.getHeight());
         stage.setScene(scene);
     }
-	
-	
 	
 }

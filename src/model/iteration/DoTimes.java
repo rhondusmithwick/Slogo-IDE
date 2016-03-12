@@ -19,16 +19,14 @@ public class DoTimes extends Iteration {
     private void makeVariable(Queue<Entry<String, String>> parsedText) {
     	if (parsedText.peek().getKey().equals("ListStart")) {
     		parsedText.poll();
-    		while (true) {
-    			if (parsedText.peek().getKey().equals("ListEnd")) {
-    				parsedText.poll();
-    				break;
-    			} else if (parsedText.peek().getKey().equals("Variable")) {
+    		while (!parsedText.peek().getKey().equals("ListEnd")) {
+    			if (parsedText.peek().getKey().equals("Variable")) {
     				setVariableName(parsedText.poll().getValue());
     			} else {
     				doTimesNumTimes = Integer.parseInt(parsedText.poll().getValue());
     			}
     		}
+    		parsedText.poll();
     	}
     }
 

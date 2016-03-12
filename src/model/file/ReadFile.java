@@ -47,12 +47,4 @@ public class ReadFile {
 		}
 		return sb.toString();
 	}
-	
-	public static void main(String[] args) throws IOException {
-		ReadFile read = new ReadFile("C:/Users/Jonathan/Desktop/test.txt");
-		for (String name : read.getVariables().getMap().keySet()) {
-			System.out.println(name + " " + read.getVariables().get(name));
-		}
-	}
-
 }

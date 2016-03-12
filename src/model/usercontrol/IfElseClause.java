@@ -19,7 +19,7 @@ public class IfElseClause extends CommandNode {
     public boolean getBoolean() {
         int expr = (int) getChildren().get(0).getValue();
         getChildren().remove(0);
-        return (expr == 1) ? true : false;
+        return expr == 1;
     }
 
     public void handleSpecific(ExpressionTree tree) {

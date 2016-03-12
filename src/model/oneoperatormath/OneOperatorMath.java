@@ -15,6 +15,7 @@ public abstract class OneOperatorMath extends CommandNode {
     @Override
     public double execute() {
         double value = getChildren().get(0).getValue();
+        System.out.println(func.applyAsDouble(value));
         return func.applyAsDouble(value);
     }
 
