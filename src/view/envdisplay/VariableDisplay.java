@@ -61,7 +61,9 @@ public class VariableDisplay extends DefinedObjectsDisplay {
             text = text.substring(0, text.length()-1);
         }
         String[] split = text.split("=");
-        
+        if(split[0].equals(Defaults.REP_VAR.getDefault())){
+            return;
+        }
         setLabel(split[0] + " " + split[1]);
     }
 

@@ -31,7 +31,7 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 	 */
 	public MethodDisplay(GlobalProperties globalProperties, ObjectObservable<String> internalCommand,
 			SimpleStringProperty methods, SimpleStringProperty error) {
-		super(methods, globalProperties.getLanguage(), internalCommand, error, Defaults.ENV_SPLITTER.getDefault(),
+		super(methods, globalProperties.getLanguage(), internalCommand, error, Defaults.METH_SPLITTER.getDefault(),
 				"methodDisplayTitle");
 		createCurrEnvDisp();
 	}
@@ -50,12 +50,14 @@ public class MethodDisplay extends DefinedObjectsDisplay {
 	}
 
 	protected void parseString(String text) {
-	        
+	        System.out.println(text);
 	        if(text.startsWith("[")){
 	            text = text.substring(1);
 	        }
 	        if(text.endsWith("]]")){
 	            text = text.substring(0, text.length()-1);
+	        }else{
+	            text = text + "]";
 	        }
 		String[] split = text.split("=");
 		
