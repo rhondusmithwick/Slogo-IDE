@@ -1,6 +1,6 @@
 package view.tbar.popupdisplays;
+
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,7 +29,7 @@ public class WorkSpaceSaver extends PopUp{
 
     private ResourceBundle myResources;
     private TextField textField;
-    private ArrayList<String> colors, languages;
+    private List<String> colors, languages;
     private ComboBox<String> backgroundColor, parsingLanguage, colorFile, imageFile;
 
     /**
@@ -39,8 +39,8 @@ public class WorkSpaceSaver extends PopUp{
      */
     public WorkSpaceSaver(List<String> colors, List<String> langs){
     	super(Size.HTML_HEIGHT.getSize(), Size.HTML_WIDTH.getSize(), Defaults.BACKGROUND_COLOR.getDefault());
-        this.languages = (ArrayList<String>) langs;
-        this.colors=(ArrayList<String>) colors;
+        this.languages =  langs;
+        this.colors= colors;
         this.myResources= ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
     }
     

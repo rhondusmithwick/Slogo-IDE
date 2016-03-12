@@ -25,7 +25,7 @@ public class LoadWS extends XMLParser {
                                                               Defaults.NUM_TURTS.getDefault());
 
     private Document document;
-    private ArrayList<String> parameters;
+    private List<String> parameters;
 
     /**
      * Gets user workspace preference parameters from an XML file.
