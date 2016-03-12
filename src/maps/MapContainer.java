@@ -14,44 +14,19 @@ import java.util.Map.Entry;
  *
  * @author Rhondu Smithwick
  */
-public class MapContainer<T> {
-    private final ObservableMap<String, T> map = FXCollections.observableHashMap();
+public class MapContainer<K, V>  {
+    private final ObservableMap<K, V> map = FXCollections.observableHashMap();
     private final List<String> theStrings = new LinkedList<>();
     private final SimpleStringProperty frontEndText;
 
     public MapContainer(String name) {
         frontEndText = new SimpleStringProperty(this, name);
-        addListeners();
+        addListener(change -> modifyString());
     }
 
-    private void addListeners() {
-        map.addListener((MapChangeListener<String, T>) change -> modifyString());
+    public void addListener(MapChangeListener<? super K, ? super V> listener) {
+        map.addListener(listener);
     }
-
-    public void put(String name, T value) {
-        map.put(name, value);
-    }
-
-    private void addString(Entry<String, T> entry) {
-        theStrings.add(entry.getKey() + "=" + entry.getValue().toString());
-    }
-
-    public SimpleStringProperty frontEndTextProperty() {
-        return frontEndText;
-    }
-
-    public T get(String commandName) {
-        return map.get(commandName);
-    }
-
-    public boolean contains(String commandName) {
-        return map.containsKey(commandName);
-    }
-
-    public void remove(String key) {
-        map.remove(key);
-    }
-
 
     public void modifyString() {
         theStrings.clear();
@@ -59,7 +34,31 @@ public class MapContainer<T> {
         frontEndText.set(theStrings.toString());
     }
 
-    public void putEntry(Entry<String, T> e) {
+    private void addString(Entry<K, V> entry) {
+        theStrings.add(entry.getKey().toString() + "=" + entry.getValue().toString());
+    }
+
+    public SimpleStringProperty frontEndTextProperty() {
+        return frontEndText;
+    }
+
+    public V get(K commandName) {
+        return map.get(commandName);
+    }
+
+    public boolean contains(K commandName) {
+        return map.containsKey(commandName);
+    }
+
+    public void remove(K key) {
+        map.remove(key);
+    }
+
+    public void put(K key, V value) {
+        map.put(key, value);
+    }
+
+    public void putEntry(Entry<K, V> e) {
         map.put(e.getKey(), e.getValue());
     }
 

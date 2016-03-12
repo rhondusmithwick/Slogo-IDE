@@ -76,7 +76,7 @@ public class MakeUserInstruction extends CommandNode {
     public UserCommand getUserCommandNode(ExpressionTree tree) {
         UserCommand userCommand = new UserCommand();
         setValuesForCommand(tree);
-        MapContainer<Variable> treeVariables = tree.getVariables();
+        MapContainer<String, Variable> treeVariables = tree.getVariables();
         Set<String> alreadyVariables = getAlreadyInTreeVariables(tree);
         Predicate<Entry<String, Variable>> inAlreadyVariables = (e) -> (alreadyVariables.contains(e.getKey()));
         variableMap.entrySet().parallelStream().filter(inAlreadyVariables.negate())

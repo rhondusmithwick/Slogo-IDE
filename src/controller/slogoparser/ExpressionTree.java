@@ -36,8 +36,8 @@ public class ExpressionTree {
 
     private final List<TreeNode> rootList;
 
-    private final MapContainer<Variable> variables;
-    private final MapContainer<MakeUserInstruction> definedCommands;
+    private final MapContainer<String, Variable> variables;
+    private final MapContainer<String, MakeUserInstruction> definedCommands;
     private final ObjectObservable<String> backgroundColor;
 
     private final IndexMap imageMap;
@@ -47,7 +47,7 @@ public class ExpressionTree {
     
     private Queue<Entry<String, String>> parsedText;
     
-    public ExpressionTree(TurtleManager turtleManager, MapContainer<Variable> variables, MapContainer<MakeUserInstruction> definedCommands,
+    public ExpressionTree(TurtleManager turtleManager, MapContainer<String, Variable> variables, MapContainer<String, MakeUserInstruction> definedCommands,
                           GlobalProperties properties, Queue<Entry<String, String>> parsedText) {
     	this.commandLocations = ResourceBundle.getBundle(COMMANDS_LIST);
         this.turtleManager = turtleManager;
@@ -105,7 +105,7 @@ public class ExpressionTree {
         return myRoots;
     }
     
-    public MapContainer<MakeUserInstruction> getDefinedCommands() {
+    public MapContainer<String, MakeUserInstruction> getDefinedCommands() {
         return definedCommands;
     }
 
@@ -129,7 +129,7 @@ public class ExpressionTree {
         return turtleManager.get(1);
     }
 
-    public MapContainer<Variable> getVariables() {
+    public MapContainer<String, Variable> getVariables() {
         return variables;
     }
 
