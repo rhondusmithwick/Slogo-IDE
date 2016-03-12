@@ -26,13 +26,13 @@ import view.utilities.PopUp;
 
 public class TopBar extends SubBar {
 
-    private SimpleStringProperty turtleIDs;
+    private final SimpleStringProperty turtleIDs;
     private PopUp colorDisplay, imageDisplay, turtPropSelect;
-    private ObjectObservable<Integer> selectedTurtle;
+    private final ObjectObservable<Integer> selectedTurtle;
 
-    private ObjectObservable<String> internalCommand, parsingLanguage;
+    private final ObjectObservable<String> internalCommand, parsingLanguage;
     private TurtlePropertyUpdater turtlePropertyUpdater, penColorUpdater, turtleImageSelector;
-    private IndexMap colorMap, imageMap;
+    private final IndexMap colorMap, imageMap;
 
 
     /**

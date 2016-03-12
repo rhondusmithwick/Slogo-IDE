@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import observables.ObjectObservable;
 
+
 /**
  * Class Responsible for setting the pen down for all user selected turtles.
  * Extends the abstract PenUpDownUpdater class.
@@ -14,6 +15,7 @@ import observables.ObjectObservable;
 public class PenDownUpdater extends PenUpDownUpdater {
 
 	/**
+	 * Creates an instance of the PenDownUpdater class
 	 * 
 	 * @param turtleIDs SimpleStringProperty containing IDs of all created turtles
 	 * @param internalCommand Observable that can be set to pass commands to back end
