@@ -51,7 +51,7 @@ public class TurtleController implements Controller {
 
     @Override
     public void takeInput(String input) {
-        Queue<Entry<String, String>> parsedText = parser.parseText(definedCommands, input);
+        Queue<Entry<String, String>> parsedText = parser.parseText(input);
         if (parsedText == null) {
             error.set("");
             error.set("Command not recognized: " + properties.getInput().get());
