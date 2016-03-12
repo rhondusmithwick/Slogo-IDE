@@ -26,25 +26,18 @@ public class TurtleController implements Controller {
     private static final String DEFAULT_LANGUAGE = "resources/languages/English";
     private static final String DEFAULT_SYNTAX = "resources/languages/Syntax";
 
-    private final SlogoParser parser;
+    private final Group group = new Group();;
+    private final SlogoParser parser = new SlogoParser(DEFAULT_SYNTAX);;
+    private final SimpleStringProperty error = new SimpleStringProperty(this, "error");;
+    private final MapObservable<String, Variable> variables = new MapObservable<>("variables");;
+    private final DefinedCommands definedCommands = new DefinedCommands();
 
-    private final Group group;
     private final TurtleManager turtleManager;
     private final GlobalProperties properties;
 
-    private final SimpleStringProperty error;
-
-    private final MapObservable<String, Variable> variables;
-    private final DefinedCommands definedCommands;
-
     public TurtleController(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
-    	this.parser = new SlogoParser(DEFAULT_SYNTAX);
-    	this.group = new Group();
         this.turtleManager = new TurtleManager(turtleDispDimension);
         this.properties = globalProperties;
-        this.error = new SimpleStringProperty(this, "error");
-        this.definedCommands = new DefinedCommands();
-        this.variables = new MapObservable<>("variables");
         setProperties();
     }
     
@@ -69,7 +62,8 @@ public class TurtleController implements Controller {
 
     private void runCommands(Queue<Entry<String, String>> parsedText) {
         try {
-            ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables, definedCommands, properties, parsedText);
+            ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables,
+                    definedCommands, properties, parsedText);
             new Thread(expressionTree::executeAll).start();
         } catch (Exception es) {
             error.set("");
