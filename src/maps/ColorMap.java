@@ -54,19 +54,19 @@ public class ColorMap extends IndexMap {
 
     /**
      * Obtains default set of colors and indexes. Uses reflection to obtain
-     * all currently named colors in the JavaFx paint class.
+     * all currently named color fields in the JavaFx paint class.
      */
     @SuppressWarnings("rawtypes")
     protected void defaultElements() throws Exception {
-        int count = 0;
+        int index = 0;
 
         Class colorClass = Class.forName(Defaults.FX_PAINT_CLASS.getDefault());
-        Field[] fields = colorClass.getFields();
-        for (Field field : fields) {
-            Object o = field.get(null);
-            if (o instanceof Color) {
-                colors.put(count, field.getName());
-                count++;
+        Field[] colorFields = colorClass.getFields();
+        for (Field colorField : colorFields) {
+            Object fieldObject = colorField.get(null);
+            if (fieldObject instanceof Color) {
+                colors.put(index, colorField.getName());
+                index++;
             }
         }
     }
