@@ -8,7 +8,7 @@ Date started: 2/21/16
 
 Date finished: 3/12/16
 
-Hours worked:60
+Hours worked:130
 
 Resources used: JavaFX documentation, 308 Class Materials, JavaFx tutorials, Stack Overflow
 
