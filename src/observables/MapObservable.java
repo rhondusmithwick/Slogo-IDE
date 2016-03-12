@@ -15,18 +15,18 @@ import java.util.Set;
  */
 public class MapObservable<K, V> extends Observable {
 
-    private final Map<K, V> map = new HashMap<>();
+    private final Map<K, V> map;
 
     private final SimpleStringProperty myString;
 
     public MapObservable(String name) {
+    	this.map = new HashMap<>();
         this.myString = new SimpleStringProperty(this, name, "");
     }
 
     public void put(K key, V value) {
         map.put(key, value);
         setChanged();
-
     }
 
     public V remove(K key) {

@@ -6,17 +6,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
 import main.GlobalProperties;
-import model.deprecated.Command;
 import model.turtle.TurtleManager;
 import model.usercontrol.Variable;
 import observables.MapObservable;
-import observables.ObjectObservable;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.Queue;
 
 /**
@@ -27,21 +24,24 @@ import java.util.Queue;
 public class TurtleController implements Controller {
 
     private static final String DEFAULT_LANGUAGE = "resources/languages/English";
+    private static final String DEFAULT_SYNTAX = "resources/languages/Syntax";
 
-    private final SlogoParser parser = new SlogoParser("resources/languages/Syntax");
+    private final Group group = new Group();;
+    private final SlogoParser parser = new SlogoParser(DEFAULT_SYNTAX);;
+    private final SimpleStringProperty error = new SimpleStringProperty(this, "error");;
+    private final MapObservable<String, Variable> variables = new MapObservable<>("variables");;
+    private final DefinedCommands definedCommands = new DefinedCommands();
 
-    private final Group group = new Group();
     private final TurtleManager turtleManager;
     private final GlobalProperties properties;
 
-    private final SimpleStringProperty error = new SimpleStringProperty(this, "error");
-
-    private final MapObservable<String, Variable> variables = new MapObservable<>("variables");
-    private final DefinedCommands definedCommands = new DefinedCommands();
-
     public TurtleController(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
-        turtleManager = new TurtleManager(turtleDispDimension);
+        this.turtleManager = new TurtleManager(turtleDispDimension);
         this.properties = globalProperties;
+        setProperties();
+    }
+    
+    private void setProperties() {
         properties.getLanguage().addObserver(this);
         properties.getInput().addObserver(this);
         properties.getLanguage().set(DEFAULT_LANGUAGE);
@@ -62,7 +62,8 @@ public class TurtleController implements Controller {
 
     private void runCommands(Queue<Entry<String, String>> parsedText) {
         try {
-            ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables, definedCommands, properties, parsedText);
+            ExpressionTree expressionTree = new ExpressionTree(turtleManager, variables,
+                    definedCommands, properties, parsedText);
             new Thread(expressionTree::executeAll).start();
         } catch (Exception es) {
             error.set("");

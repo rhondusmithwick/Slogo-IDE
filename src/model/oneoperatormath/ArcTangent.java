@@ -5,5 +5,4 @@ public class ArcTangent extends OneOperatorMath {
     public ArcTangent() {
         super(Math::atan);
     }
-
 }
