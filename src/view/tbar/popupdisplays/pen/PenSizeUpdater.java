@@ -1,3 +1,15 @@
+// This entire file is part of my masterpiece.
+// Stephen Kwok
+
+// This class generates a pop up that allows the user to select multiple turtles and update those turtles'
+// pen size
+
+// This class was included in the masterpiece to highlight the benefits of creating the TurtlePropertyUpdater abstract class
+// As seen below, because many features common to all subclasess are already in the abstract class, the resulting subclasses
+// are very short and primarily only differ in what command is generated to pass to the back end in order to update
+// a certain property. This helps each subclass adhere to the Single Responsibility Principle since each subclass need only
+// generate a property-specific command. Everything else is handled by the abstract class. 
+
 package view.tbar.popupdisplays.pen;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -31,6 +43,9 @@ public class PenSizeUpdater extends TurtlePropertyUpdater {
         super(turtleIDs, internalCommand, parsingLanguage, "penSizeUpdateTitle");
     }
 
+    /**
+     * Creates text field to allow user to input new pen size for selected turtles
+     */
     @Override
     protected void createElementsBelowCheckBoxes() {
         userInput = new TextField();
@@ -40,6 +55,10 @@ public class PenSizeUpdater extends TurtlePropertyUpdater {
         addToScene(userInput);
     }
 
+    /**
+     * Generates command to update pen sizes to size entered by user for all selected
+     * turtles
+     */
     @Override
     protected String makeCommand(String turtleIDs) {
         String askCommand = translateCommand("Ask");

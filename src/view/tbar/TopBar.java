@@ -1,3 +1,16 @@
+// This entire file is part of my masterpiece (Look only at the createButtons() and createTurtlePropertyUpdater() methods 
+// on lines 88-113
+// Stephen Kwok
+
+// This class holds various buttons that allows the user to perform certain actions such as changing colors, properties, etc. 
+// I included it in the masterpiece to highlight another benefit of the TurtlePropertyUpdater class. As seen in the 
+// createTurtlePropertyUpdater() method, the abstract class allows for the use of reflection to create an instance 
+// of the needed TurtlePropertyUpdater depending on what button is clicked and what property needs to be updated. Then,
+// the use of reflection allows us to create multiple TurtlePropertyUpdater classes with the same method, as seen in the
+// createButtons() method, so that we don't need a new method just to create each new TurtlePropertyUpdater. This makes
+// the class more flexible and maintainable since adding a new updater requires only adding a single line to the 
+// createButtons() class. 
+
 package view.tbar;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -85,11 +98,6 @@ public class TopBar extends SubBar {
         makeButton("image", e -> setImage());
     }
 
-    private void setImage() {
-        TurtlePropertyUpdater turtleImageSelector = new TurtleImageSelector(turtleIDs, internalCommand, parsingLanguage, imageMap);
-        turtleImageSelector.show();
-    }
-
     private void createTurtlePropertyUpdater(String className) {
         try {
             Class<?> classToCreate = Class.forName(className);
@@ -102,6 +110,11 @@ public class TopBar extends SubBar {
             e.printStackTrace();
             setError("createTurtlePropertyUpdateError");
         }
+    }
+    
+    private void setImage() {
+        TurtlePropertyUpdater turtleImageSelector = new TurtleImageSelector(turtleIDs, internalCommand, parsingLanguage, imageMap);
+        turtleImageSelector.show();
     }
 
     private void changePropertiesTurtle() {
