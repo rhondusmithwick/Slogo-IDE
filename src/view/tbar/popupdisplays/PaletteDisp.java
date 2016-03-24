@@ -1,3 +1,25 @@
+/**
+ * This entire file is part of my master piece. It is an abstract class that provides a framework for subclasses
+ * intended to display the contents of an IndexMap(Object we created, see maps package, basically a map that maps a string
+ * to an integer index). As you will see in the other
+ * files in this masterpiece, which shows how to use this class, this class makes it very easy to implement a popup
+ * that displays the contents of an IndexMap, because all the subclass has to do is implement the abstract method
+ * that takes an entry of the IndexMap and creates the graphics it wants displayed for that entry. Using this abstract class
+ * you can add a new display for the contents of an index map in 30 to 40 lines of code, instead of the 100 to 150 lines 
+ * it would take to write a new display from scratch. Also it prevents a 
+ * large amount of duplicated code, since we needed to display the contents of two IndexMaps, 
+ * the indexed colors and indexed shapes, which if I hadn't used this abstract class
+ * would have taken a very large amount of similar code for each. Thus this class helps prevent code duplication
+ * when writing code to display IndexMaps in a popup. This file was one I wrote and
+ * heavily refactored during the project. I have refactored it a bit at this point to clean it up a little more, and to 
+ * change the layout so it makes more sense. Also before I refactored this, the subclass had to call methods to set up the 
+ * hBox and add elements to the hBox for each entry, but this caused some repeated code between the two subclasses, and wasn't
+ * particularly intuitive, so I changed this so all the subclass has to do is return a list with the nodes it wants added
+ * to the hbox for that particular entry. All the variables and methods are named descriptively, and the methods are
+ * all very short and only have one purpose.  It also uses functional programming, which helped to make the code seem much 
+ * cleaner and more elegant than having a for loop.  
+ */
+
 package view.tbar.popupdisplays;
 
 import javafx.collections.ObservableMap;
@@ -28,8 +50,7 @@ public abstract class PaletteDisp extends PopUp {
     private final ResourceBundle myResources;
     private final String title;
     private HBox hBox;
-
-    private ObservableMap<Integer, String> map;
+    private ObservableMap<Integer, String> mapToShow;
 
 
     /**
@@ -42,7 +63,6 @@ public abstract class PaletteDisp extends PopUp {
         super(Size.PALETTE.getSize(), Size.PALETTE.getSize(), Defaults.BACKGROUND_WHITE.getDefault());
         this.title = title;
         myResources = ResourceBundle.getBundle(Defaults.DISPLAY_LOC.getDefault());
-
     }
 
     /**
@@ -51,10 +71,25 @@ public abstract class PaletteDisp extends PopUp {
      * @param map map obsevable to create display with
      */
     public void show(ObservableMap<Integer, String> map) {
-        this.map = map;
+        this.mapToShow = map;
         super.show();
     }
 
+
+    /**
+     * creates all components to be shown in display and adds them to the scene
+     */
+    @Override
+    protected void createScene() {
+        setStageTitle(myResources.getString(title));
+        createScroll();
+        setVBox();
+        scroll.setContent(vBox);
+        addNodes(Collections.singletonList(scroll));
+        mapToShow.entrySet().stream().forEach(this::addEntry);
+    }
+    
+    
     /**
      * create scroll pane used to show the display
      */
@@ -68,19 +103,8 @@ public abstract class PaletteDisp extends PopUp {
     }
 
     /**
-     * creates all components to be shown in display and adds them to the scene
+     * creates vBox used to hold all the elements of the palette display
      */
-    @Override
-    protected void createScene() {
-        setStageTitle(myResources.getString(title));
-        createScroll();
-        setVBox();
-        scroll.setContent(vBox);
-        addNodes(Collections.singletonList(scroll));
-        map.entrySet().stream().forEach(this::addToPalette);
-    }
-
-
     private void setVBox() {
         vBox = new VBox(Size.PALETTE_PADDING.getSize());
         vBox.setStyle(Defaults.BACKGROUND_WHITE.getDefault());
@@ -88,33 +112,34 @@ public abstract class PaletteDisp extends PopUp {
         vBox.prefWidthProperty().bind(scroll.widthProperty());
     }
 
+    /**
+     * Creates a container for and then adds the elements to display an entry to the popup
+     * @param e the entry of the IndexMap to display
+     */
+    private void addEntry(Entry<Integer, String> e){
+    	setHBox();
+    	List<Node> nodesToAdd = addToPalette(e);
+    	hBox.getChildren().addAll(nodesToAdd);
+    }
+    
 
     /**
-     * adds a map entry to the display
+     * creates elements to display for each entry
      *
      * @param e map entry containing an integer key and string value
      */
-    protected abstract void addToPalette(Entry<Integer, String> e);
+    protected abstract List<Node> addToPalette(Entry<Integer, String> e);
 
     /**
      * sets up the hBox used to display one map entry
      */
-    protected void setHBox() {
+    private void setHBox() {
         hBox = new HBox(Size.PALETTE_ENT_PADDING.getSize());
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.prefWidthProperty().bind(scroll.widthProperty());
         vBox.getChildren().add(hBox);
     }
 
-    /**
-     * adds nodes to the HBox used to display an entry
-     *
-     * @param nList list of nodes to add
-     */
-    protected void addNodesToHBox(List<Node> nodeList) {
-        hBox.getChildren().addAll(nodeList);
-
-    }
 
     /**
      * creates and returns a label from given key
