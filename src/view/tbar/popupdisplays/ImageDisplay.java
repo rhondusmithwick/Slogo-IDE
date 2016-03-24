@@ -45,7 +45,7 @@ public class ImageDisplay extends PaletteDisp {
      * @param e map entry containing an integer key and a string for an image path
      */
     @Override
-    protected List<Node> addToPalette(Entry<Integer, String> entry) {
+    protected List<Node> createDisplayFromEntry(Entry<Integer, String> entry) {
         Label index = createLabel("index", entry.getKey().toString());
         Image image = new Image(entry.getValue());
         ImageView display = new ImageView();

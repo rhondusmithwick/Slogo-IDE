@@ -46,7 +46,7 @@ public class ColorDisplay extends PaletteDisp {
      * @param e map entry containing an integer key and string color value
      */
     @Override
-    protected List<Node> addToPalette(Entry<Integer, String> entry) {
+    protected List<Node> createDisplayFromEntry(Entry<Integer, String> entry) {
         Label index = createLabel("index", entry.getKey().toString());
         Label colorName = createLabel("colorName", entry.getValue());
         Rectangle rectangle = new Rectangle(Size.PALETTE_DIM.getSize(), Size.PALETTE_DIM.getSize(), Color.web(entry.getValue()));

@@ -118,7 +118,7 @@ public abstract class PaletteDisp extends PopUp {
      */
     private void addEntry(Entry<Integer, String> entry){
     	setHBox();
-    	List<Node> nodesToAdd = addToPalette(entry);
+    	List<Node> nodesToAdd = createDisplayFromEntry(entry);
     	hBox.getChildren().addAll(nodesToAdd);
     }
     
@@ -137,7 +137,7 @@ public abstract class PaletteDisp extends PopUp {
      *
      * @param e map entry containing an integer key and string value
      */
-    protected abstract List<Node> addToPalette(Entry<Integer, String> entry);
+    protected abstract List<Node> createDisplayFromEntry(Entry<Integer, String> entry);
 
 
 
