@@ -45,14 +45,14 @@ public class ImageDisplay extends PaletteDisp {
      * @param e map entry containing an integer key and a string for an image path
      */
     @Override
-    protected List<Node> addToPalette(Entry<Integer, String> e) {
-        Label title = createLabel("index", e.getKey().toString());
-        Image image = new Image(e.getValue());
+    protected List<Node> addToPalette(Entry<Integer, String> entry) {
+        Label index = createLabel("index", entry.getKey().toString());
+        Image image = new Image(entry.getValue());
         ImageView display = new ImageView();
         display.setFitHeight(Size.PALETTE_DIM.getSize());
         display.setFitWidth(Size.PALETTE_DIM.getSize());
         display.setImage(image);
-        return Arrays.asList(title, display);
+        return Arrays.asList(index, display);
 
 
     }

@@ -70,8 +70,8 @@ public abstract class PaletteDisp extends PopUp {
      *
      * @param map map obsevable to create display with
      */
-    public void show(ObservableMap<Integer, String> map) {
-        this.mapToShow = map;
+    public void show(ObservableMap<Integer, String> mapToShow) {
+        this.mapToShow = mapToShow;
         super.show();
     }
 
@@ -116,20 +116,12 @@ public abstract class PaletteDisp extends PopUp {
      * Creates a container for and then adds the elements to display an entry to the popup
      * @param e the entry of the IndexMap to display
      */
-    private void addEntry(Entry<Integer, String> e){
+    private void addEntry(Entry<Integer, String> entry){
     	setHBox();
-    	List<Node> nodesToAdd = addToPalette(e);
+    	List<Node> nodesToAdd = addToPalette(entry);
     	hBox.getChildren().addAll(nodesToAdd);
     }
     
-
-    /**
-     * creates elements to display for each entry
-     *
-     * @param e map entry containing an integer key and string value
-     */
-    protected abstract List<Node> addToPalette(Entry<Integer, String> e);
-
     /**
      * sets up the hBox used to display one map entry
      */
@@ -140,6 +132,15 @@ public abstract class PaletteDisp extends PopUp {
         vBox.getChildren().add(hBox);
     }
 
+    /**
+     * creates elements to display for each entry
+     *
+     * @param e map entry containing an integer key and string value
+     */
+    protected abstract List<Node> addToPalette(Entry<Integer, String> entry);
+
+
+
 
     /**
      * creates and returns a label from given key
@@ -148,8 +149,8 @@ public abstract class PaletteDisp extends PopUp {
      * @param end string to be added to end of title pulled from resource bundle
      * @return created label
      */
-    protected Label createLabel(String key, String end) {
-        return new Label(myResources.getString(key) + end);
+    protected Label createLabel(String key, String stringEnd) {
+        return new Label(myResources.getString(key) + stringEnd);
 
     }
 
