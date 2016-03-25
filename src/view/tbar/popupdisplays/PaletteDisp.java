@@ -1,3 +1,6 @@
+//This entire file is part of my masterpiece.
+//Cali Nelson
+
 /**
  * This entire file is part of my master piece. It is an abstract class that provides a framework for subclasses
  * intended to display the contents of an IndexMap(Object we created, see maps package, basically a map that maps a string
