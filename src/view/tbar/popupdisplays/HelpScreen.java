@@ -36,8 +36,6 @@ public class HelpScreen extends PopUp {
         webView.prefHeightProperty().bind(getSize(true));
         webView.prefWidthProperty().bind(getSize(false));
         webEngine = webView.getEngine();
-
-
     }
 
     /**
