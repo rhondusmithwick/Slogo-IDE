@@ -1,3 +1,6 @@
+//This entire file is part of my masterpiece.
+//Cali Nelson
+
 /**
  * This entire file is part of my masterpiece. This is an example of a subclass of the PaletteDisp class, which is the other
  * class of my master piece. This object creates a popup that displays each index in the palette, with the name of the
