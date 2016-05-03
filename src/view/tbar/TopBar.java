@@ -1,6 +1,7 @@
 package view.tbar;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableMap;
 import main.GlobalProperties;
 import maps.ColorMap;
 import maps.IndexMap;
@@ -9,6 +10,7 @@ import view.Defaults;
 import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.ImageDisplay;
 import view.tbar.popupdisplays.PaletteDisp;
+import view.tbar.popupdisplays.TurtleImageDisplay;
 import view.tbar.popupdisplays.TurtleImageSelector;
 import view.tbar.popupdisplays.TurtlePropSelect;
 import view.tbar.popupdisplays.TurtlePropertyUpdater;
@@ -32,6 +34,8 @@ public class TopBar extends SubBar {
     private final IndexMap colorMap, imageMap;
     private final PopUp colorDisplay;
     private final PopUp imageDisplay;
+    private final PopUp turtleImageDisplay;
+    private ObservableMap<Integer, SimpleStringProperty> turtleImages;
 
 
     /**
@@ -55,9 +59,11 @@ public class TopBar extends SubBar {
         this.colorMap = globalProperties.getColorMap();
         this.imageMap = globalProperties.getImageMap();
         this.selectedTurtle = selectedTurtle;
+        this.turtleImages = globalProperties.getTurtleImages();
 
         colorDisplay = new ColorDisplay("colorTitle");
         imageDisplay = new ImageDisplay("imageTitle");
+        turtleImageDisplay = new TurtleImageDisplay("turtleImageTitle",error);
 
     }
 
@@ -80,9 +86,9 @@ public class TopBar extends SubBar {
         makeButton("penUp", e -> createTurtlePropertyUpdater(Defaults.PEN_UP.getDefault()));
         makeButton("penDown", e -> createTurtlePropertyUpdater(Defaults.PEN_DOWN.getDefault()));
         makeButton("pColor", e -> setPenColor());
-
         makeButton("chPropTurtle", e -> changePropertiesTurtle());
         makeButton("image", e -> setImage());
+        makeButton("showTurtleImages", e->((PaletteDisp) turtleImageDisplay).show(turtleImages));
     }
 
     private void setImage() {

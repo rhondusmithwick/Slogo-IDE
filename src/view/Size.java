@@ -30,7 +30,8 @@ public enum Size {
     TURTLE_UPDATE_POPUP_WIDTH(500),
     TURTLE_UPDATE_POPUP_HEIGHT(300),
     TOP_TAB(25),
-    PROP_SEL_HEIGHT(200);
+    PROP_SEL_HEIGHT(200),
+    TURTLE_IMAGE_DISP(400);
 
     private final int size;
 

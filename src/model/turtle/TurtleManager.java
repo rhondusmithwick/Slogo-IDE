@@ -6,7 +6,7 @@ import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Group;
-
+import main.GlobalProperties;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,14 +24,16 @@ public class TurtleManager {
     private final Group group = new Group();
     private final Dimension2D turtDispDimension;
     private final List<Turtle> activeTurtles = new LinkedList<>();
-
+    private final ObservableMap<Integer, SimpleStringProperty> turtleImages;
     private final SimpleStringProperty turtleIDs = new SimpleStringProperty(this, "turtleIDs");
 
-    public TurtleManager(Dimension2D turtDispDimension) {
+    public TurtleManager(Dimension2D turtDispDimension, GlobalProperties globalProperties) {
         this.turtDispDimension = turtDispDimension;
+        this.turtleImages= globalProperties.getTurtleImages();
         formatActiveTurtles();
         addTurtle(1);
         addToActive(1);
+
     }
 
     public Turtle get(int ID) {
@@ -55,6 +57,7 @@ public class TurtleManager {
     private void addTurtle(int ID) {
         Turtle turtle = new Turtle(ID, turtDispDimension);
         allTurtles.put(ID, turtle);
+        turtleImages.put(ID, turtle.getTurtleProperties().imageProperty());
         group.getChildren().add(turtle.getGroup());
     }
 
@@ -98,5 +101,6 @@ public class TurtleManager {
     public SimpleStringProperty getTurtleIDsProperty() {
         return turtleIDs;
     }
+    
 
 }

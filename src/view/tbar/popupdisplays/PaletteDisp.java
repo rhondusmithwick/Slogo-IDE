@@ -29,7 +29,7 @@ public abstract class PaletteDisp extends PopUp {
     private final String title;
     private HBox hBox;
 
-    private ObservableMap<Integer, String> map;
+    private ObservableMap<Integer, ?> map;
 
 
     /**
@@ -50,7 +50,7 @@ public abstract class PaletteDisp extends PopUp {
      *
      * @param map map obsevable to create display with
      */
-    public void show(ObservableMap<Integer, String> map) {
+    public void show(ObservableMap<Integer, ?> map) {
         this.map = map;
         super.show();
     }
@@ -94,7 +94,9 @@ public abstract class PaletteDisp extends PopUp {
      *
      * @param e map entry containing an integer key and string value
      */
-    protected abstract void addToPalette(Entry<Integer, String> e);
+    protected void addToPalette(Entry<Integer, ?> e){
+        setHBox();
+    }
 
     /**
      * sets up the hBox used to display one map entry

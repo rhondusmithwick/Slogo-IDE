@@ -33,11 +33,11 @@ public class ColorDisplay extends PaletteDisp {
      * @param e map entry containing an integer key and string color value
      */
     @Override
-    protected void addToPalette(Entry<Integer, String> e) {
-        setHBox();
+    protected void addToPalette(Entry<Integer, ?> e) {
+        super.addToPalette(e);
         Label title = createLabel("index", e.getKey().toString());
-        Label name = createLabel("colorName", e.getValue());
-        Rectangle rectangle = new Rectangle(Size.PALETTE_DIM.getSize(), Size.PALETTE_DIM.getSize(), Color.web(e.getValue()));
+        Label name = createLabel("colorName", (String) e.getValue());
+        Rectangle rectangle = new Rectangle(Size.PALETTE_DIM.getSize(), Size.PALETTE_DIM.getSize(), Color.web((String) e.getValue()));
         addNodesToHBox(Arrays.asList(title, name, rectangle));
     }
 

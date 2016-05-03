@@ -37,7 +37,7 @@ public class TurtleController implements Controller {
     private final GlobalProperties properties;
 
     public TurtleController(GlobalProperties globalProperties, Dimension2D turtleDispDimension) {
-        this.turtleManager = new TurtleManager(turtleDispDimension);
+        this.turtleManager = new TurtleManager(turtleDispDimension, globalProperties);
         this.properties = globalProperties;
         setProperties();
     }
