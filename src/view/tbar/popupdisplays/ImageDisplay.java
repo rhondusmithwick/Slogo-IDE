@@ -38,20 +38,20 @@ public class ImageDisplay extends PaletteDisp {
     protected void addToPalette(Entry<Integer, ?> e) {
         super.addToPalette(e);
         Label title = createLabel("index", e.getKey().toString());
-        Image image = new Image((String) e.getValue());
-        ImageView display = setImage(image);
-        addNodesToHBox(Arrays.asList(title, display));
+        makeEntry(title, (String) e.getValue());
+
 
 
     }
-
-    protected ImageView setImage (Image image) {
+    
+    protected ImageView makeEntry(Label title, String filePath){
+        Image image = new Image(filePath);
         ImageView display = new ImageView();
         display.setFitHeight(Size.PALETTE_DIM.getSize());
         display.setFitWidth(Size.PALETTE_DIM.getSize());
         display.setImage(image);
+        addNodesToHBox(Arrays.asList(title, display));
         return display;
     }
-
 
 }
