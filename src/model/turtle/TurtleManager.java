@@ -98,5 +98,9 @@ public class TurtleManager {
     public SimpleStringProperty getTurtleIDsProperty() {
         return turtleIDs;
     }
+    
+    public ObservableMap<Integer, Turtle> getTurtlesMap() {
+    	return allTurtles;
+    }
 
 }

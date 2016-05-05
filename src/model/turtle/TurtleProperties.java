@@ -16,8 +16,6 @@ import javafx.scene.image.ImageView;
  */
 public final class TurtleProperties {
 
-//    private static final double baseAngle = 180;
-
     private final ImageView imageView = new ImageView();
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
     private final SimpleObjectProperty<Dimension2D> imageDimensions = new SimpleObjectProperty<>(this, "imageDimensions");

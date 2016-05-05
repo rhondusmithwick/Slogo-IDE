@@ -140,5 +140,9 @@ public abstract class PopUp {
     protected void hideScene() {
         stage.hide();
     }
+    
+    public VBox getContainer() {
+    	return vBox;
+    }
 
 }

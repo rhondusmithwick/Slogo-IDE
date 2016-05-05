@@ -8,6 +8,7 @@ import maps.IndexMap;
 import observables.ObjectObservable;
 import view.Defaults;
 import view.utilities.ButtonFactory;
+import view.utilities.GetCommand;
 
 import java.net.MalformedURLException;
 
@@ -54,7 +55,6 @@ public class TurtleImageSelector extends TurtlePropertyUpdater {
             int index = newImage.indexOf(Defaults.IMAGE_LOC.getDefault());
             newImage = newImage.substring(index);
         } catch (MalformedURLException e) {
-
             return;
         }
     }

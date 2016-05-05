@@ -1,21 +1,23 @@
 package controller.controller;
 
-import controller.slogoparser.ExpressionTree;
-import controller.slogoparser.SlogoParser;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Dimension2D;
-import javafx.scene.Group;
-import main.GlobalProperties;
-import maps.MapContainer;
-import model.turtle.TurtleManager;
-import model.usercontrol.MakeUserInstruction;
-import model.usercontrol.Variable;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Queue;
+
+import controller.slogoparser.ExpressionTree;
+import controller.slogoparser.SlogoParser;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableMap;
+import javafx.geometry.Dimension2D;
+import javafx.scene.Group;
+import main.GlobalProperties;
+import maps.MapContainer;
+import model.turtle.Turtle;
+import model.turtle.TurtleManager;
+import model.usercontrol.MakeUserInstruction;
+import model.usercontrol.Variable;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -91,5 +93,9 @@ public class TurtleController implements Controller {
         return Arrays.asList(
                 error, turtleManager.getTurtleIDsProperty(),
                 variables.frontEndTextProperty(), definedCommands.frontEndTextProperty());
+    }
+    
+    public ObservableMap<Integer, Turtle> getTurtlesMap() {
+    	return turtleManager.getTurtlesMap();
     }
 }
