@@ -25,7 +25,6 @@ import view.tbar.popupdisplays.ColorDisplay;
 import view.tbar.popupdisplays.ImageDisplay;
 import view.tbar.popupdisplays.PaletteDisp;
 import view.tbar.popupdisplays.TurtleImageSelector;
-import view.tbar.popupdisplays.TurtleImageSelectorAll;
 import view.tbar.popupdisplays.TurtlePropSelect;
 import view.tbar.popupdisplays.TurtlePropertyUpdater;
 import view.tbar.popupdisplays.pen.PenColorUpdater;
@@ -76,7 +75,6 @@ public class TopBar extends SubBar {
 
         colorDisplay = new ColorDisplay("colorTitle");
         imageDisplay = new ImageDisplay("imageTitle");
-        System.out.println("Top Bar Created");
     }
 
     /**
@@ -116,11 +114,6 @@ public class TopBar extends SubBar {
             setError("createTurtlePropertyUpdateError");
         }
     }
-    
-//    private void setImage() {
-//        TurtlePropertyUpdater turtleImageSelector = new TurtleImageSelector(turtleIDs, internalCommand, parsingLanguage, imageMap);
-//        turtleImageSelector.show();
-//    }
 
     private void changePropertiesTurtle() {
         PopUp turtPropSelect = new TurtlePropSelect(selectedTurtle, turtleIDs);
@@ -133,7 +126,7 @@ public class TopBar extends SubBar {
     }
     
     private void setTurtleImages() {
-    	TurtleImageSelectorAll imageSelector = new TurtleImageSelectorAll(turtles, internalCommand, parsingLanguage, imageMap);
+    	TurtleImageSelector imageSelector = new TurtleImageSelector(turtles, internalCommand, parsingLanguage, imageMap);
     	imageSelector.show();
     }
 

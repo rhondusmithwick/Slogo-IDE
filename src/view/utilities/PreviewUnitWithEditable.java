@@ -15,7 +15,7 @@ import view.tbar.popupdisplays.IEditableElement;
 
 public class PreviewUnitWithEditable extends Observable {
 
-	private static final Double IMAGE_FIT_SIZE = 75.0;
+	private static final Double IMAGE_FIT_SIZE = 50.0;
 	private static final Double LABEL_PADDING = 10.0;
 	private static final Double HBOX_SPACING = 5.0;
 	private final HBox myHBox;
@@ -30,7 +30,7 @@ public class PreviewUnitWithEditable extends Observable {
 		myEditable = editable;
 		myLabel = new Label();
 		myLabel.setPadding(new Insets(LABEL_PADDING));
-		myLabel.setOnMouseClicked(e -> notifyObservers(myEditable));
+		myLabel.setOnMouseClicked(e -> {setChanged(); notifyObservers(myEditable);});
 		myLabel.wrapTextProperty().setValue(true);
 		myHBox = new HBox(myLabel);
 		myHBox.setAlignment(Pos.CENTER_LEFT);
