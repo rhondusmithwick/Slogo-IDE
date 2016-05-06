@@ -22,6 +22,8 @@ public class Turtle implements IEditableElement {
     private final ExecutorService executorService = Executors.newWorkStealingPool(1);
     private int numStamps = 0;
     private String name;
+    @SuppressWarnings("unused")
+	private ImageView imageView;
 
     public Turtle(int ID, Dimension2D turtleDispDimension) {
         this.ID = ID;
@@ -89,7 +91,7 @@ public class Turtle implements IEditableElement {
 
 	@Override
 	public void setImage(ImageView imageView) {
-		return;
+		this.imageView = imageView;
 	}
 
 
