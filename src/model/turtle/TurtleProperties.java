@@ -8,6 +8,8 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.window.ContinuousWindow;
+import model.window.Window;
 
 /**
  * Created by rhondusmithwick on 2/22/16.
@@ -30,7 +32,8 @@ public final class TurtleProperties {
     private final SimpleDoubleProperty penSize = new SimpleDoubleProperty(this, "penSize");
     private int penColorIndex = 0;
     private int penShapeIndex = 0;
-
+    private Window turtleWindow;
+    
     void init(Dimension2D turtleDispDimension) {
         setImage(TurtleDefaults.TURTLE_IMAGE.getString());
         setVisible(TurtleDefaults.VISIBLE.getBoolean());
@@ -41,6 +44,7 @@ public final class TurtleProperties {
         setPenDown(TurtleDefaults.PEN_DOWN.getBoolean());
         setPenColor(TurtleDefaults.PEN_COLOR.getString());
         setPenSize(TurtleDefaults.PEN_SIZE.getDouble());
+        setWindow(new ContinuousWindow());
     }
 
     void addListeners() {
@@ -58,6 +62,14 @@ public final class TurtleProperties {
             imageView.setFitWidth(imageDim);
             imageDimensions.set(new Dimension2D(imageDim, imageDim));
         });
+    }
+    
+    public Window getWindow() {
+    	return turtleWindow;
+    }
+    
+    public void setWindow(Window window) {
+    	this.turtleWindow = window;
     }
 
     public ImageView getImageView() {

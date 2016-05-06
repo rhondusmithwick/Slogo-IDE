@@ -61,6 +61,7 @@ public class SlogoParser {
     public Queue<Entry<String, String>> parseText(String input) {
         Predicate<Entry<String, String>> invalid = this::isInvalidCommand;
         Queue<Entry<String, String>> parsedText = createParsedText(input);
+        System.out.println(parsedText);
         if (parsedText.parallelStream().anyMatch(invalid)) {
             return null;
         } else {

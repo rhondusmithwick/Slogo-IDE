@@ -11,6 +11,7 @@ import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
+import model.window.Window;
 
 import java.util.concurrent.TimeUnit;
 
@@ -82,10 +83,16 @@ public abstract class Movement extends TurtleCommandNode {
         double offsetX = direction * (distance * Math.sin(angle));
         double offsetY = direction * (distance * Math.cos(angle));
         double newX = location.getX() + offsetX;
-        double newY = location.getY() + offsetY;
-        return new Point2D(newX, newY);
+        double newY = location.getY() + offsetY;  
+        
+        return checkWindow(turtle, newX, newY);
     }
-
+    
+    private Point2D checkWindow(Turtle turtle, double newX, double newY) {
+    	Window window = turtle.getTurtleProperties().getWindow();
+    	return window.enforceWindow(turtle, newX, newY);
+    }
+   
     private void keepGoing(SimpleBooleanProperty isDone) {
         while (!isDone.get()) {
             try {

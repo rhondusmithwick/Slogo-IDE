@@ -154,11 +154,13 @@ public class ExpressionTree {
 
     private TreeNode createNodeInstance(String className) {
         TreeNode n;
+        System.out.println(className);
         try {
             Class<?> theClass = Class.forName(commandLocations.getString(className));
             n = (TreeNode) theClass.newInstance();
         } catch (Exception e) {
             n = new ConstantNode(0);
+            System.out.println("reached exception");
         }
         n.handleSpecific(this);
         return n;
@@ -187,6 +189,7 @@ public class ExpressionTree {
     private TreeNode createNode() {
         TreeNode n;
         Entry<String, String> curr = parsedText.poll();
+        System.out.println(curr);
         if (isConstant(curr.getKey())) {
             n = getConstant(curr);
         } else if (curr.getKey().equals("Tell")) {
