@@ -4,6 +4,7 @@ import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
@@ -11,8 +12,10 @@ import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import model.treenode.TurtleCommandNode;
 import model.turtle.Turtle;
+import model.turtle.TurtleProperties.ScreenType;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 /**
  * Created by rhondusmithwick on 2/23/16.
@@ -21,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class Movement extends TurtleCommandNode {
 
-    double move(Turtle turtle, int direction) {
+    double move (Turtle turtle, int direction) {
         SimpleBooleanProperty isDone = new SimpleBooleanProperty(this, "", false);
         Line penLine = setUp(turtle);
         double distance = getChildren().get(0).getValue();
@@ -35,7 +38,7 @@ public abstract class Movement extends TurtleCommandNode {
         return distance;
     }
 
-    private Line setUp(Turtle turtle) {
+    private Line setUp (Turtle turtle) {
         Line penLine = new Line();
         penLine.strokeWidthProperty().bind(turtle.getTurtleProperties().penSizeProperty());
         Platform.runLater(() -> turtle.getGroup().getChildren().add(penLine));
@@ -43,11 +46,11 @@ public abstract class Movement extends TurtleCommandNode {
     }
 
     @Override
-    protected int getNumChildrenRequired() {
+    protected int getNumChildrenRequired () {
         return 1;
     }
 
-    private void cleanUpMove(Turtle turtle, Line penLine, Point2D pointToMoveTo, SimpleBooleanProperty isDone) {
+    private void cleanUpMove (Turtle turtle, Line penLine, Point2D pointToMoveTo, SimpleBooleanProperty isDone) {
         penLine.endXProperty().unbind();
         penLine.endYProperty().unbind();
         penLine.strokeWidthProperty().unbind();
@@ -55,7 +58,7 @@ public abstract class Movement extends TurtleCommandNode {
         isDone.set(true);
     }
 
-    private TranslateTransition createTransition(Turtle turtle, Point2D pointToMoveTo) {
+    private TranslateTransition createTransition (Turtle turtle, Point2D pointToMoveTo) {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(.5));
         transition.setNode(turtle.getTurtleProperties().getImageView());
         transition.setToX(pointToMoveTo.getX());
@@ -63,7 +66,7 @@ public abstract class Movement extends TurtleCommandNode {
         return transition;
     }
 
-    private void modifyPenLine(Turtle turtle, Line penLine) {
+    private void modifyPenLine (Turtle turtle, Line penLine) {
         Point2D location = turtle.getTurtleProperties().getLocation();
         penLine.setStartX(location.getX());
         penLine.setStartY(location.getY());
@@ -75,7 +78,7 @@ public abstract class Movement extends TurtleCommandNode {
         penLine.setVisible(turtle.getTurtleProperties().getPenDown());
     }
 
-    private Point2D getPointToMoveTo(Turtle turtle, double distance, int direction) {
+    private Point2D getPointToMoveTo (Turtle turtle, double distance, int direction) {
         double heading = turtle.getTurtleProperties().getHeading();
         double angle = Math.toRadians(heading);
         Point2D location = turtle.getTurtleProperties().getLocation();
@@ -83,10 +86,32 @@ public abstract class Movement extends TurtleCommandNode {
         double offsetY = direction * (distance * Math.cos(angle));
         double newX = location.getX() + offsetX;
         double newY = location.getY() + offsetY;
+        return handleScreenType(turtle, new Point2D(newX, newY));
+    }
+
+    private Point2D handleScreenType (Turtle turtle, Point2D pointToMoveTo) {
+        if (turtle.getTurtleProperties().getScreenType() == ScreenType.WINDOW) {
+            return pointToMoveTo;
+        }
+        Dimension2D dimension2D = turtle.getTurtleProperties().getTurtpleDispDimenion();
+        double testX = pointToMoveTo.getX();
+        double testY = pointToMoveTo.getY();
+        double newX = screenTypeHelper(dimension2D, Dimension2D::getWidth, testX);
+        double newY = screenTypeHelper(dimension2D, Dimension2D::getHeight, testY);
         return new Point2D(newX, newY);
     }
 
-    private void keepGoing(SimpleBooleanProperty isDone) {
+    private double screenTypeHelper(Dimension2D dimension2D, Function<Dimension2D, Double> dimensionConverter, double testVal) {
+        double borderVal = dimensionConverter.apply(dimension2D);
+        if (testVal > borderVal) {
+            return borderVal;
+        } else if (testVal < 0) {
+            return 0;
+        }
+        return testVal;
+    }
+
+    private void keepGoing (SimpleBooleanProperty isDone) {
         while (!isDone.get()) {
             try {
                 TimeUnit.MILLISECONDS.sleep(100);

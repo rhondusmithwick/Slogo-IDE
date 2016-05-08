@@ -37,6 +37,8 @@ public class SlogoParser {
             String regex = resources.getString(key);
             mySymbols.put(key, Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
         }
+        mySymbols.put("Fence", Pattern.compile("Fence", Pattern.CASE_INSENSITIVE));
+        mySymbols.put("Window", Pattern.compile("Window", Pattern.CASE_INSENSITIVE));
 //        mySymbols.remove("Command");
     }
 

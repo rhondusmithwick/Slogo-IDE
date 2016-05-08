@@ -23,7 +23,7 @@ import java.util.function.Predicate;
 public class Slogo {
 
     private static final Dimension2D APP_DIMENSIONS = new Dimension2D(1200, 718);
-    private static final Dimension2D turtleDispDimension = new Dimension2D(3000, 3000);
+    private static final Dimension2D turtleDispDimension = new Dimension2D(575, 372);
 
     private Controller currController;
     private ViewInt currView;

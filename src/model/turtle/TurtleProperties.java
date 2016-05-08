@@ -17,7 +17,7 @@ import javafx.scene.image.ImageView;
 public final class TurtleProperties {
 
 //    private static final double baseAngle = 180;
-
+    private Dimension2D turtpleDispDimenion;
     private final ImageView imageView = new ImageView();
     private final SimpleStringProperty image = new SimpleStringProperty(this, "turtleImage");
     private final SimpleObjectProperty<Dimension2D> imageDimensions = new SimpleObjectProperty<>(this, "imageDimensions");
@@ -28,10 +28,12 @@ public final class TurtleProperties {
     private final SimpleBooleanProperty penDown = new SimpleBooleanProperty(this, "penDown");
     private final SimpleStringProperty penColor = new SimpleStringProperty(this, "penColor");
     private final SimpleDoubleProperty penSize = new SimpleDoubleProperty(this, "penSize");
+    private final SimpleObjectProperty<ScreenType> screenType = new SimpleObjectProperty<>(this, "screenType", ScreenType.WINDOW);
     private int penColorIndex = 0;
     private int penShapeIndex = 0;
 
     void init(Dimension2D turtleDispDimension) {
+        this.turtpleDispDimenion = turtleDispDimension;
         setImage(TurtleDefaults.TURTLE_IMAGE.getString());
         setVisible(TurtleDefaults.VISIBLE.getBoolean());
         home.set(new Point2D(turtleDispDimension.getWidth() / 2 - imageDimensions.get().getWidth() / 2,
@@ -164,5 +166,21 @@ public final class TurtleProperties {
 
     public SimpleDoubleProperty penSizeProperty() {
         return penSize;
+    }
+
+    public enum ScreenType {
+        WINDOW, FENCE;
+    }
+
+    public ScreenType getScreenType () {
+        return screenType.get();
+    }
+
+    public void setScreenType (ScreenType screenType) {
+        this.screenType.set(screenType);
+    }
+
+    public Dimension2D getTurtpleDispDimenion () {
+        return turtpleDispDimenion;
     }
 }
